@@ -81,15 +81,26 @@ all: $(TOPPDFFILES) exercise_solutions.pdf errata.pdf cover-lulu-hardcover.pdf c
 dvi: $(TOPDVIFILES) exercise_solutions.dvi errata.dvi cover-lulu-hardcover.dvi cover-lulu-paperback.dvi cover-letter.dvi cover-a4.dvi
 
 # Main targets
+#$(TOPPDFFILES) : %.pdf : %.tex $(TEXFILES) references.bib cover-lores-front.png cover-lores-back.png
+#	if which latexmk > /dev/null 2>&1 ;\
+#	then latexmk -interaction=batchmode -pdf $< ;\
+#	else (echo "run 1: pdflatex $<"; pdflatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) && \
+#	     bibtex $(patsubst %.tex,%,$<) && \
+#	     makeindex $(patsubst %.tex,%,$<) && \
+#	     (echo "run 2: pdflatex $<"; pdflatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) ;\
+#	     pdflatex -halt-on-error $< ;\
+#	     echo "HINT: If you think this took a long time you should install latexmk." ;\
+#	fi
+
 $(TOPPDFFILES) : %.pdf : %.tex $(TEXFILES) references.bib cover-lores-front.png cover-lores-back.png
 	if which latexmk > /dev/null 2>&1 ;\
-	then latexmk -interaction=batchmode -pdf $< ;\
-	else (echo "run 1: pdflatex $<"; pdflatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) && \
-	     bibtex $(patsubst %.tex,%,$<) && \
-	     makeindex $(patsubst %.tex,%,$<) && \
-	     (echo "run 2: pdflatex $<"; pdflatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) ;\
-	     pdflatex -halt-on-error $< ;\
-	     echo "HINT: If you think this took a long time you should install latexmk." ;\
+	then latexmk -interaction=batchmode -xelatex $< ;\
+	else (echo "run 1: xelatex $<"; xelatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) && \
+		 bibtex $(patsubst %.tex,%,$<) && \
+		 makeindex $(patsubst %.tex,%,$<) && \
+		 (echo "run 2: xelatex $<"; xelatex -halt-on-error -interaction=batchmode $< 2>&1 >/dev/null) ;\
+		 xelatex -halt-on-error $< ;\
+		 echo "HINT: If you think this took a long time you should install latexmk." ;\
 	fi
 
 $(TOPDVIFILES) : %.dvi : %.tex $(TEXFILES) references.bib cover-lores-front.png cover-lores-back.png

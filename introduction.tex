@@ -1,501 +1,400 @@
-\chapter*{Introduction}
-\markboth{\textsc{Introduction}}{}
-\addcontentsline{toc}{chapter}{Introduction}
+\chapter*{引言 (Introduction)}
+\markboth{\textsc{引言 (Introduction)}}{}
+\addcontentsline{toc}{chapter}{引言 (Introduction)}
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
+\emph{同伦类型论 (Homotopy type theory, HoTT)} 是一个结合了多个不同领域的数学新分支，出乎意料地将它们联系在一起。它基于最近发现的 \emph{同伦论 (homotopy theory)} 和 \emph{类型论 (type theory)} 之间的联系。
+同伦论是代数拓扑 (algebraic topology) 和同调代数 (homological algebra) 的延伸，与高阶范畴论 (higher category theory) 有关；而类型论是数学逻辑 (mathematical logic) 和理论计算机科学 (theoretical computer science) 的分支。尽管这两个领域之间的联系目前仍是密切研究的焦点，但越来越清楚的是，这只是一个刚刚起步的学科，需要更多的时间和努力来完全理解它。它涉及到看似遥远的话题，如球体的同伦群 (homotopy groups of spheres)、类型检查的算法 (algorithms for type checking) 以及弱 $\infty$-群 (weak $\infty$-groupoids) 的定义。
 
-\emph{Homotopy type theory} is a new branch of mathematics that combines aspects of several different fields in a surprising way. It is based on a recently discovered connection between \emph{homotopy theory} and \emph{type theory}.
-Homotopy theory is an outgrowth of algebraic topology and homological algebra, with relationships to higher category theory; while type theory is a branch of mathematical logic and theoretical computer science.
-Although the connections between the two are currently the focus of intense investigation, it is increasingly clear that they are just the beginning of a subject that will take more time and more hard work to fully understand.
-It touches on topics as seemingly distant as the homotopy groups of spheres, the algorithms for type checking, and the definition of weak $\infty$-groupoids.
+同伦类型论还为数学的基础引入了新的想法。一方面，有 Voevodsky 提出的精妙的 \emph{单值性公理 (univalence axiom)}。
+单值性公理特别意味着同构的结构可以被视为相同的，这一原则在数学家们日常工作中得到了愉快的使用，尽管它与传统基础“官方”教义不兼容。另一方面，我们还有 \emph{高阶归纳类型 (higher inductive types)}，它们为一些同伦论的基本空间和构造提供了直接的、逻辑的描述：如球体 (spheres)、圆柱 (cylinders)、截断 (truncations)、局部化 (localizations) 等。这两种思想在经典集合论基础中都无法直接捕捉，但在同伦类型论中结合时，它们允许一种全新的“同伦类型的逻辑 (logic of homotopy types)”。
 
-Homotopy type theory also brings new ideas into the very foundation of mathematics.
-\index{foundations, univalent}%
-On the one hand, there is Voevodsky's subtle and beautiful \emph{univalence axiom}. 
-\index{univalence axiom}%
-The univalence axiom implies, in particular, that isomorphic structures can be identified, a principle that mathematicians have been happily using on workdays, despite its incompatibility with the ``official'' doctrines of conventional foundations.
-On the other hand, we have \emph{higher inductive types}, which provide direct, logical descriptions of some of the basic spaces and constructions of homotopy theory: spheres, cylinders, truncations, localizations, etc.
-Both ideas are impossible to capture directly in classical set-theoretic foundations, but when combined in homotopy type theory, they permit an entirely new kind of ``logic of homotopy types''.
-\index{foundations}%
-
-This suggests a new conception of foundations of mathematics, with intrinsic homotopical content, an ``invariant'' conception of the objects of mathematics --- and convenient machine implementations, which can serve as a practical aid to the working mathematician.
-This is the \emph{Univalent Foundations} program.
-The present book is intended as a first systematic exposition of the basics of univalent foundations, and a collection of examples of this new style of reasoning --- but without requiring the reader to know or learn any formal logic, or to use any computer proof assistant.
+这提示了一种数学基础的新概念，具有内在的同伦内容，一种“不变量”的数学对象的概念——以及便捷的机器实现，可以作为工作数学家的实际帮助。这就是 \emph{单值基础 (Univalent Foundations)} 计划。本书旨在首次系统地阐述单值基础的基础，并收集这一新型推理风格的例子——但不要求读者掌握或学习任何形式逻辑，或使用任何计算机证明助手 (computer proof assistant)。
 
 % This enlarges the page by one line in letter format. Use sparringly.
 \OPTwidow
 
-We emphasize that homotopy type theory is a young field, and univalent foundations is very much a work in progress. 
-This book should be regarded as a ``snapshot'' of just one portion of the field, taken at the time it was written, rather than a polished exposition of a completed edifice. 
-As we will discuss briefly later, there are many aspects of homotopy type theory that are not yet fully understood --- and some that are not even touched upon here. 
-The ultimate theory will almost certainly not look exactly like the one described in this book, but it will surely be \emph{at least} as capable and powerful; we therefore believe that univalent foundations will eventually become a viable alternative to set theory as the ``implicit foundation'' for the unformalized mathematics done by most mathematicians.
+我们强调，同伦类型论是一个年轻的领域，单值基础仍在发展中。
+本书应被视为这个领域的一部分在撰写时的“快照”，而不是一个完成的建筑的精致阐述。
+正如我们稍后会简要讨论的那样，同伦类型论的许多方面尚未完全理解——有些甚至在此未被触及。
+最终的理论几乎可以肯定不会完全像本书中描述的那样，但它肯定至少会同样强大且功能强大；因此，我们相信单值基础最终会成为集合论之外的一个可行替代方案，成为大多数数学家进行非正式数学推理的“隐含基础”。
 
-\subsection*{Type theory}
+\subsection*{类型论 (Type theory)}
 
-Type theory was originally invented by Bertrand Russell \cite{Russell:1908},\index{Russell, Bertrand} as a device for blocking the paradoxes in the logical foundations of mathematics  that were under investigation at the time.
-It was developed further by many people over the next few decades, particularly Church~\cite{Church:1940tu,Church:1941tc} who combined it with his \textit{$\lambda$-calculus}.
-Although it is not generally regarded as the foundation for classical mathematics, set theory being more customary, type theory still has numerous applications, especially in computer science and the theory of programming languages~\cite{Pierce-TAPL}.
-\index{programming}%
-\index{type theory}%
-\index{lambda-calculus@$\lambda$-calculus}%
-Per Martin-L\"{o}f \cite{Martin-Lof-1972,Martin-Lof-1973,Martin-Lof-1979,martin-lof:bibliopolis}, among others,
-developed a ``predicative'' modification of Church's type system, which is now usually called dependent, constructive, intuitionistic, or simply \emph{Martin\--L\"of type theory}. This is the basis of the system that we consider here; it was originally intended as a rigorous framework for the formalization of constructive mathematics.  In what follows, we will often use ``type theory'' to refer specifically to this system and similar ones, although type theory as a subject is much broader (see \cite{somma,kamar} for the history of type theory).
+类型论最初是由 Bertrand Russell 发明的\cite{Russell:1908}，作为阻止当时研究的数学逻辑基础中的悖论的一种工具。
+在接下来的几十年里，它被许多人进一步发展，特别是 Church~\cite{Church:1940tu,Church:1941tc} 将其与他的 \textit{$\lambda$-演算 ($\lambda$-calculus)} 结合起来。
+尽管它通常不被视为经典数学的基础，集合论 (set theory) 更为常见，但类型论仍然有许多应用，尤其是在计算机科学 (computer science) 和编程语言理论 (theory of programming languages) 中~\cite{Pierce-TAPL}。
+Per Martin-L\"{o}f \cite{Martin-Lof-1972,Martin-Lof-1973,Martin-Lof-1979,martin-lof:bibliopolis} 等人开发了 Church 类型系统的“预期性的”修改，这现在通常称为依赖的 (dependent)、构造性的 (constructive)、直觉主义的 (intuitionistic) 或简单地 \emph{Martin\--L\"of 类型论 (Martin-Löf type theory)}。这是我们在此考虑的系统的基础；它最初是为了作为构造性数学 (constructive mathematics) 形式化的严格框架而设计的。
+在下文中，我们将经常使用“类型论”来专门指代这个系统和类似的系统，尽管类型论作为一个学科要广泛得多（参见 \cite{somma,kamar}，了解类型论的历史）。
 
-In type theory, unlike set theory, objects are classified using a primitive notion of \emph{type}, similar to the data-types used in programming languages.  These elaborately structured types can be used to express detailed specifications of the objects classified, giving rise to principles of reasoning about these objects.  To take a very simple example, the objects of a product type $A\times B$ are known to be of the form $\pairr{a,b}$, and so one automatically knows how to construct them and how to decompose them. Similarly, an object of function type $A\to B$ can be acquired from an object of type $B$ parametrized by objects of type $A$, and can be evaluated at an argument of type $A$.  This rigidly predictable behavior of all objects (as opposed to set theory's more liberal formation principles, allowing inhomogeneous sets) is one aspect of type theory that has led to its extensive use in verifying the correctness of computer programs.  The clear reasoning principles associated with the construction of types also form the basis of modern \emph{computer proof assistants},%
-\index{proof!assistant}%
-\indexsee{computer proof assistant}{proof assistant}
-\index{mathematics!formalized}%
-which are used for formalizing mathematics and verifying the correctness of formalized proofs.  We return to this aspect of type theory below.  
+在类型论中，不同于集合论，物体是通过一种原始的 \emph{类型 (type)} 概念来分类的，类似于编程语言中使用的数据类型 (data-types)。
+这些精心构建的类型可用于表达被分类对象的详细规范，从而产生推理这些对象的原则。
+举一个非常简单的例子，乘积类型 $A\times B$ 的对象被认为是 $\pairr{a,b}$ 的形式，因此我们自动知道如何构造它们以及如何分解它们。
+类似地，函数类型 $A\to B$ 的对象可以通过一个由类型 $A$ 的对象参数化的类型 $B$ 的对象获得，并且可以在类型 $A$ 的参数处求值。
+这种所有对象的严格可预测行为（与集合论的更自由的形成原则相比，允许不均匀集合的形成）是类型论被广泛用于验证计算机程序正确性的一个方面。
+与类型构造相关的清晰推理原则也构成了现代 \emph{计算机证明助手 (computer proof assistants)} 的基础，\index{证明!助手}
+\indexsee{计算机证明助手}{证明助手}
+\index{数学!形式化的}
+这些助手用于形式化数学并验证形式化证明的正确性。我们将在下面回到类型论的这一方面。
 
-One problem in understanding type theory from a mathematical point of view, however, has always been that the basic concept of \emph{type} is unlike that of \emph{set} in ways that have been hard to make precise.  We believe that the new idea of regarding types, not as strange sets (perhaps constructed without using classical logic), but as spaces, viewed from the perspective of homotopy theory, is a significant step forward.  In particular, it solves the problem of understanding how the notion of equality of elements of a type differs from that of elements of a set.
+然而，从数学的角度理解类型论的一个问题一直是，\emph{类型 (type)} 的基本概念与 \emph{集合 (set)} 的概念在一些难以精确定义的方面有所不同。我们相信，新的将类型视为空间 (spaces) 的想法，而不是作为奇怪的集合（可能在构造时没有使用经典逻辑），是向前迈出的重要一步。特别是，它解决了理解类型的元素的相等性 (equality) 与集合的元素的相等性之间的区别的问题。
 
-In homotopy theory one is concerned with spaces
-\index{topological!space}%
-and continuous mappings between them, 
-\index{function!continuous!in classical homotopy theory}%
-up to homotopy.  A \emph{homotopy}
-\index{homotopy!topological}%
-between a pair of continuous maps $f : X \to Y$
-and  $g : X\to Y$ is 
-a continuous map $H : X \times [0, 1] \to Y$ satisfying
-$H(x, 0) = f (x)$  and $H(x, 1) = g(x)$. The homotopy $H$ may be thought of as a ``continuous deformation'' of $f$ into $g$. The spaces $X$ and $Y$ are said to be \emph{homotopy equivalent},
-\index{homotopy!equivalence!topological}%
-$\eqv X Y$, if there are continuous maps going back and forth, the composites of which are homotopical to the respective identity mappings, i.e., if they are isomorphic ``up to homotopy''.  Homotopy equivalent spaces have the same algebraic invariants (e.g., homology, or the fundamental group), and are said to have the same \emph{homotopy type}.
+在同伦论中，人们关心的是空间 (spaces) 和它们之间的连续映射 (continuous mappings)，\index{拓扑空间 (topological space)} 以及它们之间的同伦。
+两者之间的 \emph{同伦 (homotopy)} 是指一个连续映射 $H : X \times [0, 1] \to Y$，满足 $H(x, 0) = f (x)$ 和 $H(x, 1) = g(x)$。同伦 $H$ 可以被视为 $f$ 变形到 $g$ 的“连续变形”。如果存在连续映射来回，且它们的复合在同伦意义下等价，即如果它们是“同伦等价 (homotopy equivalent)”的，则称空间 $X$ 和 $Y$ 是 \emph{同伦等价 (homotopy equivalent)} 的，即 $\eqv X Y$。
+同伦等价的空间具有相同的代数不变量（例如，同调 (homology) 或基本群 (fundamental group)），并且被认为具有相同的 \emph{同伦类型 (homotopy type)}。
 
-\subsection*{Homotopy type theory}
+\subsection*{同伦类型论 (Homotopy type theory)}
 
-Homotopy type theory (HoTT) interprets type theory from a homotopical perspective.
-In homotopy type theory, we regard the types as ``spaces'' (as studied in homotopy theory) or higher groupoids, and the logical constructions (such as the product $A\times B$) as homotopy-invariant constructions on these spaces.
-In this way, we are able to manipulate spaces directly without first having to develop point-set topology (or any combinatorial replacement for it, such as the theory of simplicial sets).
-To briefly explain this perspective, consider first the basic concept of type theory, namely that
-the \emph{term} $a$ is of \emph{type} $A$, which is written:
+同伦类型论 (HoTT) 从同伦的角度解释类型论。在同伦类型论中，我们将类型视为“空间”或更高阶群 (higher groupoids)，而将逻辑构造（例如乘积 $A\times B$）视为这些空间上的同伦不变量构造。通过这种方式，我们能够直接操作空间，而不必先开发点集拓扑 (point-set topology) 或其任何组合替代物（例如单纯集合论 (theory of simplicial sets)）。
+为了简要解释这一观点，首先考虑类型论的基本概念，即 \emph{项 (term)} $a$ 属于 \emph{类型 (type)} $A$，写作：
 \[ a:A. \]
-This expression is traditionally thought of as akin to:
+这一表达式传统上被认为类似于：
 \begin{center}
-``$a$ is an element of the set $A$''.
+    “$a$ 是集合 $A$ 的元素”。
 \end{center}
-However, in homotopy type theory we think of it instead as:
+然而，在同伦类型论中，我们将其视为：
 \begin{center}
-``$a$ is a point of the space $A$''.
+    “$a$ 是空间 $A$ 的一个点”。
 \end{center}
-\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-Similarly, every function $f : A\to B$ in type theory is regarded as a continuous map from the space $A$ to the space $B$.
+\index{在类型论中函数的连续性@``在类型论中函数的连续性 (continuity of functions in type theory)''}
+类似地，类型论中的每个函数 $f : A\to B$ 被视为从空间 $A$ 到空间 $B$ 的连续映射。
 
-We should stress that these ``spaces'' are treated purely homotopically, not topologically.
-For instance, there is no notion of ``open subset'' of a type or of ``convergence'' of a sequence of elements of a type.
-We only have ``homotopical'' notions, such as paths between points and homotopies between paths, which also make sense in other models of homotopy theory (such as simplicial sets).
-Thus, it would be more accurate to say that we treat types as \emph{$\infty$-groupoids}\index{.infinity-groupoid@$\infty$-groupoid}; this is a name for the ``invariant objects'' of homotopy theory which can be presented by topological spaces,
-\index{topological!space}%
-simplicial sets, or any other model for homotopy theory.
-However, it is convenient to sometimes use topological words such as ``space'' and ``path'', as long as we remember that other topological concepts are not applicable.
+我们应该强调，这些“空间”是纯同伦地对待的，而不是拓扑地对待的。例如，类型没有“开子集 (open subset)”的概念，也没有“序列收敛 (convergence)”的概念。我们只有“同伦”概念，如点之间的路径 (paths) 和路径之间的同伦，这些概念在同伦论的其他模型中也是有意义的（如单纯集合 (simplicial sets)）。因此，更准确地说，我们将类型视为 \emph{$\infty$-群 (groupoids)}；这是同伦论的“不变量对象”的名称，这些对象可以由拓扑空间、单纯集合或任何其他同伦论模型表示。然而，有时使用“空间 (space)”和“路径 (path)”等拓扑术语是方便的，只要我们记住其他拓扑概念不适用。
 
-(It is tempting to also use the phrase \emph{homotopy type}
-\index{homotopy!type}%
-for these objects, suggesting the dual interpretation of ``a type (as in type theory) viewed homotopically'' and ``a space considered from the point of view of homotopy theory''.
-The latter is a bit different from the classical meaning of ``homotopy type'' as an \emph{equivalence class} of spaces modulo homotopy equivalence, although it does preserve the meaning of phrases such as ``these two spaces have the same homotopy type''.)
+（我们也可以使用术语 \emph{同伦类型 (homotopy type)} 来描述这些对象，这暗示了“一个类型（如类型论中的）从同伦的角度看”以及“一个空间从同伦论的角度看”这两种解释。这与“同伦类型”作为空间在同伦等价下的同伦类型的等价类 (equivalence class) 的经典含义有些不同，尽管它保留了诸如“这两个空间具有相同的同伦类型 (homotopy type)”之类的短语的意义。）
 
-The idea of interpreting types as structured objects, rather than sets, has a long pedigree, and is known to clarify various mysterious aspects of type theory.
-For instance, interpreting types as sheaves helps explain the intuitionistic nature of type-theoretic logic, while interpreting them as partial equivalence relations or ``domains'' helps explain its computational aspects.
-It also implies that we can use type-theoretic reasoning to study the structured objects, leading to the rich field of categorical logic.
-The homotopical interpretation fits this same pattern: it clarifies the nature of \emph{identity} (or equality) in type theory, and allows us to use type-theoretic reasoning in the study of homotopy theory.
+将类型解释为结构化对象 (structured objects) 而不是集合 (sets) 的想法有着悠久的历史，并且有助于澄清类型论中的各种神秘方面。例如，将类型解释为层 (sheaves) 有助于解释类型论逻辑的直觉性质，而将它们解释为部分等价关系 (partial equivalence relations) 或“域 (domains)”则有助于解释它的计算方面。
+这也意味着我们可以使用类型论推理来研究结构化对象，从而形成丰富的范畴逻辑 (categorical logic) 领域。同伦解释符合这一模式：它澄清了类型论中 \emph{身份 (identity)}（或相等性 (equality)）的性质，并允许我们在研究同伦论时使用类型论推理。
 
-The key new idea of the homotopy interpretation is that the logical notion of identity $a = b$ of two objects $a, b: A$ of the same type $A$ can be understood as the existence of a path $p : a \leadsto b$ from point $a$ to point $b$ in the space $A$.
-This also means that two functions $f, g: A\to B$ can be identified if they are homotopic, since a homotopy is just a (continuous) family of paths $p_x: f(x) \leadsto g(x)$ in $B$, one for each $x:A$.
-In type theory, for every type $A$ there is a (formerly somewhat mysterious) type $\idtypevar{A}$ of identifications of two objects of $A$; in homotopy type theory, this is just the \emph{path space} $A^I$ of all continuous maps $I\to A$ from the unit interval.
-\index{unit!interval}%
-\index{interval!topological unit}%
-\index{path!topological}%
-\index{topological!path}%
-In this way, a term $p : \idtype[A]{a}{b}$ represents a path $p : a \leadsto b$ in $A$. 
+同伦解释的关键新思想是，两个相同类型 $A$ 的对象 $a, b: A$ 的逻辑身份 $a = b$ 可以理解为在空间 $A$ 中从点 $a$ 到点 $b$ 的路径 $p : a \leadsto b$ 的存在。这也意味着如果两个函数 $f, g: A\to B$ 是同伦的，它们可以被视为相同的，因为同伦只是 $B$ 中的路径的（连续的）家族 $p_x: f(x) \leadsto g(x)$，每个 $x:A$ 对应一个。在类型论中，对于每个类型 $A$，都有一个（以前略显神秘的）类型 $\idtypevar{A}$，用于识别 $A$ 的两个对象；在同伦类型论中，这只是所有连续映射 $I\to A$ 的 \emph{路径空间 (path space)} $A^I$。
+在这种方式下，术语 $p : \idtype[A]{a}{b}$ 代表在 $A$ 中从 $a$ 到 $b$ 的路径 $p : a \leadsto b$。
 
-The idea of homotopy type theory arose around 2006 in independent work by Awodey and Warren~\cite{AW} and Voevodsky~\cite{VV}, but it was inspired by 
-Hofmann and Streicher's earlier groupoid interpretation~\cite{hs:gpd-typethy}.
-Indeed, higher-dimensional category theory (particularly the theory of weak $\infty$-groupoids) is now known to be intimately connected to homotopy theory, as proposed by Grothendieck and now being studied intensely by mathematicians of both sorts.
-The original semantic models of Awodey--Warren and Voevodsky use well-known notions and techniques from homotopy theory which are now also in use in higher category theory, such as  Quillen model categories and Kan\index{Kan complex} simplicial sets\index{simplicial!sets}.
-\index{Quillen model category}%
-\index{model category}%
+同伦类型论的想法大约在 2006 年由 Awodey 和 Warren~\cite{AW} 以及 Voevodsky~\cite{VV} 独立提出，但受到了 Hofmann 和 Streicher 早期群解释~\cite{hs:gpd-typethy} 的启发。
+事实上，现在已知高维范畴论（尤其是弱 $\infty$-群 (weak $\infty$-groupoids) 论）与同伦论密切相关，正如 Grothendieck 所提出的，并且现在正被这两种类型的数学家密切研究。Awodey--Warren 和 Voevodsky 的原始语义模型使用了来自同伦论的公认概念和技术，现在也在高阶范畴论中使用，例如 Quillen 模型范畴和 Kan\index{Kan 复形 (complex)} 单纯集合\index{单纯集合 (simplicial sets)}。
+\index{Quillen 模型范畴 (model category)}%
 
-In particular, Voevodsky constructed an interpretation of type theory in Kan simplicial sets, and recognized that this interpretation satisfied a further crucial property which he dubbed \emph{univalence}.
-This had not previously been considered in type theory (although Church's principle of extensionality for propositions turns out to be a very special case of it, and Hofmann and Streicher had considered another special case under the name ``universe extensionality'').
-Adding univalence to type theory in the form of a new axiom has far-reaching consequences, many of which are natural, simplifying and compelling.
-The univalence axiom also further strengthens the homotopical view of type theory, since it holds in the simplicial model and other related models, while failing under the view of types as sets.
+特别是，Voevodsky 构建了一个在 Kan 单纯集合中解释类型论的模型，并认识到这一解释满足了一个被他称为 \emph{单值性 (univalence)} 的进一步关键性质。
+这在类型论中以前从未被考虑过（尽管 Church 的命题外延性原则 (principle of extensionality for propositions) 证明是它的一个非常特殊的情况，Hofmann 和 Streicher 曾考虑过另一个以“宇宙外延性 (universe extensionality)”命名的特例）。
+将单值性作为新公理添加到类型论中具有深远的影响，许多影响是自然的、简化的和令人信服的。单值性公理还进一步加强了类型论的同伦观点，因为它在单纯模型和其他相关模型中成立，而在将类型视为集合的观点下则不成立。
 
-\subsection*{Univalent foundations}
+\subsection*{单值基础 (Univalent foundations)}
 
-Very briefly, the basic idea of the univalence axiom can be explained as follows.
-In type theory, one can have a type whose elements are themselves types; such a type is called a \emph{universe} and is usually denoted by $\UU$.
-Those types that are terms of $\UU$ are commonly called \emph{small} types.
-\index{type!small}%
-\index{small!type}%
-Like any type, $\UU$ has an identity type $\idtypevar{\UU}$, which expresses the identity relation $A = B$ between small types.
-Thinking of types as spaces, $\UU$ is a space, the points of which are spaces; to understand its identity type, we must ask, what is a path $p : A \leadsto B$ between spaces in $\UU$?
-The univalence axiom says that such paths correspond to homotopy equivalences $\eqv A B$, (roughly) as explained above.
-A bit more precisely, given any (small) types $A$ and $B$, in addition to the primitive type $\idtype[\UU]AB$ of identifications of $A$ with $B$, there is the defined type $\texteqv AB$ of equivalences from $A$ to $B$.
-Since the identity map on any object is an equivalence, there is a canonical map,
+简而言之，单值性公理的基本思想可以解释如下。在类型论中，可以有一个类型，其元素本身就是类型；这种类型称为 \emph{宇宙 (universe)}，通常表示为 $\UU$。这些作为 $\UU$ 的项的类型通常称为 \emph{小类型 (small types)}。
+像任何类型一样，$\UU$ 有一个身份类型 $\idtypevar{\UU}$，它表示小类型之间的等价关系 $A = B$。
+考虑类型为空间时，$\UU$ 是一个空间，其中的点是空间；要理解它的身份类型，我们必须问，在 $\UU$ 中，空间之间的路径 $p : A \leadsto B$ 是什么？
+单值性公理表示这种路径对应于同伦等价 $\eqv A B$，大致如上所述。
+更确切地说，给定任意（小）类型 $A$ 和 $B$，除了原始类型 $\idtype[\UU]AB$ 表示 $A$ 与 $B$ 的等价外，还有定义类型 $\texteqv AB$ 表示 $A$ 到 $B$ 的等价。由于在任何对象上的恒等映射都是等价的，因此存在一个规范映射，
 \[\idtype[\UU]AB\to\texteqv AB.\]
-The univalence axiom states that this map is itself an equivalence.
-At the risk of oversimplifying, we can state this succinctly as follows:
+单值性公理声明该映射本身就是一个等价。简化地说，我们可以将其简洁地陈述如下：
 
-\begin{description}\index{univalence axiom}%
-\item[Univalence Axiom:]  $\eqvspaced{(A = B)}{(\eqv A B)}$.
+\begin{description}\index{单值性公理 (univalence axiom)}%
+\item[单值性公理:]  $\eqvspaced{(A = B)}{(\eqv A B)}$。
 \end{description}
 %
-In other words, identity is equivalent to equivalence. \index{identity}% 
-In particular, one may say that ``equivalent types are identical''.
-However, this phrase is somewhat misleading, since it may sound like a sort of ``skeletality'' condition which \emph{collapses} the notion of equivalence to coincide with identity, whereas in fact univalence is about \emph{expanding} the notion of identity so as to coincide with the (unchanged) notion of equivalence.
+换句话说，身份等同于等价性。
+特别是，可以说“等价类型是相同的”。然而，这句话有些误导，因为它可能听起来像是一种“骨架性”条件，将等价性“折叠”为与身份重合，而实际上单值性是关于扩展身份的概念以与（未更改的）等价概念重合。
 
-From the homotopical point of view, univalence implies that spaces of the same homotopy type are connected by a path in the universe $\UU$, in accord with the intuition of a classifying space for (small) spaces.
-From the logical point of view, however, it is a radically new idea: it says that isomorphic things can be identified!  Mathematicians are of course used to identifying isomorphic structures in practice, but they generally do so by ``abuse of notation''\index{abuse!of notation}, or some other informal device, knowing that the objects involved are not ``really'' identical.  But in this new foundational scheme, such structures can be formally identified, in the logical sense that every property or construction involving one also applies to the other. Indeed, the identification is now made explicit, and properties and constructions can be systematically transported along it.  Moreover, the different ways in which such identifications may be made themselves form a structure that one can (and should!)\ take into account.
+从同伦的角度来看，单值性意味着具有相同同伦类型的空间在宇宙 $\UU$ 中由一条路径连接，符合小空间分类空间的直觉。然而，从逻辑的角度来看，这是一个全新的想法：它表示同构的事物可以被识别！数学家当然习惯于在实践中识别同构结构，但他们通常通过“滥用符号 (abuse of notation)”或其他一些非正式的手段这样做，知道所涉及的对象并不“真正”相同。但是，在这种新的基础框架中，这种结构可以在逻辑意义上正式识别，即每个涉及一个对象的性质或构造也适用于另一个对象。
+确实，这种识别现在是明确的，并且可以系统地沿着它传递性质和构造。此外，进行这种识别的不同方式本身也形成了一个结构，我们可以（并且应该！）考虑在内。
 
-Thus in sum, for points $A$ and $B$ of the universe $\UU$ (i.e., small types), the univalence axiom identifies the following three notions:
+因此，总结一下，对于宇宙 $\UU$ 的点 $A$ 和 $B$（即小类型），单值性公理将以下三种概念等同起来：
 \begin{itemize}
-\item (logical) an identification $p:A=B$ of $A$ and $B$
-\item (topological) a path $p:A \leadsto B$ from $A$ to $B$ in $\UU$
-\item (homotopical) an equivalence $p:\eqv A B$ between $A$ and $B$.
+    \item （逻辑）$A$ 和 $B$ 的识别 $p:A=B$
+    \item （拓扑）从 $A$ 到 $B$ 的路径 $p:A \leadsto B$ 在 $\UU$ 中
+    \item （同伦）$A$ 和 $B$ 之间的等价 $p:\eqv A B$。
 \end{itemize}
 
-\subsection*{Higher inductive types}\index{type!higher inductive}%
+\subsection*{高阶归纳类型 (Higher inductive types)}\index{类型!高阶归纳 (higher inductive)}%
 
-One of the classical advantages of type theory is its simple and effective techniques for working with inductively defined structures.
-The simplest nontrivial inductively defined structure is the natural numbers, which is inductively generated by zero and the successor function.
-From this statement one can algorithmically\index{algorithm} extract the principle of mathematical induction, which characterizes the natural numbers.
-More general inductive definitions encompass lists and well-founded trees of all sorts, each of which is characterized by a corresponding ``induction principle''.
-This includes most data structures used in certain programming languages; hence the usefulness of type theory in formal reasoning about the latter.
-If conceived in a very general sense, inductive definitions also include examples such as a disjoint union $A+B$, which may be regarded as ``inductively'' generated by the two injections $A\to A+B$ and $B\to A+B$.
-The ``induction principle'' in this case is ``proof by case analysis'', which characterizes the disjoint union.
+类型论的一个传统优势在于其处理归纳定义结构的简单而有效的技术。最简单的非平凡归纳定义结构是自然数，它由零和后继函数归纳生成。
+从这一声明中可以算法性地提取数学归纳法 (principle of mathematical induction) 原则，该原则表征了自然数。更广泛的归纳定义涵盖了各种列表和良基树 (well-founded trees)，每个树都由相应的“归纳原则 (induction principle)”表征。这包括某些编程语言中使用的大多数数据结构；因此，类型论在形式化推理中的有用性得以体现。
+如果从非常广泛的意义上来理解，归纳定义还包括例如不交并 $A+B$ 之类的例子，这些例子可以被视为由两个注入 $A\to A+B$ 和 $B\to A+B$“归纳”生成的。
+这种情况下的“归纳原则”是“通过案例分析证明 (proof by case analysis)”，它表征了不交并。
 
-In homotopy theory, it is natural to consider also ``inductively defined spaces'' which are generated not merely by a collection of \emph{points}, but also by collections of \emph{paths} and higher paths.
-Classically, such spaces are called \emph{CW complexes}.
-\index{CW complex}%
-For instance, the circle $S^1$ is generated by a single point and a single path from that point to itself.
-Similarly, the 2-sphere $S^2$ is generated by a single point $b$ and a single two-dimensional path from the constant path at $b$ to itself, while the torus $T^2$ is generated by a single point, two paths $p$ and $q$ from that point to itself, and a two-dimensional path from $p\ct q$ to $q\ct p$.
+在同伦论中，自然也会考虑到“归纳定义的空间”，这些空间不仅由一组 \emph{点 (points)} 生成，还由 \emph{路径 (paths)} 和更高阶路径的集合生成。经典上，这些空间被称为 \emph{CW 复形 (CW complexes)}。
+例如，圆 $S^1$ 由一个点和从该点到自身的一条路径生成。
+类似地，2-球面 $S^2$ 由一个点 $b$ 和一条从 $b$ 的恒等路径到自身的二维路径生成，而环面 $T^2$ 由一个点、两条从该点到自身的路径 $p$ 和 $q$ 以及一条从 $p\ct q$ 到 $q\ct p$ 的二维路径生成。
 
-By using the identification of paths with identities in homotopy type theory, these sort of ``inductively defined spaces'' can be characterized in type theory by ``induction principles'', entirely analogously to classical examples such as the natural numbers and the disjoint union.
-The resulting \emph{higher inductive types}
-\index{type!higher inductive}%
-give a direct ``logical'' way to reason about familiar spaces such as spheres, which (in combination with univalence) can be used to perform familiar arguments from homotopy theory, such as calculating homotopy groups of spheres, in a purely formal way.
-The resulting proofs are a marriage of classical homotopy-theoretic ideas with classical type-theoretic ones, yielding new insight into both disciplines.
+通过在同伦类型论中将路径识别为身份，以上这些“归纳定义的空间”可以通过类型论中的“归纳原则”来表征，完全类似于自然数和不交并等经典例子。
+由此得出的 \emph{高阶归纳类型 (higher inductive types)}
+\index{类型!高阶归纳 (higher inductive)}
+提供了一种直接的“逻辑”方法来推理熟悉的空间，如球体，这些空间（与单值性相结合）可以用于以纯形式化的方式进行同伦论中的经典论证，如计算球体的同伦群。
+由此产生的证明是经典同伦论思想与经典类型论思想的结合，产生了对这两个学科的新见解。
 
-Moreover, this is only the tip of the iceberg: many abstract constructions from homotopy theory, such as homotopy colimits, suspensions, Postnikov towers, localization, completion, and spectrification, can also be expressed as higher inductive types.
-Many of these are classically constructed using Quillen's ``small object argument'', which can be regarded as a finite way of algorithmically describing an infinite CW complex presentation\index{presentation!of a space as a CW complex} of a space, just as ``zero and successor'' is a finite algorithmic\index{algorithm} description of the infinite set of natural numbers.
-Spaces produced by the small object argument are infamously complicated and difficult to understand; the type-theoretic approach is potentially much simpler, bypassing the need for any explicit construction by giving direct access to the appropriate ``induction principle''.
-Thus, the combination of univalence and higher inductive types suggests the possibility of a revolution, of sorts, in the practice of homotopy theory.
+此外，这只是冰山一角：许多同伦论中的抽象构造，如同伦余极限 (homotopy colimits)、悬挂 (suspensions)、Postnikov 塔 (Postnikov towers)、局部化 (localization)、完备 (completion) 和谱化 (spectrification) 等，也可以表示为高阶归纳类型。
+其中许多经典上是使用 Quillen 的“小物件论证 (small object argument)”构造的，这可以看作是一种有限的方式，算法性地描述了空间的无限 CW 复形表示，就像“零和后继”是自然数无限集合的有限算法描述一样。
+通过小物件论证产生的空间因其复杂性和难以理解而闻名；类型论方法可能更简单，绕过了任何显式构造，直接访问了适当的“归纳原则”。
+因此，单值性和高阶归纳类型的结合提示了在同伦论实践中某种革命的可能性。
 
+\subsection*{单值基础中的集合 (Sets in univalent foundations)}
 
-\subsection*{Sets in univalent foundations}
+\index{集合 (set)|(}%
 
-\index{set|(}%
+我们声称单值基础最终可以作为“所有”数学的基础，但到目前为止，我们只讨论了同伦论。当然，类型论在没有新同伦类型论特性的情况下形式化数学的具体例子有很多，
+\index{数学!形式化的 (formalized)}
+\index{定理!费特-汤普森 (Feit--Thompson)}
+\index{定理!奇数阶 (odd-order)}
+\index{费特-汤普森定理 (Feit--Thompson theorem)}
+\index{奇数阶定理 (odd-order theorem)}
+例如最近在 \Coq 中形式化的 Feit--Thompson 奇数阶定理~\cite{gonthier}。
 
-We have claimed that univalent foundations can eventually serve as a foundation for ``all'' of mathematics, but so far we have discussed 
-only homotopy theory.  Of course, there are many specific examples of the use of type theory without the new homotopy type theory features to formalize mathematics,
-\index{mathematics!formalized}%
-\index{theorem!Feit--Thompson}%
-\index{theorem!odd-order}%
-\index{Feit--Thompson theorem}%
-\index{odd-order theorem}%
-such as the recent formalization of the Feit--Thompson odd-order theorem in \Coq~\cite{gonthier}.
+但传统观点认为数学建立在集合论的基础上，即所有数学对象和构造都可以编码到 Zermelo--Fraenkel 集合论 (Zermelo--Fraenkel set theory, ZF) 这样的理论中。
+\index{集合论!Zermelo--Fraenkel 集合论 (Zermelo--Fraenkel set theory)}
+\indexsee{Zermelo-Fraenkel 集合论}{集合论}
+\indexsee{ZF}{集合论}
+\indexsee{ZFC}{集合论}
+然而，现在已经很明确，对于大多数集合论之外的数学，ZF 中集合的复杂层次结构实际上是不必要的：一种更“结构性”的理论，如 Lawvere 的集合范畴的基本理论 (Elementary Theory of the Category of Sets) 就足够了。
+\index{集合范畴的基本理论 (Elementary Theory of the Category of Sets)}%
 
-But the traditional view is that mathematics is founded on set theory, in the sense that all mathematical objects and constructions can be coded into a theory such as Zermelo--Fraenkel set theory (ZF).
-\index{set theory!Zermelo--Fraenkel}%
-\indexsee{Zermelo-Fraenkel set theory}{set theory}%
-\indexsee{ZF}{set theory}%
-\indexsee{ZFC}{set theory}%
-However, it is well-established by now that for most mathematics outside of set theory proper, the intricate hierarchical membership structure of sets in ZF is really unnecessary: a more ``structural'' theory, such as Lawvere's\index{Lawvere} Elementary Theory of the Category of Sets~\cite{lawvere:etcs-long}, suffices.
-\index{Elementary Theory of the Category of Sets}%
+在单值基础中，基本对象是“同伦类型 (homotopy types)”而不是集合，但我们可以定义一个类的类型，其行为类似于集合。同伦地，这些可以被视为每个连通分量都是可收缩的空间，即那些同伦等价于离散空间的空间。
+\index{离散空间 (discrete space)}
+一个定理表明，这类“集合”的范畴满足 Lawvere 的公理（或相关的公理，取决于理论的细节）。因此，任何可以在类似 ETCS 的理论中表示的数学（经验表明，实际上是所有数学）都可以同样地在单值基础中表示。
 
-In univalent foundations, the basic objects are ``homotopy types'' rather than sets, but we can \emph{define} a class of types which behave like sets.
-Homotopically, these can be thought of as spaces in which every connected component is contractible, i.e.\ those which are homotopy equivalent to a discrete space.
-\index{discrete!space}%
-It is a theorem  that the category of such ``sets'' satisfies Lawvere's\index{Lawvere} axioms (or related ones, depending on the details of the theory).
-Thus, any sort of mathematics that can be represented in an ETCS-like theory (which, experience suggests, is essentially all of mathematics) can equally well be represented in univalent foundations.  
+这支持了单值基础至少与现有的数学基础一样好的说法。
+在单值基础中工作的数学家可以以熟悉的方式用集合构建结构，更一般的同伦类型在基础背景中等待，直到需要它们为止。
+因此，本书中大多数应用选择了那些单值基础有某种 \emph{新} 贡献的领域，区别于现有的基础系统。
 
-This supports the claim that univalent foundations is at least as good as existing foundations of mathematics.
-A mathematician working in univalent foundations can build structures out of sets in a familiar way, with more general homotopy types waiting in the foundational background until there is need of them.
-For this reason, most of the applications in this book have been chosen to be areas where univalent foundations has something \emph{new} to contribute that distinguishes it from existing foundational systems.
+不出所料，同伦论和范畴论是其中的两个，但可能不太明显的是，单值基础甚至在集合论和实分析等学科中也提供了新的、有趣的东西。
+例如，单值性公理允许我们识别同构结构，而高阶归纳类型允许通过其普遍性质直接描述对象。因此，我们通常可以避免诉诸任意选择的代表或超限迭代构造。
+事实上，甚至在 ZF 集合论中研究的对象也可以在单值基础中的集合内通过这样的归纳普遍性质来表征。
 
-Unsurprisingly, homotopy theory and category theory are two of these, but perhaps less obvious is that univalent foundations has something new and interesting to offer even in subjects such as set theory and real analysis.
-For instance, the univalence axiom allows us to identify isomorphic structures, while higher inductive types allow direct descriptions of objects by their universal properties.
-Thus we can generally avoid resorting to arbitrarily chosen representatives or transfinite iterative constructions.
-In fact, even the objects of study in ZF set theory can be characterized, inside the sets of univalent foundations, by such an inductive universal property.
+\index{集合 (set)|)}%
 
-\index{set|)}%
+\subsection*{非正式类型论 (Informal type theory)}
 
+\index{数学!形式化的 (formalized)|(defstyle)}
+\index{非正式类型论 (informal type theory)|(defstyle)}
+\index{类型论!非正式的 (informal)|(defstyle)}
+\index{类型论!形式的 (formal)|(}
+经典数学家在学习类型论时经常遇到的一个困难是它通常作为一个完全或部分形式化的演绎系统呈现。
+这种风格对于证明理论的研究非常有用，但对于实际应用中的非正式推理来说并不特别方便。
+甚至对于大多数对数学基础感兴趣的工作数学家来说，这种风格也并不熟悉。
+本书的一个目标是发展一种在单值基础中进行数学研究的非正式风格，这种风格既严格又精确，但更接近于日常数学的语言和风格。
 
-\subsection*{Informal type theory}
+在现今的数学中，人们通常以一种可以推测上形式化为 ZFC 这样的初等集合论系统的方式来构建和推理数学对象，至少在足够的创造力和耐心下是可以做到的。
+大多数情况下，人们甚至不需要意识到这一可能性，因为它与被认为“完全严格”的条件（即所有数学家通过教育和经验直觉上理解的条件）基本一致。但人们确实需要学会对“非正式集合论”的一些方面保持谨慎：如使用太大或不连贯的集合；选择公理及其等价物；甚至（对于本科生来说）反证法等方法。
+采用一种新的基础系统，如同伦类型论作为非正式推理的 \emph{隐式形式基础}，将需要调整一些本能和实践。
+本书旨在作为这种“新数学”的一个例子，尽管它仍然是非正式的，但现在在原则上可以形式化为同伦类型论，而不是 ZFC，只要有足够的创造力和耐心。
 
-\index{mathematics!formalized|(defstyle}%
-\index{informal type theory|(defstyle}%
-\index{type theory!informal|(defstyle}%
-\index{type theory!formal|(}%
-One difficulty often encountered by the classical mathematician when faced with learning about type theory is that it is usually presented as a fully or partially formalized deductive system.
-This style, which is very useful for proof-theoretic investigations, is not particularly convenient for use in applied, informal reasoning.
-Nor is it even familiar to most working mathematicians, even those who might be interested in foundations of mathematics.
-One objective of the present work is to develop an informal style of doing mathematics in univalent foundations that is at once rigorous and precise, but is also closer to the language and style of presentation of everyday mathematics.
+值得强调的是，在这个新系统中，这种形式化可以带来实际的好处。
+类型论的形式系统适用于计算机系统，并已在现有的证明助手中实现。
+\index{证明!助手 (proof assistant)}
+证明助手 (proof assistant) 是一种计算机程序，它引导用户构建完全形式化的证明，只允许有效的推理步骤。
+它还提供了一定程度的自动化，可以在库中搜索现有定理，甚至可以从结果（构造性）证明中提取算法。
+\index{算法 (algorithm)}
+我们相信，这一单值基础计划的方面将其与其他基础方法区分开来，有可能为工作数学家提供一种新的实用性。
+事实上，基于旧类型论的证明助手已经用于形式化大量数学证明，如四色定理 (four-color theorem) 和费特-汤普森定理 (Feit--Thompson theorem)。
+单值基础的计算机实现目前正在进行中（就像理论本身一样）。
+\index{证明!助手 (proof assistant)}
+然而，即使是当前可用的实现（它们主要是对现有证明助手，如 \Coq 和 \Agda 的小修改）已经展示了它们的价值，不仅在形式化已知的证明中，还在发现新证明中。
+事实上，本书中描述的许多证明实际上是先以完全形式化的形式在证明助手中完成的，现在才第一次被“非形式化”——这与形式数学和非正式数学之间的通常关系相反。
 
-In present-day mathematics, one usually constructs and reasons about mathematical objects in a way that could in principle, one presumes, be formalized in a system of elementary set theory, such as ZFC --- at least given enough ingenuity and patience.
-For the most part, one does not even need to be aware of this possibility, since it largely coincides with the condition that a proof be ``fully rigorous'' (in the sense that all mathematicians have come to understand intuitively through education and experience).
-But one does need to learn to be careful about a few aspects of ``informal set theory'': the use of collections too large or inchoate to be sets; the axiom of choice and its equivalents; even (for undergraduates) the method of proof by contradiction; and so on.
-Adopting a new foundational system such as homotopy type theory as the \emph{implicit formal basis} of informal reasoning will require adjusting some of one's instincts and practices.
-The present text is intended to serve as an example of this ``new kind of mathematics'', which is still informal, but could now in principle be formalized in homotopy type theory, rather than ZFC, again given enough ingenuity and patience.
+可以想象，不久的将来，数学家将在单值基础系统中验证自己论文的正确性，形式化在证明助手中，并且这一过程将变得像在 \TeX 中排版自己的论文一样自然。
+（这是否会成为出版商的梦想或噩梦还有待观察。）
+原则上，这对任何其他基础系统同样适用，但我们相信使用单值基础在实践上更容易实现，这一点在本书及其形式化对应物中得到了见证。
 
-It is worth emphasizing that, in this new system, such formalization can have real practical benefits.
-The formal system of type theory is suited to computer systems and has been implemented in existing proof assistants.
-\index{proof!assistant}%
-A proof assistant is a computer program which guides the user in construction of a fully formal proof, only allowing valid steps of reasoning.
-It also provides some degree of automation, can search libraries for existing theorems, and can even extract numerical algorithms\index{algorithm} \index{extraction of algorithms} from the resulting (constructive) proofs.
+\index{类型论!形式的 (formal)|)}
+\index{非正式类型论 (informal type theory)|)}
+\index{类型论!非正式的 (informal)|)}
+\index{数学!形式化的 (formalized)|)}%
 
-We believe that this aspect of the univalent foundations program distinguishes it from other approaches to foundations, potentially providing a new practical utility for the working mathematician.
-Indeed, proof assistants based on older type theories have already been used to formalize substantial mathematical proofs, such as the four-color theorem\index{theorem!four-color} \index{four-color theorem} and the Feit--Thompson theorem.
-Computer implementations of univalent foundations are presently works in progress (like the theory itself).
-\index{proof!assistant}%
-However, even its currently available implementations (which are mostly small modifications to existing proof assistants such as \Coq and 
-\Agda) have already demonstrated their worth, not only in the formalization of known proofs, but in the discovery of new ones.
-Indeed, many of the proofs described in this book were actually \emph{first} done in a fully formalized form in a proof assistant, and are only now being ``unformalized'' for the first time --- a reversal of the usual relation between formal and informal mathematics.
+\subsection*{构造性 (Constructivity)}
 
-One can imagine a not-too-distant future when it will be possible for mathematicians to verify the correctness of their own papers by working within the system of univalent foundations, formalized in a proof assistant, and that doing so will become as natural as typesetting their own papers in \TeX.
-%(Whether this proves to be the publishers' dream or their nightmare remains to be seen.) 
-In principle, this could be equally true for any other foundational system, but we believe it to be more practically attainable using univalent foundations, as witnessed by the present work and its formal counterpart.
+\index{数学!构造性 (constructive)|(}%
 
-\index{type theory!formal|)}%
-\index{informal type theory|)}%
-\index{type theory!informal|)}%
-\index{mathematics!formalized|)}%
-
-\subsection*{Constructivity} 
-
-\index{mathematics!constructive|(}%
-
-One of the most striking differences between classical\index{mathematics!classical} foundations and type theory is the idea of \emph{proof relevance}, according to which mathematical statements, and even their proofs, become first-class mathematical objects.
-In type theory, we represent mathematical statements by types, which can be regarded simultaneously as both mathematical constructions and mathematical assertions, a conception also known as \emph{propositions as types}.
-\index{proposition!as types}%
-Accordingly, we can regard a term $a : A$ as both an element of the type $A$ (or in homotopy type theory, a point of the space $A$), and at the same time, a proof of the proposition $A$.
-To take an example, suppose we have sets $A$ and $B$ (discrete spaces),
-\index{discrete!space}%
-and consider the statement ``$A$ is isomorphic to $B$''.
-In type theory, this can be rendered as:
+经典\index{数学!经典的 (classical)}
+基础与类型论之间最显著的差异之一是 \emph{证明相关性 (proof relevance)} 的思想，根据这一思想，数学陈述，甚至它们的证明，都成为一流的数学对象。在类型论中，我们通过类型表示数学陈述，这些类型可以同时被视为数学构造和数学断言，这一概念也被称为 \emph{命题即类型 (propositions as types)}。
+\index{命题!即类型 (proposition as types)}
+因此，我们可以将术语 $a : A$ 同时视为类型 $A$ 的一个元素（或在同伦类型论中，空间 $A$ 的一个点），也可以视为命题 $A$ 的证明。
+举个例子，假设我们有集合 $A$ 和 $B$（离散空间），
+\index{离散空间 (discrete space)}
+考虑“$A$ 与 $B$ 同构”的陈述。在类型论中，这可以表达为：
 \begin{narrowmultline*}
-  \mathsf{Iso}(A,B) \defeq \narrowbreak
-  \sm{f : A\to B}{g : B\to A}\Big(\big(\tprd{x:A} g(f(x)) = x\big) \times \big(\tprd{y:B}\, f(g(y)) = y\big)\Big).
+    \mathsf{Iso}(A,B) \defeq \narrowbreak
+    \sm{f : A\to B}{g : B\to A}\Big(\big(\tprd{x:A} g(f(x)) = x\big) \times \big(\tprd{y:B}\, f(g(y)) = y\big)\Big)。
 \end{narrowmultline*}
 %
-Reading the type constructors $\Sigma, \Pi, \times$  here  as ``there exists'', ``for all'', and ``and'' respectively yields the usual formulation of ``$A$ and $B$ are isomorphic''; on the other hand, reading them as sums and products yields the \emph{type of all isomorphisms} between $A$ and $B$!  To prove that $A$ and $B$ are isomorphic, one  constructs a proof $p : \mathsf{Iso}(A,B)$, which is therefore the same  as constructing an isomorphism between $A$ and $B$, i.e., exhibiting a pair of functions $f, g$ together with \emph{proofs} that their composites are the respective identity maps.  The latter proofs, in turn, are nothing but homotopies of the appropriate sorts.  In this way, \emph{proving a proposition is the same as constructing an element of some particular type.}
-In particular, to prove a statement of the form ``$A$ and $B$'' is just to prove $A$ and to prove $B$, i.e., to give an element of the type $A\times B$.
-And to prove that $A$ implies $B$ is just to find an element of $A\to B$, i.e.\ a function from $A$ to $B$ (determining a mapping of proofs of $A$ to proofs of $B$).
+这里将类型构造符 $\Sigma, \Pi, \times$ 分别读取为“存在 (there exists)”、“对于所有 (for all)”和“并且 (and)”会得出“$A$ 和 $B$ 同构”的通常表述；另一方面，将它们读取为和与积 (sums and products) 会得出 $A$ 和 $B$ 之间 \emph{所有同构的类型 (type of all isomorphisms)}！
+要证明 $A$ 和 $B$ 是同构的，只需构造一个证明 $p : \mathsf{Iso}(A,B)$，这与构造 $A$ 和 $B$ 之间的同构是相同的，即给出一对函数 $f, g$ 以及它们复合分别为恒等映射的 \emph{证明}。
+这些证明本身无非是适当种类的同伦。
+通过这种方式，\emph{证明一个命题等同于构造某个特定类型的元素。}
+特别是，证明“$A$ 和 $B$”的陈述就等同于证明 $A$ 并且证明 $B$，即给出类型 $A\times B$ 的一个元素。
+而证明 $A$ 推导 $B$ 就等同于找到 $A\to B$ 的一个元素，即从 $A$ 到 $B$ 的一个函数（确定一个从 $A$ 的证明到 $B$ 的证明的映射）。
 
-The logic of propositions-as-types is flexible and supports many variations, such as using only a subclass of types to represent propositions.
-In homotopy type theory, there are natural such subclasses arising from the fact that the system of all types, just like spaces in classical homotopy theory, is ``stratified'' according to the dimensions in which their higher homotopy structure exists or collapses.
-In particular, Voevodsky has found a purely type-theoretic definition of \emph{homotopy $n$-types}, corresponding to spaces with no nontrivial homotopy information above dimension $n$.
-(The $0$-types are the ``sets'' mentioned previously as satisfying Lawvere's axioms\index{Lawvere}.)
-Moreover, with higher inductive types, we can universally ``truncate'' a type into an $n$-type; in classical homotopy theory this would be its $n^{\mathrm{th}}$ Postnikov\index{Postnikov tower} section.\index{n-type@$n$-type}
-Particularly important for logic is the case of homotopy $(-1)$-types, which we call \emph{mere propositions}.
-Classically, every $(-1)$-type is empty or contractible; we interpret these possibilities as the truth values ``false'' and ``true'' respectively.
+命题即类型的逻辑是灵活的，并支持许多变体，例如使用仅一类类型来表示命题。在同伦类型论中，有一些自然的这种子类，产生于整个类型系统（就像经典同伦论中的空间）根据其更高同伦结构存在或崩溃的维度“分层 (stratified)”这一事实。
+特别是，Voevodsky 发现了一种纯类型论的 \emph{同伦 $n$-类型 (homotopy $n$-types)} 定义，对应于在维度 $n$ 以上没有非平凡同伦信息的空间。
+（$0$-类型是前面提到的满足 Lawvere 公理的“集合”）。
+此外，通过高阶归纳类型，我们可以普遍地“截断 (truncate)”一个类型为 $n$-类型；在经典同伦论中，这将是其 $n$ 次 Postnikov 截断。
+对于逻辑而言，尤其重要的是同伦 $(-1)$-类型，我们称之为 \emph{纯粹命题 (mere propositions)}。
+经典上，每个 $(-1)$-类型要么为空，要么是可收缩的；我们将这些可能性解释为真值 (truth values)“假”和“真”。
 
-Using all types as propositions yields a very ``constructive'' conception of logic; for more on this, see~\cite{kolmogorov,TroelstraI,TroelstraII}.
-For instance, every proof that something exists carries with it enough information to actually find such an object; and every proof that ``$A$ or $B$'' holds is either a proof that $A$ holds or a proof that $B$ holds.
-Thus, from every proof we can automatically extract an algorithm;\index{algorithm} \index{extraction of algorithms} this can be very useful in applications to computer programming.
+使用所有类型作为命题会产生一种非常“构造性 (constructive)”的逻辑；更多关于这方面的内容，参见~\cite{kolmogorov,TroelstraI,TroelstraII}。
+例如，每一个关于某物存在的证明都携带了足够的信息来实际找到该对象；每一个关于“$A$ 或 $B$”成立的证明要么是 $A$ 成立的证明，要么是 $B$ 成立的证明。因此，我们可以自动从每个证明中提取出一个算法；
+\index{算法 (algorithm)}
+\index{算法提取 (extraction of algorithms)}
+这在计算机编程的应用中非常有用。
 
-On the other hand, however, this logic does diverge from the traditional understanding of existence proofs in mathematics.
-In particular, it does not faithfully represent certain important classical principles of reasoning, such as the axiom of choice and the law of excluded middle.
-For these we need to use the ``$(-1)$-truncated'' logic, in which only the homotopy $(-1)$-types represent propositions.
+另一方面，这种逻辑确实偏离了数学中存在性证明的传统理解。特别是，它不能忠实地表示某些重要的经典推理原则，如选择公理和排中律。对于这些原则，我们需要使用“$(-1)$ 截断”的逻辑，其中只有同伦 $(-1)$-类型表示命题。
 
-\index{axiom!of choice}%
-More specifically, consider on one hand the \emph{axiom of choice}: ``if for every $x: A$ there exists a $y:B$ such that $R(x,y)$, there is a function $f : A\to B$ such that for all $x:A$ we have $R(x, f(x))$.''
-The pure propositions-as-types notion of ``there exists'' is strong enough to make this statement simply provable --- yet it does not have all the consequences of the usual axiom of choice.
-However, in $(-1)$-truncated logic, this statement is not automatically true, but is a strong assumption with the same sorts of consequences as its counterpart in classical\index{mathematics!classical} set theory.
+\index{选择公理 (axiom of choice)}%
+更具体地说，考虑 \emph{选择公理}：“如果对于每个 $x: A$，存在一个 $y:B$ 使得 $R(x,y)$，那么存在一个函数 $f : A\to B$ 使得对于所有 $x:A$，我们有 $R(x, f(x))$。”
+纯命题即类型的“存在”概念足够强大，可以使这一陈述简单地成立——然而，它并没有选择公理的所有后果。然而，在 $(-1)$-截断的逻辑中，这一陈述并非自动成立，而是一个强假设，具有与其经典集合论对应物类似的后果。
 
-\index{excluded middle}%
-\index{univalence axiom}%
-On the other hand, consider the \emph{law of excluded middle}: ``for all $A$, either $A$ or not $A$.''
-Interpreting this in the pure propositions-as-types logic yields a statement that is inconsistent with the univalence axiom.
-For since proving ``$A$'' means exhibiting an element of it, this assumption would give a uniform way of selecting an element from every nonempty type --- a sort of Hilbertian choice operator.
-Univalence implies that the element of $A$ selected by such a choice operator must be invariant under all self-equivalences of $A$, since these are identified with self-identities and every operation must respect identity; but clearly some types have automorphisms with no fixed points, e.g.\ we can swap the elements of a two-element type.
-\index{automorphism!fixed-point-free}%
-However, the ``$(-1)$-truncated law of excluded middle'', though also not automatically true, may consistently be assumed with most of the same consequences as in classical mathematics.
+\index{排中律 (excluded middle)}
+\index{单值性公理 (univalence axiom)}
+另一方面，考虑 \emph{排中律}：“对于所有 $A$，要么 $A$，要么 $A$ 不成立。”
+在纯命题即类型的逻辑中解释这一点会得出与单值性公理不一致的陈述。因为证明“$A$”意味着展示它的一个元素，这一假设将给出一种统一的方法来从每个非空类型中选择一个元素——类似于 Hilbert 的选择算子。单值性意味着通过这种选择算子选择的 $A$ 的元素必须在所有自等价 (self-equivalences) 下是不变的，因为这些等价被视为自身份标识 (self-identities)，并且每个操作必须尊重身份；但是显然某些类型有没有固定点的自同构，例如我们可以交换两元素类型的元素。
+\index{无固定点的自同构 (automorphism with no fixed point)}
+然而，“$(-1)$-截断排中律”虽然也不是自动成立的，但可以一致地假设其具有与经典数学中类似的后果。
 
-In other words, while the pure propositions-as-types logic is ``constructive'' in the strong algorithmic sense mentioned above, the default $(-1)$-truncated logic is ``constructive'' in a different sense (namely, that of the logic formalized by Heyting under the name ``intuitionistic''); and to the latter we may freely add the axioms of choice and excluded middle to obtain a logic that may be called ``classical''.
-Thus, homotopy type theory is compatible with both constructive and classical conceptions of logic, and many more besides.
-\index{logic!constructive vs classical}%
-Indeed, the homotopical perspective reveals that classical and constructive logic can coexist, as endpoints of a spectrum of different systems, with an infinite number of possibilities in between (the homotopy $n$-types for $-1 < n < \infty$).
-We may speak of ``\LEM{n}'' and ``\choice{n}'', with $\choice{\infty}$ being provable and \LEM{\infty} inconsistent with univalence, while $\choice{-1}$ and $\LEM{-1}$ are the versions familiar to classical mathematicians (hence in most cases it is appropriate to assume the subscript $(-1)$ when none is given).  Indeed, one can even have useful systems in which only \emph{certain} types satisfy such further ``classical'' principles, while types in general remain ``constructive''.\index{excluded middle}\index{axiom!of choice}%%
+换句话说，虽然纯命题即类型的逻辑在上述强算法意义上是“构造性”的，但默认的 $(-1)$-截断逻辑在不同意义上是“构造性”的（即由 Heyting 正式化为“直觉主义”的逻辑）；在后者中，我们可以自由地添加选择公理和排中律，从而获得可以称为“经典”的逻辑。因此，同伦类型论与构造性和经典逻辑兼容，还有许多其他逻辑。
+\index{逻辑!构造性与经典逻辑 (constructive vs classical logic)}
+事实上，同伦视角揭示了经典逻辑和构造逻辑可以共存，作为不同系统的端点，在它们之间有无数可能性（$-1 < n < \infty$ 的同伦 $n$-类型）。
+我们可以谈论“\LEM{n}” 和 “\choice{n}”，其中 \choice{\infty} 是可证明的，而 \LEM{\infty} 与单值性不一致，而 \choice{-1} 和 \LEM{-1} 是经典数学家熟悉的版本（因此在大多数情况下，适当假设下文中没有给出的下标 $(-1)$）。
+事实上，甚至可以有有用的系统，其中只有 \emph{某些} 类型满足这些进一步的“经典”原则，而一般类型仍然是“构造性的”。\index{排中律 (excluded middle)}\index{选择公理 (axiom of choice)}%%
 
-It is worth emphasizing that univalent foundations does not \emph{require} the use of constructive or intuitionistic logic.\index{logic!intuitionistic}\index{logic!constructive} %
-Most of classical mathematics which depends on the law of excluded middle and the axiom of choice can be performed in univalent foundations, simply by assuming that these two principles hold (in their proper, $(-1)$-truncated, form).
-However, type theory does encourage avoiding these principles when they are unnecessary, for several reasons.
+值得强调的是，单值基础不 \emph{要求} 使用构造性或直觉主义逻辑。
+\index{逻辑!直觉主义 (intuitionistic)}\index{逻辑!构造性 (constructive)}
+大多数依赖于排中律和选择公理的经典数学都可以在单值基础中进行，只需假设这两个原则成立（在其正确的、$(-1)$-截断形式中）。
+然而，类型论确实鼓励在不必要时避免这些原则，原因有几个。
 
-First of all, every mathematician knows that a theorem is more powerful when proven using fewer assumptions, since it applies to more examples.
-The situation with \choice{} and \LEM{} is no different:
-type theory admits many interesting ``nonstandard'' models, such as in sheaf toposes,\index{topos} where classicality principles such as \choice{} and \LEM{} tend to fail.
-Homotopy type theory admits similar models in higher toposes, such as are studied in~\cite{ToenVezzosi02,Rezk05,lurie:higher-topoi}.
-Thus, if we avoid using these principles, the theorems we prove will be valid internally to all such models.
+首先，每个数学家都知道，当使用更少的假设证明定理时，它更强大，因为它适用于更多的例子。对于选择公理和排中律，情况也不例外：类型论承认许多有趣的“非标准”模型，如在层拓扑 (sheaf toposes) 中，经典性原则如选择公理和排中律往往会失败。
+同伦类型论在更高的拓扑 (higher toposes) 中也有类似的模型，如 \cite{ToenVezzosi02,Rezk05,lurie:higher-topoi} 中所研究的那样。因此，如果我们避免使用这些原则，我们证明的定理将在所有此类模型中内部有效。
 
-Secondly, one of the additional virtues of type theory is its computable character.
-In addition to being a foundation for mathematics, type theory is a formal theory of computation, and can be treated as a powerful programming language.
-\index{programming}%
-From this perspective, the rules of the system cannot be chosen arbitrarily the way set-theoretic axioms can: there must be a harmony between them which allows all proofs to be ``executed'' as programs.
-We do not yet fully understand the new principles introduced by homotopy type theory, such as univalence and higher inductive types, from
-this point of view, but the basic outlines are emerging; see, for example,~\cite{lh:canonicity}.
-It has been known for a long time, however, that principles such as \choice{} and \LEM{} are fundamentally antithetical to computability, since they assert baldly that certain things exist without giving any way to compute them.
-Thus, avoiding them is necessary to maintain the character of type theory as a theory of computation.
+其次，类型论的另一个优点是其可计算性。
+除了作为数学的基础，类型论也是一种形式的计算理论，可以被视为一种强大的编程语言。
+\index{编程 (programming)}
+从这个角度来看，系统的规则不能像集合论公理那样任意选择：它们之间必须有一种和谐，允许所有证明作为程序“执行”。我们尚未完全理解同伦类型论引入的新原则，如单值性和高阶归纳类型，从这个角度来看，但基本轮廓正在显现；例如，参见~\cite{lh:canonicity}。
+然而，长期以来已知原则如选择公理和排中律从根本上与可计算性对立，因为它们简单地断言某些东西存在而不给出任何计算方法。因此，避免它们是保持类型论作为计算理论特征所必需的。
 
-Fortunately, constructive reasoning is not as hard as it may seem.
-In some cases, simply by rephrasing some definitions, a theorem can be made constructive and its proof more elegant.
-Moreover, in univalent foundations this seems to happen more often.
-For instance:
+幸运的是，构造性推理并不像看起来那么难。在某些情况下，只需重新表述一些定义，就可以使一个定理变得构造性，并使其证明更为优雅。
+此外，在单值基础中，这种情况似乎更常发生。例如：
 \begin{enumerate}
-\item In set-theoretic foundations, at various points in homotopy theory and category theory one needs the axiom of choice to perform transfinite constructions.
-  But with higher inductive types, we can encode these constructions directly and constructively.
-  In particular, none of the ``synthetic'' homotopy theory in \cref{cha:homotopy} requires \LEM{} or \choice{}.
-\item In set-theoretic foundations, the statement ``every fully faithful and essentially surjective functor is an equivalence of categories'' is equiv\-a\-lent to the axiom of choice.
-  But with the univalence axiom, it is just \emph{true}; see \cref{cha:category-theory}.
-\item In set theory, various circumlocutions are required to obtain notions of ``cardinal number'' and ``ordinal number'' which canonically represent isomorphism classes of sets and well-ordered sets, respectively --- possibly involving the axiom of choice or the axiom of foundation.
-  But with univalence and higher inductive types, we can obtain such representatives directly by truncating the universe; see \cref{cha:set-math}.
-\item In set-theoretic foundations, the definition of the real numbers as equivalence classes of Cauchy sequences requires either the law of excluded middle or the axiom of (countable) choice to be well-behaved.
-  But with higher inductive types, we can give a version of this definition which is well-behaved and avoids any choice principles; see \cref{cha:real-numbers}.
+    \item 在集合论基础中，在同伦论和范畴论中的某些点上，需要选择公理来执行超限构造。但是，通过高阶归纳类型，我们可以直接而构造性地编码这些构造。特别是，在 \cref{cha:homotopy} 中没有“综合”同伦论需要排中律或选择公理。
+    \item 在集合论基础中，陈述“每个全忠且本质上满的函子都是范畴的等价”是等价于选择公理的。但是，有了单值性公理，它就是真实的；参见 \cref{cha:category-theory}。
+    \item 在集合论中，为了获得“基数 (cardinal number)”和“序数 (ordinal number)”的概念，通常需要选择公理或基础公理 (axiom of foundation) 来得到表示集合和良序集合同构类的典型代表。但是，通过单值性和高阶归纳类型，我们可以通过截断宇宙直接获得这些代表；参见 \cref{cha:set-math}。
+    \item 在集合论基础中，定义实数为 Cauchy 序列的等价类需要排中律或（可数）选择公理才能表现良好。但是，通过高阶归纳类型，我们可以给出一种避免任何选择原则的良好表现版本；参见 \cref{cha:real-numbers}。
 \end{enumerate}
-Of course, these simplifications could as well be taken as evidence that the new methods will not, ultimately, prove to be really constructive.  However, we emphasize again that the reader does not have to care, or worry, about constructivity in order to read this book.  The point is that in all of the above examples, the version of the theory we give has independent advantages, whether or not \LEM{} and \choice{} are assumed to be available.  Constructivity, if attained, will be an added bonus.\index{constructivity}%
+当然，这些简化也可以被视为新方法最终不真正构造性的证据。然而，我们再次强调，读者不必关心或担心构造性才能阅读本书。关键是，在上述所有例子中，我们给出的理论版本具有独立的优点，无论是否假设排中律和选择公理可用。构造性，如果实现，将是一个额外的好处。
+\index{构造性 (constructivity)}%
 
-Given this discussion of adding new principles such as univalence, higher inductive types, \choice{}, and \LEM{}, one may wonder whether the resulting system remains consistent.
-(One of the original virtues of type theory, relative to set theory, was that it can be seen to be consistent by proof-theoretic means).
-As with any foundational system, consistency\index{consistency} is a relative question: ``consistent with respect to what?''
-The short answer is that all of the constructions and axioms considered in this book have a model in the category of Kan\index{Kan complex} complexes, due to Voevodsky~\cite{klv:ssetmodel} (see~\cite{ls:hits} for higher inductive types).
-Thus, they are known to be consistent relative to ZFC (with as many inaccessible cardinals
-\index{inaccessible cardinal}\index{consistency}%
-as we need nested univalent universes).
-Giving a more traditionally type-theoretic account of this consistency is work in progress (see,
-e.g.,~\cite{lh:canonicity,coquand2012constructive}).
+在讨论添加新原则，如单值性、高阶归纳类型、选择公理和排中律后，人们可能会想知道，结果系统是否仍然一致。（相对于集合论，类型论的原始优点之一是可以通过证明论手段看到它的一致性）。
+与任何基础系统一样，一致性是一个相对问题：“相对于什么一致？”简短的答案是，本书中考虑的所有构造和公理在 Kan 复形中都有一个模型，由 Voevodsky~\cite{klv:ssetmodel} 提出（参见~\cite{ls:hits} 了解高阶归纳类型）。因此，它们已知相对于 ZFC（具有我们所需嵌套单值宇宙的不可达基数）是一致的。
+给出这种一致性更传统的类型论描述仍在进行中（例如，参见~\cite{lh:canonicity,coquand2012constructive}）。
 
-We summarize the different points of view of the type-theoretic operations in \cref{tab:pov}.
+我们在 \cref{tab:pov} 中总结了类型论操作的不同观点。
 
 \begin{table}[htb]
-  \centering
-  \OPTsmalltable
- \begin{tabular}{lllll}
-    \toprule
-       Types && Logic & Sets & Homotopy\\ \addlinespace[2pt]
-    \midrule
-       $A$ && proposition & set & space\\ \addlinespace[2pt]
-       $a:A$ && proof & element & point \\ \addlinespace[2pt]
-       $B(x)$ && predicate & family of sets & fibration \\ \addlinespace[2pt]
-       $b(x) : B(x)$ && conditional proof & family of elements & section\\ \addlinespace[2pt]
-       $\emptyt, \unit$ && $\bot, \top$ & $\emptyset, \{ \emptyset \}$ & $\emptyset, *$\\ \addlinespace[2pt]
-       $A + B$ && $A\vee B$ & disjoint union & coproduct\\ \addlinespace[2pt]
-       $A\times B$ && $A\wedge B$ & set of pairs & product space\\ \addlinespace[2pt]
-       $A\to B$ && $A\Rightarrow B$ & set of functions & function space\\ \addlinespace[2pt]
-       $\sm{x:A}B(x)$ &&  $\exists_{x:A}B(x)$ & disjoint sum & total space\\ \addlinespace[2pt]
-       $\prd{x:A}B(x)$ &&  $\forall_{x:A}B(x)$ & product & space of sections\\ \addlinespace[2pt]
-       $\mathsf{Id}_{A}$ && equality $=$ & $\setof{\pairr{x,x} | x\in A}$ & path space $A^I$ \\ \addlinespace[2pt]
-    \bottomrule
-  \end{tabular}
-  \caption{Comparing points of view on type-theoretic operations}\label{tab:pov}
+    \centering
+    \OPTsmalltable
+    \begin{tabular}{lllll}
+        \toprule
+        类型 (Types) && 逻辑 (Logic) & 集合 (Sets) & 同伦 (Homotopy)\\ \addlinespace[2pt]
+        \midrule
+        $A$ && 命题 (proposition) & 集合 (set) & 空间 (space)\\ \addlinespace[2pt]
+        $a:A$ && 证明 (proof) & 元素 (element) & 点 (point) \\ \addlinespace[2pt]
+        $B(x)$ && 谓词 (predicate) & 集合族 (family of sets) & 纤维 (fibration) \\ \addlinespace[2pt]
+        $b(x) : B(x)$ && 条件证明 (conditional proof) & 元素族 (family of elements) & 剖面 (section)\\ \addlinespace[2pt]
+        $\emptyt, \unit$ && $\bot, \top$ & $\emptyset, \{ \emptyset \}$ & $\emptyset, *$\\ \addlinespace[2pt]
+        $A + B$ && $A\vee B$ & 不交并 (disjoint union) & 上积 (coproduct)\\ \addlinespace[2pt]
+        $A\times B$ && $A\wedge B$ & 成对集合 (set of pairs) & 积空间 (product space)\\ \addlinespace[2pt]
+        $A\to B$ && $A\Rightarrow B$ & 函数集 (set of functions) & 函数空间 (function space)\\ \addlinespace[2pt]
+        $\sm{x:A}B(x)$ &&  $\exists_{x:A}B(x)$ & 不交和 (disjoint sum) & 全空间 (total space)\\ \addlinespace[2pt]
+        $\prd{x:A}B(x)$ &&  $\forall_{x:A}B(x)$ & 积 (product) & 剖面空间 (space of sections)\\ \addlinespace[2pt]
+        $\mathsf{Id}_{A}$ && 相等 (equality) $=$ & $\setof{\pairr{x,x} | x\in A}$ & 路径空间 (path space) $A^I$ \\ \addlinespace[2pt]
+        \bottomrule
+    \end{tabular}
+    \caption{类型论操作的不同观点比较}\label{tab:pov}
 \end{table}
 
-\index{mathematics!constructive|)}%
+\index{数学!构造性 (constructive)|)}%
 
-\subsection*{Open problems} 
+\subsection*{开放问题 (Open problems)}
 
-\index{open!problem|(}%
+\index{开放!问题 (open problem)|(}%
 
-For those interested in contributing to this new branch of mathematics, it may be encouraging to know that there are many interesting open questions.
+对于那些有兴趣为这一数学新分支做出贡献的人来说，可能令人鼓舞的是，仍有许多有趣的开放问题。
 
-\index{univalence axiom!constructivity of}%
-Perhaps the most pressing of them is the ``constructivity'' of the Univalence Axiom, posed by Voevodsky in \cite{Universe-poly}.
-The basic system of type theory follows the structure of Gentzen's natural deduction. Logical connectives are defined by their introduction rules, and have elimination rules justified by computation rules. Following this pattern, and using Tait's computability method, originally designed to analyse G\"odel's Dialectica interpretation, one can show the property of \emph{normalization} for type theory. This in turn implies important properties such as decidability of type-checking (a crucial property since type-checking corresponds to proof-checking, and one can argue that we should be able to ``recognize a proof when we see one''), and the so-called ``canonicity\index{canonicity} property'' that any closed term of the type of natural numbers reduces to a numeral. This last property, and the uniform structure of introduction/elimination rules, are lost when one extends type theory with an axiom, such as the axiom of function extensionality, or the univalence axiom. Voevodsky has formulated a precise mathematical conjecture connected to this question of canonicity for type theory extended with the axiom of Univalence: given a closed term of the type of natural numbers, is it always possible to find a numeral and a proof that this term is equal to this numeral, where this proof of equality may itself use the univalence axiom? More generally, an important issue is whether it is possible to provide a constructive justification of the univalence axiom.
-What about if one adds other homotopically motivated constructions, like higher inductive types?
-These questions remain open at the present time, although methods are currently being developed to try to find answers.
+\index{单值性公理!构造性 (constructivity of)}
+最紧迫的问题之一可能是 Voevodsky 在 \cite{Universe-poly} 中提出的单值性公理的“构造性”。
+类型论的基本系统遵循 Gentzen 的自然演绎结构。逻辑连接符通过其引入规则定义，并通过计算规则证明其消除规则。遵循这一模式，使用 Tait 的可计算性方法（最初旨在分析 G\"odel 的辩证法解释），可以证明类型论的 \emph{归一性 (normalization)} 性质。这反过来又暗示了重要的性质，如类型检查的可判定性（这对于类型检查对应于证明检查是至关重要的属性，可以认为我们应该能够“认出证明”），以及所谓的“典范性 (canonicity) 性质”，即自然数类型的任何闭合项都归约为一个数码。这最后一个性质，以及引入/消除规则的统一结构，当使用公理扩展类型论时会丢失，例如函数外延性公理或单值性公理。Voevodsky 提出了与使用单值性公理扩展的类型论的典范性问题相关的精确数学猜想：给定自然数类型的闭合项，是否总能找到一个数码和一个证明，证明该项等于该数码，其中这个等式证明可能本身使用了单值性公理？
+更一般地说，一个重要的问题是是否可以提供单值性公理的构造性证明。当添加其他同伦动机的构造时，如高阶归纳类型，情况又会如何？这些问题目前仍未解决，尽管目前正在开发方法以尝试找到答案。
 
-Another basic issue is the difficulty of working with types, such as the natural numbers, that are essentially sets (i.e., discrete spaces),
-\index{discrete!space}%
-containing only trivial paths.
-At present, homotopy type theory can really only characterize spaces up to homotopy equivalence, which means that these ``discrete spaces'' may only be \emph{homotopy equivalent} to discrete spaces.
-Type-theoretically, this means there are many paths that are equal to reflexivity, but not \emph{judgmentally} equal to it (see \cref{sec:types-vs-sets} for the meaning of ``judgmentally'').
-While this homotopy-invariance has advantages, these ``meaningless'' identity terms do introduce needless complications into arguments and constructions, so it would be convenient to have a systematic way of eliminating or collapsing them.
-% In some cases, the proliferation of such superfluous identity terms makes it very difficult or impossible to formulate what should be a straightforward concept, such as the definition of a (semi-)simplicial type.
+另一个基本问题是处理本质上是集合的类型（如自然数）时的难题，这些类型是离散空间，只包含平凡路径。
+目前，同伦类型论实际上只能表征同伦等价的空间，这意味着这些“离散空间”可能仅同伦等价于离散空间。
+从类型论的角度来看，这意味着有许多路径与反身性相等，但不是“判断性地 (judgmentally)”相等（参见 \cref{sec:types-vs-sets}，了解“判断性”的含义）。
+虽然这种同伦不变性具有优势，但这些“无意义”的身份项确实在论证和构造中引入了不必要的复杂性，因此方便地系统地消除或折叠它们是很有意义的。
+% 在某些情况下，这种多余的身份项的激增使得无法定义应为简单的概念，如（半）单纯类型的定义。
 
-A more specialized, but no less important, problem is the relation between homotopy type theory and the research on \emph{higher toposes}%
-\index{.infinity1-topos@$(\infty,1)$-topos}
-currently happening at the intersection of higher category theory and homotopy theory.
-There is a growing conviction among those familiar with both subjects that they are intimately connected.
-For instance, the notion of a univalent universe should coincide with that of an object classifier, while higher inductive types should be an ``elementary'' reflection of local presentability.
-More generally, homotopy type theory should be the ``internal language'' of $(\infty,1)$-toposes, just as intuitionistic higher-order logic is the internal language of ordinary 1-toposes.
-Despite this general consensus, however, details remain to be worked out --- in particular, questions of coherence and strictness remain to be addressed  --- and doing so will undoubtedly lead to further insights into both concepts.
+一个更专业但同样重要的问题是同伦类型论与 \emph{高阶拓扑 (higher toposes)} 研究之间的关系，
+\index{.infinity1-拓扑@$(\infty,1)$-topos}
+该研究目前在高阶范畴论和同伦论的交叉点上进行。
+那些熟悉这两个主题的人越来越相信它们是密切相关的。例如，单值宇宙的概念应该与对象分类器的概念一致，而高阶归纳类型应该是局部可呈现性的“基本”反映。
+更一般地说，同伦类型论应该是 $(\infty,1)$-拓扑的“内部语言”，就像直觉主义高阶逻辑是普通 1-拓扑的内部语言一样。
+尽管有这种普遍共识，但细节仍需解决——特别是关于一致性和严格性的问题——解决这些问题无疑将进一步加深对两者的理解。
 
-\index{mathematics!formalized}%
-But by far the largest field of work to be done is in the ongoing formalization of everyday mathematics in this new system.
-Recent successes in formalizing some facts from basic homotopy theory and category theory have been encouraging; some of these are described in \cref{cha:homotopy,cha:category-theory}.
-Obviously, however, much work remains to be done.
+\index{数学!形式化的 (formalized)}
+但目前最大的工作领域是正在进行的在这一新系统中形式化日常数学的工作。
+最近在形式化一些基础同伦论和范畴论的事实方面取得了令人鼓舞的成功；其中一些在 \cref{cha:homotopy,cha:category-theory} 中进行了描述。
+显然，还有很多工作需要完成。
 
-\index{open!problem|)}%
+\index{开放!问题 (open problem)|)}%
 
-The homotopy type theory community maintains a web site and group blog at \url{http://homotopytypetheory.org}, as well as a discussion email list.
-Newcomers are always welcome!
+同伦类型论社区维护了一个网站和一个博客，网址是 \url{http://homotopytypetheory.org}，并且还有一个讨论邮件列表。
+随时欢迎新来者加入！
 
+\subsection*{如何阅读本书 (How to read this book)}
 
-\subsection*{How to read this book}
+本书分为两部分。
+\cref{part:foundations}， “基础 (Foundations)”， 发展了同伦类型论的基本概念。
+这是构建特定学科发展的数学基础，也是理解单值基础方法所必需的。对于程序员来说，这是“库代码 (library code)”。
+由于单值基础是一种新的、不同类型的数学，其基本概念需要一些时间来适应，因此 \cref{part:foundations} 相当广泛。
 
-This book is divided into two parts.
-\cref{part:foundations}, ``Foundations'', develops the fundamental concepts of homotopy type theory.
-This is the mathematical foundation on which the development of specific subjects is built, and which is required for the understanding of the univalent foundations approach. To a programmer, this is ``library code''.
-Since univalent foundations is a new and different kind of mathematics, its basic notions take some getting used to; thus \cref{part:foundations} is fairly extensive.
+\cref{part:mathematics}，“数学 (Mathematics)”，由四章组成，这四章在 \cref{part:foundations} 的基本概念基础上，展示了单值基础在数学四个不同领域中的一些新成果：同伦论 (\cref{cha:homotopy})、范畴论 (\cref{cha:category-theory})、集合论 (\cref{cha:set-math}) 和实分析 (\cref{cha:real-numbers})。
+\cref{part:mathematics} 中的各章相对独立，尽管有时会使用其他章中的引理。
 
-\cref{part:mathematics}, ``Mathematics'', consists of four chapters that build on the basic notions of \cref{part:foundations} to exhibit some of the new things we can do with univalent foundations in four different areas of mathematics: homotopy theory (\cref{cha:homotopy}), category theory (\cref{cha:category-theory}), set theory (\cref{cha:set-math}), and real analysis (\cref{cha:real-numbers}).
-The chapters in \cref{part:mathematics} are more or less independent of each other, although occasionally one will use a lemma proven in another.
+想要认真理解单值基础并能够在其中工作，最终需要阅读并理解 \cref{part:foundations} 的大部分内容。
+然而，想要仅了解单值基础及其作用的读者可能会理解，在阅读 \cref{part:mathematics} 中的“精华”内容之前，可能会觉得必须通读超过 200 页的内容令人却步。
+幸运的是，要阅读 \cref{part:mathematics} 中的章节并不需要 \cref{part:foundations} 的所有内容。
+\cref{part:mathematics} 中的每一章都以其主题的简要概述开头，介绍单值基础对其的贡献，以及 \cref{part:foundations} 的必要背景，因此有勇气的读者可以立即转到他们最喜欢的主题的相应章节。
+对于那些想要更深入理解 \cref{part:mathematics} 中一章或多章，但尚未准备好阅读 \cref{part:foundations} 全部内容的读者，我们在此提供了 \cref{part:foundations} 的简要总结，并对 \cref{part:mathematics} 中各章所需的部分进行了说明。
 
-A reader who wants to seriously understand univalent foundations, and be able to work in it, will eventually have to read and understand most of \cref{part:foundations}.
-However, a reader who just wants to get a taste of univalent foundations and what it can do may understandably balk at having to work through over 200 pages before getting to the ``meat'' in \cref{part:mathematics}.
-Fortunately, not all of \cref{part:foundations} is necessary in order to read the chapters in \cref{part:mathematics}.
-Each chapter in \cref{part:mathematics} begins with a brief overview of its subject, what univalent foundations has to contribute to it, and the necessary background from \cref{part:foundations}, so the courageous reader can turn immediately to the appropriate chapter for their favorite subject.
-For those who want to understand one or more chapters in \cref{part:mathematics} more deeply than this, but are not ready to read all of \cref{part:foundations}, we provide here a brief summary of \cref{part:foundations}, with remarks about which parts are necessary for which chapters in \cref{part:mathematics}.
+\cref{cha:typetheory} 讨论了类型论的基本概念，在任何同伦解释之前。
+熟悉 Martin-L\"of 类型论的读者可以快速浏览它，以了解我们使用的理论的细节。然而，没有类型论经验的读者将需要阅读 \cref{cha:typetheory}，因为类型论与集合论等其他基础之间存在许多微妙的差异。
 
-\cref{cha:typetheory} is about the basic notions of type theory, prior to any homotopical interpretation.
-A reader who is familiar with Martin-L\"of type theory can quickly skim it to pick up the particulars of the theory we are using.
-However, readers without experience in type theory will need to read \cref{cha:typetheory}, as there are many subtle differences between type theory and other foundations such as set theory.
+\cref{cha:basics} 介绍了类型论的同伦视角，以及支持这一视角的基本概念，并描述了 \cref{cha:typetheory} 中类型论各组成部分的同伦行为。
+它还介绍了 \emph{单值性公理 (univalence axiom)}（\cref{sec:compute-universe}）——同伦类型论的两大基本创新之一。因此，它非常基础，我们鼓励每个人阅读，尤其是 \crefrange{sec:equality}{sec:basics-equivalences}。
 
-\cref{cha:basics} introduces the homotopical viewpoint on type theory, along with the basic notions supporting this view, and describes the homotopical behavior of each component of the type theory from \cref{cha:typetheory}.
-It also introduces the \emph{univalence axiom} (\cref{sec:compute-universe}) --- the first of the two basic innovations of homotopy type theory.
-Thus, it is quite basic and we encourage everyone to read it, especially \crefrange{sec:equality}{sec:basics-equivalences}.
+\cref{cha:logic} 介绍了我们如何在同伦类型论中表示逻辑，以及它与经典逻辑以及构造性和直觉主义逻辑的关系。在这里，我们定义了排中律、选择公理和命题重缩放 (propositional resizing) 公理（尽管在本书的其余部分中，我们大多不需要假设其中任何一个），以及在表示传统逻辑时必不可少的 \emph{命题截断 (propositional truncation)}。
+本章是 \cref{cha:set-math,cha:real-numbers} 的基本背景，对于 \cref{cha:category-theory} 来说不那么重要，对于 \cref{cha:homotopy} 来说则不是很必要。
 
-\cref{cha:logic} describes how we represent logic in homotopy type theory, and its connection to classical logic as well as to constructive and intuitionistic logic.
-Here we define the law of excluded middle, the axiom of choice, and the axiom of propositional resizing (although, for the most part, we do not need to assume any of these in the rest of the book), as well as the \emph{propositional truncation} which is essential for representing traditional logic.
-This chapter is essential background for \cref{cha:set-math,cha:real-numbers}, less important for \cref{cha:category-theory}, and not so necessary for \cref{cha:homotopy}.
+\cref{cha:equivalences,cha:induction} 详细研究了两个特别主题：等价（和相关概念）以及广义归纳定义。虽然这些都是重要的主题，并且提供了对同伦类型论更深刻的理解，但大多数情况下，它们对 \cref{part:mathematics} 并不必要。
+\cref{cha:equivalences} 中的少数引理在此处和那里有使用，而 \cref{sec:bool-nat,sec:strictly-positive,sec:generalizations} 中的一般讨论有助于为理解 \cref{cha:hits} 提供直觉。
+\cref{sec:generalizations} 中讨论的广义归纳定义在 \cref{cha:set-math,cha:real-numbers} 的某些地方也有使用。
 
-\cref{cha:equivalences,cha:induction} study two special topics in detail: equivalences (and related notions) and generalized inductive definitions.
-While these are important subjects in their own rights and provide a deeper understanding of homotopy type theory, for the most part they are not necessary for \cref{part:mathematics}.
-Only a few lemmas from \cref{cha:equivalences} are used here and there, while the general discussions in \cref{sec:bool-nat,sec:strictly-positive,sec:generalizations} are helpful for providing the intuition required for \cref{cha:hits}.
-The generalized sorts of inductive definition discussed in \cref{sec:generalizations} are also used in a few places in \cref{cha:set-math,cha:real-numbers}.
+\cref{cha:hits} 介绍了同伦类型论的第二个基本创新——\emph{高阶归纳类型 (higher inductive types)}——并给出了许多例子。
+高阶归纳类型是 \cref{cha:homotopy} 中的主要研究对象，其中一些在 \cref{cha:set-math,cha:real-numbers} 中也扮演了重要角色。
+它们对 \cref{cha:category-theory} 来说不那么重要，尽管在 \cref{sec:rezk} 中使用了一个例子。
 
-\cref{cha:hits} introduces the second basic innovation of homotopy type theory --- \emph{higher inductive types} --- with many examples.
-Higher inductive types are the primary object of study in \cref{cha:homotopy}, and some particular ones play important roles in \cref{cha:set-math,cha:real-numbers}.
-They are not so necessary for \cref{cha:category-theory}, although one example is used in \cref{sec:rezk}.
+最后，\cref{cha:hlevels} 讨论了同伦 $n$-类型及其相关概念，如 $n$-连通类型。这些概念对于 \cref{cha:homotopy} 来说非常重要，但在 \cref{part:mathematics} 的其他部分中不那么重要，尽管在 \cref{sec:piw-pretopos} 中使用了一些引理的 $n=-1$ 的情况。
 
-Finally, \cref{cha:hlevels} discusses homotopy $n$-types and related notions such as $n$-connected types.
-These notions are important for \cref{cha:homotopy}, but not so important in the rest of \cref{part:mathematics}, although the case $n=-1$ of some of the lemmas are used in \cref{sec:piw-pretopos}.
+这完成了 \cref{part:foundations}。如前所述，\cref{part:mathematics} 由四个基本无关的章节组成，每一章描述了单值基础在特定学科中的贡献。
 
-This completes \cref{part:foundations}.
-As mentioned above, \cref{part:mathematics} consists of four largely unrelated chapters, each describing what univalent foundations has to offer to a particular subject.
+在 \cref{part:mathematics} 的各章中，\cref{cha:homotopy}（同伦论）可能是最具革命性的。单值基础对同伦论有一种非常不同的“综合 (synthetic)”方法，在这种方法中，同伦类型是基本对象（即类型），而不是使用拓扑空间或其他集合论模型构造的。这使得经典代数拓扑定理的新证明风格成为可能，我们在此展示了一些示例，从 $\pi_1(\Sn^1)=\Z$ 到 Freudenthal 悬挂定理 (Freudenthal suspension theorem)。
 
-Of the chapters in \cref{part:mathematics}, \cref{cha:homotopy} (Homotopy theory) is perhaps the most radical.
-Univalent foundations has a very different ``synthetic'' approach to homotopy theory in which homotopy types are the basic objects (namely, the types) rather than being constructed using topological spaces or some other set-theoretic model.
-This enables new styles of proof for classical theorems in algebraic topology, of which we present a sampling, from $\pi_1(\Sn^1)=\Z$ to the Freudenthal suspension theorem.
+在 \cref{cha:category-theory}（范畴论）中，我们发展了一些基本的 (1-)范畴论，遵循单值性公理的原则，即 \emph{相等即同构 (equality is isomorphism)}。这具有令人愉快的效果，即确保所有定义和构造在范畴等价下自动不变：实际上，等价的范畴与等价的类型一样相等。（它还与高阶范畴论和高阶拓扑论有关。）
 
-In \cref{cha:category-theory} (Category theory), we develop some basic (1-)category theory, adhering to the principle of the univalence axiom that \emph{equality is isomorphism}.
-This has the pleasant effect of ensuring that all definitions and constructions are automatically invariant under equivalence of categories: indeed, equivalent categories are equal just as equivalent types are equal.
-(It also has connections to higher category theory and higher topos theory.)
+\cref{cha:set-math}（集合论）研究了单值基础中的集合。
+集合的范畴具有其通常的性质，因此为不需要同伦或高阶范畴结构的任何数学提供基础。
+我们还观察到单值性使基数和序数更加愉快，高阶归纳类型产生了满足 Zermelo--Fraenkel 集合论通常公理的累积层次结构。
 
-\cref{cha:set-math} (Set theory) studies sets in univalent foundations.
-The category of sets has its usual properties, hence provides a foundation for any mathematics that doesn't need homotopical or higher-categorical structures.
-We also observe that univalence makes cardinal and ordinal numbers a bit more pleasant, and that higher inductive types yield a cumulative hierarchy satisfying the usual axioms of Zermelo--Fraenkel set theory.
+在 \cref{cha:real-numbers}（实数）中，我们总结了 Dedekind 实数的构造，然后观察到高阶归纳类型允许定义 Cauchy 实数，从而避免了构造数学中的一些相关问题。然后我们简要介绍了类似的方法来处理 Conway 的超实数 (surreal numbers)。
 
-In \cref{cha:real-numbers} (Real numbers), we summarize the construction of Dedekind real numbers, and then observe that higher inductive types allow a definition of Cauchy real numbers that avoids some associated problems in constructive mathematics.
-Then we sketch a similar approach to Conway's surreal numbers.
+本书的每一章都以备注部分结尾，收集历史评论、文献参考和结果归属（尽可能）。我们还在每章末尾包含了练习，以帮助读者熟悉在单值基础中进行数学的过程。
 
-Each chapter in this book ends with a Notes section, which collects historical comments, references to the literature, and attributions of results, to the extent possible.
-We have also included Exercises at the end of each chapter, to assist the reader in gaining familiarity with doing mathematics in univalent foundations.
-
-Finally, recall that this book was written as a massively collaborative effort by a large number of people.
-We have done our best to achieve consistency in terminology and notation, and to put the mathematics in a linear sequence that flows logically, but it is very likely that some imperfections remain.
-We ask the reader's forgiveness for any such infelicities, and welcome suggestions for improvement of the next edition.
-
+最后，回想一下，本书是由大量人员协作完成的。我们尽最大努力实现术语和符号的一致性，并将数学按逻辑顺序排列，但很可能仍然存在一些不完美之处。
+我们请求读者对任何此类不幸表示宽恕，并欢迎为下一版的改进提供建议。
 
 % Local Variables:
 % TeX-master: "hott-online"

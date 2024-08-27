@@ -2,7 +2,7 @@
 *.pyc
 *.aux
 *.aux.bak
-hott-*.pdf
+#hott-*.pdf
 main.pdf
 errata*.pdf
 *.dvi
