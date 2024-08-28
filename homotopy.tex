@@ -1227,222 +1227,183 @@ $\id{\pi_1(\Sn ^1)} {\Z}$，而 $\id{\pi_n(\Sn ^1)}0$ 对于 $n>1$。
 \end{proof}
 \index{霍普夫纤维丛 (Hopf fibration)|)}
 
-\section{The Freudenthal suspension theorem}
+\section{Freudenthal 悬吊定理 (The Freudenthal Suspension Theorem)}
 \label{sec:freudenthal}
 
-\index{Freudenthal suspension theorem|(}%
-\index{theorem!Freudenthal suspension|(}%
+\index{Freudenthal 悬吊定理 (Freudenthal suspension theorem)|(}%
+\index{定理!Freudenthal 悬吊 (theorem!Freudenthal suspension)|(}%
 
-Before proving the Freudenthal suspension theorem, we need some auxiliary lemmas about connectedness.
-In \cref{cha:hlevels} we proved a number of facts about $n$-connected maps and $n$-types for fixed $n$; here we are now interested in what happens when we vary $n$.
-For instance, in \cref{prop:nconnected_tested_by_lv_n_dependent types} we showed that $n$-connected maps are characterized by an ``induction principle'' relative to families of $n$-types.
-If we want to ``induct along'' an $n$-connected map into a family of $k$-types for $k> n$, we don't immediately know that there is a function by such an induction principle, but the following lemma says that at least our ignorance can be quantified.
+在证明 Freudenthal 悬吊定理之前，我们需要一些关于连通性 (connectedness) 的辅助引理。在 \cref{cha:hlevels} 中，我们证明了一些关于固定 $n$ 的 $n$-连通映射 ($n$-connected maps) 和 $n$-类型 ($n$-types) 的事实；现在我们感兴趣的是，当我们改变 $n$ 时会发生什么。例如，在 \cref{prop:nconnected_tested_by_lv_n_dependent types} 中，我们展示了 $n$-连通映射可以通过相对于 $n$-类型的族 (families of $n$-types) 的“归纳原理” (induction principle) 来表征。如果我们想要沿着一个 $n$-连通映射对 $k$-类型的族进行“归纳” (induct)，其中 $k > n$，我们不能立即知道是否有一个由这种归纳原理产生的函数，但以下引理表明至少可以量化我们的无知。
 
 \begin{lem}\label{thm:conn-trunc-variable-ind}
-  If $f:A\to B$ is $n$-connected and $P:B\to \ntype{k}$ is a family of $k$-types for $k\ge n$, then the induced function
-  \[ (\blank\circ f) : \Parens{\prd{b:B} P(b)} \to \Parens{\prd{a:A} P(f(a)) } \]
-  is $(k-n-2)$-truncated.
+如果 $f:A\to B$ 是 $n$-连通映射，并且 $P:B\to \ntype{k}$ 是一个 $k$-类型的族，其中 $k\ge n$，那么诱导的函数
+\[ (\blank\circ f) : \Parens{\prd{b:B} P(b)} \to \Parens{\prd{a:A} P(f(a)) } \]
+是 $(k-n-2)$-截断 (truncated) 的。
 \end{lem}
+
 \begin{proof}
-  We induct on the natural number $k-n$.
-  When $k=n$, this is \cref{prop:nconnected_tested_by_lv_n_dependent types}.
+  我们对自然数 $k-n$ 进行归纳。当 $k=n$ 时，这就是 \cref{prop:nconnected_tested_by_lv_n_dependent types}。
   %
-  For the inductive step, suppose $f$ is $n$-connected and $P$ is a family of $(k+1)$-types.
-  To show that $(\blank\circ f)$ is $(k-n-1)$-truncated, let $\ell:\prd{a:A} P(f(a))$; then we have
-  \[ \hfib{(\blank\circ f)}{\ell} \eqvsym \sm{g:\prd{b:B} P(b)} \prd{a:A} g(f(a)) = \ell(a).\]
-  Let $(g,p)$ and $(h,q)$ lie in this type, so $p:g\circ f \htpy \ell$ and $q:h\circ f \htpy \ell$; then we also have
+  对于归纳步骤，假设 $f$ 是 $n$-连通的，并且 $P$ 是一个 $(k+1)$-类型的族。为了证明 $(\blank\circ f)$ 是 $(k-n-1)$-截断的，设 $\ell:\prd{a:A} P(f(a))$；那么我们有
+  \[ \hfib{(\blank\circ f)}{\ell} \eqvsym \sm{g:\prd{b:B} P(b)} \prd{a:A} g(f(a)) = \ell(a)。\]
+  令 $(g,p)$ 和 $(h,q)$ 位于此类型中，因此 $p:g\circ f \htpy \ell$ 并且 $q:h\circ f \htpy \ell$；然后我们也有
   \[ \big((g,p) = (h,q)\big) \eqvsym
-  \Parens{\sm{r:g\htpy h} r\circ f = p \ct \opp{q}}.
+  \Parens{\sm{r:g\htpy h} r\circ f = p \ct \opp{q}}。
   \]
-  However, here the right-hand side is a fiber of the map
+  然而，这里的右侧是映射的一个纤维
   \[ (\blank\circ f) : \Parens{\prd{b:B} Q(b)} \to \Parens{\prd{a:A} Q(f(a)) } \]
-  where $Q(b) \defeq (g(b)=h(b))$.
-  Since $P$ is a family of $(k+1)$-types, $Q$ is a family of $k$-types, so the inductive hypothesis implies that this fiber is a $(k-n-2)$-type.
-  Thus, all path spaces of $\hfib{(\blank\circ f)}{\ell}$ are $(k-n-2)$-types, so it is a $(k-n-1)$-type.
+  其中 $Q(b) \defeq (g(b)=h(b))$。
+  由于 $P$ 是一个 $(k+1)$-类型的族，$Q$ 是一个 $k$-类型的族，因此归纳假设表明这个纤维是一个 $(k-n-2)$-类型。因此，$\hfib{(\blank\circ f)}{\ell}$ 的所有路径空间都是 $(k-n-2)$-类型，因此它是 $(k-n-1)$-类型的。
 \end{proof}
 
-Recall that if $\pairr{A,a_0}$ and $\pairr{B,b_0}$ are pointed types, then
-their \define{wedge}
+回想一下，如果 $\pairr{A,a_0}$ 和 $\pairr{B,b_0}$ 是有基点的类型 (pointed types)，那么它们的\define{楔和 (wedge)}
 \index{wedge}%
-$A\vee B$ is defined to be the pushout of $A\xleftarrow{a_0}
-\unit\xrightarrow{b_0} B$.
-There is a canonical map $i:A\vee B \to A\times B$ defined by the two maps $\lam{a} (a,b_0)$ and $\lam{b} (a_0,b)$; the following lemma essentially says that this map is highly connected if $A$ and $B$ are so.
-It is a bit more convenient both to prove and use, however, if we use the characterization of connectedness from \cref{prop:nconnected_tested_by_lv_n_dependent types} and substitute in the universal property of the wedge (generalized to type families).
+$A\vee B$ 被定义为 $A\xleftarrow{a_0} \unit\xrightarrow{b_0} B$ 的推挤 (pushout)。有一个规范映射 $i:A\vee B \to A\times B$，由两个映射 $\lam{a} (a,b_0)$ 和 $\lam{b} (a_0,b)$ 定义；以下引理本质上说明，如果 $A$ 和 $B$ 是高度连通的，则这个映射也是如此。然而，如果我们使用 \cref{prop:nconnected_tested_by_lv_n_dependent types} 中的连通性表征，并在推挤的通用性质中进行替换，那么证明和使用起来会更方便。
 
-\begin{lem}[Wedge connectivity lemma]\label{thm:wedge-connectivity}
-  Suppose that $\pairr{A,a_0}$ and $\pairr{B,b_0}$ are $n$- and $m$-connected pointed types, respectively, with $n,m\geq0$, and let
+\begin{lem}[楔和连通性引理 (Wedge connectivity lemma)]\label{thm:wedge-connectivity}
+假设 $\pairr{A,a_0}$ 和 $\pairr{B,b_0}$ 分别是 $n$-和 $m$-连通的有基点类型，且 $n,m\geq0$，并令
 %
 \narrowequation{P:A\to B\to \ntype{(n+m)}.}
 %
-Then for any ${f:\prd{a:A} P(a,b_0)}$ and ${g:\prd{b:B} P(a_0,b)}$ with $p:f(a_0) = g(b_0)$, there exists $h:\prd{a:A}{b:B} P(a,b)$ with homotopies
+那么对于任何 ${f:\prd{a:A} P(a,b_0)}$ 和 ${g:\prd{b:B} P(a_0,b)}$，其中 $p:f(a_0) = g(b_0)$，存在 $h:\prd{a:A}{b:B} P(a,b)$，并且存在同伦 (homotopies)
 %
 \begin{equation*}
   q:\prd{a:A} h(a,b_0)=f(a)
-  \qquad\text{and}\qquad
+  \qquad\text{和}\qquad
   r:\prd{b:B} h(a_0,b)=g(b)
- \end{equation*}
+\end{equation*}
 %
-such that $p = \opp{q(a_0)} \ct r(b_0)$.
+使得 $p = \opp{q(a_0)} \ct r(b_0)$。
 \end{lem}
+
 \begin{proof}
-  Define $Q:A\to\type$ by
-  \[ Q(a) \defeq \sm{k:\prd{b:B} P(a,b)} (f(a) = k(b_0)). \]
-  Then we have $(g,p):Q(a_0)$.
-  Since $a_0:\unit\to A$ is $(n-1)$-connected, if $Q$ is a family of $(n-1)$-types then we will have $\ell:\prd{a:A} Q(a)$ such that $\ell(a_0) = (g,p)$, in which case we can define $h(a,b) \defeq \proj1(\ell(a))(b)$.
-  However, for fixed $a$, the type $Q(a)$ is the fiber over $f(a)$ of the map
+  定义 $Q:A\to\type$ 为
+  \[ Q(a) \defeq \sm{k:\prd{b:B} P(a,b)} (f(a) = k(b_0))。\]
+  然后我们有 $(g,p):Q(a_0)$。
+  由于 $a_0:\unit\to A$ 是 $(n-1)$-连通的，如果 $Q$ 是一个 $(n-1)$-类型的族，那么我们将有 $\ell:\prd{a:A} Q(a)$，使得 $\ell(a_0) = (g,p)$，在这种情况下，我们可以定义 $h(a,b) \defeq \proj1(\ell(a))(b)$。
+  然而，对于固定的 $a$，类型 $Q(a)$ 是 $f(a)$ 的纤维，映射为
   \[ \Parens{\prd{b:B} P(a,b) } \to P(a,b_0) \]
-  given by precomposition with $b_0:\unit\to B$.
-  Since $b_0:\unit\to B$ is $(m-1)$-connected, for this fiber to be $(n-1)$-truncated, by \cref{thm:conn-trunc-variable-ind} it suffices for each type $P(a,b)$ to be an $(n+m)$-type, which we have assumed.
+  由 $b_0:\unit\to B$ 的预组合给出。
+  由于 $b_0:\unit\to B$ 是 $(m-1)$-连通的，要使这个纤维成为 $(n-1)$-截断的，根据 \cref{thm:conn-trunc-variable-ind}，只要每个类型 $P(a,b)$ 是 $(n+m)$-类型，这个条件就足够了。
 \end{proof}
 
-Let $(X,x_0)$ be a pointed type, and recall the definition of the suspension $\susp X$ from \cref{sec:suspension}, with constructors $\north,\south:\susp X$ and $\merid:X \to (\north=\south)$.
-We regard $\susp X$ as a pointed space with basepoint $\north$, so that we have $\Omega\susp X \defeq (\id[\susp X]\north\north)$.
-Then there is a canonical map
+令 $(X,x_0)$ 为有基点类型，并回忆 \cref{sec:suspension} 中悬吊 (suspension) $\susp X$ 的定义，具有构造子 $\north,\south:\susp X$ 和 $\merid:X \to (\north=\south)$。
+我们将 $\susp X$ 视为有基点空间，基点为 $\north$，因此我们有 $\Omega\susp X \defeq (\id[\susp X]\north\north)$。
+然后有一个规范映射
 \begin{align*}
   \sigma &: X \to \Omega\susp X\\
-  \sigma(x) &\defeq \merid(x) \ct \opp{\merid(x_0)}.
+  \sigma(x) &\defeq \merid(x) \ct \opp{\merid(x_0)}。
 \end{align*}
 
 \begin{rmk}
-  In classical algebraic topology, one considers the \emph{reduced suspension}, in which the path $\merid(x_0)$ is collapsed down to a point, identifying $\north$ and $\south$.
-  The reduced and unreduced suspensions are homotopy equivalent, so the distinction is invisible to our purely homotopy-theoretic eyes --- and higher inductive types only allow us to ``identify'' points up to a higher path anyway, there is no purpose to considering reduced suspensions in homotopy type theory.
-  However, the ``unreducedness'' of our suspension is the reason for the (possibly unexpected) appearance of $\opp{\merid(x_0)}$ in the definition of $\sigma$.
+  在经典的代数拓扑中，考虑的是\emph{约化悬吊 (reduced suspension)}，其中路径 $\merid(x_0)$ 被折叠为一个点，将 $\north$ 和 $\south$ 识别为一个点。约化和未约化的悬吊是同伦等价的，因此这个区别对我们纯粹的同伦论 (homotopy-theoretic) 眼光来说是不可见的——而高阶归纳类型只允许我们“识别”点到更高的路径上，无论如何，在同伦类型论中考虑约化悬吊没有意义。然而，我们的悬吊的“未约化性”是 $\sigma$ 的定义中出现 $\opp{\merid(x_0)}$（可能出乎意料）的原因。
 \end{rmk}
 
-Our goal is now to prove the following.
+我们的目标现在是证明以下定理。
 
-\begin{thm}[The Freudenthal suspension theorem]\label{thm:freudenthal}
-  Suppose that $X$ is $n$-connected and pointed, with $n\geq 0$.
-  Then the map $\sigma:X\to \Omega\susp(X)$ is $2n$-connected.
+\begin{thm}[Freudenthal 悬吊定理 (The Freudenthal Suspension Theorem)]\label{thm:freudenthal}
+假设 $X$ 是 $n$-连通且有基点的，并且 $n\geq 0$。那么映射 $\sigma:X\to \Omega\susp(X)$ 是 $2n$-连通的。
 \end{thm}
 
-\index{encode-decode method|(}%
+\index{编码-解码方法 (encode-decode method)|(}%
 
-We will use the encode-decode method, but applied in a slightly different way.
-In most cases so far, we have used it to characterize the loop space $\Omega (A,a_0)$ of some type as equivalent to some other type $B$, by constructing a family $\code:A\to \type$ with $\code(a_0)\defeq B$ and a family of equivalences $\decode:\prd{x:A}\code(x) \eqvsym (a_0=x)$.
-% We have also generalized it to characterize truncations of loop spaces by way of a family of equivalences $\prd{x:A}\code(x) \eqvsym \trunc n{a_0=x}$.
+我们将使用编码-解码方法 (encode-decode method)，但会以稍微不同的方式应用它。到目前为止，在大多数情况下，我们使用它来将某些类型 $A$ 的回路空间 (loop space) $\Omega (A,a_0)$ 表征为某个其他类型 $B$，通过构造一个族 $\code:A\to \type$，其中 $\code(a_0)\defeq B$ 并且构造一个等价族 $\decode:\prd{x:A}\code(x) \eqvsym (a_0=x)$。
+% 我们还通过一个等价族 $\prd{x:A}\code(x) \eqvsym \trunc n{a_0=x}$ 将其推广以表征回路空间的截断。
 
-In this case, however, we want to show that $\sigma:X\to \Omega \susp X$ is $2n$-connected.
-We could use a truncated version of the previous method, such as we will see in \cref{sec:van-kampen}, to prove that $\trunc{2n}X\to \trunc{2n}{\Omega \susp X}$ is an equivalence---but this is a slightly weaker statement than the map being $2n$-connected (see \cref{thm:conn-pik,thm:pik-conn}).
-However, note that in the general case, to prove that $\decode(x)$ is an equivalence, we could equivalently be proving that its fibers are contractible, and we would still be able to use induction over the base type.
-This we can generalize to prove connectedness of a map into a loop space, i.e.\ that the \emph{truncations} of its fibers are contractible.
-Moreover, instead of constructing $\code$ and $\decode$ separately, we can construct directly a family of \emph{codes for the truncations of the fibers}.
+然而，在这种情况下，我们想要证明 $\sigma:X\to \Omega \susp X$ 是 $2n$-连通的。我们可以使用前述方法的截断版本，例如我们将在 \cref{sec:van-kampen} 中看到，来证明 $\trunc{2n}X\to \trunc{2n}{\Omega \susp X}$ 是一个等价——但这是一个稍微弱一点的声明，不能说明映射是 $2n$-连通的 (见 \cref{thm:conn-pik,thm:pik-conn})。然而，注意在一般情况下，为了证明 $\decode(x)$ 是一个等价，可以等效地证明它的纤维是收缩的 (contractible)，我们仍然可以对基类型进行归纳。这一点我们可以推广到证明进入回路空间的映射的连通性，即它的纤维的\emph{截断}是收缩的。此外，我们可以直接构造\emph{纤维的截断的编码 (codes for the truncations of the fibers)}的族，而不是分别构造 $\code$ 和 $\decode$。
 
 \begin{defn}\label{thm:freudcode}
-  If $X$ is $n$-connected and pointed with $n\geq 0$, then there is a family
-  \begin{equation}
-    \code:\prd{y:\susp X} (\north=y) \to \type\label{eq:freudcode}
-  \end{equation}
-  such that
-  \begin{align}
-    \code(\north,p) &\defeq \trunc{2n}{\hfib{\sigma}{p}}
-    \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) \ct \opp{\merid(x_0)} = p)}\label{eq:freudcodeN}\\
-    \code(\south,q) &\defeq \trunc{2n}{\hfib{\merid}{q}}
-    \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) = q)}.\label{eq:freudcodeS}
-  \end{align}
+如果 $X$ 是 $n$-连通且有基点的，且 $n\geq 0$，那么存在一个族
+\begin{equation}
+  \code:\prd{y:\susp X} (\north=y) \to \type\label{eq:freudcode}
+\end{equation}
+使得
+\begin{align}
+  \code(\north,p) &\defeq \trunc{2n}{\hfib{\sigma}{p}}
+  \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) \ct \opp{\merid(x_0)} = p)}\label{eq:freudcodeN}\\
+  \code(\south,q) &\defeq \trunc{2n}{\hfib{\merid}{q}}
+  \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) = q)}。\label{eq:freudcodeS}
+\end{align}
 \end{defn}
 
-Our eventual goal will be to prove that $\code(y,p)$ is contractible for all $y:\susp X$ and $p:\north=y$.
-Applying this with $y\defeq \north$ will show that all fibers of $\sigma$ are $2n$-connected, and thus $\sigma$ is $2n$-connected.
+我们的最终目标是证明对于所有 $y:\susp X$ 和 $p:\north=y$，$\code(y,p)$ 是收缩的。将此应用于 $y\defeq \north$，将表明 $\sigma$ 的所有纤维都是 $2n$-连通的，从而 $\sigma$ 是 $2n$-连通的。
 
-\begin{proof}[Proof of \cref{thm:freudcode}]
-  We define $\code(y,p)$ by induction on $y:\susp X$, where the first two cases are~\eqref{eq:freudcodeN} and~\eqref{eq:freudcodeS}.
-  It remains to construct, for each $x_1:X$, a dependent path
-  \[ \dpath{\lam{y}(\north=y)\to\type}{\merid(x_1)}{\code(\north)}{\code(\south)}. \]
-  By \cref{thm:dpath-arrow}, this is equivalent to giving a family of paths
-  \[ \prd{q:\north=\south} \code(\north)(\transfib{\lam{y}(\north=y)}{\opp{\merid(x_1)}}{q}) = \code(\south)(q). \]
-  And by univalence and transport in path types, this is equivalent to a family of equivalences
-  \[ \prd{q:\north=\south} \code(\north,q \ct \opp{\merid(x_1)}) \eqvsym \code(\south,q). \]
-  We will define a family of maps
+\begin{proof}[证明 \cref{thm:freudcode}]
+  我们通过对 $y:\susp X$ 进行归纳来定义 $\code(y,p)$，其中前两个情况是~\eqref{eq:freudcodeN} 和~\eqref{eq:freudcodeS}。还需要构造，对于每个 $x_1:X$，一个依赖路径 (dependent path)
+  \[ \dpath{\lam{y}(\north=y)\to\type}{\merid(x_1)}{\code(\north)}{\code(\south)}。 \]
+  根据 \cref{thm:dpath-arrow}，这等价于给出一个路径族
+  \[ \prd{q:\north=\south} \code(\north)(\transfib{\lam{y}(\north=y)}{\opp{\merid(x_1)}}{q}) = \code(\south)(q)。 \]
+  并且根据可泛性和路径类型中的传输 (transport in path types)，这等价于一个等价族
+  \[ \prd{q:\north=\south} \code(\north,q \ct \opp{\merid(x_1)}) \eqvsym \code(\south,q)。 \]
+  我们将定义一个映射族
   \begin{equation}\label{eq:freudmap}
-    \prd{q:\north=\south} \code(\north,q \ct \opp{\merid(x_1)}) \to \code(\south,q).
+  \prd{q:\north=\south} \code(\north,q \ct \opp{\merid(x_1)}) \to \code(\south,q)。
   \end{equation}
-  and then show that they are all equivalences.
-  Thus, let $q:\north=\south$; by the universal property of truncation and the definitions of $\code(\north,\blank)$ and $\code(\south,\blank)$, it will suffice to define for each $x_2:X$, a map
+  然后证明它们都是等价的。
+  因此，令 $q:\north=\south$；根据截断的通用性质以及 $\code(\north,\blank)$ 和 $\code(\south,\blank)$ 的定义，对于每个 $x_2:X$，定义一个映射
   \begin{equation*}
     \big(\merid(x_2)\ct \opp{\merid(x_0)} = q \ct \opp{\merid(x_1)}\big)
-    \to \trunc{2n}{\tsm{x:X} (\merid(x) = q)}.
+    \to \trunc{2n}{\tsm{x:X} (\merid(x) = q)}。
   \end{equation*}
-  Now for each $x_1,x_2:X$, this type is $2n$-truncated, while $X$ is $n$-connected.
-  Thus, by \cref{thm:wedge-connectivity}, it suffices to define this map when $x_1$ is $x_0$, when $x_2$ is $x_0$, and check that they agree when both are $x_0$.
+  现在对于每个 $x_1,x_2:X$，这个类型是 $2n$-截断的，而 $X$ 是 $n$-连通的。因此，根据 \cref{thm:wedge-connectivity}，只需要在 $x_1$ 为 $x_0$，$x_2$ 为 $x_0$ 时定义这个映射，并检查它们在 $x_0$ 时是否一致。
 
-  When $x_1$ is $x_0$, the hypothesis is $r:\merid(x_2)\ct \opp{\merid(x_0)} = q \ct \opp{\merid(x_0)}$.
-  Thus, by canceling $\opp{\merid(x_0)}$ from $r$ to get $r':\merid(x_2)=q$, so we can define the image to be $\tproj{2n}{(x_2,r')}$.
+  当 $x_1$ 为 $x_0$ 时，假设 $r:\merid(x_2)\ct \opp{\merid(x_0)} = q \ct \opp{\merid(x_0)}$。因此，通过从 $r$ 中消去 $\opp{\merid(x_0)}$ 得到 $r':\merid(x_2)=q$，所以我们可以将图像定义为 $\tproj{2n}{(x_2,r')}。
 
-  When $x_2$ is $x_0$, the hypothesis is $r:\merid(x_0)\ct \opp{\merid(x_0)} = q \ct \opp{\merid(x_1)}$.
-  Rearranging this, we obtain $r'':\merid(x_1)=q$, and we can define the image to be $\tproj{2n}{(x_1,r'')}$.
+  当 $x_2$ 为 $x_0$ 时，假设 $r:\merid(x_0)\ct \opp{\merid(x_0)} = q \ct \opp{\merid(x_1)}$。重新排列此路径，我们得到 $r'':\merid(x_1)=q$，我们可以将图像定义为 $\tproj{2n}{(x_1,r'')}。
 
-  Finally, when both $x_1$ and $x_2$ are $x_0$, it suffices to show the resulting $r'$ and $r''$ agree; this is an easy lemma about path composition.
-  This completes the definition of~\eqref{eq:freudmap}.
-  To show that it is a family of equivalences, since being an equivalence is a mere proposition and $x_0:\unit\to X$ is (at least) $(-1)$-connected, it suffices to assume $x_1$ is $x_0$.
-  In this case, inspecting the above construction we see that it is essentially the $2n$-truncation of the function that cancels $\opp{\merid(x_0)}$, which is an equivalence.
+  最后，当 $x_1$ 和 $x_2$ 都是 $x_0$ 时，足以证明得到的 $r'$ 和 $r''$ 一致；这可以通过一个关于路径组合的简单引理来证明。这完成了~\eqref{eq:freudmap} 的定义。要证明它是一个等价族，由于等价是一个纯粹命题，并且 $x_0:\unit\to X$ 是（至少）$(-1)$-连通的，所以我们可以假设 $x_1$ 是 $x_0$。在这种情况下，通过检查上面的构造，我们可以看到它本质上是消去 $\opp{\merid(x_0)}$ 的函数的 $2n$-截断，这是一个等价。
 \end{proof}
 
-In addition to~\eqref{eq:freudcodeN} and~\eqref{eq:freudcodeS}, we will need to extract from the construction of $\code$ some information about how it acts on paths.
-For this we use the following lemma.
+除了~\eqref{eq:freudcodeN} 和~\eqref{eq:freudcodeS}，我们还需要从 $\code$ 的构造中提取出一些关于它如何作用于路径的信息。为此，我们使用以下引理。
 
 \begin{lem}\label{thm:freudlemma}
-  Let $A:\UU$, $B:A\to \UU$, and $C:\prd{a:A} B(a)\to\UU$, and also $a_1,a_2:A$ with $m:a_1=a_2$ and $b:B(a_2)$.
-  Then the function
-  \[\transfib{\widehat{C}}{\pairpath(m,t)}{\blank} : C(a_1,\transfib{B}{\opp m}{b}) \to C(a_2,b),\]
-  where $t:\transfib{B}{m}{\transfib{B}{\opp m}{b}} = b$ is the obvious coherence path and $\widehat{C}:(\sm{a:A} B(a)) \to\type$ is the uncurried form of $C$, is equal to the equivalence obtained by univalence from the composite
-  \begin{align}
-    C(a_1,\transfib{B}{\opp m}{b})
-    &= \transfib{\lam{a} B(a)\to \UU}{m}{C(a_1)}(b)
-    \tag{by~\eqref{eq:transport-arrow}}\\
-    &= C(a_2,b). \tag{by $\happly(\apd{C}{m},b)$}
-  \end{align}
+令 $A:\UU$, $B:A\to \UU$, $C:\prd{a:A} B(a)\to\UU$，并且 $a_1,a_2:A$，假设 $m:a_1=a_2$ 并且 $b:B(a_2)$。那么函数
+\[\transfib{\widehat{C}}{\pairpath(m,t)}{\blank} : C(a_1,\transfib{B}{\opp m}{b}) \to C(a_2,b),\]
+其中 $t:\transfib{B}{m}{\transfib{B}{\opp m}{b}} = b$ 是显然的一致性路径，并且 $\widehat{C}:(\sm{a:A} B(a)) \to\type$ 是 $C$ 的非柯里化 (uncurried) 形式，它等价于从复合中通过可泛性获得的等价：
+\begin{align}
+  C(a_1,\transfib{B}{\opp m}{b})
+  &= \transfib{\lam{a} B(a)\to \UU}{m}{C(a_1)}(b)
+  \tag{by~\eqref{eq:transport-arrow}}\\
+  &= C(a_2,b)。 \tag{by $\happly(\apd{C}{m},b)$}
+\end{align}
 \end{lem}
+
 \begin{proof}
-  By path induction, we may assume $a_2$ is $a_1$ and $m$ is $\refl{a_1}$, in which case both functions are the identity.
+  通过路径归纳，我们可以假设 $a_2$ 是 $a_1$ 并且 $m$ 是 $\refl{a_1}$，在这种情况下两个函数都是恒等函数。
 \end{proof}
 
-We apply this lemma with $A\defeq\susp X$ and $B\defeq \lam{y}(\north=y)$ and $C\defeq\code$, while $a_1\defeq\north$ and $a_2\defeq\south$ and $m\defeq \merid(x_1)$ for some $x_1:X$, and finally $b\defeq q$ is some path $\north=\south$.
-The computation rule for induction over $\susp X$ identifies $\apd{C}{m}$ with a path constructed in a certain way out of univalence and function extensionality.
-The second function described in \cref{thm:freudlemma} essentially consists of undoing these applications of univalence and function extensionality, reducing back to the particular functions~\eqref{eq:freudmap} that we defined using \cref{thm:wedge-connectivity}.
-Therefore, \cref{thm:freudlemma} says that transporting along $\pairpath(q,t)$ essentially recovers these functions.
+我们应用这个引理，其中 $A\defeq\susp X$，$B\defeq \lam{y}(\north=y)$，$C\defeq\code$，$a_1\defeq\north$，$a_2\defeq\south$，$m\defeq \merid(x_1)$，其中 $x_1:X$，最后 $b\defeq q$ 是路径 $\north=\south$。
+悬吊 $X$ 的归纳计算规则将 $\apd{C}{m}$ 识别为通过可泛性和函数外延性 (function extensionality) 的应用构造出的路径。由 \cref{thm:freudlemma} 所述的第二个函数本质上包括撤销这些可泛性和函数外延性的应用，减少回我们用 \cref{thm:wedge-connectivity} 定义的特定函数~\eqref{eq:freudmap}。因此，\cref{thm:freudlemma} 说明沿着 $\pairpath(q,t)$ 进行传输 (transport) 本质上恢复了这些函数。
 
-Finally, by construction, when $x_1$ or $x_2$ coincides with $x_0$ and the input is in the image of $\tproj{2n}{\blank}$, we know more explicitly what these functions are.
-Thus, for any $x_2:X$, we have
+最后，通过构造，当 $x_1$ 或 $x_2$ 与 $x_0$ 重合并且输入位于 $\tproj{2n}{\blank}$ 的图像中时，我们可以更明确地知道这些函数是什么。因此，对于任意 $x_2:X$，我们有
 \begin{equation}
   \transfib{\hat{\code}}{\pairpath(\merid(x_0),t)}{\tproj{2n}{(x_2,r)}}
-  =\tproj{2n}{(x_1,r')}\label{eq:freudcompute1}
+  =\tproj{2n}{(x_1,r')}。\label{eq:freudcompute1}
 \end{equation}
-where $r:\merid(x_2) \ct \opp{\merid(x_0)} = \transfib{B}{\opp{\merid(x_0)}}{q}$ is arbitrary as before, and $r':\merid(x_2)=q$ is obtained from $r$ by identifying its end point with $q \ct \opp{\merid(x_0)}$ and canceling $\opp{\merid(x_0)}$.
-Similarly, for any $x_1:X$, we have
+其中 $r:\merid(x_2) \ct \opp{\merid(x_0)} = \transfib{B}{\opp{\merid(x_0)}}{q}$ 是任意的，$r':\merid(x_2)=q$ 通过将它的终点与 $q \ct \opp{\merid(x_0)}$ 识别并消去 $\opp{\merid(x_0)}$ 得到。同样，对于任意 $x_1:X$，我们有
 \begin{equation}
   \transfib{\hat{\code}}{\pairpath(\merid(x_1),t)}{\tproj{2n}{(x_0,r)}}
-  = \tproj{2n}{(x_1,r'')}\label{eq:freudcompute2}
+  = \tproj{2n}{(x_1,r'')}。\label{eq:freudcompute2}
 \end{equation}
-where $r:\merid(x_0) \ct \opp{\merid(x_0)} = \transfib{B}{\opp{\merid(x_1)}}{q}$, and $r'':\merid(x_1)=q$ is obtained by identifying its end point and rearranging paths.
+其中 $r:\merid(x_0) \ct \opp{\merid(x_0)} = \transfib{B}{\opp{\merid(x_1)}}{q}$，并且 $r'':\merid(x_1)=q$ 是通过识别它的终点和重排路径得到的。
 
-\begin{proof}[Proof of \cref{thm:freudenthal}]
-  It remains to show that $\code(y,p)$ is contractible for each $y:\susp X$ and $p:\north=y$.
-  First we must choose a center of contraction, say $c(y,p):\code(y,p)$.
-  This corresponds to the definition of the function $\encode$ in our previous proofs, so we define it by transport.
-  Note that in the special case when $y$ is $\north$ and $p$ is $\refl{\north}$, we have
-  \[\code(\north,\refl{\north}) \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) \ct \opp{\merid(x_0)} = \refl{\north})}.\]
-  Thus, we can choose $c(\north,\refl{\north})\defeq \tproj{2n}{(x_0,\mathsf{rinv}_{\merid(x_0)})}$, where $\mathrm{rinv}_q$ is the obvious path $q\ct\opp q = \refl{}$ for any $q$.
-  We can now obtain $c:\prd{y:\susp X}{p:\north=y} \code(y,p)$ by path induction on $p$, but it will be important below that we can also give a concrete definition in terms of transport:
+\begin{proof}[证明 \cref{thm:freudenthal}]
+  现在我们需要证明对于每个 $y:\susp X$ 和 $p:\north=y$，$\code(y,p)$ 是收缩的。首先我们必须选择一个收缩中心，设 $c(y,p):\code(y,p)$。这对应于在我们之前的证明中定义 $\encode$ 函数，因此我们通过传输来定义它。注意在特殊情况下，当 $y$ 是 $\north$ 且 $p$ 是 $\refl{\north}$ 时，我们有
+  \[\code(\north,\refl{\north}) \jdeq \trunc{2n}{\tsm{x:X} (\merid(x) \ct \opp{\merid(x_0)} = \refl{\north})}。\]
+  因此，我们可以选择 $c(\north,\refl{\north})\defeq \tproj{2n}{(x_0,\mathsf{rinv}_{\merid(x_0)})}$，其中 $\mathrm{rinv}_q$ 是一个显然的路径 $q\ct\opp q = \refl{}$ 对于任何 $q$。我们现在可以通过对 $p$ 进行路径归纳得到 $c:\prd{y:\susp X}{p:\north=y} \code(y,p)$，但下面很重要的是我们还可以通过传输给出一个具体的定义：
   \[ c(y,p) \defeq \transfib{\hat{\code}}{\pairpath(p,\mathsf{tid}_p)}{c(\north,\refl{\north})}
   \]
-  where $\hat{\code}: \big(\sm{y:\susp X} (\north=y)\big) \to \type$ is the uncurried version of \code, and $\mathsf{tid}_p:\trans{p}{\refl{}} = p$ is a standard lemma.
+  其中 $\hat{\code}: \big(\sm{y:\susp X} (\north=y)\big) \to \type$ 是 $\code$ 的非柯里化形式，并且 $\mathsf{tid}_p:\trans{p}{\refl{}} = p$ 是一个标准引理。
 
-  Next, we must show that every element of $\code(y,p)$ is equal to $c(y,p)$.
-  Again, by path induction, it suffices to assume $y$ is $\north$ and $p$ is $\refl{\north}$.
-  In fact, we will prove it more generally when $y$ is $\north$ and $p$ is arbitrary.
-  That is, we will show that for any $p:\north=\north$ and $d:\code(\north,p)$ we have $d = c(\north,p)$.
-  Since this equality is a $(2n-1)$-type, we may assume $d$ is of the form $\tproj{2n}{(x_1,r)}$ for some $x_1:X$ and $r:\merid(x_1) \ct \opp{\merid(x_0)} = p$.
+  接下来，我们必须证明 $\code(y,p)$ 的每个元素都等于 $c(y,p)$。同样，通过路径归纳，我们可以假设 $y$ 是 $\north$ 并且 $p$ 是 $\refl{\north}$。事实上，我们将更普遍地证明当 $y$ 是 $\north$ 并且 $p$ 是任意时。也就是说，我们将证明对于任何 $p:\north=\north$ 和 $d:\code(\north,p)$，我们有 $d = c(\north,p)$。由于这个等式是一个 $(2n-1)$-类型，我们可以假设 $d$ 的形式为 $\tproj{2n}{(x_1,r)}$，其中 $x_1:X$ 并且 $r:\merid(x_1) \ct \opp{\merid(x_0)} = p$。
 
-  Now by a further path induction, we may assume that $r$ is reflexivity, and $p$ is $\merid(x_1) \ct \opp{\merid(x_0)}$.
-  (This is why we generalized to arbitrary $p$ above.)
-  Thus, we have to prove that
+  现在通过进一步的路径归纳，我们可以假设 $r$ 是反身性，并且 $p$ 是 $\merid(x_1) \ct \opp{\merid(x_0)}$。这就是为什么我们将其推广到任意 $p$ 的原因。因此，我们必须证明
   \begin{equation}
     \tproj{2n}{(x_1, \refl{\merid(x_1) \ct \opp{\merid(x_0)}})}
     \;=\;
-    c\left(\north,\refl{\merid(x_1) \ct \opp{\merid(x_0)}}\right).\label{eq:freudgoal}
+    c\left(\north,\refl{\merid(x_1) \ct \opp{\merid(x_0)}}\right)。\label{eq:freudgoal}
   \end{equation}
-  By definition, the right-hand side of this equality is
+  根据定义，这个等式的右侧是
   \begin{multline*}
     \Transfib{\hat{\code}}{\pairpath(\merid(x_1) \ct \opp{\merid(x_0)}, \nameless)}{\tproj{2n}{(x_0,\nameless)}} \\
     = \transfibf{\hat{\code}}
@@ -1456,96 +1417,83 @@ where $r:\merid(x_0) \ct \opp{\merid(x_0)} = \transfib{B}{\opp{\merid(x_1)}}{q}$
     = \Transfib{\hat{\code}}{\pairpath(\opp{\merid(x_0)}, \nameless)}{\tproj{2n}{(x_1,\nameless)}}
     = \tproj{2n}{(x_1,\nameless)}
   \end{multline*}
-  where the underscore $\nameless$ ought to be filled in with suitable coherence paths.
-  Here the first step is functoriality of transport, the second invokes~\eqref{eq:freudcompute2}, and the third invokes~\eqref{eq:freudcompute1} (with transport moved to the other side).
-  Thus we have the same first component as the left-hand side of~\eqref{eq:freudgoal}.
-  We leave it to the reader to verify that the coherence paths all cancel, giving reflexivity in the second component.
+  其中下划线 $\nameless$ 应该用合适的一致性路径填充。这里的第一步是传输的函子性，第二步调用了~\eqref{eq:freudcompute2}，第三步调用了~\eqref{eq:freudcompute1}（并将传输移至另一侧）。因此我们具有~\eqref{eq:freudgoal} 左侧相同的第一分量。我们留给读者验证所有的一致性路径都会消去，给出第二分量中的反身性。
 \end{proof}
 
-% As a corollary, we have the following equivalence.
+% 作为推论，我们有以下等价。
 
-\begin{cor}[Freudenthal Equivalence] \label{cor:freudenthal-equiv}
-Suppose that $X$ is $n$-connected and pointed, with $n\geq 0$.
-Then $\eqv{\trunc{2n}{X}}{\trunc{2n}{\Omega\susp(X)}}$.
+\begin{cor}[Freudenthal 等价 (Freudenthal Equivalence)] \label{cor:freudenthal-equiv}
+假设 $X$ 是 $n$-连通且有基点的，并且 $n\geq 0$。那么 $\eqv{\trunc{2n}{X}}{\trunc{2n}{\Omega\susp(X)}}$。
 \end{cor}
+
 \begin{proof}
-By \cref{thm:freudenthal}, $\sigma$ is $2n$-connected.  By
-\cref{lem:connected-map-equiv-truncation}, it is therefore an
-equivalence on $2n$-truncations.
+  根据 \cref{thm:freudenthal}，$\sigma$ 是 $2n$-连通的。根据 \cref{lem:connected-map-equiv-truncation}，因此它在 $2n$-截断上是一个等价。
 \end{proof}
 
-\index{encode-decode method|)}%
+\index{编码-解码方法|)}%
 
-\index{Freudenthal suspension theorem|)}%
-\index{theorem!Freudenthal suspension|)}%
+\index{Freudenthal 悬吊定理|)}%
+\index{定理!Freudenthal 悬吊|)}%
 
-\index{homotopy!group!of sphere}%
-\index{stability!of homotopy groups of spheres}%
-\index{type!n-sphere@$n$-sphere}%
-One important corollary of the Freudenthal suspension theorem is that the homotopy groups of
-spheres are stable in a certain range (these are the northeast-to-southwest diagonals
-in \cref{tab:homotopy-groups-of-spheres}):
+\index{同伦!球面 (homotopy!group!of sphere)}%
+\index{稳定性!球面同伦群的稳定性 (stability!of homotopy groups of spheres)}%
+\index{类型!n-球面 (type!n-sphere@$n$-sphere)}%
+Freudenthal 悬吊定理的一个重要推论是球面 (sphere) 的同伦群 (homotopy group) 在某个范围内是稳定的（这些是 \cref{tab:homotopy-groups-of-spheres} 中从东北到西南的对角线）：
 
-\begin{cor}[Stability for Spheres] \label{cor:stability-spheres}
-If $k \le 2n-2$, then $\pi_{k+1}(S^{n+1}) = \pi_{k}(S^{n})$.
+\begin{cor}[球面稳定性 (Stability for Spheres)] \label{cor:stability-spheres}
+如果 $k \le 2n-2$，则 $\pi_{k+1}(S^{n+1}) = \pi_{k}(S^{n})$。
 \end{cor}
+
 \begin{proof}
-Assume $k \le 2n-2$.
+  假设 $k \le 2n-2$。
 %
-By \cref{cor:sn-connected}, $\Sn ^{n}$ is $\nminusone$-connected.  Therefore,
-by \cref{cor:freudenthal-equiv},
-\[
-\trunc{2(n-1)}{\Omega(\susp(\Sn^{n}))} = \trunc{2(n-1)}{\Sn^{n}}.
-\]
-By \cref{lem:truncation-le}, because $k \le 2(n-1)$, applying $\trunc{k}{\blank}$
-to both sides shows that this equation holds for $k$:
-\begin{equation}\label{eq:freudenthal-for-spheres}
-\trunc{k}{\Omega(\susp(\Sn^{n}))} = \trunc{k}{\Sn^{n}}.
-\end{equation}
+  根据 \cref{cor:sn-connected}，$\Sn ^{n}$ 是 $\nminusone$-连通的。因此，根据 \cref{cor:freudenthal-equiv}，
+  \[
+    \trunc{2(n-1)}{\Omega(\susp(\Sn^{n}))} = \trunc{2(n-1)}{\Sn^{n}}。
+  \]
+  根据 \cref{lem:truncation-le}，由于 $k \le 2(n-1)$，对两边应用 $\trunc{k}{\blank}$ 显示这个等式对 $k$ 成立：
+  \begin{equation}\label{eq:freudenthal-for-spheres}
+  \trunc{k}{\Omega(\susp(\Sn^{n}))} = \trunc{k}{\Sn^{n}}。
+  \end{equation}
 %
-Then, the main idea of the proof is as follows; we omit checking that these
-equivalences act appropriately on the base points of these spaces, and that for
-$k > 0$ the equivalences respect multiplication:
+  那么，证明的主要思路如下；我们省略了这些等价对这些空间的基点的作用检查，并且对于 $k > 0$，等价尊重乘法：
 %
-\begin{align*}
-\pi_{k+1}(\Sn^{n+1}) &\jdeq \trunc{0}{\Omega^{k+1}(\Sn^{n+1})} \\
-                     &\jdeq \trunc{0}{\Omega^k(\Omega(\Sn^{n+1}))} \\
-                     &\jdeq \trunc{0}{\Omega^k(\Omega(\susp(\Sn^{n})))} \\
-                     &= \Omega^k(\trunc{k}{(\Omega(\susp(\Sn^{n})))})
-                     \tag{by \cref{thm:path-truncation}}\\
-                     &= \Omega^k(\trunc{k}{\Sn^{n}})
-                     \tag{by \eqref{eq:freudenthal-for-spheres}}\\
-                     &= \trunc{0}{\Omega^k(\Sn^{n})}
-                     \tag{by \cref{thm:path-truncation}}\\
-                     &\jdeq \pi_k(\Sn^{n}). \qedhere
-\end{align*}
+  \begin{align*}
+    \pi_{k+1}(\Sn^{n+1}) &\jdeq \trunc{0}{\Omega^{k+1}(\Sn^{n+1})} \\
+    &\jdeq \trunc{0}{\Omega^k(\Omega(\Sn^{n+1}))} \\
+    &\jdeq \trunc{0}{\Omega^k(\Omega(\susp(\Sn^{n})))} \\
+    &= \Omega^k(\trunc{k}{(\Omega(\susp(\Sn^{n})))})
+    \tag{by \cref{thm:path-truncation}}\\
+    &= \Omega^k(\trunc{k}{\Sn^{n}})
+    \tag{by \eqref{eq:freudenthal-for-spheres}}\\
+    &= \trunc{0}{\Omega^k(\Sn^{n})}
+    \tag{by \cref{thm:path-truncation}}\\
+    &\jdeq \pi_k(\Sn^{n})。 \qedhere
+  \end{align*}
 %
 \end{proof}
 
-This means that once we have calculated one entry in one of these stable
-diagonals, we know all of them.  For example:
+这意味着一旦我们计算出这些稳定对角线中的一个条目，我们就知道它们的全部。例如：
+
 \begin{thm}\label{thm:pinsn}
-$\pi_n(\Sn^n)=\Z$ for every $n\geq 1$.
+对于每个 $n\geq 1$，$\pi_n(\Sn^n)=\Z$。
 \end{thm}
 
 \begin{proof}
-The proof is by induction on $n$.  We already have $\pi_1(\Sn ^1) = \Z$
-(\cref{cor:pi1s1}) and $\pi_2(\Sn ^2) = \Z$ (\cref{cor:pis2-hopf}).
-When $n \ge 2$, $n \le (2n - 2)$. Therefore, by
-\cref{cor:stability-spheres}, $\pi_{n+1}(S^{n+1}) = \pi_{n}(S^{n})$, and
-this equivalence, combined with the inductive hypothesis, gives the result.
+  证明是对 $n$ 的归纳。我们已经有 $\pi_1(\Sn ^1) = \Z$ (\cref{cor:pi1s1}) 和 $\pi_2(\Sn ^2) = \Z$ (\cref{cor:pis2-hopf})。
+  当 $n \ge 2$ 时，$n \le (2n - 2)$。因此，根据 \cref{cor:stability-spheres}，$\pi_{n+1}(S^{n+1}) = \pi_{n}(S^{n})$，并且这个等价结合归纳假设，给出了结果。
 \end{proof}
 
 \begin{cor}
-  $\Sn^{n+1}$ is not an $n$-type for any $n\ge -1$.
+  对于任何 $n\ge -1$，$\Sn^{n+1}$ 不是 $n$-类型。
 \end{cor}
 
 \begin{cor}\label{thm:pi3s2}
-  $\pi_3(\Sn^2)=\Z$.
+$\pi_3(\Sn^2)=\Z$。
 \end{cor}
 \begin{proof}
-  By \cref{cor:pis2-hopf}, $\pi_3(\Sn^2) = \pi_3(\Sn^3)$.
-  But by \cref{thm:pinsn}, $\pi_3(\Sn^3) = \Z$.
+  根据 \cref{cor:pis2-hopf}，$\pi_3(\Sn^2) = \pi_3(\Sn^3)$。
+  但根据 \cref{thm:pinsn}，$\pi_3(\Sn^3) = \Z$。
 \end{proof}
 
 \section{The van Kampen theorem}
