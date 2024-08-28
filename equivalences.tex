@@ -326,232 +326,232 @@
 \index{half adjoint equivalence|)}%
 \index{adjoint!equivalence!of types, half|)}%
 
-\section{Bi-invertible maps}
+\section{双可逆映射 (Bi-invertible maps)}
 \label{sec:biinv}
 
 \index{function!bi-invertible|(defstyle}%
 \index{bi-invertible function|(defstyle}%
 \index{equivalence!as bi-invertible function|(defstyle}%
 
-Using the language introduced in \cref{sec:hae}, we can restate the definition proposed in \cref{sec:basics-equivalences} as follows.
+使用在 \cref{sec:hae} 引入的语言，我们可以重新表述在 \cref{sec:basics-equivalences} 提出的定义，如下所示。
 
 \begin{defn}\label{defn:biinv}
-  We say $f:A\to B$ is \define{bi-invertible}
-  if it has both a left inverse and a right inverse:
-  \[ \biinv (f) \defeq \linv(f) \times \rinv(f). \]
+我们说 $f:A\to B$ 是 \define{双可逆 (bi-invertible)} 映射，
+如果它同时具有左逆元和右逆元：
+\[ \biinv (f) \defeq \linv(f) \times \rinv(f). \]
 \end{defn}
 
-In \cref{sec:basics-equivalences} we proved that $\qinv(f)\to\biinv(f)$ and $\biinv(f)\to\qinv(f)$.
-What remains is the following.
+在 \cref{sec:basics-equivalences} 中，我们证明了 $\qinv(f)\to\biinv(f)$ 和 $\biinv(f)\to\qinv(f)$。
+剩下的是以下内容。
 
 \begin{thm}\label{thm:isprop-biinv}
-  For any $f:A\to B$, the type $\biinv(f)$ is a mere proposition.
+对于任意 $f:A\to B$，类型 $\biinv(f)$ 是一个单纯命题 (mere proposition)。
 \end{thm}
 \begin{proof}
-  We may suppose $f$ to be bi-invertible and show that $\biinv(f)$ is contractible.
-  But since $\biinv(f)\to\qinv(f)$, by \cref{lem:inv-hprop} in this case both $\linv(f)$ and $\rinv(f)$ are contractible, and the product of contractible types is contractible.
+  我们假设 $f$ 是双可逆的并证明 $\biinv(f)$ 是收缩的 (contractible)。
+  但由于 $\biinv(f)\to\qinv(f)$，根据 \cref{lem:inv-hprop}，在这种情况下 $\linv(f)$ 和 $\rinv(f)$ 都是收缩的，而收缩类型的乘积也是收缩的。
 \end{proof}
 
-Note that this also fits the proposal made at the beginning of \cref{sec:hae}: we combine $g$ and $\eta$ into a contractible type and add an additional datum which combines with $\epsilon$ into a contractible type.
-The difference is that instead of adding a \emph{higher} datum (a 2-dimensional path) to combine with $\epsilon$, we add a \emph{lower} one (a right inverse that is separate from the left inverse).
+注意，这也符合在 \cref{sec:hae} 开头提出的建议：我们将 $g$ 和 $\eta$ 组合成一个收缩类型，并添加一个额外的数据，它与 $\epsilon$ 组合成一个收缩类型。
+不同之处在于，我们没有添加一个 \emph{更高的} 数据（一个二维路径）来与 $\epsilon$ 组合，而是添加了一个 \emph{更低的} 数据（一个与左逆元分开的右逆元）。
 
 \begin{cor}\label{thm:equiv-biinv-isequiv}
-  For any $f:A\to B$ we have $\eqv{\biinv(f)}{\ishae(f)}$.
+对于任意 $f:A\to B$，我们有 $\eqv{\biinv(f)}{\ishae(f)}$。
 \end{cor}
 \begin{proof}
-  We have $\biinv(f) \to \qinv(f) \to \ishae(f)$ and $\ishae(f) \to \qinv(f) \to \biinv(f)$.
-  Since both $\ishae(f)$ and $\biinv(f)$ are mere propositions, the equivalence follows from \cref{lem:equiv-iff-hprop}.
+  我们有 $\biinv(f) \to \qinv(f) \to \ishae(f)$ 和 $\ishae(f) \to \qinv(f) \to \biinv(f)$。
+  由于 $\ishae(f)$ 和 $\biinv(f)$ 都是单纯命题，因此根据 \cref{lem:equiv-iff-hprop} 可以得出等价性。
 \end{proof}
 
 \index{function!bi-invertible|)}%
 \index{bi-invertible function|)}%
 \index{equivalence!as bi-invertible function|)}%
 
-\section{Contractible fibers}
+\section{收缩纤维 (Contractible fibers)}
 \label{sec:contrf}
 
 \index{function!contractible|(defstyle}%
 \index{contractible!function|(defstyle}%
 \index{equivalence!as contractible function|(defstyle}%
 
-Note that our proofs about $\ishae(f)$ and $\biinv(f)$ made essential use of the fact that the fibers of an equivalence are contractible.
-In fact, it turns out that this property is itself a sufficient definition of equivalence.
+注意，我们关于 $\ishae(f)$ 和 $\biinv(f)$ 的证明中，使用了等价的纤维是收缩的这一事实。
+实际上，这个性质本身就是等价的一个充分定义。
 
-\begin{defn}[Contractible maps] \label{defn:equivalence}
-  A map $f:A\to B$ is \define{contractible}
-  if for all $y:B$, the fiber $\hfib f y$ is contractible.
+\begin{defn}[收缩映射 (Contractible maps)] \label{defn:equivalence}
+映射 $f:A\to B$ 是 \define{收缩的 (contractible)}，
+如果对所有 $y:B$，纤维 $\hfib f y$ 是收缩的。
 \end{defn}
 
-Thus, the type $\iscontr(f)$ is defined to be
+因此，类型 $\iscontr(f)$ 被定义为
 \begin{align}
   \iscontr(f) &\defeq \prd{y:B} \iscontr(\hfib f y)\label{eq:iscontrf}
   % \\
   % &\defeq \prd{y:B} \iscontr (\setof{x:A | f(x) = y}).
 \end{align}
-Note that in \cref{sec:contractibility} we defined what it means for a \emph{type} to be contractible.
-Here we are defining what it means for a \emph{map} to be contractible.
-Our terminology follows the general homotopy-theoretic practice of saying that a map has a certain property if all of its (homotopy) fibers have that property.
-Thus, a type $A$ is contractible just when the map $A\to\unit$ is contractible.
-From \cref{cha:hlevels} onwards we will also call contractible maps and types \emph{$(-2)$-truncated}.
+注意，在 \cref{sec:contractibility} 中，我们定义了 \emph{类型} 收缩的含义。
+在这里，我们定义了 \emph{映射} 收缩的含义。
+我们的术语遵循一般同伦理论的实践，即如果一个映射的所有（同伦）纤维都具有某个性质，则该映射具有该性质。
+因此，当映射 $A\to\unit$ 是收缩的时，类型 $A$ 是收缩的。
+从 \cref{cha:hlevels} 开始，我们也会称收缩映射和类型为 \emph{$(-2)$-截断的 ($(-2)$-truncated)}。
 
-We have already shown in \cref{thm:contr-hae} that $\ishae(f) \to \iscontr(f)$.
-Conversely:
+我们已经在 \cref{thm:contr-hae} 中展示了 $\ishae(f) \to \iscontr(f)$。
+反之亦然：
 
 \begin{thm}\label{thm:lequiv-contr-hae}
-For any $f:A\to B$ we have ${\iscontr(f)} \to {\ishae(f)}$.
+对于任意 $f:A\to B$ 我们有 ${\iscontr(f)} \to {\ishae(f)}$。
 \end{thm}
 \begin{proof}
-Let $P : \iscontr(f)$. We define an inverse mapping $g : B \to A$ by sending each $y : B$ to the center of contraction of the fiber at $y$:
-\[ g(y) \defeq \proj{1}(\proj{1}(Py)). \]
-We can thus define the homotopy $\epsilon$ by mapping $y$ to the witness that $g(y)$ indeed belongs to the fiber at $y$:
-\[ \epsilon(y) \defeq \proj{2}(\proj{1}(P y)). \]
-It remains to define $\eta$ and $\tau$. This of course amounts to giving an element of $\rcoh{f}{g}{\epsilon}$. By \cref{lem:coh-hfib}, this is the same as giving for each $x:A$ a path from $(gfx,\epsilon(fx))$ to $(x,\refl{fx})$ in the fiber of $f$ over $fx$. But this is easy: for any $x : A$, the type $\hfib{f}{fx}$
-is contractible by assumption, hence such a path must exist. We can construct it explicitly as
-\[\opp{\big(\proj{2}(P(fx))(gfx,\epsilon(fx))\big)} \ct \big(\proj{2}(P(fx)) (x,\refl{fx})\big). \qedhere \]
+  让 $P : \iscontr(f)$。我们通过将每个 $y : B$ 映射到 $y$ 处纤维的收缩中心来定义一个逆映射 $g : B \to A$：
+  \[ g(y) \defeq \proj{1}(\proj{1}(Py))。\]
+  因此，我们可以通过将 $y$ 映射到 $g(y)$ 确实属于 $y$ 处纤维的见证，来定义同伦 $\epsilon$：
+  \[ \epsilon(y) \defeq \proj{2}(\proj{1}(P y))。\]
+  剩下的是定义 $\eta$ 和 $\tau$。这当然意味着给出一个 $\rcoh{f}{g}{\epsilon}$ 的元素。根据 \cref{lem:coh-hfib}，这相当于给出对于每个 $x:A$，从 $f$ 在 $fx$ 处的纤维中的 $(gfx,\epsilon(fx))$ 到 $(x,\refl{fx})$ 的路径。但这很简单：对于任意 $x : A$，类型 $\hfib{f}{fx}$ 根据假设是收缩的，因此这样的路径必须存在。我们可以显式地构造它为
+  \[\opp{\big(\proj{2}(P(fx))(gfx,\epsilon(fx))\big)} \ct \big(\proj{2}(P(fx)) (x,\refl{fx})\big). \qedhere \]
 \end{proof}
 
-It is also easy to see:
+同样容易看出：
 
 \begin{lem}\label{thm:contr-hprop}
-  For any $f$, the type $\iscontr(f)$ is a mere proposition.
+对于任意 $f$，类型 $\iscontr(f)$ 是一个单纯命题。
 \end{lem}
 \begin{proof}
-  By \cref{thm:isprop-iscontr}, each type $\iscontr (\hfib f y)$ is a mere proposition.
-  Thus, by \cref{thm:isprop-forall}, so is~\eqref{eq:iscontrf}.
+  根据 \cref{thm:isprop-iscontr}，每个类型 $\iscontr (\hfib f y)$ 是一个单纯命题。
+  因此，根据 \cref{thm:isprop-forall}，\eqref{eq:iscontrf} 也是如此。
 \end{proof}
 
 \begin{thm}\label{thm:equiv-contr-hae}
-  For any $f:A\to B$ we have $\eqv{\iscontr(f)}{\ishae(f)}$.
+对于任意 $f:A\to B$ 我们有 $\eqv{\iscontr(f)}{\ishae(f)}$。
 \end{thm}
 \begin{proof}
-  We have already established a logical equivalence ${\iscontr(f)} \Leftrightarrow {\ishae(f)}$, and both are mere propositions (\cref{thm:contr-hprop,thm:hae-hprop}).
-  Thus, \cref{lem:equiv-iff-hprop} applies.
+  我们已经建立了 ${\iscontr(f)} \Leftrightarrow {\ishae(f)}$ 的逻辑等价关系，并且它们都是单纯命题 (\cref{thm:contr-hprop,thm:hae-hprop})。
+  因此，\cref{lem:equiv-iff-hprop} 适用。
 \end{proof}
 
-Usually, we prove that a function is an equivalence by exhibiting a quasi-inverse, but sometimes this definition is more convenient.
-For instance, it implies that when proving a function to be an equivalence, we are free to assume that its codomain is inhabited.
+通常，我们通过给出一个准逆元来证明一个函数是等价的，但有时这个定义更方便。
+例如，它暗示了当证明一个函数是等价的时，我们可以假设它的陪域是非空的。
 
 \begin{cor}\label{thm:equiv-inhabcod}
-  If $f:A\to B$ is such that $B\to \isequiv(f)$, then $f$ is an equivalence.
+如果 $f:A\to B$ 使得 $B\to \isequiv(f)$，那么 $f$ 是等价的。
 \end{cor}
 \begin{proof}
-  To show $f$ is an equivalence, it suffices to show that $\hfib f y$ is contractible for any $y:B$.
-  But if $e:B\to \isequiv(f)$, then given any such $y$ we have $e(y):\isequiv(f)$, so that $f$ is an equivalence and hence $\hfib f y$ is contractible, as desired.
+  为了证明 $f$ 是等价的，足以证明对于任意 $y:B$，$\hfib f y$ 是收缩的。
+  但是如果 $e:B\to \isequiv(f)$，那么对于任意 $y$，我们有 $e(y):\isequiv(f)$，因此 $f$ 是等价的，并且因此 $\hfib f y$ 是收缩的，如所需。
 \end{proof}
 
 \index{function!contractible|)}%
 \index{contractible!function|)}%
 \index{equivalence!as contractible function|)}%
 
-\section{On the definition of equivalences}
+\section{关于等价定义的思考 (On the definition of equivalences)}
 \label{sec:concluding-remarks}
 
 \indexdef{equivalence}
-We have shown that all three definitions of equivalence satisfy the three desirable properties and are pairwise equivalent:
+我们已经证明所有三个等价的定义满足三个理想的性质，并且它们是成对等价的：
 \[ \iscontr(f) \eqvsym \ishae(f) \eqvsym \biinv(f). \]
-(There are yet more possible definitions of equivalence, but we will stop with these three.
-See \cref{ex:brck-qinv} and the exercises in this chapter for some more.)
-Thus, we may choose any one of them as ``the'' definition of $\isequiv (f)$.
-For definiteness, we choose to define
-\[ \isequiv(f) \defeq \ishae(f).\]
+（还有更多可能的等价定义，但我们将在此处讨论这三个。
+参见 \cref{ex:brck-qinv} 和本章中的习题，以了解更多。）
+因此，我们可以选择其中任何一个作为 $\isequiv (f)$ 的“定义”。
+为了明确起见，我们选择定义
+\[ \isequiv(f) \defeq \ishae(f)。\]
 \index{mathematics!formalized}%
-This choice is advantageous for formalization, since $\ishae(f)$ contains the most directly useful data.
-On the other hand, for other purposes, $\biinv(f)$ is often easier to deal with, since it contains no 2-dimensional paths and its two symmetrical halves can be treated independently.
-However, for purposes of this book, the specific choice will make little difference.
+这个选择对形式化很有利，因为 $\ishae(f)$ 包含了最直接有用的数据。
+另一方面，对于其他目的，$\biinv(f)$ 通常更容易处理，因为它不包含二维路径，并且它的两个对称部分可以独立处理。
+然而，对于本书的目的，具体选择几乎没有区别。
 
-In the rest of this chapter, we study some other properties and characterizations of equivalences.
+在本章的其余部分，我们研究等价的一些其他性质和特征。
 \index{equivalence!properties of}%
 
 
-\section{Surjections and embeddings}
+\section{满射与嵌入 (Surjections and embeddings)}
 \label{sec:mono-surj}
 
 \index{set}
-When $A$ and $B$ are sets and $f:A\to B$ is an equivalence, we also call it as \define{isomorphism}
+当 $A$ 和 $B$ 是集合 (sets) 并且 $f:A\to B$ 是等价的时，我们也称它为 \define{同构 (isomorphism)}
 \indexdef{isomorphism!of sets}%
-or a \define{bijection}.
+或 \define{双射 (bijection)}。
 \indexdef{bijection}%
 \indexsee{function!bijective}{bijection}%
-(We avoid these words for types that are not sets, since in homotopy theory and higher category theory they often denote a stricter notion of ``sameness'' than homotopy equivalence.)
-In set theory, a function is a bijection just when it is both injective and surjective.
-The same is true in type theory, if we formulate these conditions appropriately.
-For clarity, when dealing with types that are not sets, we will speak of \emph{embeddings} instead of injections.
+（对于不是集合的类型，我们避免使用这些词，因为在同伦理论和高阶范畴论中，它们通常表示比同伦等价更严格的“相同”概念。）
+在集合论中，当且仅当一个函数既是单射 (injective) 又是满射 (surjective) 时，它是一个双射。
+在类型论中也是如此，如果我们适当地表述这些条件。
+为清楚起见，在处理非集合的类型时，我们将使用 \emph{嵌入 (embeddings)} 一词来代替单射。
 
 \begin{defn}\label{defn:surj-emb}
-  Let $f:A\to B$.
-  \begin{enumerate}
-  \item We say $f$ is \define{surjective}
-    \indexsee{surjective!function}{function, surjective}%
-    \indexdef{function!surjective}%
-    (or a \define{surjection})
-    \indexsee{surjection}{function, surjective}%
-    if for every $b:B$ we have $\brck{\hfib f b}$.
-  \item We say $f$ is an \define{embedding}
-    \indexdef{function!embedding}%
-    \indexsee{embedding}{function, embedding}%
-    if for every $x,y:A$ the function $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ is an equivalence.
-  \end{enumerate}
+设 $f:A\to B$。
+\begin{enumerate}
+  \item 我们说 $f$ 是 \define{满射 (surjective)}
+  \indexsee{surjective!function}{function, surjective}%
+  \indexdef{function!surjective}%
+  （或称为 \define{满射 (surjection)}）
+  \indexsee{surjection}{function, surjective}%
+  如果对于每个 $b:B$，我们有 $\brck{\hfib f b}$。
+  \item 我们说 $f$ 是一个 \define{嵌入 (embedding)}
+  \indexdef{function!embedding}%
+  \indexsee{embedding}{function, embedding}%
+  如果对于每个 $x,y:A$，函数 $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ 是一个等价。
+\end{enumerate}
 \end{defn}
 
-In other words, $f$ is surjective if every fiber of $f$ is merely inhabited, or equivalently if for all $b:B$ there merely exists an $a:A$ such that $f(a)=b$.
-In traditional logical notation, $f$ is surjective if $\fall{b:B}\exis{a:A} (f(a)=b)$.
-This must be distinguished from the stronger assertion that $\prd{b:B}\sm{a:A} (f(a)=b)$; if this holds we say that $f$ is a \define{split surjection}.
+换句话说，如果 $f$ 的每个纤维只是居住的，或者等价地，如果对于所有 $b:B$，仅存在一个 $a:A$ 使得 $f(a)=b$，则 $f$ 是满射。
+在传统逻辑符号中，如果 $\fall{b:B}\exis{a:A} (f(a)=b)$，则 $f$ 是满射。
+这必须与更强的断言 $\prd{b:B}\sm{a:A} (f(a)=b)$ 区分开来；如果这成立，我们说 $f$ 是一个 \define{分裂满射 (split surjection)}。
 \indexsee{split!surjection}{function, split surjective}%
 \indexsee{surjection!split}{function, split surjective}%
 \indexsee{surjective!function!split}{function, split surjective}%
 \indexdef{function!split surjective}%
-(Since this latter type is equivalent to $\sm{g:B\to A}\prd{b:B} (f(g(b))=b)$, being a split surjection is the same as being a \emph{retraction} as defined in \cref{sec:contractibility}.)
+（因为这个后者的类型等价于 $\sm{g:B\to A}\prd{b:B} (f(g(b))=b)$，所以分裂满射与 \cref{sec:contractibility} 中定义的 \emph{再牵引 (retraction)} 是相同的。）
 \index{retraction}%
 \index{function!retraction}%
 
-The axiom of choice from \cref{sec:axiom-choice} says exactly that every surjection \emph{between sets} is split.
-However, in the presence of the univalence axiom, it is simply false that \emph{all} surjections are split.
-In \cref{thm:no-higher-ac} we constructed a type family $Y:X\to \type$ such that $\prd{x:X} \brck{Y(x)}$ but $\neg \prd{x:X} Y(x)$;
-for any such family, the first projection $(\sm{x:X} Y(x)) \to X$ is a surjection that is not split.
+\cref{sec:axiom-choice} 中的选择公理 (axiom of choice) 恰好说明了每个 \emph{集合之间的} 满射都是分裂的。
+然而，在单一性公理 (univalence axiom) 的存在下，简单地说，\emph{所有} 满射都不是分裂的。
+在 \cref{thm:no-higher-ac} 中，我们构建了一个类型族 $Y:X\to \type$，使得 $\prd{x:X} \brck{Y(x)}$ 但 $\neg \prd{x:X} Y(x)$；
+对于任何此类族，$Y$ 的第一次投影 $(\sm{x:X} Y(x)) \to X$ 是一个未分裂的满射。
 
-If $A$ and $B$ are sets, then by \cref{lem:equiv-iff-hprop}, $f$ is an embedding just when
+如果 $A$ 和 $B$ 是集合，那么根据 \cref{lem:equiv-iff-hprop}，当且仅当
 \begin{equation}
   \prd{x,y:A} (\id[B]{f(x)}{f(y)}) \to (\id[A]xy).\label{eq:injective}
 \end{equation}
-In this case we say that $f$ is \define{injective},
+时，$f$ 是嵌入的。
+在这种情况下，我们说 $f$ 是 \define{单射 (injective)}，
 \indexsee{injective function}{function, injective}%
 \indexdef{function!injective}%
-or an \define{injection}.
+或 \define{单射 (injection)}。
 \indexsee{injection}{function, injective}%
-We avoid these word for types that are not sets, because they might be interpreted as~\eqref{eq:injective}, which is an ill-behaved notion for non-sets.
-It is also true that any function between sets is surjective if and only if it is an \emph{epimorphism} in a suitable sense, but this also fails for more general types, and surjectivity is generally the more important notion.
+对于非集合的类型，我们避免使用这些词，因为它们可能会被解释为~\eqref{eq:injective}，这是对非集合类型不合适的概念。
+同样地，任何集合之间的函数如果且仅如果它是一个适当意义上的 \emph{上同态 (epimorphism)}，则它是满射，但这对更一般的类型来说也是不成立的，并且满射通常是更重要的概念。
 
 \begin{thm}\label{thm:mono-surj-equiv}
-  A function $f:A\to B$ is an equivalence if and only if it is both surjective and an embedding.
+一个函数 $f:A\to B$ 当且仅当它既是满射又是嵌入时是等价的。
 \end{thm}
 \begin{proof}
-  If $f$ is an equivalence, then each $\hfib f b$ is contractible, hence so is $\brck{\hfib f b}$, so $f$ is surjective.
-  And we showed in \cref{thm:paths-respects-equiv} that any equivalence is an embedding.
+  如果 $f$ 是等价的，那么每个 $\hfib f b$ 都是收缩的，因此 $\brck{\hfib f b}$ 也是收缩的，因此 $f$ 是满射的。
+  我们在 \cref{thm:paths-respects-equiv} 中证明了任何等价都是嵌入的。
 
-  Conversely, suppose $f$ is a surjective embedding.
-  Let $b:B$; we show that $\sm{x:A}(f(x)=b)$ is contractible.
-  Since $f$ is surjective, there merely exists an $a:A$ such that $f(a)=b$.
-  Thus, the fiber of $f$ over $b$ is inhabited; it remains to show it is a mere proposition.
-  For this, suppose given $x,y:A$ with $p:f(x)=b$ and $q:f(y)=b$.
-  Then since $\apfunc f$ is an equivalence, there exists $r:x=y$ with $\apfunc f (r) = p \ct \opp q$.
-  However, using the characterization of paths in $\Sigma$-types, the latter equality rearranges to $\trans{r}{p} = q$.
-  Thus, together with $r$ it exhibits $(x,p) = (y,q)$ in the fiber of $f$ over $b$.
+  反之，假设 $f$ 是一个满射嵌入。
+  设 $b:B$；我们证明 $\sm{x:A}(f(x)=b)$ 是收缩的。
+  因为 $f$ 是满射的，所以仅存在一个 $a:A$ 使得 $f(a)=b$。
+  因此，$f$ 在 $b$ 上的纤维是非空的；剩下的是证明它是一个单纯命题。
+  为此，假设给定 $x,y:A$ 且 $p:f(x)=b$ 和 $q:f(y)=b$。
+  然后由于 $\apfunc f$ 是一个等价的，存在 $r:x=y$ 使得 $\apfunc f (r) = p \ct \opp q$。
+  然而，使用在 $\Sigma$-类型中的路径表征，后者等式重新排列为 $\trans{r}{p} = q$。
+  因此，连同 $r$ 一起，它展示了在 $f$ 在 $b$ 上的纤维中的 $(x,p) = (y,q)$。
 \end{proof}
 
 \begin{cor}
-  For any $f:A\to B$ we have
-  \[ \isequiv(f) \eqvsym (\mathsf{isEmbedding}(f) \times \mathsf{isSurjective}(f)).\]
+  对于任意 $f:A\to B$ 我们有
+  \[ \isequiv(f) \eqvsym (\mathsf{isEmbedding}(f) \times \mathsf{isSurjective}(f))。\]
 \end{cor}
 \begin{proof}
-  Being a surjection and an embedding are both mere propositions; now apply \cref{lem:equiv-iff-hprop}.
+  作为一个满射和嵌入都是单纯命题；现在应用 \cref{lem:equiv-iff-hprop}。
 \end{proof}
 
-Of course, this cannot be used as a definition of ``equivalence'', since the definition of embeddings refers to equivalences.
-However, this characterization can still be useful; see \cref{sec:whitehead}.
-We will generalize it in \cref{cha:hlevels}.
-
+当然，这不能用作“等价”的定义，因为嵌入的定义涉及到等价的概念。
+然而，这个表征仍然是有用的；参见 \cref{sec:whitehead}。
+我们将在 \cref{cha:hlevels} 中对其进行推广。
 
 % \section{Fiberwise equivalences}
+
 \section{Closure properties of equivalences}
 \label{sec:equiv-closures}
 \label{sec:fiberwise-equivalences}
