@@ -1844,207 +1844,187 @@ $\kbar$ 是 0-连通的。
 \index{van Kampen 定理|)}%
 \index{theorem!van Kampen|)}%
 
-\section{Whitehead's theorem and Whitehead's principle}
+\section{Whitehead 定理和 Whitehead 原则}
 \label{sec:whitehead}
 
-In classical homotopy theory, a map $f:A\to B$ which induces an isomorphism $\pi_n(A,a) \cong \pi_n(B,f(a))$ for all points $a$ in $A$ (and also an isomorphism $\pi_0(A)\cong\pi_0(B)$) is necessarily a homotopy equivalence, as long as the spaces $A$ and $B$ are well-behaved (e.g.\ have the homotopy types of CW-complexes).
+在经典同伦理论中，一个映射 $f:A\to B$ 如果对 $A$ 中的所有点 $a$ 都诱导了同构 $\pi_n(A,a) \cong \pi_n(B,f(a))$ （并且 $\pi_0(A)\cong\pi_0(B)$ 也是同构），那么在 $A$ 和 $B$ 是“良好行为”空间（例如具有 CW 复形的同伦类型）时，该映射必然是同伦等价。这就是所谓的 \emph{Whitehead 定理 (Whitehead's theorem)}。
 \index{theorem!Whitehead's}%
 \index{Whitehead's!theorem}%
-This is known as \emph{Whitehead's theorem}.
-In fact, the ``ill-behaved'' spaces for which Whitehead's theorem fails are invisible to type theory.
-Roughly, the well-behaved topological spaces suffice to present $\infty$-groupoids,%
+事实上，对于那些 Whitehead 定理失效的“行为不良”的空间，类型论是不可见的。大致来说，良好行为的拓扑空间足以表示 $\infty$-群胚 ($\infty$-groupoids)%
 \index{.infinity-groupoid@$\infty$-groupoid}
-and homotopy type theory deals with $\infty$-groupoids directly rather than actual topological spaces.
-Thus, one might expect that Whitehead's theorem would be true in univalent foundations.
+，而同伦类型论 (Homotopy Type Theory) 直接处理 $\infty$-群胚，而不是实际的拓扑空间。因此，人们可能会期望 Whitehead 定理在一致性基础中成立。
 
-However, this is \emph{not} the case: Whitehead's theorem is not provable.
-In fact, there are known models of type theory in which it fails to be true, although for entirely different reasons than its failure for ill-behaved topological spaces.
-These models are ``non-hypercomplete $\infty$-toposes''
+然而，事实并非如此：Whitehead 定理无法证明。事实上，在一些模型中，这个定理是错误的，虽然其失效的原因与其在行为不良的拓扑空间中失效的原因完全不同。这些模型是“非超完全 $\infty$-拓扑范畴” (non-hypercomplete $\infty$-toposes)
 \index{.infinity1-topos@$(\infty,1)$-topos}%
 \index{.infinity1-topos@$(\infty,1)$-topos!non-hypercomplete}%
-(see~\cite{lurie:higher-topoi}); roughly speaking, they consist of sheaves of $\infty$-groupoids over $\infty$-dimensional base spaces.
+（参见~\cite{lurie:higher-topoi}）；大致而言，它们由在 $\infty$ 维基空间上面的 $\infty$-群胚的层 (sheaves) 组成。
 
 \index{axiom!Whitehead's principle|(}%
 \index{Whitehead's!principle|(}%
 
-From a foundational point of view, therefore, we may speak of \emph{Whitehead's principle} as a ``classicality axiom'', akin to \LEM{} and \choice{}.
-It may consistently be assumed, but it is not part of the computationally motivated type theory, nor does it hold in all natural models.
-But when working from set-theoretic foundations, this principle is invisible: it cannot fail to be true in a world where $\infty$-groupoids are built up out of sets (using topological spaces, simplicial sets, or any other such model).
+从基础理论的角度来看，因此我们可以将 \emph{Whitehead 原则 (Whitehead's principle)} 视为一种“经典性公理”，类似于 \LEM{} 和 \choice{}。它可以被一致地假设，但它不是计算动机类型论的一部分，也不在所有自然模型中成立。但是当从集合论基础出发时，这一原则是不可见的：在一个由集合构建的世界中（使用拓扑空间、单纯集合或任何其他此类模型），它无法失效。
 
-This may seem odd, but actually it should not be surprising.
-Homotopy type theory is the \emph{abstract} theory of homotopy types, whereas the homotopy theory of topological spaces or simplicial sets in set theory is a \emph{concrete} model of this theory, in the same way that the integers are a concrete model of the abstract theory of rings.
-It is to be expected that any concrete model will have special properties which are not intrinsic to the corresponding abstract theory, but which we might sometimes want to assume as additional axioms (e.g.\ the integers are a Principal Ideal Domain, but not all rings are).
+这可能看起来很奇怪，但实际上并不奇怪。同伦类型论是同伦类型的 \emph{抽象} 理论，而集合论中的拓扑空间或单纯集合的同伦理论是该理论的 \emph{具体} 模型，就像整数是环的抽象理论的具体模型一样。可以预见的是，任何具体模型都会具有抽象理论所不具备的特殊性质，但有时我们可能希望将这些性质假设为额外的公理（例如，整数是主理想整环，但并非所有环都是）。
 
-It is beyond the scope of this book to describe any models of type theory, so we will not explain how Whitehead's principle might fail in some of them.
-However, we can prove that it holds whenever the types involved are $n$-truncated for some finite $n$, by ``downward'' induction on $n$.
-In addition to being of interest in its own right (for instance, it implies the essential uniqueness of Eilenberg--Mac Lane spaces), the proof of this result will hopefully provide some intuitive explanation for why we cannot hope to prove an analogous theorem without truncation hypotheses.
+本书不打算描述任何类型论的模型，因此我们不会解释 Whitehead 原则在其中某些模型中如何可能失效。然而，我们可以证明，只要涉及的类型对于某个有限的 $n$ 是 $n$-截断的 (truncated)，那么 Whitehead 原则就成立，并且可以通过对 $n$ 的“向下”归纳来证明。除了它本身的兴趣（例如，它意味着 Eilenberg--Mac Lane 空间的本质唯一性），这一结果的证明还希望能为我们无法在没有截断假设的情况下证明类似定理的原因提供一些直观的解释。
 
-We begin with the following modification of \cref{thm:mono-surj-equiv}, which will eventually supply the induction step in the proof of the truncated Whitehead's principle.
-It may be regarded as a type-theoretic, $\infty$-group\-oid\-al version of the classical statement that a fully faithful and essentially surjective functor is an equivalence of categories.
+我们从 \cref{thm:mono-surj-equiv} 的以下修改开始，它将最终为截断的 Whitehead 原则的证明提供归纳步骤。可以将其视为类型论的、$\infty$-群胚的版本的经典陈述：一个完全忠实且本质上满射的函子是范畴的等价。
 
 \begin{thm}\label{thm:whitehead0}
-  Suppose $f:A\to B$ is a function such that
-  \begin{enumerate}
-  \item $\trunc0 f : \trunc0 A \to \trunc0 B$ is surjective, and\label{item:whitehead01}
-  \item for any $x,y:A$, the function $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ is an equivalence.\label{item:whitehead02}
-  \end{enumerate}
-  Then $f$ is an equivalence.
+假设 $f:A\to B$ 是一个函数，使得
+\begin{enumerate}
+  \item $\trunc0 f : \trunc0 A \to \trunc0 B$ 是满射，且\label{item:whitehead01}
+  \item 对于任意 $x,y:A$，函数 $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ 是等价的。\label{item:whitehead02}
+\end{enumerate}
+那么 $f$ 是等价映射。
 \end{thm}
 \begin{proof}
-  Note that~\ref{item:whitehead02} is precisely the statement that $f$ is an embedding, c.f.~\cref{sec:mono-surj}.
-  Thus, by \cref{thm:mono-surj-equiv}, it suffices to show that $f$ is surjective, i.e.\ that for any $b:B$ we have $\trunc{-1}{\hfib f b}$.
-  Suppose given $b$; then since $\trunc0 f$ is surjective, there merely exists an $a:A$ such that $\trunc 0 f(\tproj0a) = \tproj0b$.
-  And since our goal is a mere proposition, we may assume given such an $a$.
-  Then we have $\tproj0{f(a)} = \trunc 0 f(\tproj0a) =\tproj0b$, hence $\trunc{-1}{f(a)=b}$.
-  Again, since our goal is still a mere proposition, we may assume $f(a)=b$.
-  Hence $\hfib f b$ is inhabited, and thus merely inhabited.
+  注意~\ref{item:whitehead02} 恰好是 $f$ 是嵌入的陈述，参见~\cref{sec:mono-surj}。因此，根据 \cref{thm:mono-surj-equiv}，只需证明 $f$ 是满射的，即对于任意 $b:B$，我们有 $\trunc{-1}{\hfib f b}$。
+  假设给定 $b$；那么由于 $\trunc0 f$ 是满射，因此仅仅存在一个 $a:A$ 使得 $\trunc 0 f(\tproj0a) = \tproj0b$。并且由于我们的目标是一个仅仅存在的命题，我们可以假设给定了这样的 $a$。
+  然后我们有 $\tproj0{f(a)} = \trunc 0 f(\tproj0a) =\tproj0b$，因此 $\trunc{-1}{f(a)=b}$。
+  再次，由于我们的目标仍然是一个仅仅存在的命题，我们可以假设 $f(a)=b$。
+  因此 $\hfib f b$ 是有居留元的 (inhabited)，并且因此仅仅是有居留元的。
 \end{proof}
 
-Since homotopy groups are truncations of loop spaces\index{loop space}, rather than path spaces, we need to modify this theorem to speak about these instead. Recall the map $\Omega f$ from \cref{def:loopfunctor}.
+由于同伦群 (homotopy groups) 是循环空间的截断 (truncations of loop spaces) \index{loop space}，而不是路径空间，因此我们需要修改此定理以讨论这些内容。回忆来自 \cref{def:loopfunctor} 的映射 $\Omega f$。
 
 \begin{cor}\label{thm:whitehead1}
-  Suppose $f:A\to B$ is a function such that
-  \begin{enumerate}
-  \item $\trunc0 f : \trunc0 A \to \trunc0 B$ is a bijection, and
-  \item for any $x:A$, the function $\Omega f : \Omega(A,x) \to \Omega(B,f(x))$ is an equivalence.
-  \end{enumerate}
-  Then $f$ is an equivalence.
+假设 $f:A\to B$ 是一个函数，使得
+\begin{enumerate}
+  \item $\trunc0 f : \trunc0 A \to \trunc0 B$ 是双射，且
+  \item 对于任意 $x:A$，函数 $\Omega f : \Omega(A,x) \to \Omega(B,f(x))$ 是等价映射。
+\end{enumerate}
+那么 $f$ 是等价映射。
 \end{cor}
 \begin{proof}
-  By \cref{thm:whitehead0}, it suffices to show that $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ is an equivalence for any $x,y:A$.
-  And by \cref{thm:equiv-inhabcod}, we may assume $\id[B]{f(x)}{f(y)}$.
-  In particular, $\tproj0{f(x)} = \tproj0{f(y)}$, so since $\trunc0 f$ is an equivalence, we have $\tproj0 x = \tproj0y$, hence $\tproj{-1}{x=y}$.
-  Since we are trying to prove a mere proposition ($\apfunc f$ being an equivalence), we may assume given $p:x=y$.
-  But now the following square commutes up to homotopy:
+  根据 \cref{thm:whitehead0}，只需证明 $\apfunc f : (\id[A]xy) \to (\id[B]{f(x)}{f(y)})$ 对于任意 $x,y:A$ 是等价的。
+  根据 \cref{thm:equiv-inhabcod}，我们可以假设 $\id[B]{f(x)}{f(y)}$。
+  特别地，$\tproj0{f(x)} = \tproj0{f(y)}$，因此由于 $\trunc0 f$ 是等价映射，我们有 $\tproj0 x = \tproj0y$，因此 $\tproj{-1}{x=y}$。
+  由于我们正在尝试证明一个仅仅存在的命题（$\apfunc f$ 是等价的），我们可以假设给定 $p:x=y$。
+  但是现在，以下图表最多齐次地 (up to homotopy) 交换：
   \begin{equation*}
-  \vcenter{\xymatrix@C=3pc{
+    \vcenter{\xymatrix@C=3pc{
       \Omega(A,x)\ar[r]^-{\blank\ct p}\ar[d]_{\Omega f} &
       (\id[A]xy) \ar[d]^{\apfunc f}\\
       \Omega(B,f(x))\ar[r]_-{\blank\ct f(p)} &
       (\id[B]{f(x)}{f(y)}).
-      }}
+    }}
   \end{equation*}
-  The top and bottom maps are equivalences, and the left-hand map is so by assumption.
-  Hence, by the 2-out-of-3 property, so is the right-hand map.
+  顶部和底部的映射是等价映射，左侧的映射是根据假设得出的等价映射。
+  因此，根据 2-out-of-3 性质，右侧的映射也是等价的。
 \end{proof}
 
-Now we can prove the truncated Whitehead's principle.
+现在我们可以证明截断的 Whitehead 原则。
 
 \begin{thm}\label{thm:whiteheadn}
-  Suppose $A$ and $B$ are $n$-types and $f:A\to B$ is such that
-  \begin{enumerate}
-  \item $\trunc0f:\trunc0A \to \trunc0B$ is a bijection, and\label{item:wh0}
-  \item $\pi_k(f):\pi_k(A,x) \to \pi_k(B,f(x))$ is a bijection for all $k\ge 1$ and all $x:A$.\label{item:whk}
-  \end{enumerate}
-  Then $f$ is an equivalence.
+假设 $A$ 和 $B$ 是 $n$-类型 (n-types)，并且 $f:A\to B$ 使得
+\begin{enumerate}
+  \item $\trunc0f:\trunc0A \to \trunc0B$ 是双射，且\label{item:wh0}
+  \item $\pi_k(f):\pi_k(A,x) \to \pi_k(B,f(x))$ 对于所有 $k\ge 1$ 和所有 $x:A$ 是双射。\label{item:whk}
+\end{enumerate}
+那么 $f$ 是等价映射。
 \end{thm}
 
 \noindent
-Condition~\ref{item:wh0} is almost the case of~\ref{item:whk} when $k=0$, except that it makes no reference to any basepoint $x:A$.
+条件~\ref{item:wh0} 几乎是 $k=0$ 时~\ref{item:whk} 的情况，除了它没有提到任何基点 $x:A$。
 
 \begin{proof}
-  We proceed by induction on $n$.
-  When $n=-2$, the statement is trivial.
-  Thus, suppose it to be true for all functions between $n$-types, and let $A$ and $B$ be $(n+1)$-types and $f:A\to B$ as above.
-  The first condition in \cref{thm:whitehead1} holds by assumption, so it will suffice to show that for any $x:A$, the function $\Omega f: \Omega(A,x) \to \Omega(B,f(x))$ is an equivalence.
+  我们通过对 $n$ 的归纳来证明。
+  当 $n=-2$ 时，陈述是平凡的。
+  因此，假设对于所有 $n$-类型之间的函数来说，它都是正确的，并且设 $A$ 和 $B$ 是 $(n+1)$-类型，并且 $f:A\to B$ 如上所述。
+  \cref{thm:whitehead1} 中的第一个条件由假设得出，因此只需证明对于任意 $x:A$，函数 $\Omega f: \Omega(A,x) \to \Omega(B,f(x))$ 是等价映射即可。
 
-  Since $\Omega(A,x)$ and $\Omega(B,f(x))$ are $n$-types we can apply the induction hypothesis.
-  We need to check that $\trunc 0{\Omega f}$ is a bijection, and that for all $k\geq1$ and $p : x = x$ the map $\pi_k(\Omega f):\pi_k(x = x,p) \to \pi_k(f(x) = f(x),\Omega f(p))$ is a bijection.
-  The first statement holds by assumption, since $\trunc 0{\Omega f} \jdeq \pi_1(f)$.
-  To prove the second statement, we generalize it first: we show that for all $y : A$ and $q : x = y$ we have $\pi_k(\apfunc f):\pi_k(x = y,q) \to \pi_k(f(x) = f(y),\apfunc f(q))$.
-  This implies the desired statement, since when $y\defeq x$, we have $\pi_k(\Omega f)=\pi_k(\apfunc f)$ modulo identifying their base points $\Omega f(p)=\apfunc f(p)$.
-  To prove the generalization, it suffices by path induction to prove it when $q$ is $\refl{a}$.
-  In this case, we have $\pi_k(\apfunc f) = \pi_k(\Omega f) = \pi_{k+1}(f)$, and $\pi_{k+1}(f)$ is an bijection by the original assumptions.
+  由于 $\Omega(A,x)$ 和 $\Omega(B,f(x))$ 是 $n$-类型，我们可以应用归纳假设。
+  我们需要检查 $\trunc 0{\Omega f}$ 是双射，并且对于所有 $k\geq1$ 和 $p : x = x$，映射 $\pi_k(\Omega f):\pi_k(x = x,p) \to \pi_k(f(x) = f(x),\Omega f(p))$ 是双射。
+  第一个陈述由假设成立，因为 $\trunc 0{\Omega f} \jdeq \pi_1(f)$。
+  为了证明第二个陈述，我们首先将其泛化：我们证明对于所有 $y : A$ 和 $q : x = y$，我们有 $\pi_k(\apfunc f):\pi_k(x = y,q) \to \pi_k(f(x) = f(y),\apfunc f(q))$。
+  这意味着所需的陈述，因为当 $y\defeq x$ 时，我们有 $\pi_k(\Omega f)=\pi_k(\apfunc f)$，等同于识别它们的基点 $\Omega f(p)=\apfunc f(p)$。
+  为了证明泛化，通过路径归纳，足以证明当 $q$ 是 $\refl{a}$ 时的情况。
+  在这种情况下，我们有 $\pi_k(\apfunc f) = \pi_k(\Omega f) = \pi_{k+1}(f)$，并且 $\pi_{k+1}(f)$ 根据原始假设是双射。
 \end{proof}
 
-Note that if $A$ and $B$ are not $n$-types for any finite $n$, then there is no way for the induction to get started.
+请注意，如果 $A$ 和 $B$ 不是任何有限 $n$ 的 $n$-类型，那么归纳将无法启动。
 
 \begin{cor}\label{thm:whitehead-contr}
-  If $A$ is a $0$-connected $n$-type and $\pi_k(A,a)=0$ for all $k$ and $a:A$, then $A$ is contractible.
+如果 $A$ 是 $0$-连通的 $n$-类型，并且 $\pi_k(A,a)=0$ 对于所有 $k$ 和 $a:A$，那么 $A$ 是收缩的 (contractible)。
 \end{cor}
 \begin{proof}
-  Apply \cref{thm:whiteheadn} to the map $A\to\unit$.
+  将 \cref{thm:whiteheadn} 应用于映射 $A\to\unit$。
 \end{proof}
 
-As an application, we can deduce the converse of \cref{thm:conn-pik}.
+作为应用，我们可以推导出 \cref{thm:conn-pik} 的逆命题。
 
 \begin{cor}\label{thm:pik-conn}
-  For $n\ge 0$, a map $f:A\to B$ is $n$-connected if and only if the following all hold:
-  \begin{enumerate}
-  \item $\trunc0f:\trunc0A \to \trunc0B$ is an isomorphism.
-  \item For any $a:A$ and $k\le n$, the map $\pi_k(f):\pi_k(A,a) \to \pi_k(B,f(a))$ is an isomorphism.
-  \item For any $a:A$, the map $\pi_{n+1}(f):\pi_{n+1}(A,a) \to \pi_{n+1}(B,f(a))$ is surjective.
-  \end{enumerate}
+对于 $n\ge 0$，映射 $f:A\to B$ 是 $n$-连通的 (n-connected) 当且仅当以下所有条件成立：
+\begin{enumerate}
+  \item $\trunc0f:\trunc0A \to \trunc0B$ 是同构。
+  \item 对于任何 $a:A$ 和 $k\le n$，映射 $\pi_k(f):\pi_k(A,a) \to \pi_k(B,f(a))$ 是同构。
+  \item 对于任何 $a:A$，映射 $\pi_{n+1}(f):\pi_{n+1}(A,a) \to \pi_{n+1}(B,f(a))$ 是满射。
+\end{enumerate}
 \end{cor}
 \begin{proof}
-  The ``only if'' direction is \cref{thm:conn-pik}.
-  Conversely, by the long exact sequence of a fibration (\cref{thm:les}),
+  ``只有当'' 的方向是 \cref{thm:conn-pik}。
+  反过来，根据纤维束的长确序列 (long exact sequence of a fibration)（\cref{thm:les}），%
   \index{sequence!exact}%
-  the hypotheses imply that $\pi_k(\hfib f {f(a)})=0$ for all $k\le n$ and $a:A$, and that $\trunc 0{\hfib f{f(a)}}$ is contractible.
-  Since $\pi_k(\hfib f {f(a)}) = \pi_k(\trunc n{\hfib f{f(a)}})$ for $k\le n$, and $\trunc n{\hfib f{f(a)}}$ is $n$-connected, by \cref{thm:whitehead-contr} it is contractible for any $a$.
+  假设条件意味着 $\pi_k(\hfib f {f(a)})=0$ 对于所有 $k\le n$ 和 $a:A$，并且 $\trunc 0{\hfib f{f(a)}}$ 是收缩的。
+  由于 $\pi_k(\hfib f {f(a)}) = \pi_k(\trunc n{\hfib f{f(a)}})$ 对于 $k\le n$，并且 $\trunc n{\hfib f{f(a)}}$ 是 $n$-连通的，根据 \cref{thm:whitehead-contr}，对于任何 $a$，它是收缩的。
 
-  It remains to show that $\trunc n{\hfib f{b}}$ is contractible for $b:B$ not necessarily of the form $f(a)$.
-  However, by assumption, there is $x:\trunc0A$ with $\tproj 0b = \trunc0f(x)$.
-  Since contractibility is a mere proposition, we may assume $x$ is of the form $\tproj0a$ for $a:A$, in which case $\tproj 0 b = \trunc0f(\tproj0a) = \tproj0{f(a)}$, and therefore $\trunc{-1}{b=f(a)}$.
-  Again since contractibility is a mere proposition, we may assume $b=f(a)$, and the result follows.
+  仍需证明 $\trunc n{\hfib f{b}}$ 是收缩的，对于 $b:B$ 不一定是 $f(a)$ 的形式。
+  然而，根据假设，存在 $x:\trunc0A$ 使得 $\tproj 0b = \trunc0f(x)$。
+  由于收缩性是一个仅仅存在的命题，我们可以假设 $x$ 是 $\tproj0a$ 的形式，对于 $a:A$，在这种情况下 $\tproj 0 b = \trunc0f(\tproj0a) = \tproj0{f(a)}$，因此 $\trunc{-1}{b=f(a)}$。
+  再次，由于收缩性是一个仅仅存在的命题，我们可以假设 $b=f(a)$，结果由此得出。
 \end{proof}
 
-A map $f$ such that $\trunc0f$ is a bijection and $\pi_k(f)$ is a bijection for all $k$ is called \define{$\infty$-connected}%
+一个使得 $\trunc0f$ 是双射并且 $\pi_k(f)$ 对于所有 $k$ 是双射的映射称为 \define{$\infty$-连通}%
 \indexdef{function!.infinity-connected@$\infty$-connected}%
 \indexdef{.infinity-connected function@$\infty$-connected function}
-or a \define{weak equivalence}.%
+或称为 \define{弱等价}%
 \indexdef{equivalence!weak}%
-\indexdef{weak equivalence!of types}
-This is equivalent to asking that $f$ be $n$-connected for all $n$.
-A type $Z$ is called \define{$\infty$-truncated}%
+\indexdef{weak equivalence!of types}。
+这相当于要求 $f$ 对所有 $n$ 是 $n$-连通的。
+一个类型 $Z$ 称为 \define{$\infty$-截断}%
 \indexdef{type!.infinity-truncated@$\infty$-truncated}%
 \indexdef{.infinity-truncated type@$\infty$-truncated type}
-or \define{hypercomplete}%
+或 \define{超完全}%
 \indexdef{type!hypercomplete}%
-\indexdef{hypercomplete type}
-if the induced map
+\indexdef{hypercomplete type}，如果诱导映射
 \[(\blank\circ f):(B\to Z) \to (A\to Z)\]
-is an equivalence whenever $f$ is $\infty$-connected --- that is, if $Z$ thinks every $\infty$-connected map is an equivalence.
+在 $f$ 是 $\infty$-连通时是等价映射——即，如果 $Z$ 认为每个 $\infty$-连通映射都是等价的。
 \indexdef{axiom!Whitehead's principle}%
-Then if we want to assume Whitehead's principle as an axiom, we may use either of the following equivalent forms.
+那么如果我们想要将 Whitehead 原则作为公理假设，我们可以使用以下等价形式之一。
 \begin{itemize}
-\item Every $\infty$-connected function is an equivalence.
-\item Every type is $\infty$-truncated.
+  \item 每个 $\infty$-连通函数都是等价映射。
+  \item 每个类型都是 $\infty$-截断的。
 \end{itemize}
-In higher topos models,
+在高阶拓扑模型中，
 \index{.infinity1-topos@$(\infty,1)$-topos}%
-the $\infty$-truncated types form a reflective subuniverse in the sense of
-\cref{sec:modalities} (the ``hypercompletion'' of an $(\infty,1)$-topos), but we do not know whether this is
-true in general.
+$\infty$-截断类型在 \cref{sec:modalities} 中的意义上构成一个反射子宇宙 (reflective subuniverse)（“超完全”的 $(\infty,1)$-拓扑），但我们不知道这在一般情况下是否成立。
 
 \index{axiom!Whitehead's principle|)}%
 \index{Whitehead's!principle|)}%
 
-It may not be obvious that there \emph{are} any types which are not $n$-types for any $n$, but in fact there are.
-Indeed, in classical homotopy theory, $\Sn^n$ has this property for any $n\ge 2$.
-We have not proven this fact in homotopy type theory yet, but there are other types which we can prove to have ``infinite truncation level''.
+可能并不明显存在不属于任何 $n$-类型的类型，但事实上是存在的。实际上，在经典同伦理论中，$\Sn^n$ 对于任何 $n\ge 2$ 都具有这种性质。我们尚未在同伦类型论中证明这一事实，但还有其他类型我们可以证明其具有“无限截断层次”。
 
 \begin{eg}
-  Suppose we have $B:\nat\to\type$ such that for each $n$, the type $B(n)$ contains an $n$-loop\index{loop!n-@$n$-} which is not equal to $n$-fold reflexivity, say $p_n:\Omega^n(B(n),b_n)$ with $p_n \neq \refl{b_n}^n$.
-  (For instance, we could define $B(n)\defeq \Sn^n$, with $p_n$ the image of $1:\Z$ under the isomorphism $\pi_n(\Sn^n)\cong \Z$.)
-  Consider $C\defeq \prd{n:\nat} B(n)$, with the point $c:C$ defined by $c(n)\defeq b_n$.
-  Since loop spaces commute with products, for any $m$ we have
-  \[\eqvspaced{\Omega^m (C,c)}{\prd{n:\nat}\Omega^m(B(n),b_n)}.\]
-  Under this equivalence, $\refl{c}^m$ corresponds to the function $(n\mapsto \refl{b_n}^m)$.
-  Now define $q_m$ in the right-hand type by
+  假设我们有 $B:\nat\to\type$ 使得对于每个 $n$，类型 $B(n)$ 包含一个 $n$-环 (n-loop)\index{loop!n-@$n$-}，该 $n$-环不等于 $n$ 重的反身性，例如 $p_n:\Omega^n(B(n),b_n)$，且 $p_n \neq \refl{b_n}^n$。
+  （例如，我们可以定义 $B(n)\defeq \Sn^n$，$p_n$ 是同构 $\pi_n(\Sn^n)\cong \Z$ 下的 $1:\Z$ 的像）。
+  考虑 $C\defeq \prd{n:\nat} B(n)$，点 $c:C$ 由 $c(n)\defeq b_n$ 定义。
+  由于循环空间与乘积交换，对于任意 $m$，我们有
+  \[\eqvspaced{\Omega^m (C,c)}{\prd{n:\nat}\Omega^m(B(n),b_n)}。\]
+  在此等价下，$\refl{c}^m$ 对应于函数 $(n\mapsto \refl{b_n}^m)$。
+  现在在右侧类型中定义 $q_m$
   \[ q_m(n) \defeq
   \begin{cases}
     p_n &\quad m=n\\
-    \refl{b_n}^m &\quad m\neq n.
+    \refl{b_n}^m &\quad m\neq n。
   \end{cases}
   \]
-  If we had $q_m = (n\mapsto \refl{b_n}^m)$, then we would have $p_n = \refl{b_n}^n$, which is not the case.
-  Thus, $q_m \neq (n\mapsto \refl{b_n}^m)$, and so there is a point of $\Omega^m(C,c)$ which is unequal to $\refl{c}^m$.
-  Hence $C$ is not an $m$-type, for any $m:\nat$.
+  如果我们有 $q_m = (n\mapsto \refl{b_n}^m)$，那么我们将得到 $p_n = \refl{b_n}^n$，这不符合事实。
+  因此，$q_m \neq (n\mapsto \refl{b_n}^m)$，所以存在 $\Omega^m(C,c)$ 中的点与 $\refl{c}^m$ 不相等。
+  因此，$C$ 不是任意 $m:\nat$ 的 $m$-类型。
 \end{eg}
 
-We expect it should also be possible to show that a universe $\UU$ itself is not an $n$-type for any $n$, using the fact that it contains higher inductive types such as $\Sn^n$ for all $n$.
-However, this has not yet been done.
+我们还期望可以证明宇宙 $\UU$ 本身不是任何 $n$ 的 $n$-类型，使用它包含如 $\Sn^n$ 这样的高阶归纳类型 (higher inductive types) 对于所有 $n$。然而，这尚未完成。
 
 \section{A general statement of the encode-decode method}
 \label{sec:general-encode-decode}
