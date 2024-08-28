@@ -1118,293 +1118,255 @@ $\trunc k{\trunc nA}=\trunc kA$。
 例如，包含映射$\bfalse:\unit \to\bool$在$(-1)$-截断上诱导了一个等价关系，但并不是满射的（即$(-1)$-连通的）。
 在\cref{sec:long-exact-sequence-homotopy-groups}中，我们将看到一般情况下的区别类似于额外的满射性。
 
-
-\section{Orthogonal factorization}
+\section{正交分解 (Orthogonal Factorization)}
 \label{sec:image-factorization}
 
-\index{unique!factorization system|(}%
-\index{orthogonal factorization system|(}%
-In set theory, the surjections and the injections form a unique factorization system: every function factors essentially uniquely as a surjection followed by an injection.
-We have seen that surjections generalize naturally to $n$-connected maps, so it is natural to inquire whether these also participate in a factorization system.
-Here is the corresponding generalization of injections.
+\index{唯一!分解系统|(unique factorization system)}%
+\index{正交分解系统|(orthogonal factorization system)}%
+
+在集合论中，满射 (surjection) 和单射 (injection) 组成了一个唯一的分解系统：每个函数都可以实质上唯一地分解为一个满射后接一个单射。我们已经看到，满射可以自然地推广为 $n$-连通 (n-connected) 映射，因此我们自然要探讨这些映射是否也参与到一个分解系统中。下面是关于单射的对应推广。
 
 \begin{defn}
-  A function $f:A\to B$ is \define{$n$-truncated}
-  \indexdef{n-truncated@$n$-truncated!function}%
-  \indexdef{function!n-truncated@$n$-truncated}%
-if the fiber $\hfib f b$ is an $n$-type for all $b:B$.
+    一个函数 $f:A\to B$ 是 \define{$n$-截断的 ($n$-truncated)}
+    \indexdef{n-截断的@$n$-truncated!函数 (function)}%
+    \indexdef{函数!n-截断的@$n$-truncated}%
+    如果对所有 $b:B$，纤维 $\hfib f b$ 是一个 $n$-类型 (n-type)。
 \end{defn}
 
-In particular, $f$ is $(-2)$-truncated if and only if it is an equivalence.
-And of course, $A$ is an $n$-type if and only if $A\to\unit$ is $n$-truncated.
-Moreover, $n$-truncated maps could equivalently be defined recursively, like $n$-types.
+特别地，$f$ 是 $(-2)$-截断的当且仅当它是一个等价 (equivalence)。并且，$A$ 是一个 $n$-类型当且仅当 $A\to\unit$ 是 $n$-截断的。此外，$n$-截断映射也可以递归地定义，类似于 $n$-类型。
 
 \begin{lem}\label{thm:modal-mono}
-  For any $n\ge -2$, a function $f:A\to B$ is $(n+1)$-truncated if and only if for all $x,y:A$, the map $\apfunc{f}:(x=y) \to (f(x)=f(y))$ is $n$-truncated.
-  \index{function!embedding}%
-  \index{function!injective}%
-  In particular, $f$ is $(-1)$-truncated if and only if it is an embedding in the sense of \cref{sec:mono-surj}.
+对于任何 $n\ge -2$，一个函数 $f:A\to B$ 是 $(n+1)$-截断的当且仅当对所有 $x,y:A$，映射 $\apfunc{f}:(x=y) \to (f(x)=f(y))$ 是 $n$-截断的。
+\index{函数!嵌入 (embedding)}%
+\index{函数!单射 (injective)}%
+特别地，$f$ 是 $(-1)$-截断的当且仅当它是 \cref{sec:mono-surj} 中定义的嵌入。
 \end{lem}
 \begin{proof}
-  Note that for any $(x,p),(y,q):\hfib f b$, we have
-  \begin{align*}
-    \big((x,p) = (y,q)\big)
-    &= \sm{r:x=y} (p = \apfunc f(r)\ct q)\\
-    &= \sm{r:x=y} (\apfunc f (r) = p\ct \opp q)\\
-    &= \hfib{\apfunc{f}}{p\ct \opp q}.
-  \end{align*}
-  Thus, any path space in any fiber of $f$ is a fiber of $\apfunc{f}$.
-  On the other hand, choosing $b\defeq f(y)$ and $q\defeq \refl{f(y)}$ we see that any fiber of $\apfunc f$ is a path space in a fiber of $f$.
-  The result follows, since $f$ is $\nplusone$-truncated if all path spaces of its fibers are $n$-types.
+    注意，对于 $\hfib f b$ 中的任意 $(x,p),(y,q)$，我们有
+    \begin{align*}
+        \big((x,p) = (y,q)\big)
+        &= \sm{r:x=y} (p = \apfunc f(r)\ct q)\\
+        &= \sm{r:x=y} (\apfunc f (r) = p\ct \opp q)\\
+        &= \hfib{\apfunc{f}}{p\ct \opp q}.
+    \end{align*}
+    因此，$f$ 的任何纤维中的任何路径空间都是 $\apfunc{f}$ 的一个纤维。另一方面，通过选择 $b\defeq f(y)$ 和 $q\defeq \refl{f(y)}$ 我们可以看到 $\apfunc f$ 的任何纤维都是 $f$ 的某个纤维中的路径空间。结果由此得出，因为如果 $f$ 的所有纤维的路径空间都是 $n$-类型，那么 $f$ 是 $(n+1)$-截断的。
 \end{proof}
 
-We can now construct the factorization, in a fairly obvious way.
+现在我们可以通过一种显而易见的方式来构造分解。
 
 \begin{defn}\label{defn:modal-image}
-Let $f:A\to B$ be a function. The \define{$n$-image}
-\indexdef{image}%
-\indexdef{image!n-image@$n$-image}%
-\indexdef{n-image@$n$-image}%
-\indexdef{function!n-image of@$n$-image of}%
-of $f$ is defined as
+令 $f:A\to B$ 是一个函数。$f$ 的 \define{$n$-像 ($n$-image)}
+\indexdef{像 (image)}%
+\indexdef{像!n-像@$n$-image}%
+\indexdef{n-像@$n$-image}%
+\indexdef{函数!n-像@$n$-image of}%
+定义为
 \begin{equation*}
-\im_n(f)\defeq \sm{b:B} \trunc n{\hfib{f}b}.
+    \im_n(f)\defeq \sm{b:B} \trunc n{\hfib{f}b}.
 \end{equation*}
-When $n=-1$, we write simply $\im(f)$ and call it the \define{image} of $f$.
+当 $n=-1$ 时，我们简单地写作 $\im(f)$ 并称其为 $f$ 的 \define{像 (image)}。
 \end{defn}
 
 \begin{lem}\label{prop:to_image_is_connected}
-For any function $f:A\to B$, the canonical function $\tilde{f}:A\to\im_n(f)$ is $n$-connected.
-Consequently, any function factors as an $n$-connected function followed by an $n$-truncated function.
+对于任何函数 $f:A\to B$，规范函数 $\tilde{f}:A\to\im_n(f)$ 是 $n$-连通的。因此，任何函数都可以分解为一个 $n$-连通的函数后接一个 $n$-截断的函数。
 \end{lem}
 
 \begin{proof}
-Note that $A\eqvsym\sm{b:B}\hfib{f}b$. The function $\tilde{f}$ is the function on total spaces induced by the canonical fiberwise transformation
-\begin{equation*}
-\prd{b:B} \Parens{\hfib{f}b\to\trunc n{\hfib{f}b}}.
-\end{equation*}
-Since each map $\hfib{f}b\to\trunc n{\hfib{f}b}$ is $n$-connected by \cref{cor:totrunc-is-connected}, $\tilde{f}$ is $n$-connected by \cref{prop:nconn_fiber_to_total}.
-Finally, the projection $\proj1:\im_n(f) \to B$ is $n$-truncated, since its fibers are equivalent to the $n$-truncations of the fibers of $f$.
+    注意 $A\eqvsym\sm{b:B}\hfib{f}b$。函数 $\tilde{f}$ 是由规范的纤维变换
+    \begin{equation*}
+        \prd{b:B} \Parens{\hfib{f}b\to\trunc n{\hfib{f}b}}
+    \end{equation*}
+    在总空间上诱导出的函数。由于每个映射 $\hfib{f}b\to\trunc n{\hfib{f}b}$ 通过 \cref{cor:totrunc-is-connected} 是 $n$-连通的，$\tilde{f}$ 通过 \cref{prop:nconn_fiber_to_total} 也是 $n$-连通的。最后，投影 $\proj1:\im_n(f) \to B$ 是 $n$-截断的，因为它的纤维与 $f$ 的纤维的 $n$-截断是等价的。
 \end{proof}
 
-In the following lemma we set up some machinery to prove the unique factorization theorem.
+在下面的引理中，我们设置了一些机制来证明唯一分解定理。
 
 \begin{lem}\label{prop:factor_equiv_fiber}
-Suppose we have a commutative diagram of functions
+假设我们有一个函数的交换图
 \begin{equation*}
-  \xymatrix{
-    {A} \ar[r]^{g_1} \ar[d]_{g_2} &
-    {X_1} \ar[d]^{h_1} &
-    \\
-    {X_2} \ar[r]_{h_2}
-    &
-    {B}
-  }
+    \xymatrix{
+            {A} \ar[r]^{g_1} \ar[d]_{g_2} &
+            {X_1} \ar[d]^{h_1} &
+        \\
+        {X_2} \ar[r]_{h_2}
+        &
+            {B}
+    }
 \end{equation*}
-with $H:h_1\circ g_1\htpy h_2\circ g_2$, where $g_1$ and $g_2$ are $n$-connected and where $h_1$ and $h_2$ are $n$-truncated.
-Then there is an equivalence
+其中 $H:h_1\circ g_1\htpy h_2\circ g_2$，$g_1$ 和 $g_2$ 是 $n$-连通的，$h_1$ 和 $h_2$ 是 $n$-截断的。那么存在一个等价
 \begin{equation*}
-E(H,b):\hfib{h_1}b\eqvsym\hfib{h_2}b
+    E(H,b):\hfib{h_1}b\eqvsym\hfib{h_2}b
 \end{equation*}
-for any $b:B$, such that for any $a:A$ we have an identification
-\[\overline{E}(H,a) :  E(H,h_1(g_1(a)))({g_1(a),\refl{h_1(g_1(a))}}) = \pairr{g_2(a),\opp{H(a)}}.\]
+对于任意 $b:B$，使得对于任何 $a:A$ 我们有一个同一性
+\[\overline{E}(H,a) :  E(H,h_1(g_1(a)))({g_1(a),\refl{h_1(g_1(a))}}) = \pairr{g_2(a),\opp{H(a)}}。\]
 \end{lem}
 
 \begin{proof}
-Let $b:B$. Then we have the following equivalences:
-\begin{align}
-\hfib{h_1}b
-& \eqvsym \sm{w:\hfib{h_1}b} \trunc n{ \hfib{g_1}{\proj1 w}}
-\tag{since $g_1$ is $n$-connected}\\
-& \eqvsym \Trunc n{\sm{w:\hfib{h_1}b}\hfib{g_1}{\proj1 w}}
-\tag{by \cref{thm:refl-over-ntype-base}, since $h_1$ is $n$-truncated}\\
-& \eqvsym \trunc n{\hfib{h_1\circ g_1}b}
-\tag{by \cref{ex:unstable-octahedron}}
-\end{align}
-and likewise for $h_2$ and $g_2$.
-Also, since we have a homotopy $H:h_1\circ g_1\htpy h_2\circ g_2$, there is an obvious equivalence $\hfib{h_1\circ g_1}b\eqvsym\hfib{h_2\circ g_2}b$.
-Hence we obtain
-\begin{equation*}
-\hfib{h_1}b\eqvsym\hfib{h_2}b
-\end{equation*}
-for any $b:B$. By analyzing the underlying functions, we get the following representation of what happens to the element
-$\pairr{g_1(a),\refl{h_1(g_1(a))}}$ after applying each of the equivalences of which $E$ is composed.
-Some of the identifications are definitional, but others (marked with a $=$ below) are only propositional; putting them together we obtain $\overline E(H,a)$.
-{\allowdisplaybreaks
-\begin{align*}
-\pairr{g_1(a),\refl{h_1(g_1(a))}} &
-    \overset{=}{\mapsto} \Pairr{\pairr{g_1(a),\refl{h_1(g_1(a))}}, \tproj n{ \pairr{a,\refl{g_1(a)}}}}\\
-  & \mapsto \tproj n { \pairr{\pairr{g_1(a),\refl{h_1(g_1(a))}}, \pairr{a,\refl{g_1(a)}} }}\\
-  & \mapsto \tproj n { \pairr{a,\refl{h_1(g_1(a))}}}\\
-  & \overset{=}{\mapsto} \tproj n { \pairr{a,\opp{H(a)}}}\\
-  & \mapsto \tproj n { \pairr{\pairr{g_2(a),\opp{H(a)}},\pairr{a,\refl{g_2(a)}}} }\\
-  & \mapsto \Pairr{\pairr{g_2(a),\opp{H(a)}}, \tproj n {\pairr{a,\refl{g_2(a)}}} }\\
-  & \mapsto \pairr{g_2(a),\opp{H(a)}}
-\end{align*}}
-The first equality is because for general $b$, the map
-\narrowequation{ \hfib{h_1}b \to \sm{w:\hfib{h_1}b} \trunc n{ \hfib{g_1}{\proj1 w}} }
-inserts the center of contraction for $\trunc n{ \hfib{g_1}{\proj1 w}}$ supplied by the assumption that $g_1$ is $n$-truncated; whereas in the case in question this type has the obvious inhabitant $\tproj n{ \pairr{a,\refl{g_1(a)}}}$, which by contractibility must be equal to the center.
-The second propositional equality is because the equivalence $\hfib{h_1\circ g_1}b\eqvsym\hfib{h_2\circ g_2}b$ concatenates the second components with $\opp{H(a)}$, and we have $\opp{H(a)} \ct \refl{} = \opp{H(a)}$.
-The reader may check that the other equalities are definitional (assuming a reasonable solution to \cref{ex:unstable-octahedron}).
+    令 $b:B$。然后我们有以下等价：
+    \begin{align}
+        \hfib{h_1}b
+        & \eqvsym \sm{w:\hfib{h_1}b} \trunc n{ \hfib{g_1}{\proj1 w}}
+        \tag{因为 $g_1$ 是 $n$-连通的}\\
+        & \eqvsym \Trunc n{\sm{w:\hfib{h_1}b}\hfib{g_1}{\proj1 w}}
+        \tag{由 \cref{thm:refl-over-ntype-base}，因为 $h_1$ 是 $n$-截断的}\\
+        & \eqvsym \trunc n{\hfib{h_1\circ g_1}b}
+        \tag{由 \cref{ex:unstable-octahedron}}
+    \end{align}
+    对 $h_2$ 和 $g_2$ 也同样成立。此外，由于我们有一个同伦 $H:h_1\circ g_1\htpy h_2\circ g_2$，存在一个显然的等价 $\hfib{h_1\circ g_1}b\eqvsym\hfib{h_2\circ g_2}b$。因此我们得到
+    \begin{equation*}
+        \hfib{h_1}b\eqvsym\hfib{h_2}b
+    \end{equation*}
+    对于任何 $b:B$。通过分析底层函数，我们得出在应用每个等价 $E$ 组成的映射后，$\pairr{g_1(a),\refl{h_1(g_1(a))}}$ 发生的变化。一些同一性是定义上的，但其他的（在下面用 $=$ 标记）是命题上的；将它们组合在一起，我们得到了 $\overline E(H,a)$。
+        {\allowdisplaybreaks
+    \begin{align*}
+        \pairr{g_1(a),\refl{h_1(g_1(a))}} &
+        \overset{=}{\mapsto} \Pairr{\pairr{g_1(a),\refl{h_1(g_1(a))}}, \tproj n{ \pairr{a,\refl{g_1(a)}}}}\\
+        & \mapsto \tproj n { \pairr{\pairr{g_1(a),\refl{h_1(g_1(a))}}, \pairr{a,\refl{g_1(a)}} }}\\
+        & \mapsto \tproj n { \pairr{a,\refl{h_1(g_1(a))}}}\\
+        & \overset{=}{\mapsto} \tproj n { \pairr{a,\opp{H(a)}}}\\
+        & \mapsto \tproj n { \pairr{\pairr{g_2(a),\opp{H(a)}},\pairr{a,\refl{g_2(a)}}} }\\
+        & \mapsto \Pairr{\pairr{g_2(a),\opp{H(a)}}, \tproj n {\pairr{a,\refl{g_2(a)}}} }\\
+        & \mapsto \pairr{g_2(a),\opp{H(a)}}
+    \end{align*}}
+    第一个等式是因为对于一般的 $b$，映射
+    \narrowequation{ \hfib{h_1}b \to \sm{w:\hfib{h_1}b} \trunc n{ \hfib{g_1}{\proj1 w}} }
+    插入了通过假设 $g_1$ 是 $n$-截断的来提供的 $\trunc n{ \hfib{g_1}{\proj1 w}}$ 的收缩中心；而在这种情况下，该类型有一个显而易见的居留元 $\tproj n{ \pairr{a,\refl{g_1(a)}}}$，通过收缩性必须等于该中心。第二个命题等式是因为等价 $\hfib{h_1\circ g_1}b\eqvsym\hfib{h_2\circ g_2}b$ 将第二个分量与 $\opp{H(a)}$ 连接在一起，而我们有 $\opp{H(a)} \ct \refl{} = \opp{H(a)}$。读者可以检查其他的等式是定义上的（假设 \cref{ex:unstable-octahedron} 有合理的解）。
 \end{proof}
 
-% The equivalences $E(H,b)$ are such that $E(H^{-1},b)= E(H,b)^{-1}$.
+% 这些等价 $E(H,b)$ 满足 $E(H^{-1},b)= E(H,b)^{-1}$。
 
-Combining \cref{prop:to_image_is_connected,prop:factor_equiv_fiber}, we have the following unique factorization result:
+结合 \cref{prop:to_image_is_connected,prop:factor_equiv_fiber}，我们有以下唯一分解结果：
 
 \begin{thm}\label{thm:orth-fact}
-For each $f:A\to B$, the space $\fact_n(f)$ defined by
+对于每个函数 $f:A\to B$，空间 $\fact_n(f)$ 定义为
 \begin{equation*}
-\sm{X:\type}{g:A\to X}{h:X\to B} (h\circ g\htpy f)\times\mathsf{conn}_n(g)\times\mathsf{trunc}_n(h)
+    \sm{X:\type}{g:A\to X}{h:X\to B} (h\circ g\htpy f)\times\mathsf{conn}_n(g)\times\mathsf{trunc}_n(h)
 \end{equation*}
-is contractible.
-Its center of contraction is the element
+是收缩的。
+它的收缩中心是由 \cref{prop:to_image_is_connected} 得到的元素
 \begin{equation*}
-\pairr{\im_n(f),\tilde{f},\proj1,\theta,\varphi,\psi}:\fact_n(f)
+    \pairr{\im_n(f),\tilde{f},\proj1,\theta,\varphi,\psi}:\fact_n(f)
 \end{equation*}
-arising from \cref{prop:to_image_is_connected},
-where $\theta:\proj1\circ\tilde{f}\htpy f$ is the canonical homotopy, where $\varphi$ is the proof of
-\cref{prop:to_image_is_connected}, and where $\psi$ is the obvious proof that $\proj1:\im_n(f)\to B$ has $n$-truncated fibers.
+其中 $\theta:\proj1\circ\tilde{f}\htpy f$ 是规范的同伦，$\varphi$ 是 \cref{prop:to_image_is_connected} 的证明，$\psi$ 是证明 $\proj1:\im_n(f)\to B$ 的纤维是 $n$-截断的显然的证明。
 \end{thm}
 
 \begin{proof}
-By \cref{prop:to_image_is_connected} we know that there is an element of $\fact_n(f)$, hence it is enough to
-show that $\fact_n(f)$ is a mere proposition. Suppose we have two $n$-factorizations
-\begin{equation*}
-\pairr{X_1,g_1,h_1,H_1,\varphi_1,\psi_1}\qquad\text{and}\qquad\pairr{X_2,g_2,h_2,H_2,\varphi_2,\psi_2}
-\end{equation*}
-of $f$. Then we have the pointwise-concatenated homotopy
-\[ H\defeq (\lam{a} H_1(a) \ct H_2^{-1}(a)) \,:\, (h_1\circ g_1\htpy h_2\circ g_2).\]
-By univalence and the characterization of paths and transport in $\Sigma$-types, function types, and path types, it suffices to show that
-\begin{enumerate}
-\item there is an equivalence $e:X_1\eqvsym X_2$,
-\item there is a homotopy $\zeta:e\circ g_1\htpy g_2$,
-% \note{Is it easy enough to see that these elements are the various transports?}
-\item there is a homotopy $\eta:h_2\circ e\htpy h_1$,
-\item for any $a:A$ we have $\opp{\apfunc{h_2}(\zeta(a))} \ct \eta(g_1(a)) \ct H_1(a) = H_2(a)$.
-\end{enumerate}
-%where $\underline{e}$ is the function underlying the equivalence.
-We prove these four assertions in that order.
-\begin{enumerate}
-\item By \cref{prop:factor_equiv_fiber}, we have a fiberwise equivalence
-% \note{It could be a nice exercise for the book to show
-% that if $f_1:A_1\to B$ and $f_2:A_2\to B$ have equivalent fibers, then $A_1\eqvsym A_2$}.
-\begin{equation*}
-E(H) : \prd{b:B} \eqv{\hfib{h_1}b}{\hfib{h_2}b}.
-\end{equation*}
-This induces an equivalence of total spaces, i.e.\ we have
-\begin{equation*}
-\eqvspaced{\Parens{\sm{b:B} \hfib{h_1}b}}{\Parens{\sm{b:B}\hfib{h_2}b}}.
-\end{equation*}
-Of course, we also have the equivalences $X_1\eqvsym\sm{b:B}\hfib{h_1}b$ and $X_2\eqvsym\sm{b:B}
-\hfib{h_2}b$ from \cref{thm:total-space-of-the-fibers}.
-This gives us our equivalence $e:X_1\eqvsym X_2$; the reader may verify that the underlying function of $e$ is given by
-\begin{equation*}
-e(x) \jdeq \proj1(E(H,h_1(x))(x,\refl{h_1(x)})).
-\end{equation*}
-\item By \cref{prop:factor_equiv_fiber}, we may choose
-  $\zeta(a) \defeq \apfunc{\proj1}(\overline E(H,a)) : e(g_1(a)) = g_2(a)$.
-  \label{item:orth-fact-2}
-\item For every $x:X_1$, we have
-\begin{equation*}
-\proj2(E(H,h_1(x))({x,\refl{h_1(x)}})) :h_2(e(x))= h_1(x),
-\end{equation*}
-giving us a homotopy $\eta:h_2\circ e\htpy h_1$.
-\item By the characterization of paths in fibers (\cref{lem:hfib}), the path $\overline E(H,a)$ from \cref{prop:factor_equiv_fiber} gives us
-  $\eta(g_1(a)) = \apfunc{h_2}(\zeta(a)) \ct \opp{H(a)}$.
-  The desired equality follows by substituting the definition of $H$ and rearranging paths.\qedhere
-\end{enumerate}
+    通过 \cref{prop:to_image_is_connected} 我们知道存在 $\fact_n(f)$ 的一个元素，因此只需证明 $\fact_n(f)$ 是一个纯命题。假设我们有两个 $n$-分解
+    \begin{equation*}
+        \pairr{X_1,g_1,h_1,H_1,\varphi_1,\psi_1}\qquad\text{和}\qquad\pairr{X_2,g_2,h_2,H_2,\varphi_2,\psi_2}
+    \end{equation*}
+    那么我们有点按连接的同伦
+    \[ H\defeq (\lam{a} H_1(a) \ct H_2^{-1}(a)) \,:\, (h_1\circ g_1\htpy h_2\circ g_2)。\]
+    通过一致性和在 $\Sigma$ 类型、函数类型和路径类型中的路径和运输的特性，证明以下四点即可：
+    \begin{enumerate}
+        \item 存在一个等价 $e:X_1\eqvsym X_2$，
+        \item 存在一个同伦 $\zeta:e\circ g_1\htpy g_2$，
+        \item 存在一个同伦 $\eta:h_2\circ e\htpy h_1$，
+        \item 对于任意 $a:A$，我们有 $\opp{\apfunc{h_2}(\zeta(a))} \ct \eta(g_1(a)) \ct H_1(a) = H_2(a)$。
+    \end{enumerate}
+    我们按顺序证明这四个断言：
+    \begin{enumerate}
+        \item 通过 \cref{prop:factor_equiv_fiber}，我们有一个纤维等价
+        \begin{equation*}
+            E(H) : \prd{b:B} \eqv{\hfib{h_1}b}{\hfib{h_2}b}.
+        \end{equation*}
+        这诱导了总空间的等价，即我们有
+        \begin{equation*}
+            \eqvspaced{\Parens{\sm{b:B} \hfib{h_1}b}}{\Parens{\sm{b:B}\hfib{h_2}b}}。
+        \end{equation*}
+        当然，通过 \cref{thm:total-space-of-the-fibers}，我们也有等价 $X_1\eqvsym\sm{b:B}\hfib{h_1}b$ 和 $X_2\eqvsym\sm{b:B} \hfib{h_2}b$。这给了我们等价 $e:X_1\eqvsym X_2$；读者可以验证 $e$ 的底层函数由下式给出
+        \begin{equation*}
+            e(x) \jdeq \proj1(E(H,h_1(x))(x,\refl{h_1(x)}))。
+        \end{equation*}
+        \item 通过 \cref{prop:factor_equiv_fiber}，我们可以选择
+        $\zeta(a) \defeq \apfunc{\proj1}(\overline E(H,a)) : e(g_1(a)) = g_2(a)$。
+        \label{item:orth-fact-2}
+        \item 对于每个 $x:X_1$，我们有
+        \begin{equation*}
+            \proj2(E(H,h_1(x))({x,\refl{h_1(x)}})) :h_2(e(x))= h_1(x)，
+        \end{equation*}
+        给了我们一个同伦 $\eta:h_2\circ e\htpy h_1$。
+        \item 通过纤维中的路径的特性 (\cref{lem:hfib})，来自 \cref{prop:factor_equiv_fiber} 的路径 $\overline E(H,a)$ 给出了
+        $\eta(g_1(a)) = \apfunc{h_2}(\zeta(a)) \ct \opp{H(a)}$。
+        所需的等式通过替换 $H$ 的定义并重新排列路径得出。\qedhere
+    \end{enumerate}
 \end{proof}
 
-% I can't make sense of this, and it doesn't seem necessary
-%
-% \begin{cor}
-% A function $f:A\to B$ is $n$-connected if and only if
-% \begin{equation*}
-% \prd C\prd{g:\modalfunc(B\to C)} \iscontr\big(\sm{h:\modalfunc(B\to C)}\underline{h}\circ
-% f\htpy\underline{g}\circ f\big).
-% \end{equation*}
-% \end{cor}
-
-By standard arguments, this yields the following orthogonality principle.
+通过标准的论证，这产生了以下正交性原则。
 
 \begin{thm}
-  Let $e:A\to B$ be $n$-connected and $m:C\to D$ be $n$-truncated.
-  Then the map
-  \[ \varphi: (B\to C) \;\to\; \sm{h:A\to C}{k:B\to D} (m\circ h \htpy k \circ e) \]
-  is an equivalence.
+    设 $e:A\to B$ 是 $n$-连通的，并且 $m:C\to D$ 是 $n$-截断的。则映射
+    \[ \varphi: (B\to C) \;\to\; \sm{h:A\to C}{k:B\to D} (m\circ h \htpy k \circ e) \]
+    是一个等价。
 \end{thm}
-\begin{proof}[Sketch of proof]
-  For any $(h,k,H)$ in the codomain, let $h = h_2 \circ h_1$ and $k = k_2 \circ k_1$, where $h_1$ and $k_1$ are $n$-connected and $h_2$ and $k_2$ are $n$-truncated.
-  Then $f = (m\circ h_2) \circ h_1$ and $f = k_2 \circ (k_1\circ e)$ are both $n$-factorizations of $m \circ h = k\circ e$.
-  Thus, there is a unique equivalence between them.
-  It is straightforward (if a bit tedious) to extract from this that $\hfib\varphi{(h,k,H)}$ is contractible.
+\begin{proof}[证明简述]
+    对于任意的 $(h,k,H)$ 在上面的域中，设 $h = h_2 \circ h_1$ 且 $k = k_2 \circ k_1$，其中 $h_1$ 和 $k_1$ 是 $n$-连通的，而 $h_2$ 和 $k_2$ 是 $n$-截断的。则 $f = (m\circ h_2) \circ h_1$ 和 $f = k_2 \circ (k_1\circ e)$ 都是 $m \circ h = k\circ e$ 的 $n$-分解。因此，它们之间存在唯一的等价。从中提取 $\hfib\varphi{(h,k,H)}$ 是收缩的，这是显而易见的。
 \end{proof}
 
-\index{orthogonal factorization system|)}%
-\index{unique!factorization system|)}%
+\index{正交分解系统|)}%
+\index{唯一!分解系统|)}%
 
-We end by showing that images are stable under pullback.
-\index{image!stability under pullback}
-\index{factorization!stability under pullback}
+我们最后展示像在拉回下是稳定的。
+\index{像!在拉回下的稳定性}%
+\index{分解!在拉回下的稳定性}
 
 \begin{lem}\label{lem:hfiber_wrt_pullback}
-Suppose that the square
+假设以下方块
 \begin{equation*}
-  \vcenter{\xymatrix{
-      A\ar[r]\ar[d]_f &
-      C\ar[d]^g\\
-      B\ar[r]_-h &
-      D
-      }}
+    \vcenter{\xymatrix{
+        A\ar[r]\ar[d]_f &
+        C\ar[d]^g\\
+        B\ar[r]_-h &
+        D
+    }}
 \end{equation*}
-is a pullback square and let $b:B$. Then $\hfib{f}b\eqvsym\hfib{g}{h(b)}$.
+是一个拉回方块，并且令 $b:B$。则 $\hfib{f}b\eqvsym\hfib{g}{h(b)}$。
 \end{lem}
 
 \begin{proof}
-This follows from pasting of pullbacks (\cref{ex:pullback-pasting}), since the type $X$ in the diagram
-\begin{equation*}
-  \vcenter{\xymatrix{
-      X\ar[r]\ar[d] &
-      A\ar[r]\ar[d]_f &
-      C\ar[d]^g\\
-      \unit\ar[r]_b &
-      B\ar[r]_h &
-      D
-      }}
-\end{equation*}
-is the pullback of the left square if and only if it is the pullback of the outer rectangle, while $\hfib{f}b$ is the pullback of the square on the left and $\hfib{g}{h(b)}$ is the pullback of the outer rectangle.
+    这来自拉回的粘贴 (\cref{ex:pullback-pasting})，因为下图中的类型 $X$
+    \begin{equation*}
+        \vcenter{\xymatrix{
+            X\ar[r]\ar[d] &
+            A\ar[r]\ar[d]_f &
+            C\ar[d]^g\\
+            \unit\ar[r]_b &
+            B\ar[r]_h &
+            D
+        }}
+    \end{equation*}
+    是左边方块的拉回当且仅当它是外矩形的拉回，而 $\hfib{f}b$ 是左边方块的拉回，$\hfib{g}{h(b)}$ 是外矩形的拉回。
 \end{proof}
 
 \begin{thm}\label{thm:stable-images}
-\index{stability!of images under pullback}%
-Consider functions $f:A\to B$, $g:C\to D$ and the diagram
+\index{稳定性!像在拉回下的稳定性}%
+考虑函数 $f:A\to B$, $g:C\to D$ 和下图
 \begin{equation*}
-  \vcenter{\xymatrix{
-      A\ar[r]\ar[d]_{\tilde{f}_n} &
-      C\ar[d]^{\tilde{g}_n}\\
-      \im_n(f)\ar[r]\ar[d]_{\proj1} &
-      \im_n(g)\ar[d]^{\proj1}\\
-      B\ar[r]_h &
-      D
-      }}
+    \vcenter{\xymatrix{
+        A\ar[r]\ar[d]_{\tilde{f}_n} &
+        C\ar[d]^{\tilde{g}_n}\\
+        \im_n(f)\ar[r]\ar[d]_{\proj1} &
+        \im_n(g)\ar[d]^{\proj1}\\
+        B\ar[r]_h &
+        D
+    }}
 \end{equation*}
-If the outer rectangle is a pullback, then so is the bottom square (and hence so is the top square, by \cref{ex:pullback-pasting}). Consequently, images are stable under pullbacks.
+如果外矩形是一个拉回，那么下方方块也是（因此通过 \cref{ex:pullback-pasting} 上方方块也是）。因此，像在拉回下是稳定的。
 \end{thm}
 
 \begin{proof}
-Assuming the outer square is a pullback, we have equivalences
-\begin{align*}
-B\times_D\im_n(g) & \jdeq \sm{b:B}{w:\im_n(g)} h(b)=\proj1 w\\
-& \eqvsym \sm{b:B}{d:D}{w:\trunc n{\hfib{g}d}} h(b)= d\\
-& \eqvsym \sm{b:B} \trunc n{\hfib{g}{h(b)}}\\
-& \eqvsym \sm{b:B} \trunc n{\hfib{f}b} &&
-\text{(by \cref{lem:hfiber_wrt_pullback})}\\
-& \equiv \im_n(f). && \qedhere
-\end{align*}
+    假设外方块是一个拉回，我们有以下等价
+    \begin{align*}
+        $B\times_D\im_n(g)$ & \jdeq \sm{b:B}{w:\im_n(g)} h(b)=\proj1 w\\
+        & \eqvsym \sm{b:B}{d:D}{w:\trunc n{\hfib{g}d}} h(b)= d\\
+        & \eqvsym \sm{b:B} \trunc n{\hfib{g}{h(b)}}\\
+        & \eqvsym \sm{b:B} \trunc n{\hfib{f}b} &&
+        \text{(通过 \cref{lem:hfiber_wrt_pullback})}\\
+        & \equiv \im_n(f)。 && \qedhere
+    \end{align*}
 \end{proof}
 
-\index{n-type@$n$-type|)}%
+\index{n-类型@$n$-type|)}%
 
 \section{Modalities}
 \label{sec:modalities}
