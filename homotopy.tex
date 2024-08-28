@@ -2025,163 +2025,129 @@ $\infty$-截断类型在 \cref{sec:modalities} 中的意义上构成一个反射
 \end{eg}
 
 我们还期望可以证明宇宙 $\UU$ 本身不是任何 $n$ 的 $n$-类型，使用它包含如 $\Sn^n$ 这样的高阶归纳类型 (higher inductive types) 对于所有 $n$。然而，这尚未完成。
-
-\section{A general statement of the encode-decode method}
+\section{编码-解码方法的一般表述 (A general statement of the encode-decode method)}
 \label{sec:general-encode-decode}
 
-\indexdef{encode-decode method}
+\indexdef{编码-解码方法 (encode-decode method)}
 
-We have used the encode-decode method to characterize the path spaces
-of various types, including coproducts (\cref{thm:path-coprod}), natural
-numbers (\cref{thm:path-nat}), truncations (\cref{thm:path-truncation}),
-the circle (\cref{{cor:omega-s1}}), suspensions (\cref{thm:freudenthal}), and pushouts
-(\cref{thm:van-Kampen}).  Variants of this technique are used in the
-proofs of many of the other theorems mentioned in the introduction to
-this chapter, such as a direct proof of $\pi_n(\Sn^n)$, the Blakers--Massey theorem, and the construction of Eilenberg--Mac Lane spaces.
-While it is tempting to try to
-abstract the method into a lemma, this is difficult because
-slightly different variants are needed for different problems.  For
-example, different variations on the same method  can be used to
-characterize a loop space (as in \cref{thm:path-coprod,cor:omega-s1}) or
-a whole path space (as in \cref{thm:path-nat}), to give a complete
-characterization of a loop space (e.g.\ $\Omega^1(\Sn ^1)$) or only to
-characterize some truncation of it (e.g.\ van Kampen), and to calculate
-homotopy groups or to prove that a map is $n$-connected (e.g.\ Freudenthal and
-Blakers--Massey).
+我们已经使用编码-解码方法来描述各种类型的路径空间，包括余积 (coproducts) (\cref{thm:path-coprod})、自然数 (natural numbers) (\cref{thm:path-nat})、截断 (truncations) (\cref{thm:path-truncation})、圆 (circle) (\cref{cor:omega-s1})、悬挂 (suspensions) (\cref{thm:freudenthal}) 和推挤 (pushouts) (\cref{thm:van-Kampen})。这种技术的变体被用于本章引言中提到的许多其他定理的证明中，例如直接证明 $\pi_n(\Sn^n)$、Blakers--Massey 定理和 Eilenberg--Mac Lane 空间的构造。虽然尝试将该方法抽象为引理是很诱人的，但这很困难，因为不同问题需要略有不同的变体。例如，可以使用相同方法的不同变体来描述循环空间 (loop space)（如 \cref{thm:path-coprod,cor:omega-s1} 中）或整个路径空间 (path space)（如 \cref{thm:path-nat} 中），来完整描述循环空间（例如 $\Omega^1(\Sn ^1)$），或仅描述其某个截断（例如 van Kampen），以及计算同伦群或证明映射是 $n$-连通的（例如 Freudenthal 和 Blakers--Massey）。
 
-However, we can state lemmas for specific variants of the method.
-The proofs of these lemmas are almost trivial; the main point is to
-clarify the method by stating them in generality.  The simplest
-case is using an encode-decode method to characterize the loop space of a
-type, as in \cref{thm:path-coprod} and \cref{{cor:omega-s1}}.
+然而，我们可以针对该方法的特定变体陈述引理。这些引理的证明几乎是平凡的；主要目的是通过一般性陈述来澄清该方法。最简单的情况是使用编码-解码方法来描述类型的循环空间，如 \cref{thm:path-coprod} 和 \cref{cor:omega-s1} 中。
 
-\begin{lem}[Encode-decode for Loop Spaces]\label{lem:encode-decode-loop}
-  \index{loop space}%
-Given a pointed type $(A,a_0)$ and a fibration
-$\code : A \to \type$, if
+\begin{lem}[循环空间的编码-解码方法 (Encode-decode for Loop Spaces)]\label{lem:encode-decode-loop}
+\index{循环空间 (loop space)}%
+给定一个带基点的类型 $(A,a_0)$ 和一个纤维丛
+$\code : A \to \type$，如果
 \begin{enumerate}
-\item $c_0 : \code(a_0)$,\label{item:ed1}
-\item $\decode : \prd{x:A} \code(x) \to (\id{a_0}{x})$,\label{item:ed2}
-\item for all $c : \code(a_0)$, \id{\transfib{\code}{\decode(c)}{c_0}}{c}, and\label{item:ed3}
-\item $\id{\decode(c_0)}{\refl{}}$,\label{item:ed4}
+  \item $c_0 : \code(a_0)$,\label{item:ed1}
+  \item $\decode : \prd{x:A} \code(x) \to (\id{a_0}{x})$,\label{item:ed2}
+  \item 对于所有 $c : \code(a_0)$, \id{\transfib{\code}{\decode(c)}{c_0}}{c}，并且\label{item:ed3}
+  \item $\id{\decode(c_0)}{\refl{}}$,\label{item:ed4}
 \end{enumerate}
-then $(\id{a_0}{a_0})$ is equivalent to $\code(a_0)$.
+那么 $(\id{a_0}{a_0})$ 等价于 $\code(a_0)$。
 \end{lem}
 
 \begin{proof}
-Define
-$\encode : \prd{x:A} (\id{a_0}{x}) \to \code(x)$ by
-\[
-\encode_x(\alpha) = \transfib{\code}{\alpha}{c_0}.
-\]
-We show that $\encode_{a_0}$ and $\decode_{a_0}$ are quasi-inverses.
-The composition $\encode_{a_0} \circ \decode_{a_0}$ is immediate by
-assumption~\ref{item:ed3}.  For the other composition, we show
-\[
-\prd{x:A}{p : \id{a_0}{x}} \id{\decode_{x} (\encode_{x} p)}{p}.
-\]
-By path induction, it suffices to show
-$\id{{\decode_{{a_0}} (\encode_{{a_o}} \refl{})}}{\refl{}}$.
-After reducing the $\mathsf{transport}$, it suffices to show
-$\id{{\decode_{{a_0}} (c_0)}}{\refl{}}$, which is assumption~\ref{item:ed4}.
+  定义
+  $\encode : \prd{x:A} (\id{a_0}{x}) \to \code(x)$ 通过
+  \[
+    \encode_x(\alpha) = \transfib{\code}{\alpha}{c_0}.
+  \]
+  我们证明 $\encode_{a_0}$ 和 $\decode_{a_0}$ 是拟逆的。
+  组合 $\encode_{a_0} \circ \decode_{a_0}$ 通过
+  assumption~\ref{item:ed3} 是立即成立的。对于另一个组合，我们证明
+  \[
+    \prd{x:A}{p : \id{a_0}{x}} \id{\decode_{x} (\encode_{x} p)}{p}.
+  \]
+  通过路径归纳，足以证明
+  $\id{{\decode_{{a_0}} (\encode_{{a_o}} \refl{})}}{\refl{}}$。
+  在减少 $\mathsf{transport}$ 之后，足以证明
+  $\id{{\decode_{{a_0}} (c_0)}}{\refl{}}$，这就是 assumption~\ref{item:ed4}。
 \end{proof}
 
-If a fiberwise equivalence between $(\id{a_0}{\blank})$ and $\code$ is desired,
-it suffices to strengthen condition (iii) to
+如果希望获得 $(\id{a_0}{\blank})$ 和 $\code$ 之间的纤维等价，
+只需加强条件 (iii) 为
 \[
-\prd{x:A}{c : \code(x)} \id{\encode_{x}(\decode_{x}(c))}{c}.
+  \prd{x:A}{c : \code(x)} \id{\encode_{x}(\decode_{x}(c))}{c}。
 \]
-However, to calculate a loop space (e.g. $\Omega(\Sn ^1)$), this
-stronger assumption is not necessary.
+然而，要计算循环空间（例如 $\Omega(\Sn ^1)$），这个更强的假设并不是必要的。
 
-Another variation, which comes up often when calculating homotopy
-groups, characterizes the truncation of a loop space:
+另一个变体经常在计算同伦群时出现，描述循环空间的截断：
 
-\begin{lem}[Encode-decode for Truncations of Loop Spaces]
-Assume a pointed type $(A,a_0)$ and a fibration
-$\code : A \to \type$, where for every $x$, $\code(x)$ is a $k$-type.
-Define
-\[
-\encode : \prd{x:A} \trunc{k}{\id{a_0}{x}} \to \code(x)
-\]
-by truncation recursion (using the fact
-that $\code(x)$ is a $k$-type), mapping $\alpha : \id{a_0}{x}$ to
-\transfib{\code}{\alpha}{c_0}. Suppose:
-\begin{enumerate}
-\item $c_0 : \code(a_0)$,
-\item $\decode : \prd{x:A} \code(x) \to \trunc{k}{\id{a_0}{x}}$,
-\item \label{item:decode-encode-loop-iii}
-  $\id{\encode_{a_0}(\decode_{a_0}(c))}{c}$ for all $c : \code(a_0)$, and
-\item \label{item:decode-encode-loop-iv}
-  $\id{\decode(c_0)}{\tproj{}{\refl{}}}$.
-\end{enumerate}
-Then $\trunc{k}{\id{a_0}{a_0}}$ is equivalent to $\code(a_0)$.
+\begin{lem}[循环空间截断的编码-解码 (Encode-decode for Truncations of Loop Spaces)]
+  假设一个带基点的类型 $(A,a_0)$ 和一个纤维丛
+  $\code : A \to \type$，其中对于每个 $x$，$\code(x)$ 是一个 $k$-类型。
+  定义
+  \[
+    \encode : \prd{x:A} \trunc{k}{\id{a_0}{x}} \to \code(x)
+  \]
+  通过截断递归 (truncation recursion)（使用 $\code(x)$ 是 $k$-类型的事实），映射 $\alpha : \id{a_0}{x}$ 到
+  \transfib{\code}{\alpha}{c_0}。假设：
+  \begin{enumerate}
+    \item $c_0 : \code(a_0)$，
+    \item $\decode : \prd{x:A} \code(x) \to \trunc{k}{\id{a_0}{x}}$，
+    \item \label{item:decode-encode-loop-iii}
+    对于所有 $c : \code(a_0)$，$\id{\encode_{a_0}(\decode_{a_0}(c))}{c}$，并且
+    \item \label{item:decode-encode-loop-iv}
+    $\id{\decode(c_0)}{\tproj{}{\refl{}}}$。
+  \end{enumerate}
+  那么 $\trunc{k}{\id{a_0}{a_0}}$ 等价于 $\code(a_0)$。
 \end{lem}
 
 \begin{proof}
-That $\decode \circ \encode$ is identity is immediate by \ref{item:decode-encode-loop-iii}.
+  通过 \ref{item:decode-encode-loop-iii}，$\decode \circ \encode$ 是恒等映射。
 %
-To prove $\encode \circ \decode$, we first do a truncation induction, by
-which it suffices to show
-\[
-\prd{x:A}{p : \id{a_0}{x}} \id{\decode_{x}(\encode_{x}(\tproj{k}{p}))}{\tproj{k}{p}}.
-\]
-The truncation induction is allowed because paths in a $k$-type are a
-$k$-type.  To show this type, we do a path induction, and after reducing
-the \encode, use assumption~\ref{item:decode-encode-loop-iv}.
+  为了证明 $\encode \circ \decode$，我们首先进行截断归纳，通过
+  我们只需证明
+  \[
+    \prd{x:A}{p : \id{a_0}{x}} \id{\decode_{x}(\encode_{x}(\tproj{k}{p}))}{\tproj{k}{p}}。
+  \]
+  截断归纳是允许的，因为 $k$-类型中的路径是
+  $k$-类型。要证明这个类型，我们进行路径归纳，之后减少
+  \encode，使用假设~\ref{item:decode-encode-loop-iv}。
 \end{proof}
 
-\section{Additional Results}
+\section{附加结果 (Additional Results)}
 \label{sec:moreresults}
 
-Though we do not present the proofs in this chapter, following results have also been established in homotopy type theory.
+尽管我们没有在本章中展示证明，但以下结果也已经在同伦类型论中得到了证实。
 
 \begin{thm}
-\index{homotopy!group!of sphere}
-There exists a $k$ such that for all $n \ge 3$, $\pi_{n+1}(\Sn ^n) =
-\Z_k$.
+  \index{球的同伦群 (homotopy group of sphere)}
+  存在一个 $k$ 使得对于所有 $n \ge 3$，$\pi_{n+1}(\Sn ^n) =
+  \Z_k$。
 \end{thm}
 
-\begin{proof}[Notes on the proof.]
-The proof consists of a calculation of $\pi_4(\Sn ^3)$, together with an
-appeal to stability (\cref{cor:stability-spheres}).  In the classical
-statement of this result, $k$ is $2$.  While we have not yet checked that
-$k$ is in fact $2$, our calculation of $\pi_4(\Sn ^3)$ is constructive,\index{mathematics!constructive}
-like all the rest of the proofs in this chapter.
-(More precisely, it doesn't use any additional axioms such as \LEM{} or \choice{}, making it as constructive as
-univalence and higher inductive types are.)  Thus, given a
-computational interpretation of homotopy type theory, we could run the
-proof on a computer to verify that $k$ is $2$.  This example is quite
-intriguing, because it is the first calculation of a homotopy group
-for which we have not needed to know the answer in advance.
+\begin{proof}[关于证明的注释 (Notes on the proof).]
+  证明包括对 $\pi_4(\Sn ^3)$ 的计算，以及对稳定性 (stability) (\cref{cor:stability-spheres}) 的引用。在这个结果的经典陈述中，$k$ 是 $2$。虽然我们还没有检查 $k$ 是否确实是 $2$，但我们对 $\pi_4(\Sn ^3)$ 的计算是构造性的，像本章中所有其他证明一样。更准确地说，它不使用任何附加公理，例如 \LEM{} 或 \choice{}，使其像一致性和高阶归纳类型一样具有构造性。因此，给定同伦类型论的计算解释，我们可以在计算机上运行证明以验证 $k$ 是 $2$。这个例子非常有趣，因为这是我们首次不需要提前知道答案的同伦群计算。
 \end{proof}
 
 % Recall from \cref{sec:colimits} that $X \sqcup^C Y$ denotes the
 % (homotopy) pushout of $X$ and $Y$ along $C$.
-\index{pushout}%
+\index{推挤 (pushout)}%
 
-\begin{thm}[Blakers--Massey theorem]\label{Blakers-Massey}
-  \indexdef{theorem!Blakers--Massey}%
-  \indexsee{Blakers--Massey theorem}{theorem, Blakers--Massey}%
-  Suppose we are given maps $f : C  \rightarrow X$, and $g : C \rightarrow Y$. Taking first the pushout $X \sqcup^C Y $ of $f$ and $g$ and then the pullback of its inclusions $\inl : X \rightarrow X \sqcup^C Y \leftarrow Y : \inr$, we have an induced map $C \to X \times_{(X \sqcup^C Y)} Y$.
+\begin{thm}[Blakers--Massey 定理 (Blakers--Massey theorem)]\label{Blakers-Massey}
+\indexdef{定理!Blakers--Massey (theorem!Blakers--Massey)}%
+\indexsee{Blakers--Massey 定理}{定理, Blakers--Massey (theorem, Blakers--Massey)}%
+假设我们有映射 $f : C  \rightarrow X$，和 $g : C \rightarrow Y$。首先将 $f$ 和 $g$ 的推挤 $X \sqcup^C Y $ 和其包含映射 $\inl : X \rightarrow X \sqcup^C Y \leftarrow Y : \inr$ 的拉回，我们有一个诱导映射 $C \to X \times_{(X \sqcup^C Y)} Y$。
 
-  If $f$ is $i$-connected and $g$ is $j$-connected, then this induced map is $(i+j)$-connected. In other words, for any points $x:X$, $y:Y$, the corresponding fiber $C_{x,y}$ of $(f,g) : C \to X \times Y $ gives an approximation to the path space $\id[X \sqcup^C Y]{\inl(x)}{\inr(y)}$ in the pushout.
+如果 $f$ 是 $i$-连通的并且 $g$ 是 $j$-连通的，那么这个诱导映射是 $(i+j)$-连通的。换句话说，对于任意点 $x:X$，$y:Y$，$(f,g) : C \to X \times Y $ 的相应纤维 $C_{x,y}$ 给出了推挤中路径空间 $\id[X \sqcup^C Y]{\inl(x)}{\inr(y)}$ 的近似。
 \end{thm}
 
-It should be noted that in classical algebraic topology, the Blakers--Massey theorem is often stated in a somewhat different form, where the maps $f$ and $g$ are replaced by inclusions of subcomplexes of CW complexes, and the homotopy pushout and homotopy pullback by a union and intersection, respectively.
-In order to express the theorem in homotopy type theory, we have to replace notions of this sort with ones that are homotopy-invariant.
-We have seen another example of this in the van Kampen theorem (\cref{sec:van-kampen}), where we had to replace a union of open subsets by a homotopy pushout.
+需要注意的是，在经典的代数拓扑中，Blakers--Massey 定理通常以稍有不同的形式陈述，其中映射 $f$ 和 $g$ 被子复形的子复形的包含映射所取代，且同伦推挤和同伦拉回分别被并集和交集取代。
+为了在同伦类型论中表达这个定理，我们必须用同伦不变的概念来代替这类概念。
+我们在 van Kampen 定理 (\cref{sec:van-kampen}) 中看到了另一个例子，在那里我们不得不用同伦推挤取代开集的并集。
 
-\begin{thm}[Eilenberg--Mac Lane Spaces]\label{Eilenberg-Mac-Lane-Spaces}
-\index{Eilenberg--Mac Lane space}
-For any abelian\index{group!abelian} group $G$ and positive integer $n$, there is an $n$-type
-$K(G,n)$ such that $\pi_n(K(G,n)) = G$, and  $\pi_k(K(G,n)) = 0$
-for $k\neq n$.
+\begin{thm}[Eilenberg--Mac Lane 空间 (Eilenberg--Mac Lane Spaces)]\label{Eilenberg-Mac-Lane-Spaces}
+\index{Eilenberg--Mac Lane 空间 (Eilenberg--Mac Lane space)}
+对于任意阿贝尔群 (abelian group) $G$ 和正整数 $n$，存在一个 $n$-类型
+$K(G,n)$，使得 $\pi_n(K(G,n)) = G$，且  $\pi_k(K(G,n)) = 0$
+对于 $k\neq n$。
 \end{thm}
 
-\begin{thm}[Covering spaces]\label{thm:covering-spaces}
-  \index{covering space}%
-  For a connected space $A$, there is an equivalence between covering spaces over $A$ and sets with an action of $\pi_1(A)$.
+\begin{thm}[覆盖空间 (Covering spaces)]\label{thm:covering-spaces}
+\index{覆盖空间 (covering space)}%
+对于连通空间 $A$，覆盖 $A$ 的覆盖空间与 $\pi_1(A)$ 上的集合作用之间存在等价关系。
 \end{thm}
 
 
@@ -2196,182 +2162,156 @@ for $k\neq n$.
 %% at the end of \cref{sec:suspension}.
 
 {
-\newcommand{\humancheck}{\ding{52}}
-\newcommand{\computercheck}{\ding{52}\kern-0.5em\ding{52}}
-\begin{table}[htb]
-  \centering
-\begin{tabular}{lcc}
-\toprule
-Theorem         & Status \\
-\midrule
-$\pi_1(\Sn ^1)$                     & \computercheck \\
-$\pi_{k<n}(\Sn ^n)$                  & \computercheck \\
+  \newcommand{\humancheck}{\ding{52}}
+  \newcommand{\computercheck}{\ding{52}\kern-0.5em\ding{52}}
+  \begin{table}[htb]
+    \centering
+    \begin{tabular}{lcc}
+      \toprule
+      定理         & 状态 \\
+      \midrule
+      $\pi_1(\Sn ^1)$                     & \computercheck \\
+      $\pi_{k<n}(\Sn ^n)$                  & \computercheck \\
 %% $\pi_{k<n}(\Sn ^n)$ --- suspension  & \computercheck \\
 %% $\pi_2(\Sn ^2)$ --- suspension      & \computercheck \\
-long-exact-sequence of homotopy groups & \computercheck    \\
-total space of Hopf fibration is $\Sn ^3$ & \humancheck    \\
-$\pi_2(\Sn ^2)$                     & \computercheck \\
-$\pi_3(\Sn ^2)$                     & \humancheck    \\
-$\pi_n(\Sn ^n)$                     & \computercheck \\
+      同伦群的长确界列 (long-exact-sequence of homotopy groups) & \computercheck    \\
+      Hopf 纤维丛的总空间是 $\Sn ^3$ & \humancheck    \\
+      $\pi_2(\Sn ^2)$                     & \computercheck \\
+      $\pi_3(\Sn ^2)$                     & \humancheck    \\
+      $\pi_n(\Sn ^n)$                     & \computercheck \\
 %% $\pi_n(\Sn ^n)$ --- suspension      & \computercheck \\
-$\pi_4(\Sn ^3)$                     & \humancheck    \\
-Freudenthal suspension theorem      & \computercheck \\
-Blakers--Massey theorem              & \computercheck \\
-Eilenberg--Mac Lane spaces $K(G,n)$ & \computercheck \\
-van Kampen theorem                & \computercheck \\
-covering spaces                     & \computercheck \\
-Whitehead's principle for $n$-types & \computercheck \\
-\bottomrule
-\end{tabular}
-\caption{Theorems from homotopy theory proved by
-  hand (\humancheck) and by computer (\computercheck).}
-  \label{tab:theorems}
-\end{table}
+      $\pi_4(\Sn ^3)$                     & \humancheck    \\
+      Freudenthal 悬挂定理 (Freudenthal suspension theorem)      & \computercheck \\
+      Blakers--Massey 定理 (Blakers--Massey theorem)              & \computercheck \\
+      Eilenberg--Mac Lane 空间 $K(G,n)$ & \computercheck \\
+      van Kampen 定理 (van Kampen theorem)                & \computercheck \\
+      覆盖空间 (covering spaces)                     & \computercheck \\
+      $n$-类型的 Whitehead 原理 (Whitehead's principle for $n$-types) & \computercheck \\
+      \bottomrule
+    \end{tabular}
+    \caption{同伦理论中通过手工 (\humancheck) 和计算机 (\computercheck) 证明的定理。}
+    \label{tab:theorems}
+  \end{table}
 }
 
-The theorems described in this chapter are standard results in classical
-homotopy theory; many are described by \cite{hatcher02topology}.  In these
-notes, we review the development of the new synthetic proofs of them in homotopy
-type theory.  \cref{tab:theorems} lists the homotopy-theoretic
-theorems that have been proven in homotopy type theory, and whether they
-have been computer-checked.
-Almost all of these results were developed during the spring term at IAS
-in 2013, as part of a significant collaborative effort.  Many people
-contributed to these results, for example by being the principal author
-of a proof, by suggesting problems to work on, by participating in many
-discussions and seminars about these problems, or by giving feedback on
-results.  The following people were the principal authors of the first
-homotopy type theory proofs of the above theorems. Unless indicated otherwise, for the
-theorems that have been computer-checked, the principal authors were
-also the first ones to formalize\index{mathematics!formalized} the proof using a computer proof
-assistant.
+本章描述的定理是经典同伦理论中的标准结果；许多由 \cite{hatcher02topology} 进行了描述。在这些注释中，我们回顾了在同伦类型论中对这些定理的新综合证明的发展。 \cref{tab:theorems} 列出了在同伦类型论中已证明的同伦理论定理，以及它们是否已通过计算机检查。几乎所有这些结果都是在 2013 年春季 IAS 的一个重要协作努力中发展起来的。许多人为这些结果做出了贡献，例如作为证明的主要作者，提出要解决的问题，参与了关于这些问题的许多讨论和研讨会，或对结果提供反馈。以下人员是上述定理的第一个同伦类型论证明的主要作者。除非另有说明，对于已通过计算机检查的定理，主要作者也是第一个使用计算机证明助手形式化该证明的人。
 \begin{itemize}
-\item
-Shulman gave the homotopy-theoretic calculation of $\pi_1(\Sn^1)$.  Licata later discovered the
-encode-decode proof and the encode-decode method.
+  \item
+  Shulman 进行了 $\pi_1(\Sn^1)$ 的同伦理论计算。Licata 后来发现了编码-解码证明和编码-解码方法。
 
-\item
-Brunerie calculated $\pi_{k<n}(\Sn ^ n)$.
-Licata later gave an encode-decode version.
+  \item
+  Brunerie 计算了 $\pi_{k<n}(\Sn ^ n)$。
+  Licata 后来给出了一个编码-解码版本。
 
-\item Voevodsky constructed the long exact sequence of homotopy groups.
+  \item Voevodsky 构造了同伦群的长确界列。
 
-\item Lumsdaine constructed the Hopf fibration.
-  Brunerie proved that its total space is $\Sn ^3$, thereby calculating $\pi_2(\Sn ^2)$ and
-  $\pi_3(\Sn ^3)$.
+  \item Lumsdaine 构造了 Hopf 纤维丛。
+  Brunerie 证明了它的总空间是 $\Sn ^3$，从而计算了 $\pi_2(\Sn ^2)$ 和
+  $\pi_3(\Sn ^3)$。
 
-\item Licata and Brunerie gave a direct calculation of
-$\pi_n(\Sn ^n)$.
+  \item Licata 和 Brunerie 给出了
+  $\pi_n(\Sn ^n)$ 的直接计算。
 
-\item
-  Lumsdaine proved the Freudenthal suspension theorem; Licata and
-  Lumsdaine formalized this proof.
-\item Lumsdaine, Finster, and Licata proved the Blakers--Massey theorem;
-  Lumsdaine, Brunerie, Licata, and Hou formalized it.
+  \item
+  Lumsdaine 证明了 Freudenthal 悬挂定理；Licata 和
+  Lumsdaine 形式化了这个证明。
+  \item Lumsdaine, Finster, 和 Licata 证明了 Blakers--Massey 定理；
+  Lumsdaine, Brunerie, Licata, 和 Hou 形式化了它。
 
-\item
-Licata gave an encode-decode calculation of $\pi_2(\Sn ^2)$, and a
-calculation of $\pi_n(\Sn ^n)$ using the Freudenthal suspension theorem; using similar
-techniques, he constructed $K(G,n)$.
+  \item
+  Licata 给出了 $\pi_2(\Sn ^2)$ 的编码-解码计算，以及使用 Freudenthal 悬挂定理计算 $\pi_n(\Sn ^n)$；使用类似的
+  技术，他构造了 $K(G,n)$。
 
-\item
-Shulman proved the van Kampen theorem; Hou formalized this proof.
+  \item
+  Shulman 证明了 van Kampen 定理；Hou 形式化了这个证明。
 
-\item
-Licata proved Whitehead's theorem for $n$-types.
+  \item
+  Licata 证明了 $n$-类型的 Whitehead 定理。
 
-\item Brunerie calculated $\pi_4(\Sn ^3)$.
+  \item Brunerie 计算了 $\pi_4(\Sn ^3)$。
 
-\item
-Hou established the theory of covering spaces and formalized it.
+  \item
+  Hou 建立了覆盖空间理论并进行了形式化。
 \end{itemize}
 
-The interplay between homotopy theory and type theory was crucial to the
-development of these results.  For example, the first proof that
-$\pi_1(\Sn ^1)=\mathbb{Z}$ was the one given in \cref{subsec:pi1s1-homotopy-theory}, which follows a classical homotopy theoretic one.  A
-type-theoretic analysis of this proof resulted in the development of the
-encode-decode method.  The first calculation of $\pi_2(\Sn ^2)$ also followed
-classical methods, but this led quickly to an encode-decode proof of the
-result.  The encode-decode calculation generalized to $\pi_n(\Sn ^n)$, which
-in turn led to the proof of the Freudenthal suspension theorem, by
-combining an encode-decode argument with classical homotopy-theoretic
-reasoning about connectedness, which in turn led to the Blakers--Massey
-theorem and Eilenberg--Mac Lane spaces.  The rapid development of this
-series of results illustrates the promise of our new understanding of
-the connections between these two subjects.
+同伦理论与类型论之间的相互作用对这些结果的发展至关重要。
+例如，第一个证明
+$\pi_1(\Sn ^1)=\mathbb{Z}$ 的证明是 \cref{subsec:pi1s1-homotopy-theory} 中给出的，它遵循了经典的同伦理论证明。
+对该证明的类型论分析导致了
+编码-解码方法的发展。
+$\pi_2(\Sn ^2)$ 的首次计算也遵循了经典方法，但这很快引出了该结果的编码-解码证明。编码-解码计算推广到了 $\pi_n(\Sn ^n)$，这反过来导致了 Freudenthal 悬挂定理的证明，通过结合编码-解码论证和关于连通性的经典同伦理论推理，这又导致了 Blakers--Massey 定理和 Eilenberg--Mac Lane 空间的发现。这一系列结果的快速发展表明了我们对这些两个主题之间联系的新理解的前景。
 
 \sectionExercises
 
 \begin{ex}\label{ex:homotopy-groups-resp-prod}
-  Prove that homotopy groups respect products: $\eqv{\pi_n(A\times B)}{\pi_n(A)\times \pi_n(B)}$.
+证明同伦群尊重乘积：$\eqv{\pi_n(A\times B)}{\pi_n(A)\times \pi_n(B)}$。
 \end{ex}
 
 \begin{ex}\label{ex:decidable-equality-susp}
-  \index{decidable!equality}%
-  Prove that if $A$ is a set with decidable equality (see \cref{defn:decidable-equality}), then its suspension $\susp A$ is a 1-type.
-  (It is an open question\index{open!problem} whether this is provable without the assumption of decidable equality.)
+\index{可判定!等价性 (decidable!equality)}%
+证明如果 $A$ 是具有可判定等价性的集合（见 \cref{defn:decidable-equality}），那么它的悬挂 $\susp A$ 是一个 1-类型。
+（这是一个开放问题 (open problem)，是否可以在没有可判定等价性假设的情况下证明这一点。）
 \end{ex}
 
 \begin{ex}\label{ex:contr-infinity-sphere-colim}
-  Define $\Sn^\infty$ to be the colimit of the sequence $\Sn^0 \to \Sn^1 \to \Sn^2 \to\cdots$.
-  Prove that $\Sn^\infty$ is contractible.
+定义 $\Sn^\infty$ 为序列 $\Sn^0 \to \Sn^1 \to \Sn^2 \to\cdots$ 的余极限 (colimit)。
+证明 $\Sn^\infty$ 是可收缩的。
 \end{ex}
 
 \begin{ex}\label{ex:contr-infinity-sphere-susp}
-  Define $\Sn^\infty$ to be the higher inductive type generated by
-  \begin{itemize}
-  \item Two points $\north:\Sn^\infty$ and $\south:\Sn^\infty$, and
-  \item For each $x:\Sn^\infty$, a path $\merid(x):\north=\south$.
-  \end{itemize}
-  In other words, $\Sn^\infty$ is its own suspension.
-  Prove that $\Sn^\infty$ is contractible.
+定义 $\Sn^\infty$ 为高阶归纳类型，由以下生成：
+\begin{itemize}
+  \item 两个点 $\north:\Sn^\infty$ 和 $\south:\Sn^\infty$，以及
+  \item 对于每个 $x:\Sn^\infty$，一个路径 $\merid(x):\north=\south$。
+\end{itemize}
+换句话说，$\Sn^\infty$ 是它自己的悬挂。
+证明 $\Sn^\infty$ 是可收缩的。
 \end{ex}
 
 \begin{ex}\label{ex:unique-fiber}
-  Suppose $f:X\to Y$ is a function and $Y$ is connected.
-  Show that for any $y_1,y_2:Y$ we have $\brck{\eqv{\hfib f {y_1}}{\hfib f {y_2}}}$.
+假设 $f:X\to Y$ 是一个函数并且 $Y$ 是连通的。
+显示对于任意 $y_1,y_2:Y$ 我们有 $\brck{\eqv{\hfib f {y_1}}{\hfib f {y_2}}}$。
 \end{ex}
 
 \begin{ex}\label{ex:ap-path-inversion}
-  For any pointed type $A$, let $i_A : \Omega A \to \Omega A$ denote inversion of loops, $i_A \defeq \lam{p} \rev{p}$.
-  Show that $i_{\Omega A} : \Omega^2 A \to \Omega^2 A$ is equal to $\Omega(i_A)$.
+对于任何带基点类型 $A$，令 $i_A : \Omega A \to \Omega A$ 表示循环的反转 (inversion)，$i_A \defeq \lam{p} \rev{p}$。
+显示 $i_{\Omega A} : \Omega^2 A \to \Omega^2 A$ 等于 $\Omega(i_A)$。
 \end{ex}
 
 \begin{ex}\label{ex:pointed-equivalences}
-  Define a \textbf{pointed equivalence} to be a pointed map whose underlying function is an equivalence.
-  \begin{enumerate}
-  \item Show that the type of pointed equivalences between pointed types $(X,x_0)$ and $(Y,y_0)$ is equivalent to $\id[\pointed\type]{(X,x_0)}{(Y,y_0)}$.
-  \item Reformulate the notion of pointed equivalence in terms of a pointed quasi-inverse and pointed homotopies, in one of the coherent styles from \cref{cha:equivalences}.
-  \end{enumerate}
+定义一个 \textbf{带基点的等价} (pointed equivalence) 为其底层函数是等价的带基点映射。
+\begin{enumerate}
+  \item 显示带基点类型 $(X,x_0)$ 和 $(Y,y_0)$ 之间的带基点等价类型等价于 $\id[\pointed\type]{(X,x_0)}{(Y,y_0)}$。
+  \item 在 \cref{cha:equivalences} 中的某个一致风格中，根据带基点的拟逆 (pointed quasi-inverse) 和带基点同伦重述带基点等价的概念。
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:HopfJr}
-  Following the example of the Hopf fibration in \cref{sec:hopf}, define the \define{junior Hopf fibration}
-  \indexdef{Hopf!fibration!junior}%
-as a fibration (that is, a type family) over $\Sn ^1$ whose fiber over the basepoint is $\Sn ^0$ and whose total space is $\Sn ^1$.  This is also called the ``twisted double cover'' of the circle $\Sn ^1$.
+根据 \cref{sec:hopf} 中 Hopf 纤维丛的例子，定义 \textbf{Junior Hopf 纤维丛 (junior Hopf fibration)} 作为 $\Sn ^1$ 上的纤维丛（即一个类型族），其基点上的纤维为 $\Sn ^0$，其总空间为 $\Sn ^1$。这也被称为圆 $\Sn ^1$ 的“扭曲双重覆盖” (twisted double cover)。
 \end{ex}
 
 \begin{ex}\label{ex:SuperHopf}
-Again following the example of the Hopf fibration in \cref{sec:hopf}, define an analogous fibration over $\Sn ^4$ whose fiber over the basepoint is $\Sn ^3$ and whose total space is $\Sn ^7$.  This is an open problem\index{open!problem} in homotopy type theory (such a fibration is known to exist in classical homotopy theory).
+再次参考 \cref{sec:hopf} 中 Hopf 纤维丛的例子，定义一个类似的纤维丛，其基点上的纤维为 $\Sn ^3$，其总空间为 $\Sn ^7$。这是同伦类型论中的一个开放问题（在经典同伦理论中，已知存在这样的纤维丛）。
 \end{ex}
 
 \begin{ex}\label{ex:vksusppt}
-  Continuing from \cref{eg:suspension}, prove that if $A$ has a point $a:A$, then we can identify $\pi_1(\susp A)$ with the group presented by $\trunc0A$ as generators with the relation $\tproj0a = e$.
-  Then show that if we assume excluded middle, this is also the free group on $\trunc0 A \setminus \{\tproj0 a \}$.
+继续 \cref{eg:suspension} 的内容，证明如果 $A$ 有一个点 $a:A$，那么我们可以将 $\pi_1(\susp A)$ 与生成元为 $\trunc0A$，关系为 $\tproj0a = e$ 的群同一化。
+然后显示如果我们假设排中律，这也就是 $\trunc0 A \setminus \{\tproj0 a \}$ 上的自由群 (free group)。
 \end{ex}
 
 \begin{ex}\label{ex:vksuspnopt}
-  Again continuing from \cref{eg:suspension}, but this time without assuming $A$ to be pointed, show that we can identify $\pi_1(\susp A)$ with the group presented by generators $\trunc0A \times \trunc0A$ and relations
-  \begin{equation*}
-    (a,b) = \opp{(b,a)},
-    \qquad
-    (a,c) = (a,b)\cdot (b,c),
-    \qquad\text{and}\qquad
-    (a,a) = e.
-  \end{equation*}
+继续 \cref{eg:suspension} 的内容，但这次不假设 $A$ 是带基点的，显示我们可以将 $\pi_1(\susp A)$ 与生成元 $\trunc0A \times \trunc0A$ 和关系
+\begin{equation*}
+(a,b) = \opp{(b,a)},
+\qquad
+(a,c) = (a,b)\cdot (b,c),
+\qquad\text{以及}\qquad
+(a,a) = e.
+\end{equation*}
+的群同一化。
 \end{ex}
 
-\index{acceptance|)}
+\index{接受 (acceptance)|)}
 
 %%% Local Variables:
 %%% mode: latex
