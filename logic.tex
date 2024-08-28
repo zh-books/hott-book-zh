@@ -1,1272 +1,1229 @@
-\chapter{Sets and logic}
+\chapter{集合与逻辑 (Sets and Logic)}
 \label{cha:logic}
 
-Type theory, formal or informal, is a collection of rules for manipulating types and their elements.
-But when writing mathematics informally in natural language, we generally use familiar words, particularly logical connectives such as ``and'' and ``or'', and logical quantifiers such as ``for all'' and ``there exists''.
-In contrast to set theory, type theory offers us more than one way to regard these English phrases as operations on types.
-This potential ambiguity needs to be resolved, by setting out local or global conventions, by introducing new annotations to informal mathematics, or both.
-This requires some getting used to, but is offset by the fact that because type theory permits this finer analysis of logic, we can represent mathematics more faithfully, with fewer ``abuses of language'' than in set-theoretic foundations.
-In this chapter we will explain the issues involved, and justify the choices we have made.
+类型论 (Type Theory) 无论是形式化的还是非形式化的，都是一组用于操纵类型 (types) 及其元素的规则。
+但是，当用自然语言非形式地写数学时，我们通常使用熟悉的词汇，特别是逻辑连词，如“和 (and)”和“或 (or)”，以及逻辑量词，如“对于所有 (for all)”和“存在 (there exists)”。与集合论 (Set Theory) 相比，类型论为我们提供了不止一种方式来将这些英文短语视为对类型的操作。这种潜在的歧义需要通过设置局部或全局的约定、引入新的注释到非正式数学中，或者两者兼而有之来解决。这需要一些适应，但因为类型论允许对逻辑进行更精细的分析，所以我们可以更忠实地表示数学，而不像集合论基础那样存在较少的“语言滥用”。在本章中，我们将解释涉及的问题，并证明我们所做选择的合理性。
 
-\section{Sets and \texorpdfstring{$n$}{n}-types}
+\section{集合与 \texorpdfstring{$n$}{n}-类型 (Sets and \texorpdfstring{$n$}{n}-types)}
 \label{sec:basics-sets}
 
-\index{set|(defstyle}%
+\index{集合 (set)|(defstyle}%
 
-In order to explain the connection between the logic of type theory and the logic of set theory, it is helpful to have a notion of \emph{set} in type theory.
-While types in general behave like spaces or higher groupoids, there is a subclass of them that behave more like the sets in a traditional set-theoretic system.
-Categorically, we may consider \emph{discrete} groupoids, which are determined by a set of objects and only identity morphisms as higher morphisms; while topologically, we may consider spaces having the discrete topology.\index{discrete!space}
-More generally, we may consider groupoids or spaces that are \emph{equivalent} to ones of this sort; since everything we do in type theory is up to homotopy, we can't expect to tell the difference.
+为了解释类型论的逻辑与集合论的逻辑之间的联系，在类型论中引入 \emph{集合 (Set)} 的概念是有帮助的。
+虽然一般的类型表现得像空间或更高的群体 (Higher Groupoids)，但其中有一个子类，它们的行为更像传统集合论系统中的集合。从范畴学 (Category Theory) 的角度，我们可以考虑 \emph{离散 (Discrete)} 群体 (Groupoids)，它们由一组对象 (Objects) 决定，并且只有恒等 (Identity) 态射 (Morphisms) 作为更高的态射；而从拓扑学 (Topology) 的角度，我们可以考虑具有离散拓扑的空间。\index{离散空间 (discrete space)}更一般地，我们可以考虑与这类对象 \emph{等价 (Equivalent)} 的群体或空间；由于我们在类型论中所做的一切都是同伦 (Homotopy) 意义上的，我们不能指望区分这些。
 
-Intuitively, we would expect a type to ``be a set'' in this sense if it has no higher homotopical information: any two parallel paths are equal (up to homotopy), and similarly for parallel higher paths at all dimensions.
-Fortunately, because everything in homotopy type theory is automatically functorial/continuous,
-\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-\index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-it turns out to be sufficient to ask this at the bottom level.
+直观地说，如果一个类型没有更高的同伦信息，即任意两条平行路径是相等的（同伦意义上的），并且在所有维度上平行的更高路径也是如此，我们会认为一个类型在这种意义上“是一个集合”。幸运的是，因为同伦类型论 (Homotopy Type Theory) 中的一切都是自动函子性/连续的，
+\index{类型论中函数的“连续性” (continuity of functions in type theory)}%
+\index{类型论中函数的“函子性” (functoriality of functions in type theory)}%
+所以实际上只需在底层级别上询问这一点就足够了。
 
 \begin{defn}\label{defn:set}
-  A type $A$ is a \define{set}
-  if for all $x,y:A$ and all $p,q:x=y$, we have $p=q$.
+一个类型 $A$ 是一个 \define{集合 (Set)} 当且仅当对于所有 $x,y:A$ 和所有 $p,q:x=y$，我们有 $p=q$。
 \end{defn}
 
-More precisely, the proposition $\isset(A)$ is defined to be the type
+更精确地，命题 $\isset(A)$ 被定义为类型
 \[ \isset(A) \defeq \prd{x,y:A}{p,q:x=y} (p=q). \]
 
-As mentioned in \cref{sec:types-vs-sets},
-the sets in homotopy type theory are not like the sets in ZF set theory, in that there is no global ``membership predicate'' $\in$.
-They are more like the sets used in structural mathematics and in category theory, whose elements are ``abstract points'' to which we give structure with functions and relations.
-This is all we need in order to use them as a foundational system for most set-based mathematics; we will see some examples in \cref{cha:set-math}.
+如 \cref{sec:types-vs-sets} 中所述，同伦类型论中的集合与 ZF 集合论中的集合不同，因为没有全局的“隶属谓词 (membership predicate)” $\in$。它们更像结构数学和范畴学中使用的集合，其元素是“抽象点 (abstract points)”，我们通过函数 (Functions) 和关系 (Relations) 给予它们结构。这就是我们需要使用它们作为大多数基于集合的数学的基础系统的全部；我们将在 \cref{cha:set-math} 中看到一些例子。
 
-Which types are sets?
-In \cref{cha:hlevels} we will study a more general form of this question in depth, but for now we can observe some easy examples.
+哪些类型是集合？
+在 \cref{cha:hlevels} 中，我们将深入研究这个问题的更一般形式，但现在我们可以观察一些简单的例子。
 
 \begin{eg}\label{eg:isset-unit}
-  The type \unit is a set.
-  For by \cref{thm:path-unit}, for any $x,y:\unit$ the type $(x=y)$ is equivalent to \unit.
-  Since any two elements of \unit are equal, this implies that any two elements of $x=y$ are equal.
+类型 \unit 是一个集合。
+因为根据 \cref{thm:path-unit}，对于任何 $x,y:\unit$，类型 $(x=y)$ 等价于 \unit。由于 \unit 的任何两个元素都是相等的，这意味着 $x=y$ 的任何两个元素都是相等的。
 \end{eg}
 
 \begin{eg}\label{eg:isset-empty}
-  The type $\emptyt$ is a set, for given any $x,y:\emptyt$ we may deduce anything we like, by the induction principle of $\emptyt$.
+类型 $\emptyt$ 是一个集合，因为给定任何 $x,y:\emptyt$，我们可以根据 $\emptyt$ 的归纳原理推导出任何我们想要的结论。
 \end{eg}
 
 \begin{eg}\label{thm:nat-set}
-  The type \nat of natural numbers is also a set.
-  This follows from \cref{thm:path-nat}, since all equality types $\id[\nat]xy$ are equivalent to either \unit or \emptyt, and any two inhabitants of \unit or \emptyt are equal.
-  We will see another proof of this fact in \cref{cha:hlevels}.
+自然数 (Natural Numbers) 的类型 \nat 也是一个集合。
+这可以通过 \cref{thm:path-nat} 得出，因为所有等式类型 $\id[\nat]xy$ 都等价于 \unit 或 \emptyt，并且 \unit 或 \emptyt 的任何两个元素都是相等的。我们将在 \cref{cha:hlevels} 中看到这个事实的另一个证明。
 \end{eg}
 
-Most of the type forming operations we have considered so far also preserve sets.
+到目前为止，我们所考虑的大多数类型形成操作也保留了集合的属性。
 
 \begin{eg}\label{thm:isset-prod}
-  If $A$ and $B$ are sets, then so is $A\times B$.
-  For given $x,y:A\times B$ and $p,q:x=y$, by \cref{thm:path-prod} we have $p= \pairpath(\projpath1(p),\projpath2(p))$ and $q= \pairpath(\projpath1(q),\projpath2(q))$.
-  But $\projpath1(p)=\projpath1(q)$ since $A$ is a set, and $\projpath2(p)=\projpath2(q)$ since $B$ is a set; hence $p=q$.
+如果 $A$ 和 $B$ 是集合，那么 $A\times B$ 也是集合。
+因为给定 $x,y:A\times B$ 和 $p,q:x=y$，根据 \cref{thm:path-prod}，我们有 $p= \pairpath(\projpath1(p),\projpath2(p))$ 和 $q= \pairpath(\projpath1(q),\projpath2(q))$。但是 $\projpath1(p)=\projpath1(q)$，因为 $A$ 是一个集合，并且 $\projpath2(p)=\projpath2(q)$，因为 $B$ 是一个集合；因此 $p=q$。
 
-  Similarly, if $A$ is a set and $B:A\to\type$ is such that each $B(x)$ is a set, then $\sm{x:A} B(x)$ is a set.
+类似地，如果 $A$ 是一个集合并且 $B:A\to\type$ 使得每个 $B(x)$ 都是一个集合，那么 $\sm{x:A} B(x)$ 是一个集合。
 \end{eg}
 
 \begin{eg}\label{thm:isset-forall}
-  If $A$ is \emph{any} type and $B:A\to \type$ is such that each $B(x)$ is a set, then the type $\prd{x:A} B(x)$ is a set.
-  For suppose $f,g:\prd{x:A} B(x)$ and $p,q:f=g$.
-  By function extensionality, we have
-  %
-  \begin{equation*}
-    p = {\funext (x \mapsto \happly(p,x))}
-    \quad\text{and}\quad
-    q = {\funext (x \mapsto \happly(q,x))}.
-  \end{equation*}
-  %
-  But for any $x:A$, we have
-  %
-  \begin{equation*}
-   \happly(p,x):f(x)=g(x)
-   \qquad\text{and}\qquad
-   \happly(q,x):f(x)=g(x),
-  \end{equation*}
-  %
-  so since $B(x)$ is a set we have $\happly(p,x) = \happly(q,x)$.
-  Now using function extensionality again, the dependent functions $(x \mapsto \happly(p,x))$ and $(x \mapsto \happly(q,x))$ are equal, and hence (applying $\apfunc{\funext}$) so are~$p$ and~$q$.
+如果 $A$ 是 \emph{任意} 类型并且 $B:A\to \type$ 使得每个 $B(x)$ 都是一个集合，那么类型 $\prd{x:A} B(x)$ 是一个集合。
+假设 $f,g:\prd{x:A} B(x)$ 并且 $p,q:f=g$。
+根据函数扩展性 (Function Extensionality)，我们有
+%
+\begin{equation*}
+  p = {\funext (x \mapsto \happly(p,x))}
+  \quad\text{并且}\quad
+  q = {\funext (x \mapsto \happly(q,x))}。
+\end{equation*}
+%
+但是对于任意 $x:A$，我们有
+%
+\begin{equation*}
+  \happly(p,x):f(x)=g(x)
+  \qquad\text{并且}\qquad
+  \happly(q,x):f(x)=g(x)，
+\end{equation*}
+%
+因此由于 $B(x)$ 是一个集合，我们有 $\happly(p,x) = \happly(q,x)$。
+现在再次使用函数扩展性，依赖函数 $(x \mapsto \happly(p,x))$ 和 $(x \mapsto \happly(q,x))$ 是相等的，因此（应用 $\apfunc{\funext}$）~$p$ 和~$q$ 也是相等的。
 \end{eg}
 
-For more examples, see \cref{ex:isset-coprod,ex:isset-sigma}.  For a more systematic investigation of the subsystem (category) of all sets in homotopy type theory, see~\cref{cha:set-math}.
+有关更多示例，请参见 \cref{ex:isset-coprod,ex:isset-sigma}。有关在同伦类型论中所有集合的子系统（范畴 (Category)）的更系统的研究，请参见~\cref{cha:set-math}。
 
-\index{n-type@$n$-type|(}%
+\index{$n$-类型 (n-type)@(n-type)|(}%
 
-Sets are just the first rung on a ladder of what are called \emph{homotopy $n$-types}.
-The next rung consists of \emph{$1$-types}, which are analogous to $1$-groupoids in category theory.
-The defining property of a set (which we may also call a \emph{$0$-type}) is that it has no non-trivial paths.
-Similarly, the defining property of a $1$-type is that it has no non-trivial paths between paths:
+集合只是被称为 \emph{同伦 $n$-类型 (Homotopy $n$-types)} 的阶梯的第一层。
+下一层包括 \emph{$1$-类型 (1-types)}，它们在范畴论中类似于 $1$-群体 (1-Groupoids)。
+集合的定义性质（我们也可以称之为 \emph{$0$-类型 (0-type)}）是它没有非平凡的路径。
+类似地，$1$-类型的定义性质是它没有路径之间的非平凡路径：
 
 \begin{defn}\label{defn:1type}
-  A type $A$ is a \define{1-type}
-  \indexdef{1-type}%
-  if for all $x,y:A$ and $p,q:x=y$ and $r,s:p=q$, we have $r=s$.
+一个类型 $A$ 是一个 \define{1-类型 (1-type)}
+\indexdef{1-类型 (1-type)}%
+如果对于所有 $x,y:A$ 和 $p,q:x=y$ 以及 $r,s:p=q$，我们有 $r=s$。
 \end{defn}
 
-Similarly, we can define $2$-types, $3$-types, and so on.
-We will define the general notion of $n$-type inductively in \cref{cha:hlevels}, and study the relationships between $n$-types for different values of $n$.
+同样地，我们可以定义 $2$-类型、$3$-类型，依此类推。
+我们将在 \cref{cha:hlevels} 中递归定义 $n$-类型，并研究不同 $n$ 值的 $n$-类型之间的关系。
 
-However, for now it is useful to have two facts in mind.
-First, the levels are upward-closed: if $A$ is an $n$-type then $A$ is an $(n+1)$-type.
-For example:
+然而，目前有两个事实是有用的。
+首先，这些级别是向上闭合的：如果 $A$ 是一个 $n$-类型，那么 $A$ 是一个 $(n+1)$-类型。
+例如：
 %%  will make precise the sense in which this
 %% ``suffices for all higher levels'', but as an example, we observe that
 %% it suffices for the next level up.
 
 \begin{lem}\label{thm:isset-is1type}
-  If $A$ is a set (that is, $\isset(A)$ is inhabited), then $A$ is a 1-type.
+如果 $A$ 是一个集合（即 $\isset(A)$ 是被占用的），那么 $A$ 是一个 1-类型。
 \end{lem}
 \begin{proof}
-  Suppose $f:\isset(A)$; then for any $x,y:A$ and $p,q:x=y$ we have $f(x,y,p,q):p=q$.
-  Fix $x$, $y$, and $p$, and define $g: \prd{q:x=y} (p=q)$ by $g(q) \defeq f (x,y,p,q)$.
-  Then for any $r:q=q'$, we have $\apdfunc{g}(r) : \trans{r}{g(q)} = g(q')$.
-  By \cref{cor:transport-path-prepost}, therefore, we have $g(q) \ct r = g(q')$.
+  假设 $f:\isset(A)$；那么对于所有 $x,y:A$ 和 $p,q:x=y$ 我们有 $f(x,y,p,q):p=q$。
+  固定 $x$, $y$ 和 $p$，并定义 $g: \prd{q:x=y} (p=q)$ 通过 $g(q) \defeq f (x,y,p,q)$。
+  然后对于任意 $r:q=q'$，我们有 $\apdfunc{g}(r) : \trans{r}{g(q)} = g(q')$。
+  因此，根据 \cref{cor:transport-path-prepost}，我们有 $g(q) \ct r = g(q')$。
 
-  In particular, suppose given $x,y,p,q$ and $r,s:p=q$, as in \cref{defn:1type}, and define $g$ as above.
-  Then $g(p) \ct r = g(q)$ and also $g(p) \ct s = g(q)$, hence by cancellation $r=s$.
+  特别地，假设给定 $x,y,p,q$ 和 $r,s:p=q$，如 \cref{defn:1type} 中所述，并定义上述的 $g$。
+  然后 $g(p) \ct r = g(q)$ 并且 $g(p) \ct s = g(q)$，因此通过抵消 $r=s$。
 \end{proof}
 
-Second, this stratification of types by level is not degenerate, in the
-sense that not all types are sets:
+其次，这种按级别划分类型的方法不是退化的，因为不是所有的类型都是集合：
 
 \begin{eg}\label{thm:type-is-not-a-set}
-  \index{type!universe}%
-  The universe \type is not a set.
-  To prove this, it suffices to exhibit a type $A$ and a path $p:A=A$ which is not equal to $\refl A$.
-  Take $A=\bool$, and let $f:A\to A$ be defined by $f(\bfalse)\defeq \btrue$ and $f(\btrue)\defeq \bfalse$.
-  Then $f(f(x))=x$ for all $x$ (by an easy case analysis), so $f$ is an equivalence.
-  Hence, by univalence, $f$ gives rise to a path $p:A=A$.
+\index{类型宇宙 (type universe)}%
+宇宙 \type 不是一个集合。
+为了证明这一点，足以展示一个类型 $A$ 和一条路径 $p:A=A$，该路径不等于 $\refl A$。
+取 $A=\bool$，并定义 $f:A\to A$ 为 $f(\bfalse)\defeq \btrue$ 和 $f(\btrue)\defeq \bfalse$。
+然后对于所有 $x$ 我们有 $f(f(x))=x$（通过一个简单的情况分析），因此 $f$ 是一个等价。
+因此，根据单一性 (Univalence)，$f$ 产生一条路径 $p:A=A$。
 
-  If $p$ were equal to $\refl A$, then (again by univalence) $f$ would equal the identity function of $A$.
-  But this would imply that $\bfalse=\btrue$, contradicting \cref{rmk:true-neq-false}.
+如果 $p$ 等于 $\refl A$，那么（再次根据单一性）$f$ 将等于 $A$ 的恒等函数。
+但这将意味着 $\bfalse=\btrue$，这与 \cref{rmk:true-neq-false} 矛盾。
 \end{eg}
 
-In \cref{cha:hits,cha:homotopy} we will show that for any $n$, there are types which are not $n$-types.
+在 \cref{cha:hits,cha:homotopy} 中，我们将证明对于任意 $n$，存在不属于 $n$-类型的类型。
 
-Note that $A$ is a 1-type exactly when for any $x,y:A$, the identity type $\id[A]xy$ is a set.
-(Thus, \cref{thm:isset-is1type} could equivalently be read as saying that the identity types of a set are also sets.)
-This will be the basis of the recursive definition of $n$-types we will give in \cref{cha:hlevels}.
+注意，当且仅当对于任意 $x,y:A$，等式类型 $\id[A]xy$ 是一个集合时，$A$ 是一个 1-类型。
+（因此，\cref{thm:isset-is1type} 可以等效地理解为集合的等式类型也是集合。）
+这将成为我们在 \cref{cha:hlevels} 中给出的 $n$-类型的递归定义的基础。
 
-We can also extend this characterization ``downwards'' from sets.
-That is, a type $A$ is a set just when for any $x,y:A$, any two elements of $\id[A]xy$ are equal.
-Since sets are equivalently 0-types, it is natural to call a type a \emph{$(-1)$-type} if it has this latter property (any two elements of it are equal).
-Such types may be regarded as \emph{propositions in a narrow sense}, and their study is just what is usually called ``logic''; it will occupy us for the rest of this chapter.
+我们也可以将这种从集合的表征“向下”扩展。
+也就是说，当且仅当对于任意 $x,y:A$，$\id[A]xy$ 的任意两个元素是相等的，一个类型 $A$ 是一个集合。
+由于集合等价于 0-类型，因此如果类型在后者属性下成立，我们称之为 \emph{$(-1)$-类型 ($(-1)$-type)}。
+这些类型可以被视为 \emph{狭义命题 (Propositions in a Narrow Sense)}，它们的研究正是通常所说的“逻辑”；我们将在本章的剩余部分讨论它。
 
-\index{n-type@$n$-type|)}%
-\index{set|)}%
+\index{$n$-类型 (n-type)@(n-type)|)}%
+\index{集合 (set)|)}%
 
-\section{Propositions as types?}
+\section{命题作为类型？ (Propositions as Types?)}
 \label{subsec:pat?}
 
-\index{proposition!as types|(}%
-\index{logic!constructive vs classical|(}%
-\index{anger|(}%
-Until now, we have been following the straightforward ``propositions as types'' philosophy described in \cref{sec:pat}, according to which English phrases such as ``there exists an $x:A$ such that $P(x)$'' are interpreted by corresponding types such as $\sm{x:A} P(x)$, with the proof of a statement being regarded as judging some specific element to inhabit that type.
-However, we have also seen some ways in which the ``logic'' resulting from this reading seems unfamiliar to a classical mathematician.
-For instance, in \cref{thm:ttac} we saw that the statement
-\index{axiom!of choice!type-theoretic}%
+\index{命题作为类型 (proposition as types)|(}%
+\index{构造性与经典逻辑 (constructive vs classical logic)|(}%
+\index{怒气 (anger)|(}%
+到目前为止，我们一直遵循 \cref{sec:pat} 中描述的简单“命题即类型 (Propositions as Types)”的哲学，根据该哲学，英语短语如“存在一个 $x:A$ 使得 $P(x)$”被解释为相应的类型 $\sm{x:A} P(x)$，其中一个陈述的证明被视为判断某些特定元素占据该类型。
+然而，我们也看到了从这种阅读中得出的“逻辑”对一个经典数学家来说似乎不太熟悉的一些方式。
+例如，在 \cref{thm:ttac} 中，我们看到以下陈述
+\index{选择公理 (axiom of choice)!类型理论中的 (type-theoretic)}%
 \begin{equation}\label{eq:english-ac}
-  \parbox{\textwidth-2cm}{``If for all $x:X$ there exists an $a:A(x)$ such that $P(x,a)$, then there exists a function $g:\prd{x:X} A(x)$ such that for all $x:X$ we have $P(x,g(x))$'',}
+\parbox{\textwidth-2cm}{``如果对于所有 $x:X$ 存在一个 $a:A(x)$ 使得 $P(x,a)$，那么存在一个函数 $g:\prd{x:X} A(x)$ 使得对于所有 $x:X$ 我们有 $P(x,g(x))$''，}
 \end{equation}
-which looks like the classical\index{mathematics!classical} \emph{axiom of choice}, is always true under this reading. This is a noteworthy, and often useful, feature of the propositions-as-types logic, but it also illustrates how significantly it differs from the classical interpretation of logic, under which the axiom of choice is not a logical truth, but an additional ``axiom''.
+看起来像经典的 \emph{选择公理 (Axiom of Choice)}，在这种阅读下总是成立的。这是命题即类型逻辑的一个值得注意且通常有用的特性，但它也表明它与经典逻辑解释的显著不同，在经典逻辑解释下，选择公理不是一个逻辑真理，而是一个额外的“公理”。
 
-On the other hand, we can now also show that corresponding statements looking like the classical \emph{law of double negation} and \emph{law of excluded middle} are incompatible with the univalence axiom.
-\index{univalence axiom}%
+另一方面，我们现在还可以证明，看起来像经典 \emph{双重否定律 (Law of Double Negation)} 和 \emph{排中律 (Law of Excluded Middle)} 的相应陈述与单一性公理 (Univalence Axiom) 不兼容。
+\index{单一性公理 (univalence axiom)}%
 
 \begin{thm}\label{thm:not-dneg}
-  \index{double negation, law of}%
-  It is not the case that for all $A:\UU$ we have $\neg(\neg A) \to A$.
+\index{双重否定律 (double negation, law of)}%
+对于所有 $A:\UU$，$\neg(\neg A) \to A$ 并不成立。
 \end{thm}
 \begin{proof}
-  Recall that $\neg A \jdeq (A\to\emptyt)$.
-  We also read ``it is not the case that \dots'' as the operator $\neg$.
-  Thus, in order to prove this statement, it suffices to assume given some $f:\prd{A:\UU} (\neg\neg A \to A)$ and construct an element of \emptyt.
+  回忆 $\neg A \jdeq (A\to\emptyt)$。
+  我们还将“并不成立”读作操作符 $\neg$。
+  因此，为了证明这一陈述，足以假设给定某个 $f:\prd{A:\UU} (\neg\neg A \to A)$ 并构造一个 \emptyt 的元素。
 
-  The idea of the following proof is to observe that $f$, like any function in type theory, is ``continuous''.
-  \index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-  \index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-  By univalence, this implies that $f$ is \emph{natural} with respect to equivalences of types.
-  From this, and a fixed-point-free autoequivalence\index{automorphism!fixed-point-free}, we will be able to extract a contradiction.
+  以下证明的思路是观察 $f$ 像类型论中的任何函数一样是“连续的”。
+  \index{类型论中函数的“连续性” (continuity of functions in type theory)}%
+  \index{类型论中函数的“函子性” (functoriality of functions in type theory)}%
+  根据单一性，这意味着 $f$ 在类型的等价性方面是 \emph{自然的 (Natural)}。
+  通过这一点和一个无固定点的自等价性 (Fixed-Point-Free Autoequivalence)，我们将能够提取一个矛盾。
 
-  Let $e:\eqv\bool\bool$ be the equivalence defined by $e(\btrue)\defeq\bfalse$ and $e(\bfalse)\defeq\btrue$, as in \cref{thm:type-is-not-a-set}.
-  Let $p:\bool=\bool$ be the path corresponding to $e$ by univalence, i.e.\ $p\defeq \ua(e)$.
-  Then we have $f(\bool) : \neg\neg\bool \to\bool$ and
-  \[\apd f p : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)} = f(\bool).\]
-  Hence, for any $u:\neg\neg\bool$, we have
-  \[\happly(\apd f p,u) : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) = f(\bool)(u).\]
+  令 $e:\eqv\bool\bool$ 为等价，由 $e(\btrue)\defeq\bfalse$ 和 $e(\bfalse)\defeq\btrue$ 定义，如 \cref{thm:type-is-not-a-set} 中所示。
+  令 $p:\bool=\bool$ 为由单一性对应的路径，即 $p\defeq \ua(e)$。
+  然后我们有 $f(\bool) : \neg\neg\bool \to\bool$ 并且
+  \[\apd f p : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)} = f(\bool)。\]
+  因此，对于任意 $u:\neg\neg\bool$，我们有
+  \[\happly(\apd f p,u) : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) = f(\bool)(u)。\]
 
-  Now by~\eqref{eq:transport-arrow}, transporting $f(\bool):\neg\neg\bool\to\bool$ along $p$ in the type family ${A\mapsto (\neg\neg A \to A)}$ is equal to the function which transports its argument along $\opp p$ in the type family $A\mapsto \neg\neg A$, applies $f(\bool)$, then transports the result along $p$ in the type family $A\mapsto A$:
+  现在通过~\eqref{eq:transport-arrow}，沿路径 $p$ 在类型族 ${A\mapsto (\neg\neg A \to A)}$ 中传输 $f(\bool):\neg\neg\bool\to\bool$，等于沿路径 $\opp p$ 在类型族 $A\mapsto \neg\neg A$ 中传输其参数，应用 $f(\bool)$，然后沿类型族 $A\mapsto A$ 中的路径 $p$ 传输结果：
   \begin{narrowmultline*}
     \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) =
     \narrowbreak
     \transfib{A\mapsto A}{p}{f(\bool) (\transfib{A\mapsto \neg\neg
-        A}{\opp{p}}{u})}.
+    A}{\opp{p}}{u})}。
   \end{narrowmultline*}
   %
-  However, any two points $u,v:\neg\neg\bool$ are equal by function extensionality, since for any $x:\neg\bool$ we have $u(x):\emptyt$ and thus we can derive any conclusion, in particular $u(x)=v(x)$.
-  Thus, we have $\transfib{A\mapsto \neg\neg A}{\opp{p}}{u} = u$, and so from $\happly(\apd f p,u)$ we obtain an equality
-  \[ \transfib{A\mapsto A}{p}{f(\bool)(u)} = f(\bool)(u).\]
-  Finally, as discussed in \cref{sec:compute-universe}, transporting in the type family $A\mapsto A$ along the path $p\jdeq \ua(e)$ is equivalent to applying the equivalence $e$; thus we have
+  然而，任何两个点 $u,v:\neg\neg\bool$ 通过函数扩展性是相等的，因为对于任意 $x:\neg\bool$ 我们有 $u(x):\emptyt$ 因此我们可以得出任何结论，特别是 $u(x)=v(x)$。
+  因此，我们有 $\transfib{A\mapsto \neg\neg A}{\opp{p}}{u} = u$，因此从 $\happly(\apd f p,u)$ 我们得到一个等式
+  \[ \transfib{A\mapsto A}{p}{f(\bool)(u)} = f(\bool)(u)。\]
+  最后，如 \cref{sec:compute-universe} 中讨论的，在类型族 $A\mapsto A$ 中沿路径 $p\jdeq \ua(e)$ 传输等效于应用等价 $e$；因此我们有
   \begin{equation}
-    e(f(\bool)(u)) = f(\bool)(u).\label{eq:fpaut}
+    e(f(\bool)(u)) = f(\bool)(u)。\label{eq:fpaut}
   \end{equation}
   %
-  However, we can also prove that
+  然而，我们还可以证明
   \begin{equation}
-    \prd{x:\bool} \neg(e(x)=x).\label{eq:fpfaut}
+    \prd{x:\bool} \neg(e(x)=x)。\label{eq:fpfaut}
   \end{equation}
-  This follows from a case analysis on $x$: both cases are immediate from the definition of $e$ and the fact that $\bfalse\neq\btrue$ (\cref{rmk:true-neq-false}).
-  Thus, applying~\eqref{eq:fpfaut} to $f(\bool)(u)$ and~\eqref{eq:fpaut}, we obtain an element of $\emptyt$.
+  这可以通过对 $x$ 的情况分析得出：两种情况都是从 $e$ 的定义和 $\bfalse\neq\btrue$（\cref{rmk:true-neq-false}）这一事实直接得出的。
+  因此，将~\eqref{eq:fpfaut} 应用于 $f(\bool)(u)$ 和~\eqref{eq:fpaut}，我们得到一个 \emptyt 的元素。
 \end{proof}
 
 \begin{rmk}
-  \index{choice operator}%
-  \indexsee{operator!choice}{choice operator}%
-  In particular, this implies that there can be no Hilbert-style ``choice operator'' which selects an element of every nonempty type.
-  The point is that no such operator can be \emph{natural}, and under the univalence axiom, all functions acting on types must be natural with respect to equivalences.
+  \index{选择算子 (choice operator)}%
+  \indexsee{算子!选择 (operator!choice)}{选择算子 (choice operator)}%
+  特别地，这意味着不能有一个希尔伯特风格的“选择算子”，它选择每个非空类型的一个元素。
+  关键在于没有这样的算子可以是 \emph{自然的 (Natural)}，而在单一性公理下，所有作用于类型的函数必须在类型等价方面是自然的。
 \end{rmk}
 
 \begin{rmk}
-  It is, however, still the case that $\neg\neg\neg A \to \neg A$ for any $A$; see \cref{ex:neg-ldn}.
+  然而，对于任何 $A$，仍然有 $\neg\neg\neg A \to \neg A$；参见 \cref{ex:neg-ldn}。
 \end{rmk}
 
 \begin{cor}\label{thm:not-lem}
-  \index{excluded middle}%
-  It is not the case that for all $A:\UU$ we have $A+(\neg A)$.
+\index{排中律 (excluded middle)}%
+对于所有 $A:\UU$，$A+(\neg A)$ 并不成立。
 \end{cor}
 \begin{proof}
-  Suppose we had $g:\prd{A:\UU} (A+(\neg A))$.
-  We will show that then $\prd{A:\UU} (\neg\neg A \to A)$, so that we can apply \cref{thm:not-dneg}.
-  Thus, suppose $A:\UU$ and $u:\neg\neg A$; we want to construct an element of $A$.
+  假设我们有 $g:\prd{A:\UU} (A+(\neg A))$。
+  我们将证明 $\prd{A:\UU} (\neg\neg A \to A)$，因此我们可以应用 \cref{thm:not-dneg}。
+  因此，假设 $A:\UU$ 并且 $u:\neg\neg A$；我们想构造一个 $A$ 的元素。
 
-  Now $g(A):A+(\neg A)$, so by case analysis, we may assume either $g(A)\jdeq \inl(a)$ for some $a:A$, or $g(A)\jdeq \inr(w)$ for some $w:\neg A$.
-  In the first case, we have $a:A$, while in the second case we have $u(w):\emptyt$ and so we can obtain anything we wish (such as $A$).
-  Thus, in both cases we have an element of $A$, as desired.
+  现在 $g(A):A+(\neg A)$，因此通过情况分析，我们可以假设 $g(A)\jdeq \inl(a)$ 对于某个 $a:A$，或者 $g(A)\jdeq \inr(w)$ 对于某个 $w:\neg A$。
+  在第一种情况下，我们有 $a:A$，而在第二种情况下我们有 $u(w):\emptyt$，因此我们可以得到任何我们想要的（例如 $A$）。
+  因此，在这两种情况下，我们都有一个 $A$ 的元素，如所需。
 \end{proof}
 
-Thus, if we want to assume the univalence axiom (which, of course, we do) and still leave ourselves the option of classical\index{mathematics!classical} reasoning (which is also desirable), we cannot use the unmodified propositions-as-types principle to interpret \emph{all} informal mathematical statements into type theory, since then the law of excluded middle would be false.
-However, neither do we want to discard propositions-as-types entirely, because of its many good properties (such as simplicity, constructivity, and computability).
-We now discuss a modification of propositions-as-types which resolves these problems; in \cref{subsec:when-trunc} we will return to the question of which logic to use when.
-\index{anger|)}%
-\index{proposition!as types|)}%
-\index{logic!constructive vs classical|)}%
+因此，如果我们想要假设单一性公理（当然，我们想要这样做）并且仍然给自己留下使用经典推理 (Classical Reasoning) 的可能性（这也是可取的），我们不能使用未经修改的命题即类型原则来将 \emph{所有} 非正式数学陈述解释为类型论，因为那样排中律 (Law of Excluded Middle) 将是错误的。
+然而，我们也不想完全放弃命题即类型，因为它有许多好的属性（如简单性、构造性和可计算性）。
+我们现在讨论一种修改的命题即类型逻辑，它解决了这些问题；在 \cref{subsec:when-trunc} 中，我们将回到使用何种逻辑的问题。
+\index{怒气 (anger)|)}%
+\index{命题作为类型 (proposition as types)|)}%
+\index{构造性与经典逻辑 (constructive vs classical logic)|)}%
 
-\section{Mere propositions}
+\section{纯粹命题 (Mere Propositions)}
 \label{subsec:hprops}
 
-\index{logic!of mere propositions|(}%
-\index{mere proposition|(defstyle}%
-\indexsee{proposition!mere}{mere proposition}%
-We have seen that the propositions-as-types logic has both good and bad properties.
-Both have a common cause: when types are viewed as propositions, they can contain more information than mere truth or falsity, and all ``logical'' constructions on them must respect this additional information.
-This suggests that we could obtain a more conventional logic by restricting attention to types that do \emph{not} contain any more information than a truth value, and only regarding these as logical propositions.
+\index{纯粹命题的逻辑 (logic of mere propositions)|(}%
+\index{纯粹命题 (mere proposition)|(defstyle)}%
+\indexsee{命题!纯粹 (proposition!mere)}{纯粹命题 (mere proposition)}%
+我们已经看到，命题即类型逻辑既有好的方面，也有不好的方面。
+它们都有一个共同的原因：当类型被视为命题时，它们可以包含比单纯的真理或谬误更多的信息，并且所有“逻辑”结构都必须尊重这些额外的信息。
+这表明，我们可以通过限制注意那些不包含比真值更多信息的类型，只将这些类型视为逻辑命题，从而获得更传统的逻辑。
 
-Such a type $A$ will be ``true'' if it is inhabited, and ``false'' if its inhabitation yields a contradiction (i.e.\ if $\neg A \jdeq (A\to\emptyt)$ is inhabited).
-\index{inhabited type}%
-What we want to avoid, in order to obtain a more traditional sort of logic, is treating as logical propositions those types for which giving an element of them gives more information than simply knowing that the type is inhabited.
-For instance, if we are given an element of \bool, then we receive more information than the mere fact that \bool contains some element.
-Indeed, we receive exactly \emph{one bit}
-\index{bit}%
-more information: we know \emph{which} element of \bool we were given.
-By contrast, if we are given an element of \unit, then we receive no more information than the mere fact that \unit contains an element, since any two elements of \unit are equal to each other.
-This suggests the following definition.
+这样的类型 $A$ 将在被占用时“真”，而如果它的占用导致矛盾（即 $\neg A \jdeq (A\to\emptyt)$ 被占用）时“假”。
+\index{被占用类型 (inhabited type)}%
+我们要避免的是，将那些类型作为逻辑命题对待，在这些类型中，给出它们的一个元素会比单纯知道该类型被占用提供更多的信息。
+例如，如果我们被给定 \bool 的一个元素，那么我们得到的信息比单纯的 \bool 包含一些元素的信息更多。
+事实上，我们得到了确切的 \emph{一比特 (one bit)} 更多的信息：我们知道我们得到了 \bool 的 \emph{哪个} 元素。
+相反，如果我们被给定 \unit 的一个元素，那么我们得到的信息不会比 \unit 包含一个元素的信息更多，因为 \unit 的任何两个元素都是相等的。
+这表明了以下定义。
 
 \begin{defn}\label{defn:isprop}
-  A type $P$ is a \define{mere proposition}
-  if for all $x,y:P$ we have $x=y$.
+一个类型 $P$ 是一个 \define{纯粹命题 (Mere Proposition)}
+当且仅当对于所有 $x,y:P$ 我们有 $x=y$。
 \end{defn}
 
-Note that since we are still doing mathematics \emph{in} type theory, this is a definition \emph{in} type theory, which means it is a type --- or, rather, a type family.
-Specifically, for any $P:\type$, the type $\isprop(P)$ is defined to be
-\[ \isprop(P) \defeq \prd{x,y:P} (x=y). \]
-Thus, to assert that ``$P$ is a mere proposition'' means to exhibit an inhabitant of $\isprop(P)$, which is a dependent function connecting any two elements of $P$ by a path.
-The continuity/naturality of this function implies that not only are any two elements of $P$ equal, but $P$ contains no higher homotopy either.
+请注意，由于我们仍在 \emph{类型论中 (in Type Theory)} 做数学，这是一个 \emph{类型论中的定义 (Definition in Type Theory)}，这意味着它是一个类型 --- 或者更确切地说，是一个类型族 (Type Family)。
+具体来说，对于任意 $P:\type$，类型 $\isprop(P)$ 被定义为
+\[ \isprop(P) \defeq \prd{x,y:P} (x=y)。\]
+因此，要断言“$P$ 是一个纯粹命题”意味着展示一个 $\isprop(P)$ 的占用者，这是一个通过路径连接 $P$ 的任何两个元素的依赖函数 (Dependent Function)。
+这种函数的连续性/自然性意味着不仅 $P$ 的任何两个元素都是相等的，而且 $P$ 也不包含任何更高的同伦。
 
 \begin{lem}\label{thm:inhabprop-eqvunit}
-  If $P$ is a mere proposition and $x_0:P$, then $\eqv P \unit$.
+如果 $P$ 是一个纯粹命题并且 $x_0:P$，那么 $\eqv P \unit$。
 \end{lem}
 \begin{proof}
-  Define $f:P\to\unit$ by $f(x)\defeq \ttt$, and $g:\unit\to P$ by $g(u)\defeq x_0$.
-  The claim follows from the next lemma, and the observation that \unit is a mere proposition by \cref{thm:path-unit}.
+  定义 $f:P\to\unit$ 为 $f(x)\defeq \ttt$，并定义 $g:\unit\to P$ 为 $g(u)\defeq x_0$。
+  该声明由下一个引理和 \cref{thm:path-unit} 中的观察 \unit 是一个纯粹命题得出。
 \end{proof}
 
 \begin{lem}\label{lem:equiv-iff-hprop}
-  If $P$ and $Q$ are mere propositions such that $P\to Q$ and $Q\to P$, then $\eqv P Q$.
+如果 $P$ 和 $Q$ 是纯粹命题，且 $P\to Q$ 且 $Q\to P$，那么 $\eqv P Q$。
 \end{lem}
 \begin{proof}
-  Suppose given $f:P\to Q$ and $g:Q\to P$.
-  Then for any $x:P$, we have $g(f(x))=x$ since $P$ is a mere proposition.
-  Similarly, for any $y:Q$ we have $f(g(y))=y$ since $Q$ is a mere proposition; thus $f$ and $g$ are quasi-inverses.
+  假设给定 $f:P\to Q$ 和 $g:Q\to P$。
+  那么对于任意 $x:P$，我们有 $g(f(x))=x$ 因为 $P$ 是一个纯粹命题。
+  类似地，对于任意 $y:Q$ 我们有 $f(g(y))=y$ 因为 $Q$ 是一个纯粹命题；因此 $f$ 和 $g$ 是拟逆 (Quasi-Inverses)。
 \end{proof}
 
-That is, as promised in \cref{sec:pat}, if two mere propositions are logically equivalent, then they are equivalent.
+也就是说，正如在 \cref{sec:pat} 中承诺的，如果两个纯粹命题在逻辑上是等价的，那么它们是等价的。
 
-In homotopy theory, a space that is homotopy equivalent to \unit is said to be \emph{contractible}.
-Thus, any mere proposition which is inhabited is contractible (see also \cref{sec:contractibility}).
-On the other hand, the uninhabited type \emptyt is also (vacuously) a mere proposition.
-In classical\index{mathematics!classical} mathematics, at least, these are the only two possibilities.
+在同伦论 (Homotopy Theory) 中，与 \unit 同伦等价的空间被称为 \emph{可收缩的 (Contractible)}。
+因此，任何被占用的纯粹命题都是可收缩的（另见 \cref{sec:contractibility}）。
+另一方面，未占用的类型 \emptyt 也是（虚拟地）一个纯粹命题。
+至少在经典数学中，这些是唯一的两种可能性。
 
-Mere propositions are also called \emph{subterminal objects} (if thinking categorically), \emph{subsingletons} (if thinking set-theoretically), or \emph{h-propositions}.
-\indexsee{object!subterminal}{mere proposition}%
-\indexsee{subterminal object}{mere proposition}%
-\indexsee{subsingleton}{mere proposition}%
-\indexsee{h-proposition}{mere proposition}
-The discussion in \cref{sec:basics-sets} suggests we should also call them \emph{$(-1)$-types}; we will return to this in \cref{cha:hlevels}.
-The adjective ``mere'' emphasizes that although any type may be regarded as a proposition (which we prove by giving an inhabitant of it), a type that is a mere proposition cannot usefully be regarded as any \emph{more} than a proposition: there is no additional information contained in a witness of its truth.
+纯粹命题在范畴论中也被称为 \emph{次终端对象 (Subterminal Objects)}（如果从范畴论角度考虑），在集合论中被称为 \emph{次单例 (Subsingletons)}，或者 \emph{h-命题 (h-Propositions)}。
+\indexsee{对象!次终端 (object!subterminal)}{纯粹命题 (mere proposition)}%
+\indexsee{次终端对象 (subterminal object)}{纯粹命题 (mere proposition)}%
+\indexsee{次单例 (subsingleton)}{纯粹命题 (mere proposition)}%
+\indexsee{h-命题 (h-proposition)}{纯粹命题 (mere proposition)}
+在 \cref{sec:basics-sets} 中的讨论表明，我们也应该称它们为 \emph{$(-1)$-类型 ($(-1)$-types)}；我们将在 \cref{cha:hlevels} 中回到这个问题。
+形容词“纯粹 (mere)”强调了虽然任何类型都可以被视为命题（我们通过给出其占用者来证明），但一个纯粹命题的类型不能有用地被视为任何 \emph{更多} 的命题：其真实性的见证中不包含任何额外的信息。
 
-Note that a type $A$ is a set if and only if for all $x,y:A$, the identity type $\id[A]xy$ is a mere proposition.
-On the other hand, by copying and simplifying the proof of \cref{thm:isset-is1type}, we have:
+请注意，一个类型 $A$ 是一个集合当且仅当对于所有 $x,y:A$，等式类型 $\id[A]xy$ 是一个纯粹命题。
+另一方面，通过复制并简化 \cref{thm:isset-is1type} 的证明，我们有：
 
 \begin{lem}\label{thm:prop-set}
-  Every mere proposition is a set.
+每个纯粹命题都是一个集合。
 \end{lem}
 \begin{proof}
-  Suppose $f:\isprop(A)$; thus for all $x,y:A$ we have $f(x,y):x=y$.  Fix $x:A$
-  and define $g(y)\defeq f(x,y)$.   Then for any $y,z:A$ and $p:y=z$ we have $\apd
-  g p : \trans{p}{g(y)}={g(z)}$.  Hence by \cref{cor:transport-path-prepost}, we have
-  $g(y)\ct p = g(z)$, which is to say that $p=\opp{g(y)}\ct g(z)$.  Thus, for
-  any $p,q:x=y$, we have $p = \opp{g(x)}\ct g(y) = q$.
+  假设 $f:\isprop(A)$；因此对于所有 $x,y:A$ 我们有 $f(x,y):x=y$。固定 $x:A$
+  并定义 $g(y)\defeq f(x,y)$。然后对于任意 $y,z:A$ 和 $p:y=z$，我们有 $\apd
+  g p : \trans{p}{g(y)}={g(z)}$。因此根据 \cref{cor:transport-path-prepost}，我们有
+  $g(y)\ct p = g(z)$，这就是说 $p=\opp{g(y)}\ct g(z)$。因此，对于
+  任意 $p,q:x=y$，我们有 $p = \opp{g(x)}\ct g(y) = q$。
 \end{proof}
 
-In particular, this implies:
+特别地，这意味着：
 
 \begin{lem}\label{thm:isprop-isprop}\label{thm:isprop-isset}
-  For any type $A$, the types $\isprop(A)$ and $\isset(A)$ are mere propositions.
+对于任何类型 $A$，类型 $\isprop(A)$ 和 $\isset(A)$ 是纯粹命题。
 \end{lem}
 \begin{proof}
-  Suppose $f,g:\isprop(A)$.  By function extensionality, to show $f=g$ it
-  suffices to show $f(x,y)=g(x,y)$ for any $x,y:A$.  But $f(x,y)$ and $g(x,y)$
-  are both paths in $A$, and hence are equal because, by either $f$ or $g$, we
-  have that $A$ is a mere proposition, and hence by \cref{thm:prop-set} is a
-  set.  Similarly, suppose $f,g:\isset(A)$, which is to say that for all
-  $a,b:A$ and $p,q:a=b$, we have $f(a,b,p,q):p=q$ and $g(a,b,p,q):p=q$.  But by then since $A$ is a set (by
-  either $f$ or $g$), and hence a 1-type, it follows that $f(a,b,p,q)=g(a,b,p,q)$; hence $f=g$ by
-  function extensionality.
+  假设 $f,g:\isprop(A)$。根据函数扩展性，要证明 $f=g$ 只需证明对于任意 $x,y:A$，$f(x,y)=g(x,y)$。但是 $f(x,y)$ 和 $g(x,y)$
+  都是 $A$ 中的路径，因此它们是相等的，因为无论是 $f$ 还是 $g$，我们
+  都有 $A$ 是一个纯粹命题，因此根据 \cref{thm:prop-set}，它是一个
+  集合。同样地，假设 $f,g:\isset(A)$，也就是说，对于所有
+  $a,b:A$ 和 $p,q:a=b$，我们有 $f(a,b,p,q):p=q$ 和 $g(a,b,p,q):p=q$。但正因为 $A$ 是一个集合（无论
+  是通过 $f$ 还是 $g$），因此是一个 1-类型，这意味着 $f(a,b,p,q)=g(a,b,p,q)$；因此根据
+  函数扩展性，$f=g$。
 \end{proof}
 
-We have seen one other example so far: condition~\ref{item:be3} in \cref{sec:basics-equivalences} asserts that for any function $f$, the type $\isequiv (f)$ should be a mere proposition.
+到目前为止，我们已经看到了另一个例子：在 \cref{sec:basics-equivalences} 中条件~\ref{item:be3} 声明对于任意函数 $f$，类型 $\isequiv (f)$ 应该是一个纯粹命题。
 
-\index{logic!of mere propositions|)}%
-\index{mere proposition|)}%
+\index{纯粹命题的逻辑 (logic of mere propositions)|)}%
+\index{纯粹命题 (mere proposition)|)}%
 
-\section{Classical vs.\ intuitionistic logic}
+\section{经典逻辑 vs. 直觉主义逻辑 (Classical vs. Intuitionistic Logic)}
 \label{sec:intuitionism}
 
-\index{logic!constructive vs classical|(}%
-\index{denial|(}%
-With the notion of mere proposition in hand, we can now give the proper formulation of the \define{law of excluded middle}
-\indexdef{excluded middle}%
-\indexsee{axiom!excluded middle}{excluded middle}%
-\indexsee{law!of excluded middle}{excluded middle}%
-in homotopy type theory:
+\index{逻辑!构造性 vs. 经典|(}%
+\index{否定|(}%
+有了纯粹命题 (Mere Proposition) 的概念，我们现在可以在同伦类型论中正确地表述 \define{排中律 (Law of Excluded Middle)}
+\indexdef{排中律}%
+\indexsee{公理!排中律}{排中律}%
+\indexsee{律!排中律}{排中律}%
+：
 \begin{equation}
   \label{eq:lem}
   \LEM{}\;\defeq\;
-  \prd{A:\UU} \Big(\isprop(A) \to (A + \neg A)\Big).
+  \prd{A:\UU} \Big(\isprop(A) \to (A + \neg A)\Big)。
 \end{equation}
-Similarly, the \define{law of double negation}
-\indexdef{double negation, law of}%
-\indexdef{axiom!double negation}%
-\indexdef{law!of double negation}%
-is
+类似地，\define{双重否定律 (Law of Double Negation)}
+\indexdef{双重否定律}%
+\indexdef{公理!双重否定}%
+\indexdef{律!双重否定}%
+为：
 \begin{equation}
   \label{eq:ldn}
   % \mathsf{DN}\;\defeq\;
-  \prd{A:\UU} \Big(\isprop(A) \to (\neg\neg A \to A)\Big).
+  \prd{A:\UU} \Big(\isprop(A) \to (\neg\neg A \to A)\Big)。
 \end{equation}
-The two are also easily seen to be equivalent to each other---see \cref{ex:lem-ldn}---so from now on we will generally speak only of \LEM{}.
+两者很容易被证明是等价的——见 \cref{ex:lem-ldn}——所以从现在开始我们通常只讨论 \LEM{}。
 
-This formulation of \LEM{} avoids the ``paradoxes'' of \cref{thm:not-dneg,thm:not-lem}, since \bool is not a mere proposition.
-In order to distinguish it from the more general propositions-as-types formulation, we rename the latter:
+这种 \LEM{} 的表述避免了 \cref{thm:not-dneg,thm:not-lem} 中的“悖论 (Paradoxes)”，因为 \bool 不是一个纯粹命题。
+为了将其与更一般的命题即类型 (Propositions as Types) 表述区分开来，我们将后者重命名为：
 \symlabel{lem-infty}
 \begin{equation*}
-  \LEM\infty \defeq \prd{A:\UU} (A + \neg A).
+  \LEM\infty \defeq \prd{A:\UU} (A + \neg A)。
 \end{equation*}
-For emphasis, the proper version~\eqref{eq:lem}
-may be denoted $\LEM{-1}$;
-see also \cref{ex:lemnm}.
-Although $\LEM{}$
-is not a consequence of the basic type theory described in \cref{cha:typetheory}, it may be consistently assumed as an axiom (unlike its $\infty$-counterpart).
-For instance, we will assume it in \cref{sec:wellorderings}.
+为强调起见，可以将正式版本~\eqref{eq:lem} 记为 $\LEM{-1}$；
+另见 \cref{ex:lemnm}。
+虽然 \LEM{}
+不是 \cref{cha:typetheory} 中描述的基本类型论的结果，但它可以作为一个公理被一致地假设（不像其 $\infty$ 对应部分）。
+例如，我们将在 \cref{sec:wellorderings} 中假设它。
 
-However, it can be surprising how far we can get without using \LEM{}.
-Quite often, a simple reformulation of a definition or theorem enables us to avoid invoking excluded middle.
-While this takes a little getting used to sometimes, it is often worth the hassle, resulting in more elegant and more general proofs.
-We discussed some of the benefits of this in the introduction.
+然而，令人惊讶的是，我们在不使用 \LEM{} 的情况下可以走多远。
+通常，一个定义或定理的简单重述可以使我们避免使用排中律。
+虽然这有时需要一些适应，但通常是值得的，因为这样可以得到更优雅和更通用的证明。
+我们在介绍中讨论了一些这样做的好处。
 
-For instance, in classical\index{mathematics!classical} mathematics, double negations are frequently used unnecessarily.
-A very simple example is the common assumption that a set $A$ is ``nonempty'', which literally means it is \emph{not} the case that $A$ contains \emph{no} elements.
-Almost always what is really meant is the positive assertion that $A$ \emph{does} contain at least one element, and by removing the double negation we make the statement less dependent on \LEM{}.
-Recall that we say that a type $A$ is \emph{inhabited}
-\index{inhabited type}%
-when we assert $A$ itself as a proposition (i.e.\ we construct an element of $A$, usually unnamed).
-Thus, often when translating a classical proof into constructive logic, we replace the word ``nonempty'' by ``inhabited'' (although sometimes we must replace it instead by ``merely inhabited''; see \cref{subsec:prop-trunc}).
+例如，在经典数学 (Classical Mathematics) 中，双重否定经常被不必要地使用。
+一个非常简单的例子是通常假设一个集合 $A$ 是“非空”的，这实际上意味着 $A$ \emph{不}包含 \emph{任何} 元素。
+几乎总是我们真正想表达的是积极的断言，即 $A$ \emph{确实} 包含至少一个元素，通过去除双重否定，我们使这个陈述减少了对 \LEM{} 的依赖。
+请记住，我们说一个类型 $A$ 是 \emph{被占用的 (Inhabited)} 的，
+\index{被占用类型 (inhabited type)}%
+当我们断言 $A$ 本身是一个命题（即我们构造一个 $A$ 的元素，通常是未命名的）。
+因此，当将一个经典证明翻译为构造逻辑时，我们通常将“非空”一词替换为“被占用的”（尽管有时我们必须将其替换为“仅仅被占用的”；参见 \cref{subsec:prop-trunc}）。
 
-Similarly, it is not uncommon in classical mathematics to find unnecessary proofs by contradiction.
-\index{proof!by contradiction}%
-Of course, the classical form of proof by contradiction proceeds by way of the law of double negation: we assume $\neg A$ and derive a contradiction, thereby deducing $\neg \neg A$, and thus by double negation we obtain $A$.
-However, often the derivation of a contradiction from $\neg A$ can be rephrased slightly so as to yield a direct proof of $A$, avoiding the need for \LEM{}.
+类似地，在经典数学中发现不必要的反证法 (Proof by Contradiction) 也并不罕见。
+\index{证明!通过反证法}%
+当然，经典形式的反证法是通过双重否定律进行的：我们假设 $\neg A$ 并得出一个矛盾，从而推导出 $\neg \neg A$，然后通过双重否定我们得到 $A$。
+然而，通常可以将从 $\neg A$ 推导出矛盾的过程稍作改动，以便直接证明 $A$，从而避免使用 \LEM{}。
 
-It is also important to note that if the goal is to prove a \emph{negation}\index{negation}, then ``proof by contradiction'' does not involve \LEM{}.
-In fact, since $\neg A$ is by definition the type $A\to\emptyt$, by definition to prove $\neg A$ is to prove a contradiction (\emptyt) under the assumption of $A$.
-Similarly, the law of double negation does hold for negated propositions: $\neg\neg\neg A \to \neg A$.
-With practice, one learns to distinguish more carefully between negated and non-negated propositions and to notice when \LEM{} is being used and when it is not.
+还需要注意的是，如果目标是证明一个 \emph{否定命题 (Negation)}，那么“通过反证法”并不涉及 \LEM{}。
+事实上，由于 $\neg A$ 定义为类型 $A\to\emptyt$，因此证明 $\neg A$ 就是证明在 $A$ 的假设下得出一个矛盾 (\emptyt)。
+类似地，双重否定律对于否定命题是成立的：$\neg\neg\neg A \to \neg A$。
+通过练习，可以更仔细地区分否定和非否定命题，并注意到何时使用 \LEM{}，何时不使用。
 
-Thus, contrary to how it may appear on the surface, doing mathematics ``constructively'' does not usually involve giving up important theorems, but rather finding the best way to state the definitions so as to make the important theorems constructively provable.
-That is, we may freely use the \LEM{} when first investigating a subject, but once that subject is better understood, we can hope to refine its definitions and proofs so as to avoid that axiom.
-% For instance, the theory of ordinal numbers, which classically makes heavy use of \LEM{}, works quite well constructively once we choose the correct definition of ``ordinal''; see \cref{sec:ordinals}.
-This sort of observation is even more pronounced in \emph{homotopy} type theory, where the powerful tools of univalence and higher inductive types allow us to constructively attack many problems that traditionally would require classical\index{mathematics!classical} reasoning.
-We will see several examples of this in \cref{part:mathematics}.
-% For instance, none of the ``synthetic'' homotopy theory we will develop in \cref{cha:homotopy} requires \LEM{} --- despite the fact that classical homotopy theory (formulated using topological spaces or simplicial sets) makes heavy use of them (as well as the axiom of choice).
+因此，与表面看起来相反，进行“构造性 (Constructive)”数学通常并不涉及放弃重要的定理，而是找到最佳方式陈述定义，从而使重要的定理能够构造性地证明。
+也就是说，我们可以在第一次研究一个主题时自由使用 \LEM{}，但一旦更好地理解了该主题，我们可以希望通过改进其定义和证明来避免使用该公理。
+% 例如，序数理论，经典上大量使用 \LEM{}，在选择正确的“序数 (Ordinal)”定义后，构造性地也可以很好地工作；参见 \cref{sec:ordinals}。
+在 \emph{同伦 (Homotopy)} 类型论中，这种观察更加明显，因为单一性 (Univalence) 和高阶归纳类型 (Higher Inductive Types) 的强大工具允许我们构造性地解决许多传统上需要经典推理 (Classical Reasoning) 的问题。
+我们将在 \cref{part:mathematics} 中看到几个例子。
+% 例如，我们在 \cref{cha:homotopy} 中发展的“综合 (Synthetic)”同伦理论不需要 \LEM{} —— 尽管经典同伦理论（使用拓扑空间或单纯集合 (Simplicial Sets) 表述）大量使用它们（以及选择公理 (Axiom of Choice)）。
 
-It is also worth mentioning that even in constructive mathematics, the law of excluded middle can hold for \emph{some} propositions.
-The name traditionally given to such propositions is \emph{decidable}.
+还值得一提的是，即使在构造数学中，排中律对 \emph{某些} 命题也是成立的。
+传统上对这些命题的称呼是 \emph{可判定的 (Decidable)}。
 
 \begin{defn}\label{defn:decidable-equality}
-  \mbox{}
-  \begin{enumerate}
-  \item A type $A$ is called \define{decidable}
-    \indexdef{decidable!type}%
-    \indexdef{type!decidable}%
-    if $A+\neg A$.
-  \item Similarly, a type family $B:A\to \type$ is \define{decidable}
-    \indexdef{decidable!type family}%
-    \indexdef{type!family of!decidable}%
-    if \narrowequation{\prd{a:A} (B(a)+\neg B(a)).} \label{item:decidable-equality2}
-  \item In particular, $A$ has \define{decidable equality}
-    \indexdef{decidable!equality}%
-    \indexsee{equality!decidable}{decidable equality}%
-    if \narrowequation{\prd{a,b:A} ((a=b) + \neg(a=b)).}
-  \end{enumerate}
+\mbox{}
+\begin{enumerate}
+  \item 一个类型 $A$ 被称为 \define{可判定的 (Decidable)}，
+  \indexdef{可判定!类型}%
+  \indexdef{类型!可判定}%
+  如果 $A+\neg A$。
+  \item 类似地，一个类型族 $B:A\to \type$ 是 \define{可判定的 (Decidable)}，
+  \indexdef{可判定!类型族}%
+  \indexdef{类型!族的!可判定}%
+  如果 \narrowequation{\prd{a:A} (B(a)+\neg B(a))。} \label{item:decidable-equality2}
+  \item 特别地，$A$ 具有 \define{可判定的相等性 (Decidable Equality)}，
+  \indexdef{可判定!相等性}%
+  \indexsee{相等性!可判定}{可判定的相等性}%
+  如果 \narrowequation{\prd{a,b:A} ((a=b) + \neg(a=b))。}
+\end{enumerate}
 \end{defn}
 
-Thus, $\LEM{}$ is exactly the statement that all mere propositions are decidable, and hence so are all families of mere propositions.
-In particular, $\LEM{}$ implies that all sets (in the sense of \cref{sec:basics-sets}) have decidable equality.
-Having decidable equality in this sense is very strong; see \cref{thm:hedberg}.
+因此，\LEM{} 正是所有纯粹命题是可判定的的陈述，因此所有纯粹命题的族也是可判定的。
+特别地，\LEM{} 意味着所有集合（在 \cref{sec:basics-sets} 的意义上）都有可判定的相等性。
+在这个意义上，具有可判定的相等性是非常强的；见 \cref{thm:hedberg}。
 
-\index{denial|)}%
-\index{logic!constructive vs classical|)}%
+\index{否定|)}%
+\index{逻辑!构造性 vs. 经典|)}%
 
-\section{Subsets and propositional resizing}
+\section{子集和命题重缩放 (Subsets and Propositional Resizing)}
 \label{subsec:prop-subsets}
 
-\index{mere proposition|(}%
+\index{纯粹命题|(}%
 
-As another example of the usefulness of mere propositions, we discuss subsets (and more generally subtypes).
-Suppose $P:A\to\type$ is a type family, with each type $P(x)$ regarded as a proposition.
-Then $P$ itself is a \emph{predicate} on $A$, or a \emph{property} of elements of $A$.
+作为纯粹命题的另一个有用性例子，我们讨论子集（以及更一般的子类型）。
+假设 $P:A\to\type$ 是一个类型族，其中每个类型 $P(x)$ 都被视为一个命题。
+那么 $P$ 本身就是 $A$ 上的一个 \emph{谓词 (Predicate)}，或者是 $A$ 元素的一个 \emph{属性 (Property)}。
 
-In set theory, whenever we have a predicate $P$ on a set $A$, we may form the subset $\setof{x\in A | P(x)}$.
-As mentioned briefly in \cref{sec:pat}, the obvious analogue in type theory is the $\Sigma$-type $\sm{x:A} P(x)$.
-An inhabitant of $\sm{x:A} P(x)$ is, of course, a pair $(x,p)$ where $x:A$ and $p$ is a proof of $P(x)$.
-However, for general $P$, an element $a:A$ might give rise to more than one distinct element of $\sm{x:A} P(x)$, if the proposition $P(a)$ has more than one distinct proof.
-This is counter to the usual intuition of a subset.
-But if $P$ is a \emph{mere} proposition, then this cannot happen.
+在集合论中，只要我们有一个集合 $A$ 上的谓词 $P$，我们就可以形成子集 $\setof{x\in A | P(x)}$。
+正如在 \cref{sec:pat} 中简要提到的，在类型论中显而易见的类似物是 $\Sigma$-类型 $\sm{x:A} P(x)$。
+$\sm{x:A} P(x)$ 的一个元素当然是一个对 $(x,p)$，其中 $x:A$ 且 $p$ 是 $P(x)$ 的一个证明。
+然而，对于一般的 $P$，一个元素 $a:A$ 可能会导致 $\sm{x:A} P(x)$ 中的多个不同元素，如果命题 $P(a)$ 有多个不同的证明的话。
+这与通常的子集直觉相悖。
+但是，如果 $P$ 是一个 \emph{纯粹} 命题，那么这种情况就不会发生。
 
 \begin{lem}\label{thm:path-subset}
-  Suppose $P:A\to\type$ is a type family such that $P(x)$ is a mere proposition for all $x:A$.
-  If $u,v:\sm{x:A} P(x)$ are such that $\proj1(u) = \proj1(v)$, then $u=v$.
+假设 $P:A\to\type$ 是一个类型族，使得对于所有 $x:A$，$P(x)$ 是一个纯粹命题。
+如果 $u,v:\sm{x:A} P(x)$ 使得 $\proj1(u) = \proj1(v)$，那么 $u=v$。
 \end{lem}
 \begin{proof}
-  Suppose $p:\proj1(u) = \proj1(v)$.
-  By \cref{thm:path-sigma}, to show $u=v$ it suffices to show $\trans{p}{\proj2(u)} = \proj2(v)$.
-  But $\trans{p}{\proj2(u)}$ and $\proj2(v)$ are both elements of $P(\proj1(v))$, which is a mere proposition; hence they are equal.
+  假设 $p:\proj1(u) = \proj1(v)$。
+  通过 \cref{thm:path-sigma}，要证明 $u=v$，只需证明 $\trans{p}{\proj2(u)} = \proj2(v)$。
+  但 $\trans{p}{\proj2(u)}$ 和 $\proj2(v)$ 都是 $P(\proj1(v))$ 的元素，而它是一个纯粹命题；因此它们是相等的。
 \end{proof}
 
-For instance, recall that in \cref{sec:basics-equivalences} we defined
-\[(\eqv A B) \;\defeq\; \sm{f:A\to B} \isequiv (f),\]
-where each type $\isequiv (f)$ was supposed to be a mere proposition.
-It follows that if two equivalences have equal underlying functions, then they are equal as equivalences.
+例如，回想在 \cref{sec:basics-equivalences} 中我们定义了
+\[(\eqv A B) \;\defeq\; \sm{f:A\to B} \isequiv (f)，\]
+其中每个类型 $\isequiv (f)$ 都应该是一个纯粹命题。
+这意味着，如果两个等价性 (Equivalences) 具有相同的基础函数，那么它们作为等价性是相等的。
 
 \label{defn:setof}%
-Henceforth, if $P:A\to \type$ is a family of mere propositions (i.e.\ each $P(x)$ is a mere proposition), we may write
+从现在起，如果 $P:A\to \type$ 是一个纯粹命题的族（即每个 $P(x)$ 是一个纯粹命题），我们可以写作
 %
 \begin{equation}
   \label{eq:subset}
   \setof{x:A | P(x)}
 \end{equation}
 %
-as an alternative notation for $\sm{x:A} P(x)$.
-(There is no technical reason not to use this notation for arbitrary $P$ as well, but such usage could be confusing due to unintended connotations.)
-If $A$ is a set, we call \eqref{eq:subset} a \define{subset}
-\indexdef{subset}%
-\indexdef{type!subset}%
-of $A$; for general $A$ we might call it a \define{subtype}.
-\indexdef{subtype}%
-We may also refer to $P$ itself as a \emph{subset} or \emph{subtype} of $A$; this is actually more correct, since the type~\eqref{eq:subset} in isolation doesn't remember its relationship to $A$.
+作为 $\sm{x:A} P(x)$ 的替代符号。
+（在技术上没有理由不对任意 $P$ 使用这个符号，但这种用法可能会由于意外的含义而令人困惑。）
+如果 $A$ 是一个集合，我们称 \eqref{eq:subset} 为 $A$ 的一个 \define{子集 (Subset)}；
+对于一般的 $A$，我们可以称它为 \define{子类型 (Subtype)}。
+\indexdef{子集}%
+\indexdef{类型!子集}%
+我们也可以称 $P$ 本身为 $A$ 的一个 \emph{子集} 或 \emph{子类型}；这实际上更正确，因为类型~\eqref{eq:subset} 单独不记得它与 $A$ 的关系。
 
-\symlabel{membership}
-Given such a $P$ and $a:A$, we may write $a\in P$ or $a\in \setof{x:A | P(x)}$ to refer to the mere proposition $P(a)$.
-If it holds, we may say that $a$ is a \define{member} of $P$.
-\symlabel{subset}
-Similarly, if $\setof{x:A | Q(x)}$ is another subset of $A$, then we say that $P$ is \define{contained}
-\indexdef{containment!of subsets}%
-\indexdef{inclusion!of subsets}%
-in $Q$, and write $P\subseteq Q$, if we have $\prd{x:A}(P(x)\rightarrow Q(x))$.
+\symlabel{成员资格}
+给定这样的 $P$ 和 $a:A$，我们可以写作 $a\in P$ 或 $a\in \setof{x:A | P(x)}$ 来指代纯粹命题 $P(a)$。
+如果它成立，我们可以说 $a$ 是 $P$ 的一个 \define{成员 (Member)}。
+\symlabel{子集}
+类似地，如果 $\setof{x:A | Q(x)}$ 是 $A$ 的另一个子集，那么我们说 $P$ \define{包含在 (Contained)} $Q$ 中，并写作 $P\subseteq Q$，如果我们有 $\prd{x:A}(P(x)\rightarrow Q(x))$。
 
-As further examples of subtypes, we may define the ``subuniverses'' of sets and of mere propositions in a universe \UU:
+作为子类型的进一步例子，我们可以在宇宙 \UU 中定义集合和纯粹命题的“子宇宙”：
 \symlabel{setU}\symlabel{propU}
 \begin{align*}
-  \setU &\defeq \setof{A:\UU | \isset(A) },\\
-  \propU &\defeq \setof{A:\UU | \isprop(A) }.
+  \setU &\defeq \setof{A:\UU | \isset(A) }，\\
+  \propU &\defeq \setof{A:\UU | \isprop(A) }。
 \end{align*}
-An element of $\setU$ is a type $A:\UU$ together with evidence $s:\isset(A)$, and similarly for $\propU$.
-\cref{thm:path-subset} implies that $\id[\setU]{(A,s)}{(B,t)}$ is equivalent to $\id[\UU]AB$ (and hence to $\eqv AB$).
-Thus, we will frequently abuse notation and write simply $A:\setU$ instead of $(A,s):\setU$.
-We may also drop the subscript \UU if there is no need to specify the universe in question.
+$\setU$ 的一个元素是一个类型 $A:\UU$ 以及证据 $s:\isset(A)$，$\propU$ 类似。
+\cref{thm:path-subset} 意味着 $\id[\setU]{(A,s)}{(B,t)}$ 等价于 $\id[\UU]AB$（因此等价于 $\eqv AB$）。
+因此，我们将经常滥用符号并简单地写作 $A:\setU$ 而不是 $(A,s):\setU$。
+如果没有必要指定讨论的宇宙，我们也可以省略下标 \UU。
 
-Recall that for any two universes $\UU_i$ and $\UU_{i+1}$, if $A:\UU_i$ then also $A:\UU_{i+1}$.
-Thus, for any $(A,s):\set_{\UU_i}$ we also have $(A,s):\set_{\UU_{i+1}}$, and similarly for $\prop_{\UU_i}$, giving natural maps
+请记住，对于任意两个宇宙 $\UU_i$ 和 $\UU_{i+1}$，如果 $A:\UU_i$，那么 $A:\UU_{i+1}$ 也是如此。
+因此，对于任意 $(A,s):\set_{\UU_i}$，我们也有 $(A,s):\set_{\UU_{i+1}}$，$\prop_{\UU_i}$ 类似，给出自然映射
 \begin{align}
-  \set_{\UU_i} &\to \set_{\UU_{i+1}}\label{eq:set-up},\\
-  \prop_{\UU_i} &\to \prop_{\UU_{i+1}}.\label{eq:prop-up}
+  \set_{\UU_i} &\to \set_{\UU_{i+1}}\label{eq:set-up}，\\
+  \prop_{\UU_i} &\to \prop_{\UU_{i+1}}。\label{eq:prop-up}
 \end{align}
-The map~\eqref{eq:set-up} cannot be an equivalence, since then we could reproduce the paradoxes\index{paradox} of self-reference that are familiar from Cantorian set theory.
-However, although~\eqref{eq:prop-up} is not automatically an equivalence in the type theory we have presented so far, it is consistent to suppose that it is.
-That is, we may consider adding to type theory the following axiom.
+映射~\eqref{eq:set-up} 不能是等价的，因为这样我们可以重现康托尔集合论 (Cantorian Set Theory) 中熟悉的自引用悖论\index{悖论}。
+然而，尽管~\eqref{eq:prop-up} 并不自动是等价的，但在我们目前介绍的类型论中，它是一致的，因此我们可以假设它是等价的。
+也就是说，我们可以考虑将以下公理添加到类型论中。
 
-\begin{axiom}[Propositional resizing]
-  \indexsee{axiom!propositional resizing}{propositional resizing}%
-  \indexdef{propositional!resizing}%
-  \indexsee{resizing!propositional}{propositional resizing}%
-  The map $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ is an equivalence.
+\begin{axiom}[命题重缩放 (Propositional Resizing)]
+  \indexsee{公理!命题重缩放}{命题重缩放}%
+  \indexdef{命题!重缩放}%
+  \indexsee{重缩放!命题}{命题重缩放}%
+  映射 $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ 是等价的。
 \end{axiom}
 
-We refer to this axiom as \define{propositional resizing},
-since it means that any mere proposition in the universe $\UU_{i+1}$ can be ``resized'' to an equivalent one in the smaller universe $\UU_i$.
-It follows automatically if $\UU_{i+1}$ satisfies \LEM{} (see \cref{ex:lem-impred}).
-We will not assume this axiom in general, although in some places we will use it as an explicit hypothesis.
-It is a form of \emph{impredicativity} for mere propositions, and by avoiding its use, the type theory is said to remain \emph{predicative}.
-\indexsee{impredicativity!for mere propositions}{propositional resizing}%
-\indexdef{mathematics!predicative}%
+我们将这个公理称为 \define{命题重缩放 (Propositional Resizing)}，
+因为它意味着宇宙 $\UU_{i+1}$ 中的任何纯粹命题都可以“重缩放”到较小宇宙 $\UU_i$ 中的一个等价命题。
+如果 $\UU_{i+1}$ 满足 \LEM{}，则它会自动成立（参见 \cref{ex:lem-impred}）。
+我们一般不会假设这个公理，尽管在某些地方我们会明确地使用它作为一个假设。
+它是纯粹命题的一种 \emph{不定界性 (Impredicativity)}，通过避免使用它，类型论保持 \emph{定界性 (Predicativity)}。
+\indexsee{不定界性!对于纯粹命题}{命题重缩放}%
+\indexdef{数学!定界性}%
 
-In practice, what we want most frequently is a slightly different statement: that a universe \UU under consideration contains a type which ``classifies all mere propositions''.
-In other words, we want a type $\Omega:\UU$ together with an $\Omega$-indexed family of mere propositions, which contains every mere proposition up to equivalence.
-This statement follows from propositional resizing as stated above if $\UU$ is not the smallest universe $\UU_0$, since then we can define $\Omega\defeq \prop_{\UU_0}$.
+在实践中，我们最常需要的是一个稍微不同的陈述：即所考虑的宇宙 \UU 包含一个“分类所有纯粹命题”的类型。
+换句话说，我们需要一个类型 $\Omega:\UU$ 以及一个 $\Omega$ 索引的纯粹命题的族，它包含了所有纯粹命题（到等价为止）。
+如果 \UU 不是最小宇宙 $\UU_0$，这个陈述可以从上述命题重缩放中得出，因为我们可以定义 $\Omega\defeq \prop_{\UU_0}$。
 
-One use for impredicativity is to define power sets.
-It is natural to define the \define{power set}\indexdef{power set} of a set $A$ to be $A\to\propU$; but in the absence of impredicativity, this definition depends
-(even up to equivalence) on the choice of the universe \UU.
-But with propositional resizing, we can define the power set to be
+不定界性的一个用途是定义幂集 (Power Set)。
+将集合 $A$ 的 \define{幂集 (Power Set)} 定义为 $A\to\propU$ 是很自然的；但在没有不定界性的情况下，这个定义（即使是等价的）依赖于宇宙 \UU 的选择。
+但是通过命题重缩放，我们可以将幂集定义为
 \symlabel{powerset}%
-\[ \power A \defeq (A\to\Omega),\]
-which is then independent of $\UU$.
-See also \cref{subsec:piw}.
+\[ \power A \defeq (A\to\Omega)，\]
+这样就与 \UU 无关了。
+另见 \cref{subsec:piw}。
 
-
-\section{The logic of mere propositions}
+\section{纯粹命题的逻辑 (The Logic of Mere Propositions)}
 \label{subsec:logic-hprop}
 
-\index{logic!of mere propositions|(}%
-We mentioned in \cref{sec:types-vs-sets} that in contrast to type theory, which has only one basic notion (types), set-theoretic foundations have two basic notions: sets and propositions.
-Thus, a classical\index{mathematics!classical} mathematician is accustomed to manipulating these two kinds of objects separately.
+\index{逻辑!纯粹命题的|(}%
+我们在 \cref{sec:types-vs-sets} 中提到，与只有一种基本概念（类型）的类型论不同，集合论基础有两种基本概念：集合和命题。
+因此，经典数学家 (Classical Mathematician) 习惯于分别操作这两种对象。
 
-It is possible to recover a similar dichotomy in type theory, with the role of the set-theoretic propositions being played by the types (and type families) that are \emph{mere} propositions.
-In many cases, the logical connectives and quantifiers can be represented in this logic by simply restricting the corresponding type-former to the mere propositions.
-Of course, this requires knowing that the type-former in question preserves mere propositions.
+在类型论中，恢复类似的二分法是可能的，集合论命题的作用由 \emph{纯粹} 命题的类型（和类型族）扮演。
+在许多情况下，通过简单地将对应的类型生成器限制为纯粹命题，我们可以在这种逻辑中表示逻辑连结词和量词。
+当然，这需要知道对应的类型生成器是否保持纯粹命题。
 
 \begin{eg}
-  If $A$ and $B$ are mere propositions, so is $A\times B$.
-  This is easy to show using the characterization of paths in products, just like \cref{thm:isset-prod} but simpler.
-  Thus, the connective ``and'' preserves mere propositions.
+  如果 $A$ 和 $B$ 是纯粹命题，那么 $A\times B$ 也是纯粹命题。
+  使用积 (Product) 中路径 (Paths) 的刻画来证明这一点很容易，就像 \cref{thm:isset-prod}，但更简单。
+  因此，连结词“和” (And) 保持纯粹命题。
 \end{eg}
 
 \begin{eg}\label{thm:isprop-forall}
-  If $A$ is any type and $B:A\to \type$ is such that for all $x:A$, the type $B(x)$ is a mere proposition, then $\prd{x:A} B(x)$ is a mere proposition.
-  The proof is just like \cref{thm:isset-forall} but simpler: given $f,g:\prd{x:A} B(x)$, for any $x:A$ we have $f(x)=g(x)$ since $B(x)$ is a mere proposition.
-  But then by function extensionality, we have $f=g$.
+如果 $A$ 是任意类型，$B:A\to \type$ 是类型族，使得对于所有 $x:A$，类型 $B(x)$ 是纯粹命题，那么 $\prd{x:A} B(x)$ 是纯粹命题。
+证明与 \cref{thm:isset-forall} 类似，但更简单：给定 $f,g:\prd{x:A} B(x)$，对于任意 $x:A$，我们有 $f(x)=g(x)$，因为 $B(x)$ 是纯粹命题。
+但是通过函数外延性 (Function Extensionality)，我们有 $f=g$。
 
-  In particular, if $B$ is a mere proposition, then so is $A\to B$ regardless of what $A$ is.
-  In even more particular, since \emptyt is a mere proposition, so is $\neg A \jdeq (A\to\emptyt)$.
-  \index{quantifier!universal}%
-  Thus, the connectives ``implies'' and ``not'' preserve mere propositions, as does the quantifier ``for all''.
+特别地，如果 $B$ 是纯粹命题，那么无论 $A$ 是什么，$A\to B$ 也是纯粹命题。
+更特别地，因为 \emptyt 是纯粹命题，所以 $\neg A \jdeq (A\to\emptyt)$ 也是纯粹命题。
+\index{量词!全称}%
+因此，连结词“蕴涵” (Implies) 和“非” (Not) 保持纯粹命题，连同“对所有人” (For All) 的量词。
 \end{eg}
 
-On the other hand, some type formers do not preserve mere propositions.
-Even if $A$ and $B$ are mere propositions, $A+B$ will not in general be.
-For instance, \unit is a mere proposition, but $\bool=\unit+\unit$ is not.
-Logically speaking, $A+B$ is a ``purely constructive'' sort of ``or'': a witness of it contains the additional information of \emph{which} disjunct is true.
-Sometimes this is very useful, but if we want a more classical sort of ``or'' that preserves mere propositions, we need a way to ``truncate'' this type into a mere proposition by forgetting this additional information.
+另一方面，一些类型生成器不保持纯粹命题。
+即使 $A$ 和 $B$ 是纯粹命题，$A+B$ 一般也不是。
+例如，\unit 是纯粹命题，但 $\bool=\unit+\unit$ 不是。
+从逻辑上讲，$A+B$ 是一种“纯粹构造性”的“或” (Or)：它的证据包含了哪个支节 (Disjunct) 为真的额外信息。
+有时这是非常有用的，但如果我们想要一种更经典的“或” (Or)，保持纯粹命题，我们需要一种方法通过忘记这些额外的信息来将此类型“截断” (Truncate) 成纯粹命题。
 
-\index{quantifier!existential}%
-The same issue arises with the $\Sigma$-type $\sm{x:A} P(x)$.
-This is a purely constructive interpretation of ``there exists an $x:A$ such that $P(x)$'' which remembers the witness $x$, and hence is not generally a mere proposition even if each type $P(x)$ is.
-(Recall that we observed in \cref{subsec:prop-subsets} that $\sm{x:A} P(x)$ can also be regarded as ``the subset of those $x:A$ such that $P(x)$''.)
+\index{量词!存在性}%
+同样的问题出现在 $\Sigma$-类型 $\sm{x:A} P(x)$ 中。
+这是“存在一个 $x:A$ 使得 $P(x)$ 为真”的纯粹构造性解释，它记住了见证 (Witness) $x$，因此即使每个类型 $P(x)$ 都是纯粹命题，它通常也不是纯粹命题。
+（回想在 \cref{subsec:prop-subsets} 中我们观察到 $\sm{x:A} P(x)$ 也可以被视为“那些 $x:A$ 满足 $P(x)$ 的子集”。）
 
-
-\section{Propositional truncation}
+\section{命题截断 (Propositional Truncation)}
 \label{subsec:prop-trunc}
 
-\index{truncation!propositional|(defstyle}%
-\indexsee{type!squash}{truncation, propositional}%
-\indexsee{squash type}{truncation, propositional}%
-\indexsee{bracket type}{truncation, propositional}%
-\indexsee{type!bracket}{truncation, propositional}%
-The \emph{propositional truncation}, also called the \emph{$(-1)$-truncation}, \emph{bracket type}, or \emph{squash type}, is an additional type former which ``squashes'' or ``truncates'' a type down to a mere proposition, forgetting all information contained in inhabitants of that type other than their existence.
+\index{截断!命题|(defstyle}%
+\indexsee{类型!压缩}{截断, 命题}%
+\indexsee{压缩类型}{截断, 命题}%
+\indexsee{括号类型}{截断, 命题}%
+\indexsee{类型!括号}{截断, 命题}%
+命题截断 (Propositional Truncation)，也称为 \emph{$(-1)$-截断 (Bracketing Type)}、\emph{括号类型 (Bracket Type)} 或 \emph{压缩类型 (Squash Type)}，是一种附加类型生成器，它将类型“压缩”或“截断”到纯粹命题，忘记存在该类型的元素之外的所有信息。
 
-More precisely, for any type $A$, there is a type $\brck{A}$.
-It has two constructors:
+更准确地说，对于任意类型 $A$，存在一个类型 $\brck{A}$。
+它有两个构造器：
 \begin{itemize}
-\item For any $a:A$ we have $\bproj a : \brck A$.
-\item For any $x,y:\brck A$, we have $x=y$.
+  \item 对于任意 $a:A$，我们有 $\bproj a : \brck A$。
+  \item 对于任意 $x,y:\brck A$，我们有 $x=y$。
 \end{itemize}
-The first constructor means that if $A$ is inhabited, so is $\brck A$.
-The second ensures that $\brck A$ is a mere proposition; usually we leave the witness of this fact nameless.
+第一个构造器意味着，如果 $A$ 是被占用的，那么 $\brck A$ 也是被占用的。
+第二个确保 $\brck A$ 是一个纯粹命题；通常我们不为这个事实命名证据。
 
-\index{recursion principle!for truncation}%
-The recursion principle of $\brck A$ says that:
+\index{递归原理!用于截断}%
+$\brck A$ 的递归原理表明：
 \begin{itemize}
-\item If $B$ is a mere proposition and we have $f:A\to B$, then there is an induced $g:\brck A \to B$ such that $g(\bproj a) \jdeq f(a)$ for all $a:A$.
+  \item 如果 $B$ 是一个纯粹命题，我们有 $f:A\to B$，那么存在一个诱导的 $g:\brck A \to B$，使得对于所有 $a:A$，$g(\bproj a) \jdeq f(a)$。
 \end{itemize}
-In other words, any mere proposition which follows from (the inhabitedness of) $A$ already follows from $\brck A$.
-Thus, $\brck A$, as a mere proposition, contains no more information than the inhabitedness of $A$.
-(There is also an induction principle for $\brck A$, but it is not especially useful; see \cref{ex:prop-trunc-ind}.)
+换句话说，任何从 $A$（的被占用性）得出的纯粹命题已经可以从 $\brck A$ 得出。
+（也有一个 $\brck A$ 的归纳原理，但它不是特别有用；见 \cref{ex:prop-trunc-ind}。）
 
-In \cref{ex:lem-brck,ex:impred-brck,sec:hittruncations} we will describe some ways to construct $\brck{A}$ in terms of more general things.
-For now, we simply assume it as an additional rule alongside those of \cref{cha:typetheory}.
+在 \cref{ex:lem-brck,ex:impred-brck,sec:hittruncations} 中，我们将描述一些使用更一般的事物构造 $\brck{A}$ 的方法。
+目前，我们简单地假设它作为 \cref{cha:typetheory} 规则之外的一个附加规则。
 
-With the propositional truncation, we can extend the ``logic of mere propositions'' to cover disjunction and the existential quantifier.
-Specifically, $\brck{A+B}$ is a mere propositional version of ``$A$ or $B$'', which does not ``remember'' the information of which disjunct is true.
+使用命题截断，我们可以扩展“纯粹命题逻辑”以涵盖析取 (Disjunction) 和存在量词 (Existential Quantifier)。
+具体来说，$\brck{A+B}$ 是“$A$ 或 $B$”的纯粹命题版本，不会“记住”哪个支节 (Disjunct) 为真的信息。
 
-The recursion principle of truncation implies that we can still do a case analysis on $\brck{A+B}$ \emph{when attempting to prove a mere proposition}.
-That is, suppose we have an assumption $u:\brck{A+B}$ and we are trying to prove a mere proposition $Q$.
-In other words, we are trying to define an element of $\brck{A+B} \to Q$.
-Since $Q$ is a mere proposition, by the recursion principle for propositional truncation, it suffices to construct a function $A+B\to Q$.
-But now we can use case analysis on $A+B$.
+截断的递归原理意味着我们仍然可以对 $\brck{A+B}$ 进行情况分析 \emph{当试图证明一个纯粹命题时}。
+也就是说，假设我们有一个 $u:\brck{A+B}$ 并且我们试图证明一个纯粹命题 $Q$。
+换句话说，我们试图定义一个 $\brck{A+B} \to Q$ 的元素。
+由于 $Q$ 是一个纯粹命题，根据命题截断的递归原理，我们只需构造一个 $A+B\to Q$ 的函数。
+但现在我们可以使用 $A+B$ 的情况分析。
 
-Similarly, for a type family $P:A\to\type$, we can consider $\brck{\sm{x:A} P(x)}$, which is a mere propositional version of ``there exists an $x:A$ such that $P(x)$''.
-As for disjunction, by combining the induction principles of truncation and $\Sigma$-types, if we have an assumption of type $\brck{\sm{x:A} P(x)}$, we may introduce new assumptions $x:A$ and $y:P(x)$ \emph{when attempting to prove a mere proposition}.
-In other words, if we know that there exists some $x:A$ such that $P(x)$, but we don't have a particular such $x$ in hand, then we are free to make use of such an $x$ as long as we aren't trying to construct anything which might depend on the particular value of $x$.
-Requiring the codomain to be a mere proposition expresses this independence of the result on the witness, since all possible inhabitants of such a type must be equal.
+类似地，对于类型族 $P:A\to\type$，我们可以考虑 $\brck{\sm{x:A} P(x)}$，这是“存在一个 $x:A$ 使得 $P(x)$”的纯粹命题版本。
+与析取一样，通过结合截断和 $\Sigma$-类型的归纳原理，如果我们有类型 $\brck{\sm{x:A} P(x)}$ 的假设，当试图证明一个纯粹命题时，我们可以引入新的假设 $x:A$ 和 $y:P(x)$。
+换句话说，如果我们知道存在一些 $x:A$ 使得 $P(x)$，但我们手头没有这样的特定 $x$，那么我们可以自由地使用这样的 $x$，只要我们不试图构造可能依赖于 $x$ 的特定值的任何东西。
+要求余类型是一个纯粹命题表达了结果对见证的独立性，因为该类型的所有可能的居民都必须是相等的。
 
-For the purposes of set-level mathematics in \cref{cha:real-numbers,cha:set-math},
-where we deal mostly with sets and mere propositions, it is convenient to use the
-traditional logical notations to refer only to ``propositionally truncated logic''.
+在 \cref{cha:real-numbers,cha:set-math} 的集合级数学中，我们处理的大多数集合和纯粹命题时，使用传统的逻辑符号来仅仅指代“命题截断逻辑”是方便的。
 
 \begin{defn} \label{defn:logical-notation}
-  We define \define{traditional logical notation}
-  \indexdef{implication}%
-  \indexdef{traditional logical notation}%
-  \indexdef{logical notation, traditional}%
-  \index{quantifier}%
-  \indexsee{existential quantifier}{quantifier, existential}%
-  \index{quantifier!existential}%
-  \indexsee{universal!quantifier}{quantifier, universal}%
-  \index{quantifier!universal}%
-  \indexdef{conjunction}%
-  \indexdef{disjunction}%
-  \indexdef{true}%
-  \indexdef{false}%
-  using truncation as follows, where $P$ and $Q$ denote mere propositions (or families thereof):
+我们使用如下定义的 \define{传统逻辑符号 (Traditional Logical Notation)}
+\indexdef{蕴涵}%
+\indexdef{传统逻辑符号}%
+\indexdef{逻辑符号, 传统的}%
+\index{量词}%
+\indexsee{存在量词}{量词, 存在}%
+\index{量词!存在性}%
+\indexsee{全称!量词}{量词, 全称}%
+\index{量词!全称}%
+\indexdef{合取 (Conjunction)}%
+\indexdef{析取 (Disjunction)}%
+\indexdef{真 (True)}%
+\indexdef{假 (False)}%
+使用截断如下，其中 $P$ 和 $Q$ 表示纯粹命题（或它们的族）：
   {\allowdisplaybreaks
-  \begin{align*}
-    \top            &\ \defeq \ \unit \\
-    \bot            &\ \defeq \ \emptyt \\
-    P \land Q       &\ \defeq \ P \times Q \\
-    P \Rightarrow Q &\ \defeq \ P \to Q \\
-    P \Leftrightarrow Q &\ \defeq \ P = Q \\
-    \neg P          &\ \defeq \ P \to \emptyt \\
-    P \lor Q        &\ \defeq \ \brck{P + Q} \\
-    \fall{x : A} P(x) &\ \defeq \ \prd{x : A} P(x) \\
-    \exis{x : A} P(x) &\ \defeq \ \Brck{\sm{x : A} P(x)}
-  \end{align*}}
+\begin{align*}
+  \top            &\ \defeq \ \unit \\
+  \bot            &\ \defeq \ \emptyt \\
+  P \land Q       &\ \defeq \ P \times Q \\
+  P \Rightarrow Q &\ \defeq \ P \to Q \\
+  P \Leftrightarrow Q &\ \defeq \ P = Q \\
+  \neg P          &\ \defeq \ P \to \emptyt \\
+  P \lor Q        &\ \defeq \ \brck{P + Q} \\
+  \fall{x : A} P(x) &\ \defeq \ \prd{x : A} P(x) \\
+  \exis{x : A} P(x) &\ \defeq \ \Brck{\sm{x : A} P(x)}
+\end{align*}}
 \end{defn}
 
-The notations $\land$ and $\lor$ are also used in homotopy theory for the smash product and the wedge of pointed spaces, which we will introduce in \cref{cha:hits}.
-This technically creates a potential for conflict, but no confusion will generally arise.
+符号 $\land$ 和 $\lor$ 也用于同伦理论中表示指向空间的 smash 积和楔积 (Wedge Product)，我们将在 \cref{cha:hits} 中介绍。
+这从技术上讲可能会引起冲突，但通常不会引起混淆。
 
-Similarly, when discussing subsets as in \cref{subsec:prop-subsets}, we may use the traditional notation for intersections, unions, and complements:
-\indexdef{intersection!of subsets}%
-\symlabel{intersection}%
-\indexdef{union!of subsets}%
-\symlabel{union}%
-\indexdef{complement, of a subset}%
-\symlabel{complement}%
+类似地，当讨论子集如 \cref{subsec:prop-subsets} 中时，我们可以使用传统符号表示交集 (Intersection)、并集 (Union) 和补集 (Complement)：
+\indexdef{子集的交集}%
+\symlabel{交集}%
+\indexdef{子集的并集}%
+\symlabel{并集}%
+\indexdef{子集的补集}%
+\symlabel{补集}%
 \begin{align*}
   \setof{x:A | P(x)} \cap \setof{x:A | Q(x)}
-  &\defeq \setof{x:A | P(x) \land Q(x)},\\
+  &\defeq \setof{x:A | P(x) \land Q(x)}，\\
   \setof{x:A | P(x)} \cup \setof{x:A | Q(x)}
-  &\defeq \setof{x:A | P(x) \lor Q(x)},\\
+  &\defeq \setof{x:A | P(x) \lor Q(x)}，\\
   A \setminus \setof{x:A | P(x)}
-  &\defeq \setof{x:A | \neg P(x)}.
+  &\defeq \setof{x:A | \neg P(x)}。
 \end{align*}
-Of course, in the absence of \LEM{}, the latter are not ``complements'' in the usual sense: we may not have $B \cup (A\setminus B) = A$ for every subset $B$ of $A$.
+当然，在没有 \LEM{} 的情况下，后者不是通常意义上的“补集”：我们可能没有 $B \cup (A\setminus B) = A$ 对于每一个 $A$ 的子集 $B$。
 
-\index{truncation!propositional|)}%
-\index{mere proposition|)}%
-\index{logic!of mere propositions|)}%
-
-
-\section{The axiom of choice}
+\index{截断!命题|)}%
+\index{纯粹命题|)}%
+\index{逻辑!纯粹命题的|)}%
+\section{选择公理 (The Axiom of Choice)}
 \label{sec:axiom-choice}
 
-\index{axiom!of choice|(defstyle}%
-\index{denial|(}%
-We can now properly formulate the axiom of choice in homotopy type theory.
-Assume a type $X$ and type families
+\index{公理!选择|(defstyle}%
+\index{否定|(}%
+我们现在可以在同伦类型论 (Homotopy Type Theory) 中正确地表述选择公理 (Axiom of Choice)。
+假设有一个类型 $X$ 和类型族
 %
 \begin{equation*}
   A:X\to\type
-  \qquad\text{and}\qquad
-  P:\prd{x:X} A(x)\to\type,
+  \qquad\text{以及}\qquad
+  P:\prd{x:X} A(x)\to\type，
 \end{equation*}
 %
-and moreover that
+并且假设
 \begin{itemize}
-\item $X$ is a set,
-\item $A(x)$ is a set for all $x:X$, and
-\item $P(x,a)$ is a mere proposition for all $x:X$ and $a:A(x)$.
+  \item $X$ 是一个集合，
+  \item 对所有 $x:X$，$A(x)$ 是一个集合，并且
+  \item 对所有 $x:X$ 和 $a:A(x)$，$P(x,a)$ 是一个纯粹命题 (Mere Proposition)。
 \end{itemize}
-The \define{axiom of choice}
-$\choice{}$ asserts that under these assumptions,
+\define{选择公理 (Axiom of Choice)} $\choice{}$ 断言在这些假设下，
 \begin{equation}\label{eq:ac}
-  \Parens{\prd{x:X} \Brck{\sm{a:A(x)} P(x,a)}}
-  \to
-  \Brck{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}.
+\Parens{\prd{x:X} \Brck{\sm{a:A(x)} P(x,a)}} \to \Brck{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}。
 \end{equation}
-Of course, this is a direct translation of~\eqref{eq:english-ac} where we read ``there exists $x:A$ such that $B(x)$'' as $\brck{\sm{x:A}B(x)}$, so we could have written the statement in the familiar logical notation as
+当然，这是 \eqref{eq:english-ac} 的直接翻译，我们将“存在 $x:A$ 使得 $B(x)$” 读取为 $\brck{\sm{x:A}B(x)}$，因此我们可以将其表示为熟悉的逻辑符号
 \begin{narrowmultline*}
   \textstyle
-  \Big(\fall{x:X}\exis{a:A(x)} P(x,a)\Big)
-  \Rightarrow \narrowbreak
-  \Big(\exis{g : \prd{x:X} A(x)} \fall{x : X} P(x,g(x))\Big).
+  \Big(\fall{x:X}\exis{a:A(x)} P(x,a)\Big) \Rightarrow \narrowbreak \Big(\exis{g : \prd{x:X} A(x)} \fall{x : X} P(x,g(x))\Big)。
 \end{narrowmultline*}
 %
-In particular, note that the propositional truncation appears twice.
-The truncation in the domain means we assume that for every $x$ there exists some $a:A(x)$ such that $P(x,a)$, but that these values are not chosen or specified in any known way.
-The truncation in the codomain means we conclude that there exists some function $g$, but this function is not determined or specified in any known way.
+特别地，注意命题截断 (Propositional Truncation) 出现了两次。
+领域中的截断意味着我们假设对于每个 $x$，存在一些 $a:A(x)$ 使得 $P(x,a)$，但这些值没有被选择或以任何已知的方式指定。
+而共域中的截断意味着我们得出结论，存在某个函数 $g$，但该函数没有以任何已知的方式确定或指定。
 
-In fact, because of \cref{thm:ttac}, this axiom can also be expressed in a simpler form.
+事实上，由于 \cref{thm:ttac}，这个公理也可以以更简单的形式表达。
 
 \begin{lem}\label{thm:ac-epis-split}
-  The axiom of choice~\eqref{eq:ac} is equivalent to the statement that for any set $X$ and any $Y:X\to\type$ such that each $Y(x)$ is a set, we have
-  \begin{equation}
-    \Parens{\prd{x:X} \Brck{Y(x)}}
-    \to
-    \Brck{\prd{x:X} Y(x)}.\label{eq:epis-split}
-  \end{equation}
+选择公理 \eqref{eq:ac} 等价于如下陈述：对于任意集合 $X$ 和任意 $Y:X\to\type$ 使得每个 $Y(x)$ 是一个集合，我们有
+\begin{equation}
+  \Parens{\prd{x:X} \Brck{Y(x)}} \to \Brck{\prd{x:X} Y(x)}。\label{eq:epis-split}
+\end{equation}
 \end{lem}
 
-This corresponds to a well-known equivalent form of the classical\index{mathematics!classical} axiom of choice, namely ``the cartesian product of a family of nonempty sets is nonempty''.
+这对应于经典 (Classical) 选择公理的一个众所周知的等价形式，即“一个非空集合族的笛卡尔积是非空的”。
 
 \begin{proof}
-  By \cref{thm:ttac}, the codomain of~\eqref{eq:ac} is equivalent to
-  \[\Brck{\prd{x:X} \sm{a:A(x)} P(x,a)}.\]
-  Thus,~\eqref{eq:ac} is equivalent to the instance of~\eqref{eq:epis-split} where \narrowequation{Y(x) \defeq \sm{a:A(x)} P(x,a).}
-  (This is a set by \cref{thm:isset-prod,thm:prop-set}.)
-  Conversely,~\eqref{eq:epis-split} is equivalent to the instance of~\eqref{eq:ac} where $A(x)\defeq Y(x)$ and $P(x,a)\defeq\unit$.
-  Thus, the two are logically equivalent.
-  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} they are equivalent types.
+  由 \cref{thm:ttac}，\eqref{eq:ac} 的共域等价于
+  \[\Brck{\prd{x:X} \sm{a:A(x)} P(x,a)}。\]
+  因此，\eqref{eq:ac} 等价于 \eqref{eq:epis-split} 的一个特例，即 \narrowequation{Y(x) \defeq \sm{a:A(x)} P(x,a)。}
+  （这由 \cref{thm:isset-prod,thm:prop-set} 证明是一个集合。）
+  反之，\eqref{eq:epis-split} 等价于 \eqref{eq:ac} 的一个特例，即 $A(x)\defeq Y(x)$ 和 $P(x,a)\defeq\unit$。
+  因此，两者在逻辑上是等价的。
+  由于它们都是纯粹命题 (Mere Proposition)，根据 \cref{lem:equiv-iff-hprop} 它们是等价类型。
 \end{proof}
 
-As with \LEM{}, the equivalent forms~\eqref{eq:ac} and~\eqref{eq:epis-split} are not a consequence of our basic type theory, but they may consistently be assumed as axioms.
+与 \LEM{} 一样，等价形式 \eqref{eq:ac} 和 \eqref{eq:epis-split} 不是我们基本类型论 (Basic Type Theory) 的结果，但可以作为公理一致地假设。
 
 \begin{rmk}
-  It is easy to show that the right side of~\eqref{eq:epis-split} always implies the left.
-  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} the axiom of choice is also equivalent to asking for an equivalence
+  很容易证明 \eqref{eq:epis-split} 的右侧总是意味着左侧。
+  由于两者都是纯粹命题，根据 \cref{lem:equiv-iff-hprop}，选择公理也等价于要求等价性
   \[ \eqv{\Parens{\prd{x:X} \Brck{Y(x)}}}{\Brck{\prd{x:X} Y(x)}} \]
-  This illustrates a common pitfall: although dependent function types preserve mere propositions (\cref{thm:isprop-forall}), they do not commute with truncation: $\brck{\prd{x:A} P(x)}$ is not generally equivalent to $\prd{x:A} \brck{P(x)}$.
-  The axiom of choice, if we assume it, says that this is true \emph{for sets}; as we will see below, it fails in general.
+  这说明了一个常见的陷阱：尽管依赖函数类型 (Dependent Function Type) 保持纯粹命题 (\cref{thm:isprop-forall})，但它们与截断不交换：$\brck{\prd{x:A} P(x)}$ 一般不等价于 $\prd{x:A} \brck{P(x)}$。
+  如果我们假设选择公理 (Axiom of Choice)，它表示这个陈述在集合上成立；正如我们将看到的，它在一般情况下是失败的。
 \end{rmk}
 
-The restriction in the axiom of choice to types that are sets can be relaxed to a certain extent.
-For instance, we may allow $A$ and $P$ in~\eqref{eq:ac}, or $Y$ in~\eqref{eq:epis-split}, to be arbitrary type families; this results in a seemingly stronger statement that is equally consistent.
-We may also replace the propositional truncation by the more general $n$-truncations to be considered in \cref{cha:hlevels}, obtaining a spectrum of axioms $\choice n$ interpolating between~\eqref{eq:ac}, which we call simply \choice{} (or $\choice{-1}$ for emphasis), and \cref{thm:ttac}, which we shall call $\choice\infty$.
-See also \cref{ex:acnm,ex:acconn}.
-However, observe that we cannot relax the requirement that $X$ be a set.
+选择公理中对作为集合的类型的限制可以在某种程度上放宽。
+例如，我们可以允许 \eqref{eq:ac} 中的 $A$ 和 $P$，或者 \eqref{eq:epis-split} 中的 $Y$，成为任意类型族；这会导致一个看似更强但同样一致的陈述。
+我们还可以将命题截断替换为将在 \cref{cha:hlevels} 中考虑的更一般的 $n$-截断 (n-Truncation)，得到一系列公理 $\choice n$，在 \eqref{eq:ac}（我们简单地称之为 \choice{} 或为了强调称之为 $\choice{-1}$）和 \cref{thm:ttac}（我们将其称为 $\choice\infty$）之间插值。
+另见 \cref{ex:acnm,ex:acconn}。
+然而，请注意，我们不能放宽 $X$ 必须是集合的要求。
 
 \begin{lem}\label{thm:no-higher-ac}
-  There exists a type $X$ and a family $Y:X\to \type$ such that each $Y(x)$ is a set, but such that~\eqref{eq:epis-split} is false.
+存在一个类型 $X$ 和一个族 $Y:X\to \type$，使得每个 $Y(x)$ 是一个集合，但使 \eqref{eq:epis-split} 失败。
 \end{lem}
 \begin{proof}
-  Define $X\defeq \sm{A:\type} \brck{\bool = A}$, and let $x_0 \defeq (\bool, \bproj{\refl{\bool}}) : X$.
-  Then by the identification of paths in $\Sigma$-types, the fact that $\brck{A=\bool}$ is a mere proposition, and univalence, for any $(A,p),(B,q):X$ we have $\eqv{(\id[X]{(A,p)}{(B,q)})}{(\eqv AB)}$.
-  In particular, $\eqv{(\id[X]{x_0}{x_0})}{(\eqv \bool\bool)}$, so as in \cref{thm:type-is-not-a-set}, $X$ is not a set.
+  定义 $X\defeq \sm{A:\type} \brck{\bool = A}$，并令 $x_0 \defeq (\bool, \bproj{\refl{\bool}}) : X$。
+  然后通过 $\Sigma$-类型中的路径识别、$\brck{A=\bool}$ 是纯粹命题的事实，以及单一性 (Univalence)，对于任意 $(A,p),(B,q):X$，我们有 $\eqv{(\id[X]{(A,p)}{(B,q)})}{(\eqv AB)}$。
+  特别地，$\eqv{(\id[X]{x_0}{x_0})}{(\eqv \bool\bool)}$，因此如 \cref{thm:type-is-not-a-set} 所述，$X$ 不是一个集合。
 
-  On the other hand, if $(A,p):X$, then $A$ is a set; this follows by induction on truncation for $p:\brck{\bool=A}$ and the fact that $\bool$ is a set.
-  Since $\eqv A B$ is a set whenever $A$ and $B$ are, it follows that $\id[X]{x_1}{x_2}$ is a set for any $x_1,x_2:X$, i.e.\ $X$ is a 1-type.
-  In particular, if we define $Y:X\to\UU$ by $Y(x) \defeq (x_0=x)$, then each $Y(x)$ is a set.
+  另一方面，如果 $(A,p):X$，那么 $A$ 是一个集合；这通过对 $p:\brck{\bool=A}$ 的截断进行归纳和 \bool 是集合的事实得出。
+  由于 $\eqv A B$ 是集合当且仅当 $A$ 和 $B$ 是集合，因此对于任意 $x_1,x_2:X$，$\id[X]{x_1}{x_2}$ 是一个集合，即 $X$ 是 1-类型。
+  特别地，如果我们通过 $Y:X\to\UU$ 定义 $Y(x) \defeq (x_0=x)$，则每个 $Y(x)$ 是一个集合。
 
-  Now by definition, for any $(A,p):X$ we have $\brck{\bool=A}$, and hence $\brck{x_0 = (A,p)}$.
-  Thus, we have $\prd{x:X} \brck{Y(x)}$.
-  If~\eqref{eq:epis-split} held for this $X$ and $Y$, then we would also have $\brck{\prd{x:X} Y(x)}$.
-  Since we are trying to derive a contradiction ($\emptyt$), which is a mere proposition, we may assume $\prd{x:X} Y(x)$, i.e.\ that $\prd{x:X} (x_0=x)$.
-  But this implies $X$ is a mere proposition, and hence a set, which is a contradiction.
+  现在根据定义，对于任意 $(A,p):X$，我们有 $\brck{\bool=A}$，因此我们有 $\brck{x_0 = (A,p)}$。
+  因此，我们有 $\prd{x:X} \brck{Y(x)}$。
+  如果 \eqref{eq:epis-split} 对于此 $X$ 和 $Y$ 成立，那么我们也将有 $\brck{\prd{x:X} Y(x)}$。
+  由于我们试图得出矛盾 (\emptyt)，这是一个纯粹命题，因此我们可以假设 $\prd{x:X} Y(x)$，即 $\prd{x:X} (x_0=x)$。
+  但这意味着 $X$ 是一个纯粹命题，因此是一个集合，这与前述结论矛盾。
 \end{proof}
 
-\index{denial|)}%
-\index{axiom!of choice|)}%
+\index{否定|)}%
+\index{公理!选择|)}%
 
-\section{The principle of unique choice}
+\section{唯一选择原则 (The Principle of Unique Choice)}
 \label{sec:unique-choice}
 
-\index{unique!choice|(defstyle}%
-\indexsee{axiom!of choice!unique}{unique choice}%
+\index{唯一!选择|(defstyle}%
+\indexsee{公理!选择!唯一}{唯一选择}%
 
-The following observation is trivial, but very useful.
+以下观察虽然简单，但非常有用。
 
 \begin{lem}\label{thm:prop-equiv-trunc}
-  If $P$ is a mere proposition, then $\eqv P {\brck P}$.
+如果 $P$ 是一个纯粹命题 (Mere Proposition)，那么 $\eqv P {\brck P}$。
 \end{lem}
 \begin{proof}
-  Of course, we have $P\to \brck{P}$ by definition.
-  And since $P$ is a mere proposition, the universal property of $\brck P$ applied to $\idfunc[P] :P\to P$ yields $\brck P \to P$.
-  These functions are quasi-inverses by \cref{lem:equiv-iff-hprop}.
+  当然，我们根据定义有 $P\to \brck{P}$。
+  并且由于 $P$ 是一个纯粹命题，$\brck P$ 的普遍性质应用于 $\idfunc[P] :P\to P$ 产生了 $\brck P \to P$。
+  通过 \cref{lem:equiv-iff-hprop}，这些函数是准逆的。
 \end{proof}
 
-Among its important consequences is the following.
+它的一个重要推论是如下定理。
 
-\begin{cor}[The principle of unique choice]\label{cor:UC}
-  Suppose a type family $P:A\to \type$ such that
-  \begin{enumerate}
-  \item For each $x$, the type $P(x)$ is a mere proposition, and
-  \item For each $x$ we have $\brck {P(x)}$.
-  \end{enumerate}
-  Then we have $\prd{x:A} P(x)$.
+\begin{cor}[唯一选择原则 (The Principle of Unique Choice)]\label{cor:UC}
+假设有一个类型族 $P:A\to \type$，使得
+\begin{enumerate}
+  \item 对于每个 $x$，类型 $P(x)$ 是一个纯粹命题，并且
+  \item 对于每个 $x$，我们有 $\brck {P(x)}$。
+\end{enumerate}
+那么我们有 $\prd{x:A} P(x)$。
 \end{cor}
 \begin{proof}
-  Immediate from the two assumptions and the previous lemma.
+  直接由两个假设和前述引理得出。
 \end{proof}
 
-The corollary also encapsulates a very useful technique of reasoning.
-Namely, suppose we know that $\brck A$, and we want to use this to construct an element of some other type $B$.
-We would like to use an element of $A$ in our construction of an element of $B$, but this is allowed only if $B$ is a mere proposition, so that we can apply the induction principle for the propositional truncation $\brck A$; the most we could hope to do in general is to show $\brck B$.
-%
-Instead, we can extend $B$ with additional data which characterizes \emph{uniquely} the object we wish to construct.
-Specifically, we define a predicate $Q:B\to\type$ such that $\sm{x:B} Q(x)$ is a mere proposition.
-Then from an element of $A$ we construct an element $b:B$ such that $Q(b)$, hence from $\brck A$ we can construct $\brck{\sm{x:B} Q(x)}$, and because $\brck{\sm{x:B} Q(x)}$ is equivalent to $\sm{x:B} Q(x)$ an element of $B$ may be projected from it.
-An example can be found in \cref{ex:decidable-choice}.
+该推论还概括了一个非常有用的推理技巧。
+也就是说，假设我们知道 $\brck A$，并且我们想利用这一点来构造某个其他类型 $B$ 的元素。
+我们想要利用 $A$ 的一个元素来构造 $B$ 的一个元素，但这只有在 $B$ 是一个纯粹命题的情况下才允许，因此我们可以应用命题截断 $\brck A$ 的归纳原则；在一般情况下，我们最多可以期望证明 $\brck B$。
 
-A similar issue arises in set-theoretic mathematics, although it manifests slightly
-differently. If we are trying to define a function $f: A \to B$, and depending on an
-element $a : A$ we are able to prove mere existence of some $b : B$, we are not done yet
-because we need to actually pinpoint an element of~$B$, not just prove its existence.
-One option is of course to refine the argument to unique existence of $b : B$, as we did in type theory. But in set theory the problem can often be avoided more simply by an application of the axiom of choice, which picks the required elements for us.
-In homotopy type theory, however, quite apart from any desire to avoid choice, the available forms of choice are simply less applicable, since they require that the domain of choice be a \emph{set}.
-Thus, if $A$ is not a set (such as perhaps a universe $\UU$), there is no consistent form of choice that will allow us to simply pick an element of $B$ for each $a : A$ to use in defining $f(a)$.
+相反，我们可以通过附加数据扩展 $B$，这些数据唯一地描述我们希望构造的对象。
+具体来说，我们定义一个谓词 $Q:B\to\type$，使得 $\sm{x:B} Q(x)$ 是一个纯粹命题。
+然后从 $A$ 的一个元素构造出一个 $b:B$ 使得 $Q(b)$ 成立，因此从 $\brck A$ 我们可以构造出 $\brck{\sm{x:B} Q(x)}$，因为 $\brck{\sm{x:B} Q(x)}$ 等价于 $\sm{x:B} Q(x)$，可以从中投射出一个 $B$ 的元素。
+一个例子可以在 \cref{ex:decidable-choice} 中找到。
 
-\index{unique!choice|)}%
+在集合论 (Set-Theoretic) 数学中也会出现类似的问题，尽管表现方式略有不同。
+如果我们试图定义一个函数 $f: A \to B$，并且根据一个元素 $a : A$，我们能够证明某个 $b : B$ 的纯存在性，我们还没有完成任务，因为我们需要实际定位一个 $B$ 的元素，而不仅仅是证明它的存在。
+当然，一种选择是将论证精炼为 $b : B$ 的唯一存在性，就像我们在类型论中所做的那样。
+但是在集合论中，这个问题通常可以通过应用选择公理 (Axiom of Choice) 更简单地避免，选择所需的元素。
+然而，在同伦类型论中 (Homotopy Type Theory)，除了避免选择的愿望外，可用的选择形式适用性更差，因为它们要求选择的领域 (Domain of Choice) 是一个集合。
+因此，如果 $A$ 不是一个集合（例如可能是一个宇宙 $\UU$），那么没有一致的选择形式可以简单地为每个 $a : A$ 选择一个 $B$ 的元素来定义 $f(a)$。
+
+\index{唯一!选择|)}%
 
 
-\section{When are propositions truncated?}
+\section{命题何时被截断？(When Are Propositions Truncated?)}
 \label{subsec:when-trunc}
 
-\index{logic!of mere propositions|(}%
-\index{mere proposition|(}%
-\index{logic!truncated}%
+\index{逻辑!纯粹命题的|(}%
+\index{纯粹命题|(}%
+\index{逻辑!截断的}%
 
-At first glance, it may seem that the truncated versions of $+$ and $\Sigma$ are actually closer to the informal mathematical meaning of ``or'' and ``there exists'' than the untruncated ones.
-Certainly, they are closer to the \emph{precise} meaning of ``or'' and ``there exists'' in the first-order logic \index{first-order!logic} which underlies formal set theory, since the latter makes no attempt to remember any witnesses to the truth of propositions.
-However, it may come as a surprise to realize that the practice of \emph{informal} mathematics is often more accurately described by the untruncated forms.
+乍一看，$+$ 和 $\Sigma$ 的截断版本实际上比未截断的版本更接近非正式数学中“或”和“存在”的含义。
+当然，它们更接近于正式集合论 (Formal Set Theory) 背后的第一级逻辑 (First-Order Logic) 中“或”和“存在”的精确含义，因为后者并不试图记住命题的任何证据。
+然而，令人惊讶的是，非正式数学实践通常通过未截断形式更准确地描述。
 
-\index{prime number}%
-For example, consider a statement like ``every prime number is either $2$ or odd''.
-The working mathematician feels no compunction about using this fact not only to prove \emph{theorems} about prime numbers, but also to perform \emph{constructions} on prime numbers, perhaps doing one thing in the case of $2$ and another in the case of an odd prime.
-The end result of the construction is not merely the truth of some statement, but a piece of data which may depend on the parity of the prime number.
-Thus, from a type-theoretic perspective, such a construction is naturally phrased using the induction principle for the coproduct type ``$(p=2)+(p\text{ is odd})$'', not its propositional truncation.
+\index{素数 (Prime Number)}%
+例如，考虑“每个素数要么是 2，要么是奇数”这样的陈述。
+实际工作的数学家不会因为使用这一事实不仅仅是为了证明素数的\emph{定理 (Theorem)}，而且也用于对素数进行\emph{构造 (Construction)}而感到愧疚，可能在 2 的情况下做一件事，而在奇数素数的情况下做另一件事。
+从类型论的角度来看，这样的构造自然地使用了“$(p=2)+(p\text{ 是奇数})$” 的上积类型 (Coproduct Type) 的归纳原则，而不是它的命题截断。
 
-Admittedly, this is not an ideal example, since ``$p=2$'' and ``$p$ is odd'' are mutually exclusive, so that $(p=2)+(p\text{ is odd})$ is in fact already a mere proposition and hence equivalent to its truncation (see \cref{ex:disjoint-or}).
-More compelling examples come from the existential quantifier.
-It is not uncommon to prove a theorem of the form ``there exists an $x$ such that \dots'' and then refer later on to ``the $x$ constructed in Theorem Y'' (note the definite article).
-Moreover, when deriving further properties of this $x$, one may use phrases such as ``by the construction of $x$ in the proof of Theorem Y''.
+诚然，这并不是一个理想的例子，因为“$p=2$”和“$p$ 是奇数”是相互排斥的，因此 $(p=2)+(p\text{ 是奇数})$ 实际上已经是一个纯粹命题，因此等价于它的截断 (见 \cref{ex:disjoint-or})。
+更有说服力的例子来自存在量词 (Existential Quantifier)。
+通常证明形式为“存在 $x$ 使得 \dots” 的定理，然后在后续中引用“在定理 Y 中构造的 $x$”（请注意定冠词）。
+此外，当推导出该 $x$ 的进一步性质时，可以使用诸如“通过在定理 Y 的证明中构造的 $x$”之类的短语。
 
-A very common example is ``$A$ is isomorphic to $B$'', which strictly speaking means only that there exists \emph{some} isomorphism between $A$ and~$B$.
-But almost invariably, when proving such a statement, one exhibits a specific isomorphism or proves that some previously known map is an isomorphism, and it often matters later on what particular isomorphism was given.
+一个非常常见的例子是“$A$ 同构于 $B$”，这严格来说仅意味着存在\emph{某个} $A$ 和 $B$ 之间的同构。
+但几乎不可避免地，在证明此类陈述时，人们会展示一个特定的同构，或者证明某个先前已知的映射是同构，通常后来引用时这个特定的同构至关重要。
 
-Set-theoretically trained mathematicians often feel a twinge of guilt at such ``abuses of language''.\index{abuse!of language}
-We may attempt to apologize for them, expunge them from final drafts, or weasel out of them with vague words like ``canonical''.
-The problem is exacerbated by the fact that in formalized set theory, there is technically no way to ``construct'' objects at all --- we can only prove that an object with certain properties exists.
-Untruncated logic in type theory thus captures some common practices of informal mathematics that the set theoretic reconstruction obscures.
-(This is similar to how the univalence axiom validates the common, but formally unjustified, practice of identifying isomorphic objects.)
+受过集合论训练的数学家在使用此类“语言滥用 (Abuse of Language)”时通常会感到有些内疚。
+我们可能会试图为此道歉，在最终草稿中清除它们，或通过诸如“规范 (Canonical)”这样的模糊词来掩饰。
+这个问题由于在形式化集合论中，实际上没有任何方法可以“构造”对象---我们只能证明具有某些性质的对象存在而变得更加严重。
+类型论中的未截断逻辑 (Untruncated Logic) 因此捕捉到了非正式数学中一些常见的实践，而集合论的重构则掩盖了这些实践。
+（这类似于单一性公理 (Univalence Axiom) 验证了常见但在形式上没有理由的做法，即将同构对象视为相同。）
 
-On the other hand, sometimes truncated logic is essential.
-We have seen this in the statements of \LEM{} and \choice{}; some other examples will appear later on in the book.
-Thus, we are faced with the problem: when writing informal type theory, what should we mean by the words ``or'' and ``there exists'' (along with common synonyms such as ``there is'' and ``we have'')?
+另一方面，有时截断的逻辑是必不可少的。
+我们已经在 \LEM{} 和 \choice{} 的陈述中看到过这种情况；本书后面还会出现其他一些例子。
+因此，我们面临的问题是：在编写非正式类型论时，“或”和“存在”等词的含义应该是什么（以及“有”、“我们有”等常见的同义词）？
 
-A universal consensus may not be possible.
-Perhaps depending on the sort of mathematics being done, one convention or the other may be more useful --- or, perhaps, the choice of convention may be irrelevant.
-In this case, a remark at the beginning of a mathematical paper may suffice to inform the reader of the linguistic conventions in use therein.
-However, even after one overall convention is chosen, the other sort of logic will usually arise at least occasionally, so we need a way to refer to it.
-More generally, one may consider replacing the propositional truncation with another operation on types that behaves similarly, such as the double negation operation $A\mapsto \neg\neg A$, or the $n$-truncations to be considered in \cref{cha:hlevels}.
-As an experiment in exposition,  in what follows we will occasionally use \emph{adverbs}\index{adverb} to denote the application of such ``modalities'' as propositional truncation.
+普遍共识可能是不可能的。
+或许取决于所做的数学类型，某个约定可能更有用——或者，约定的选择可能无关紧要。
+在这种情况下，在数学论文的开头做一个注释，告知读者其中使用的语言约定可能就足够了。
+然而，即使选择了一种整体约定，另一种逻辑类型通常也会至少偶尔出现，因此我们需要一种方法来引用它。
+更普遍地说，人们可以考虑用另一种对类型表现类似的操作替代命题截断，如将类型 $A$ 映射为 $\neg\neg A$ 的双重否定操作，或者将在 \cref{cha:hlevels} 中考虑的 $n$-截断。
+作为说明的实验，在后续部分我们将偶尔使用\emph{副词 (Adverbs)}来表示命题截断等“模态 (Modalities)”的应用。
 
-For instance, if untruncated logic is the default convention, we may use the adverb \define{merely}
-\indexdef{merely}%
-to denote propositional truncation.
-Thus the phrase
+例如，如果未截断逻辑是默认约定，我们可以使用副词“\define{仅仅 (Merely)}”
+\indexdef{仅仅}%
+来表示命题截断。
+因此短语
 \begin{center}
-  ``there merely exists an $x:A$ such that $P(x)$''
+  “仅仅存在一个 $x:A$ 使得 $P(x)$”
 \end{center}
-indicates the type $\brck{\sm{x:A} P(x)}$.
-Similarly, we will say that a type $A$ is \define{merely inhabited}
-\indexdef{merely!inhabited}%
-\indexdef{inhabited type!merely}%
-to mean that its propositional truncation $\brck A$ is inhabited (i.e.\ that we have an unnamed element of it).
-Note that this is a \emph{definition}\index{definition!of adverbs} of the adverb ``merely'' as it is to be used in our informal mathematical English, in the same way that we define nouns\index{noun} like ``group'' and ``ring'', and adjectives\index{adjective} like ``regular'' and ``normal'', to have precise mathematical meanings.
-We are not claiming that the dictionary definition of ``merely'' refers to propositional truncation; the choice of word is meant only to remind the mathematician reader that a mere proposition contains ``merely'' the information of a truth value and nothing more.
+表示类型 $\brck{\sm{x:A} P(x)}$。
+类似地，我们会说一个类型 $A$ 是\define{仅仅居住的 (Merely Inhabited)}
+\indexdef{仅仅!居住的}%
+\indexdef{居住的类型!仅仅}%
+来表示它的命题截断 $\brck A$ 是居住的（即我们有一个未命名的元素）。
+请注意，这是一种对“仅仅”副词的\emph{定义 (Definition)}，它将在我们的非正式数学英语中使用，就像我们定义名词\index{名词 (Noun)}“群 (Group)”和“环 (Ring)”，以及形容词\index{形容词 (Adjective)}“正则 (Regular)”和“正态 (Normal)”具有精确的数学意义一样。
+我们并不声称“仅仅”这个词典定义指的是命题截断；选择这个词只是为了提醒读者，纯粹命题只包含“仅仅”的真值信息而已。
 
-On the other hand, if truncated logic is the current default convention, we may use an adverb such as \define{purely}
-\indexdef{purely}%
-or \define{constructively} to indicate its absence, so that
+另一方面，如果截断逻辑是当前默认约定，我们可以使用“\define{纯粹 (Purely)}”
+\indexdef{纯粹}%
+或“\define{构造性 (Constructively)}”这样的副词来表示其缺失，因此
 \begin{center}
-``there purely exists an $x:A$ such that $P(x)$''
+  “纯粹存在一个 $x:A$ 使得 $P(x)$”
 \end{center}
-would denote the type $\sm{x:A} P(x)$.
-We may also use ``purely'' or ``actually'' just to emphasize the absence of truncation, even when that is the default convention.
+将表示类型 $\sm{x:A} P(x)$。
+我们还可以使用“纯粹”或“实际上 (Actually)”仅仅为了强调截断的缺失，即使这是默认约定。
 
-In this book we will continue using untruncated logic as the default convention, for a number of reasons.
+在本书中，我们将继续使用未截断逻辑作为默认约定，原因有很多。
 \begin{enumerate}[label=(\arabic*)]
-\item We want to encourage the newcomer to experiment with it, rather than sticking to truncated logic simply because it is more familiar.
-\item Using truncated logic as the default in type theory suffers from the same sort of ``abuse of language''\index{abuse!of language} problems as set-theoretic foundations, which untruncated logic avoids.
-  For instance, our definition of ``$\eqv A B$'' as the type of equivalences between $A$ and $B$, rather than its propositional truncation, means that to prove a theorem of the form ``$\eqv A B$'' is literally to construct a particular such equivalence.
-  This specific equivalence can then be referred to later on.
-\item We want to emphasize that the notion of ``mere proposition'' is not a fundamental part of type theory.
-  As we will see in \cref{cha:hlevels}, mere propositions are just the second rung on an infinite ladder, and there are also many other modalities not lying on this ladder at all.
-\item Many statements that classically are mere propositions are no longer so in homotopy type theory.
-  Of course, foremost among these is equality.
-\item On the other hand, one of the most interesting observations of homotopy type theory is that a surprising number of types are \emph{automatically} mere propositions, or can be slightly modified to become so, without the need for any truncation.
-  (See \cref{thm:isprop-isprop,cha:equivalences,cha:hlevels,cha:category-theory,cha:set-math}.)
-  Thus, although these types contain no data beyond a truth value, we can nevertheless use them to construct untruncated objects, since there is no need to use the induction principle of propositional truncation.
-  This useful fact is more clumsy to express if propositional truncation is applied to all statements by default.
-\item Finally, truncations are not very useful for most of the mathematics we will be doing in this book, so it is simpler to notate them explicitly when they occur.
+  \item 我们希望鼓励新手尝试未截断逻辑，而不是仅仅因为它更熟悉而坚持使用截断逻辑。
+  \item 在类型论中使用截断逻辑作为默认设置会遇到与集合论基础相同的“语言滥用”问题，而未截断逻辑可以避免这些问题。
+  例如，我们将“$\eqv A B$” 定义为 $A$ 和 $B$ 之间的同构类型，而不是它的命题截断，这意味着证明形式为“$\eqv A B$” 的定理实际上是构造一个特定的同构。
+  然后可以在后续引用中使用这个特定的同构。
+  \item 我们想强调，纯粹命题的概念不是类型论的基本部分。
+  正如我们将在 \cref{cha:hlevels} 中看到的，纯粹命题只是无限阶梯上的第二阶梯，并且还有许多其他模态 (Modalities) 并不在这个阶梯上。
+  \item 许多在经典上 (Classically) 是纯粹命题的陈述在同伦类型论中不再是如此。
+  当然，其中最重要的是等式。
+  \item 另一方面，同伦类型论中一个最有趣的观察是，令人惊讶的是许多类型是\emph{自动地 (Automatically)}纯粹命题，或者可以通过稍微修改成为纯粹命题，无需进行任何截断。
+  （见 \cref{thm:isprop-isprop,cha:equivalences,cha:hlevels,cha:category-theory,cha:set-math}。）
+  因此，尽管这些类型不包含除真值之外的任何数据，但我们仍然可以使用它们构造未截断对象，因为不需要使用命题截断的归纳原则。
+  如果默认对所有陈述应用命题截断，这个有用的事实就难以表达。
+  \item 最后，截断对我们将在本书中进行的大部分数学研究没有太大用处，因此更简单的做法是在它们出现时明确地记述它们。
 \end{enumerate}
 
-\index{mere proposition|)}%
-\index{logic!of mere propositions|)}%
-
-\section{Contractibility}
+\index{纯粹命题|)}%
+\index{逻辑!纯粹命题的|)}%
+\section{收缩性 (Contractibility)}
 \label{sec:contractibility}
 
-\index{type!contractible|(defstyle}%
-\index{contractible!type|(defstyle}%
+\index{类型!收缩性|(defstyle}%
+\index{收缩性!类型|(defstyle}%
 
-In \cref{thm:inhabprop-eqvunit} we observed that a mere proposition which is inhabited must be equivalent to $\unit$,
-\index{type!unit}%
-and it is not hard to see that the converse also holds.
-A type with this property is called \emph{contractible}.
-Another equivalent definition of contractibility, which is also sometimes convenient, is the following.
+在 \cref{thm:inhabprop-eqvunit} 中，我们观察到一个居住的纯粹命题必须等价于 $\unit$，
+\index{类型!单元类型}%
+并且很容易看出，反之亦然。
+具有这种性质的类型称为\emph{收缩 (Contractible)}。
+另一个等价的收缩性定义，有时也很方便，是如下的定义。
 
 \begin{defn}\label{defn:contractible}
-  A type $A$ is \define{contractible},
-  or a \define{singleton},
-  \indexdef{type!singleton}%
-  \indexsee{singleton type}{type, singleton}%
-  if there is $a:A$, called the \define{center of contraction},
-  \indexdef{center!of contraction}%
-  such that $a=x$ for all $x:A$.
-  We denote the specified path $a=x$ by $\contr_x$.
+类型 $A$ 是\define{收缩的 (Contractible)}，
+或\define{单点 (Singleton)}类型，
+\indexdef{类型!单点}%
+\indexsee{单点类型}{类型，单点}%
+如果存在 $a:A$，称为\define{收缩中心 (Center of Contraction)}，
+\indexdef{收缩中心}%
+使得对于所有 $x:A$ 都有 $a=x$。
+我们用 $\contr_x$ 表示指定的路径 $a=x$。
 \end{defn}
 
-In other words, the type $\iscontr(A)$ is defined to be
+换句话说，$\iscontr(A)$ 类型定义为
 \[ \iscontr(A) \defeq \sm{a:A} \prd{x:A}(a=x). \]
-Note that under the usual propositions-as-types reading, we can pronounce $\iscontr(A)$ as ``$A$ contains exactly one element'', or more precisely ``$A$ contains an element, and every element of $A$ is equal to that element''.
+注意，在通常的命题即类型 (Propositions-as-Types) 解读下，我们可以将 $\iscontr(A)$ 读作“$A$ 恰好包含一个元素”，或者更精确地说“$A$ 包含一个元素，并且 $A$ 的每个元素都等于那个元素”。
 
 \begin{rmk}
-  We can also pronounce $\iscontr(A)$ more topologically as ``there is a point $a:A$ such that for all $x:A$ there exists a path from $a$ to $x$''.
-  Note that to a classical ear, this sounds like a definition of \emph{connectedness} rather than contractibility.
-  \index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-  \index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-  The point is that the meaning of ``there exists'' in this sentence is a continuous/natural one.
+  我们也可以将 $\iscontr(A)$ 更拓扑地 (Topologically) 读作“存在一个点 $a:A$，使得对于所有 $x:A$ 存在从 $a$ 到 $x$ 的路径”。
+  注意，对于经典的 (Classical) 耳朵来说，这听起来更像是\emph{连通性 (Connectedness)}的定义，而不是收缩性。
+  \index{连续性函数在类型论中的连续性@类型论中函数的``连续性''}%
+  \index{函子性函数在类型论中的函子性@类型论中函数的``函子性''}%
+  关键是，这句话中的“存在”的含义是一个连续/自然的存在。
 
-  A better way to express connectedness would be $\sm{a:A}\prd{x:A} \brck{a=x}$.
-  This is indeed correct if $A$ is assumed to be pointed --- see the remark after \cref{thm:connected-pointed} --- but in general a type can be connected without being pointed.
-  In \cref{sec:connectivity} we will define connectedness as the $n=0$ case of a general notion of $n$-connectedness, and in \cref{ex:connectivity-inductively} the reader is asked to show that this definition is equivalent to having both $\brck{A}$ and $\prd{x,y:A} \brck{x=y}$.
+  表达连通性更好的方式是 $\sm{a:A}\prd{x:A} \brck{a=x}$。
+  如果假设 $A$ 是有基点的 (Pointed)，这确实是正确的——参见 \cref{thm:connected-pointed} 之后的备注——但一般来说，一个类型可以是连通的而不一定有基点。
+  在 \cref{sec:connectivity} 中，我们将连通性定义为一般 $n$-连通性概念的 $n=0$ 情况，并且在 \cref{ex:connectivity-inductively} 中，读者被要求展示这一定义等价于同时具有 $\brck{A}$ 和 $\prd{x,y:A} \brck{x=y}$。
 \end{rmk}
 
 \begin{lem}\label{thm:contr-unit}
-  For a type $A$, the following are logically equivalent.
-  \begin{enumerate}
-  \item $A$ is contractible in the sense of \cref{defn:contractible}.\label{item:contr}
-  \item $A$ is a mere proposition, and there is a point $a:A$.\label{item:contr-inhabited-prop}
-  \item $A$ is equivalent to \unit.\label{item:contr-eqv-unit}
-  \end{enumerate}
+对于类型 $A$，以下条件在逻辑上等价。
+\begin{enumerate}
+  \item $A$ 是 \cref{defn:contractible} 中定义的收缩性类型。\label{item:contr}
+  \item $A$ 是一个纯粹命题，并且存在一个点 $a:A$。\label{item:contr-inhabited-prop}
+  \item $A$ 等价于 \unit。\label{item:contr-eqv-unit}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  If $A$ is contractible, then it certainly has a point $a:A$ (the center of contraction), while for any $x,y:A$ we have $x=a=y$; thus $A$ is a mere proposition.
-  Conversely, if we have $a:A$ and $A$ is a mere proposition, then for any $x:A$ we have $x=a$; thus $A$ is contractible.
-  And we showed~\ref{item:contr-inhabited-prop}$\Rightarrow$\ref{item:contr-eqv-unit} in \cref{thm:inhabprop-eqvunit}, while the converse follows since \unit easily has property~\ref{item:contr-inhabited-prop}.
+  如果 $A$ 是收缩的，那么它当然有一个点 $a:A$（收缩中心），而对于任何 $x,y:A$，我们有 $x=a=y$；因此 $A$ 是一个纯粹命题。
+  反之，如果我们有 $a:A$ 并且 $A$ 是一个纯粹命题，那么对于任何 $x:A$，我们有 $x=a$；因此 $A$ 是收缩的。
+  我们在 \cref{thm:inhabprop-eqvunit} 中展示了~\ref{item:contr-inhabited-prop}$\Rightarrow$\ref{item:contr-eqv-unit}，而反之亦然，因为 \unit 很容易具有性质~\ref{item:contr-inhabited-prop}。
 \end{proof}
 
 \begin{lem}\label{thm:isprop-iscontr}
-  For any type $A$, the type $\iscontr(A)$ is a mere proposition.
+对于任何类型 $A$，类型 $\iscontr(A)$ 是一个纯粹命题。
 \end{lem}
 \begin{proof}
-  Suppose given $c,c':\iscontr(A)$.
-  We may assume $c\jdeq(a,p)$ and $c'\jdeq(a',p')$ for $a,a':A$ and $p:\prd{x:A} (a=x)$ and $p':\prd{x:A} (a'=x)$.
-  By the characterization of paths in $\Sigma$-types, to show $c=c'$ it suffices to exhibit $q:a=a'$ such that $\trans{q}{p}=p'$.
+  假设给定 $c,c':\iscontr(A)$。
+  我们可以假设 $c\jdeq(a,p)$ 和 $c'\jdeq(a',p')$，其中 $a,a':A$ 并且 $p:\prd{x:A} (a=x)$ 和 $p':\prd{x:A} (a'=x)$。
+  通过 $\Sigma$-类型中路径的表征，展示 $c=c'$ 就足以展示一个 $q:a=a'$ 使得 $\trans{q}{p}=p'$。
   %
-  We choose $q\defeq p(a')$.
-  Now since $A$ is contractible (by $c$ or $c'$), by \cref{thm:contr-unit} it is a mere proposition.
-  Hence, by \cref{thm:prop-set,thm:isprop-forall}, so is $\prd{x:A}(a'=x)$; thus $\trans{q}{p}=p'$ is automatic.
+  我们选择 $q\defeq p(a')$。
+  现在，由于 $A$ 是收缩的（通过 $c$ 或 $c'$），根据 \cref{thm:contr-unit}，它是一个纯粹命题。
+  因此，根据 \cref{thm:prop-set,thm:isprop-forall}，$\prd{x:A}(a'=x)$ 也是纯粹命题；因此 $\trans{q}{p}=p'$ 是自动成立的。
 \end{proof}
 
 \begin{cor}\label{thm:contr-contr}
-  If $A$ is contractible, then so is $\iscontr(A)$.
+如果 $A$ 是收缩的，那么 $\iscontr(A)$ 也是收缩的。
 \end{cor}
 \begin{proof}
-  By \cref{thm:isprop-iscontr} and \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}.
+  根据 \cref{thm:isprop-iscontr} 和 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}。
 \end{proof}
 
-Like mere propositions, contractible types are preserved by many type constructors.
-For instance, we have:
+像纯粹命题一样，收缩类型在许多类型构造器下也是保持的。
+例如，我们有：
 
 \begin{lem}\label{thm:contr-forall}
-  If $P:A\to\type$ is a type family such that each $P(a)$ is contractible, then $\prd{x:A} P(x)$ is contractible.
+如果 $P:A\to\type$ 是一个类型族，并且每个 $P(a)$ 是收缩的，那么 $\prd{x:A} P(x)$ 是收缩的。
 \end{lem}
 \begin{proof}
-  By \cref{thm:isprop-forall}, $\prd{x:A} P(x)$ is a mere proposition since each $P(x)$ is.
-  But it also has an element, namely the function sending each $x:A$ to the center of contraction of $P(x)$.
-  Thus by \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}, $\prd{x:A} P(x)$ is contractible.
+  根据 \cref{thm:isprop-forall}，$\prd{x:A} P(x)$ 是一个纯粹命题，因为每个 $P(x)$ 都是。
+  但它也有一个元素，即将每个 $x:A$ 映射到 $P(x)$ 的收缩中心的函数。
+  因此根据 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}，$\prd{x:A} P(x)$ 是收缩的。
 \end{proof}
 
-\index{function extensionality}%
-(In fact, the statement of \cref{thm:contr-forall} is equivalent to the function extensionality axiom.
-See~\cref{sec:univalence-implies-funext}.)
+\index{函数外延性}%
+（事实上，\cref{thm:contr-forall} 的陈述等价于函数外延性公理。
+参见~\cref{sec:univalence-implies-funext}。）
 
-Of course, if $A$ is equivalent to $B$ and $A$ is contractible, then so is $B$.
-More generally, it suffices for $B$ to be a \emph{retract} of $A$.
-By definition, a \define{retraction}
-\indexdef{retraction}%
-\indexdef{function!retraction}%
-is a function $r : A \to B$ such that there exists a function $s : B \to A$, called its \define{section},
-\indexdef{section}%
-\indexdef{function!section}%
-and a homotopy $\epsilon:\prd{y:B} (r(s(y))=y)$; then we say that $B$ is a \define{retract}%
-\indexdef{retract!of a type}
-of $A$.
+当然，如果 $A$ 等价于 $B$ 并且 $A$ 是收缩的，那么 $B$ 也是。
+更一般地说，只要 $B$ 是 $A$ 的\emph{重载 (Retract)}。
+根据定义，\define{重载 (Retraction)}
+\indexdef{重载}%
+\indexdef{函数!重载}%
+是一个函数 $r : A \to B$，使得存在一个函数 $s : B \to A$，称为它的\define{截面 (Section)}，
+\indexdef{截面}%
+\indexdef{函数!截面}%
+以及一个同伦 $\epsilon:\prd{y:B} (r(s(y))=y)$；然后我们说 $B$ 是 $A$ 的\define{重载}%
+\indexdef{类型的重载}%
+。
 
 \begin{lem}\label{thm:retract-contr}
-  If $B$ is a retract of $A$, and $A$ is contractible, then so is $B$.
+如果 $B$ 是 $A$ 的重载，并且 $A$ 是收缩的，那么 $B$ 也是收缩的。
 \end{lem}
 \begin{proof}
-  Let $a_0 : A$ be the center of contraction.
-  We claim that $b_0 \defeq r(a_0) : B$ is a center of contraction for $B$.
-  Let $b : B$; we need a path $b = b_0$.
-  But we have $\epsilon_b : r(s(b)) = b$ and $\contr_{s(b)} : s(b) = a_0$, so by composition
+  令 $a_0 : A$ 为收缩中心。
+  我们声明 $b_0 \defeq r(a_0) : B$ 是 $B$ 的收缩中心。
+  令 $b : B$；我们需要一个路径 $b = b_0$。
+  但我们有 $\epsilon_b : r(s(b)) = b$ 和 $\contr_{s(b)} : s(b) = a_0$，因此通过合成
   \[ \opp{\epsilon_b} \ct \ap{r}{\contr_{s(b)}} : b = r(a_0) \jdeq b_0. \qedhere\]
 \end{proof}
 
-Contractible types may not seem very interesting, since they are all equivalent to \unit.
-One reason the notion is useful is that sometimes a collection of individually nontrivial data will collectively form a contractible type.
-An important example is the space of paths with one free endpoint.
-As we will see in \cref{sec:identity-systems}, this fact essentially
-encapsulates the based path induction principle for identity types.
-
+收缩类型可能看起来不是很有趣，因为它们都等价于 \unit。
+该概念有用的一个原因是，有时一些单独的非平凡数据集合将共同形成一个收缩类型。
+一个重要的例子是具有一个自由端点的路径空间。
+正如我们将在 \cref{sec:identity-systems} 中看到的，这个事实本质上概括了基于路径的恒等类型归纳原则。
 
 \begin{lem}\label{thm:contr-paths}
-  For any $A$ and any $a:A$, the type $\sm{x:A} (a=x)$ is contractible.
+对于任何 $A$ 和任何 $a:A$，类型 $\sm{x:A} (a=x)$ 是收缩的。
 \end{lem}
 \begin{proof}
-  We choose as center the point $(a,\refl a)$.
-  Now suppose $(x,p):\sm{x:A}(a=x)$; we must show $(a,\refl a) = (x,p)$.
-  By the characterization of paths in $\Sigma$-types, it suffices to exhibit $q:a=x$ such that $\trans{q}{\refl a} = p$.
-  But we can take $q\defeq p$, in which case $\trans{q}{\refl a} = p$ follows from the characterization of transport in path types.
+  我们选择点 $(a,\refl a)$ 作为收缩中心。
+  现在假设 $(x,p):\sm{x:A}(a=x)$；我们必须展示 $(a,\refl a) = (x,p)$。
+  通过 $\Sigma$-类型中路径的表征，展示 $q:a=x$ 就足以展示 $\trans{q}{\refl a} = p$。
+  但我们可以取 $q\defeq p$，在这种情况下，通过路径类型中的传输表征，$\trans{q}{\refl a} = p$ 是成立的。
 \end{proof}
 
-When this happens, it can allow us to simplify a complicated construction up to equivalence, using the informal principle that contractible data can be freely ignored.
-This principle consists of many lemmas, most of which we leave to the reader; the following is an example.
+当这种情况发生时，它可以允许我们简化一个复杂的构造直到等价，使用非正式原则，即收缩数据可以自由忽略。
+该原则由许多引理组成，其中大部分我们留给读者，下面是一个例子。
 
 \begin{lem}\label{thm:omit-contr}
-  Let $P:A\to\type$ be a type family.
-  \begin{enumerate}
-  \item If each $P(x)$ is contractible, then $\sm{x:A} P(x)$ is equivalent to $A$.\label{item:omitcontr1}
-  \item If $A$ is contractible with center $a$, then $\sm{x:A} P(x)$ is equivalent to $P(a)$.\label{item:omitcontr2}
-  \end{enumerate}
+令 $P:A\to\type$ 为一个类型族。
+\begin{enumerate}
+  \item 如果每个 $P(x)$ 是收缩的，那么 $\sm{x:A} P(x)$ 等价于 $A$。\label{item:omitcontr1}
+  \item 如果 $A$ 是以 $a$ 为中心的收缩类型，那么 $\sm{x:A} P(x)$ 等价于 $P(a)$。\label{item:omitcontr2}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  In the situation of~\ref{item:omitcontr1}, we show that $\proj1:\sm{x:A} P(x) \to A$ is an equivalence.
-  For quasi-inverse we define $g(x)\defeq (x,c_x)$ where $c_x$ is the center of $P(x)$.
-  The composite $\proj1 \circ g$ is obviously $\idfunc[A]$, whereas the opposite composite is homotopic to the identity by using the contractions of each $P(x)$.
+  在~\ref{item:omitcontr1} 的情况下，我们展示 $\proj1:\sm{x:A} P(x) \to A$ 是等价的。
+  对于逆函数，我们定义 $g(x)\defeq (x,c_x)$，其中 $c_x$ 是 $P(x)$ 的收缩中心。
+  复合 $\proj1 \circ g$ 显然是 $\idfunc[A]$，而相反的复合通过使用每个 $P(x)$ 的收缩同伦到恒等式。
 
-  We leave the proof of~\ref{item:omitcontr2} to the reader (see \cref{ex:omit-contr2}).
+  我们将~\ref{item:omitcontr2} 的证明留给读者（参见 \cref{ex:omit-contr2}）。
 \end{proof}
 
-Another reason contractible types are interesting is that they extend the ladder of $n$-types mentioned in \cref{sec:basics-sets} downwards one more step.
+另一个收缩类型有趣的原因是它们将 \cref{sec:basics-sets} 中提到的 $n$-类型阶梯向下延伸了一级。
 
 \begin{lem}\label{thm:prop-minusonetype}
-  A type $A$ is a mere proposition if and only if for all $x,y:A$, the type $\id[A]xy$ is contractible.
+类型 $A$ 是一个纯粹命题，当且仅当对于所有 $x,y:A$，类型 $\id[A]xy$ 是收缩的。
 \end{lem}
 \begin{proof}
-  For ``if'', we simply observe that any contractible type is inhabited.
-  For ``only if'', we observed in \cref{subsec:hprops} that every mere proposition is a set, so that each type $\id[A]xy$ is a mere proposition.
-  But it is also inhabited (since $A$ is a mere proposition), and hence by \cref{thm:contr-unit}\ref{item:contr-inhabited-prop} it is contractible.
+  对于“如果”，我们只是观察到任何收缩类型都是居住的。
+  对于“仅当”，我们在 \cref{subsec:hprops} 中观察到每个纯粹命题都是集合，因此每个类型 $\id[A]xy$ 是一个纯粹命题。
+  但它也是居住的（因为 $A$ 是一个纯粹命题），因此根据 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop} 它是收缩的。
 \end{proof}
 
-Thus, contractible types may also be called \define{$(-2)$-types}.
-They are the bottom rung of the ladder of $n$-types, and will be the base case of the recursive definition of $n$-types in \cref{cha:hlevels}.
+因此，收缩类型也可以称为\define{$(-2)$-类型}。
+它们是 $n$-类型阶梯的最低阶，将成为我们在 \cref{cha:hlevels} 中递归定义 $n$-类型的基准。
 
-\index{type!contractible|)}%
-\index{contractible!type|)}%
+\index{类型!收缩性|)}%
+\index{收缩性!类型|)}%
 
 \sectionNotes
 
-The fact that it is possible to define sets, mere propositions, and contractible types in type theory, with all higher homotopies automatically taken care of as in \cref{sec:basics-sets,subsec:hprops,sec:contractibility}, was first observed by Voevodsky.
-In fact, he defined the entire hierarchy of $n$-types by induction, as we will do in \cref{cha:hlevels}.\index{n-type@$n$-type!definable in type theory}%
+Voevodsky 首先观察到，在类型论中可以定义集合、纯粹命题和收缩类型，如 \cref{sec:basics-sets,subsec:hprops,sec:contractibility} 中的所有高级同伦自动处理。
+事实上，他通过归纳定义了整个 $n$-类型阶层，就像我们将在 \cref{cha:hlevels} 中做的那样。\index{n-类型@$n$-类型!可在类型论中定义的}%
 
-\cref{thm:not-dneg,thm:not-lem} rely in essence on a classical theorem of Hedberg,
-\index{Hedberg's theorem}%
-\index{theorem!Hedberg's}%
-which we will prove in \cref{sec:hedberg}.
-The implication that the propositions-as-types form of \LEM{} contradicts univalence was observed by Mart\'\i n Escard\'o on the \Agda mailing list.
-The proof we have given of \cref{thm:not-dneg} is due to Thierry Coquand.
+\cref{thm:not-dneg,thm:not-lem} 本质上依赖于 Hedberg 的经典定理，
+\index{Hedberg 的定理}%
+\index{定理!Hedberg's}%
+我们将在 \cref{sec:hedberg} 中证明。
+命题即类型形式的 \LEM{} 与单值性矛盾的含义是由 Mart\'\i n Escard\'o 在 \Agda 邮件列表中观察到的。
+我们给出的 \cref{thm:not-dneg} 的证明是 Thierry Coquand 提出的。
 
-The propositional truncation was introduced in the extensional type theory of
-\index{proof!assistant!\NuPRL}%
-\NuPRL in 1983 by Constable~\cite{Con85} as an
-application of ``subset'' and ``quotient'' types.  What is here called the
-``propositional truncation'' was called ``squashing'' in the \NuPRL type theory~\cite{constable+86nuprl-book}.
-Rules characterizing the propositional truncation directly, still in extensional type theory, were given in~\cite{ab:bracket-types}.
-The intensional version in homotopy type theory was constructed by Voevodsky using an impredicative\index{impredicative!truncation} quantification, and later by Lumsdaine using higher inductive types (see \cref{sec:hittruncations}).
+命题截断首次出现在
+\index{证明!助手!\NuPRL}%
+\NuPRL 的扩展类型论中，是由 Constable 在 1983 年提出的~\cite{Con85}，
+作为“子集 (Subset)”和“商集 (Quotient)”类型的应用。
+这里称为“命题截断”的东西在 \NuPRL 类型论~\cite{constable+86nuprl-book} 中被称为“压缩 (Squashing)”。
+在~\cite{ab:bracket-types} 中给出了直接表征命题截断的规则，仍在扩展类型论中。
+同伦类型论中的内涵版本是由 Voevodsky 使用不定型量化构建的，后来 Lumsdaine 使用更高的归纳类型构建（参见 \cref{sec:hittruncations}）。
 
-\index{propositional!resizing}%
-Voevodsky~\cite{Universe-poly} has proposed resizing rules of the kind considered in \cref{subsec:prop-subsets}.
-\index{axiom!of reducibility}\index{resizing}%
-These are clearly related to the notorious \emph{axiom of reducibility} proposed by Russell in his and Whitehead's \emph{Principia Mathematica}~\cite{PM2}.\index{Russell, Bertrand}
+\index{命题!缩放}%
+Voevodsky~\cite{Universe-poly} 提出了 \cref{subsec:prop-subsets} 中考虑的那种缩放规则。
+\index{公理!可缩减性}\index{缩放}%
+这些显然与 Russell 在他的《数学原理》中提出的臭名昭著的\emph{可缩减性公理}有关~\cite{PM2}。\index{罗素，Bertrand}
 
-The adverb ``purely'' as used to refer to untruncated logic is a reference to the use of monadic modalities to model effects in programming languages; see \cref{sec:modalities} and the Notes to \cref{cha:hlevels}.
+副词“纯粹”用于指代未截断逻辑，是对在编程语言中使用模态模态 (Monadic Modalities) 模型效应的引用；参见 \cref{sec:modalities} 和 \cref{cha:hlevels} 的笔记。
 
-There are many different ways in which logic can be treated relative to type theory.
-For instance, in addition to the plain propositions-as-types logic described in \cref{sec:pat}, and the alternative which uses mere propositions only as described in \cref{subsec:logic-hprop}, one may introduce a separate ``sort'' of propositions, which behave somewhat like types but are not identified with them.
-This is the approach taken in logic enriched type theory~\cite{aczel2002collection} and in some presentations of the internal languages of toposes\index{topos} and related categories (e.g.~\cite{jacobs1999categorical,elephant}), as well as in the proof assistant \Coq.\index{proof!assistant!Coq@\textsc{Coq}}
-Such an approach is more general, but less powerful.
-For instance, the principle of unique choice (\cref{sec:unique-choice}) fails in the category of so-called setoids in \Coq~\cite{Spiwack}, in logic enriched type theory~\cite{aczel2002collection}, and in minimal type theory~\cite{maietti2005toward}.\index{setoid}
-Thus, the univalence axiom makes our type theory behave more like the internal logic of a topos;~see also \cref{cha:set-math}.\index{topos}
+关于逻辑相对于类型论的处理方式，有许多不同的方式。
+例如，除了 \cref{sec:pat} 中描述的普通命题即类型逻辑和 \cref{subsec:logic-hprop} 中描述的仅使用纯粹命题的替代方法外，还可以引入一个单独的“排序”命题，它们的行为类似于类型，但不与类型同一。
+这是逻辑丰富类型论~\cite{aczel2002collection} 以及一些拓扑学 (Toposes) 和相关范畴内部语言展示中的方法（例如~\cite{jacobs1999categorical,elephant}），以及证明助手 \Coq.\index{证明!助手!Coq@\textsc{Coq}}
+这种方法更为一般，但不那么强大。
+例如，\Coq 中所谓的 Setoid 范畴中独特选择原则 (\cref{sec:unique-choice}) 失败了~\cite{Spiwack}，在逻辑丰富类型论中也是如此~\cite{aczel2002collection}，在最小类型论中也是如此~\cite{maietti2005toward}。\index{Setoid}
+因此，单值性公理使我们的类型论更像是拓扑的内部逻辑；见 \cref{cha:set-math}。
 
-Martin-L\"of~\cite{martin2006100} provides a discussion on the history of axioms of choice.
-Of course, constructive and intuitionistic mathematics has a long and complicated history, which we will not delve into here; see for instance~\cite{TroelstraI,TroelstraII}.
+Martin-L\"of~\cite{martin2006100} 提供了关于选择公理历史的讨论。
+当然，构造性和直觉主义数学有着悠久而复杂的历史，我们在这里不会深入探讨；例如参见~\cite{TroelstraI,TroelstraII}。
 
 \sectionExercises
 
 \begin{ex}\label{ex:equiv-functor-set}
-  Prove that if $\eqv A B$ and $A$ is a set, then so is $B$.
+证明如果 $\eqv A B$ 并且 $A$ 是集合，那么 $B$ 也是集合。
 \end{ex}
 
 \begin{ex}\label{ex:isset-coprod}
-  Prove that if $A$ and $B$ are sets, then so is $A+B$.
+证明如果 $A$ 和 $B$ 是集合，那么 $A+B$ 也是集合。
 \end{ex}
 
 \begin{ex}\label{ex:isset-sigma}
-  Prove that if $A$ is a set and $B:A\to \type$ is a type family such that $B(x)$ is a set for all $x:A$, then $\sm{x:A} B(x)$ is a set.
+证明如果 $A$ 是集合并且 $B:A\to \type$ 是一个类型族，使得 $B(x)$ 对所有 $x:A$ 是集合，那么 $\sm{x:A} B(x)$ 是集合。
 \end{ex}
 
 \begin{ex}\label{ex:prop-endocontr}
-  Show that $A$ is a mere proposition if and only if $A\to A$ is contractible.
+证明 $A$ 是一个纯粹命题，当且仅当 $A\to A$ 是收缩的。
 \end{ex}
 
 \begin{ex}\label{ex:prop-inhabcontr}
-  Show that $\eqv{\isprop(A)}{(A\to\iscontr(A))}$.
+证明 $\eqv{\isprop(A)}{(A\to\iscontr(A))}$。
 \end{ex}
 
 \begin{ex}\label{ex:lem-mereprop}
-  Show that if $A$ is a mere proposition, then so is $A+(\neg A)$.
-  Thus, there is no need to insert a propositional truncation in~\eqref{eq:lem}.
+证明如果 $A$ 是一个单纯命题（mere proposition），那么 $A+(\neg A)$ 也是一个单纯命题。
+因此，在~\eqref{eq:lem} 中不需要插入命题截断（propositional truncation）。
 \end{ex}
 
 \begin{ex}\label{ex:disjoint-or}
-  More generally, show that if $A$ and $B$ are mere propositions and $\neg(A\times B)$, then $A+B$ is also a mere proposition.
+更一般地，证明如果 $A$ 和 $B$ 是单纯命题，并且 $\neg(A\times B)$，那么 $A+B$ 也是一个单纯命题。
 \end{ex}
 
 % \begin{ex}\label{ex:hprop-iff-equiv}
-%   Show that if $A$ and $B$ are mere propositions such that $A\to B$ and $B\to A$, then $\eqv A B$.
+%   证明如果 $A$ 和 $B$ 是单纯命题，并且 $A\to B$ 和 $B\to A$，那么 $\eqv A B$。
 % \end{ex}
 
 % \begin{ex}\label{ex:isprop-isprop}
-%   Show that for any type $A$, the types $\isprop(A)$ and $\isset(A)$ are mere propositions.
+%   证明对于任何类型 $A$，类型 $\isprop(A)$ 和 $\isset(A)$ 都是单纯命题。
 % \end{ex}
 
 % \begin{ex}\label{ex:prop-eqvtrunc}
-%   Show that if $A$ is already a mere proposition, then $\eqv A{\brck{A}}$.
+%   证明如果 $A$ 已经是一个单纯命题，那么 $\eqv A{\brck{A}}$。
 % \end{ex}
 
 \begin{ex}\label{ex:brck-qinv}
-  Assuming that some type $\isequiv(f)$ satisfies conditions~\ref{item:be1}--\ref{item:be3} of \cref{sec:basics-equivalences}, show that the type $\brck{\qinv(f)}$ satisfies the same conditions and is equivalent to $\isequiv(f)$.
+假设某个类型 $\isequiv(f)$ 满足 \cref{sec:basics-equivalences} 中的条件~\ref{item:be1}--\ref{item:be3}，证明类型 $\brck{\qinv(f)}$ 满足相同的条件并且与 $\isequiv(f)$ 等价。
 \end{ex}
 
 \begin{ex}\label{ex:lem-impl-prop-equiv-bool}
-  Show that if \LEM{} holds, then the type $\prop \defeq \sm{A:\type} \isprop(A)$ is equivalent to \bool.
+证明如果 \LEM{} 成立，那么类型 $\prop \defeq \sm{A:\type} \isprop(A)$ 与 $\bool$ 等价。
 \end{ex}
 
 \begin{ex}\label{ex:lem-impred}
-  Show that if $\UU_{i+1}$ satisfies \LEM{}, then the canonical inclusion $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ is an equivalence.
+证明如果 $\UU_{i+1}$ 满足 \LEM{}，那么 $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ 的典范包含是一个等价。
 \end{ex}
 
 \begin{ex}\label{ex:not-brck-A-impl-A}
-  Show that it is not the case that for all $A:\type$ we have $\brck{A} \to A$.
-  (However, there can be particular types for which $\brck{A}\to A$.
-  \cref{ex:brck-qinv} implies that $\qinv(f)$ is such.)
+证明并非对于所有类型 $A:\type$ 我们都有 $\brck{A} \to A$。
+（然而，确实存在某些特定的类型使得 $\brck{A}\to A$ 成立。
+\cref{ex:brck-qinv} 表明 $\qinv(f)$ 就是其中之一。）
 \end{ex}
 
 \begin{ex}\label{ex:lem-impl-simple-ac}
-  \index{axiom!of choice}%
-  Show that if \LEM{} holds, then for all $A:\type$ we have $\bbrck{(\brck A \to A)}$.
-  (This property is a very simple form of the axiom of choice, which can fail in the absence of \LEM{}; see~\cite{krausgeneralizations}.)
+\index{choice 公理（axiom of choice）}%
+证明如果 \LEM{} 成立，那么对于所有类型 $A:\type$ 我们有 $\bbrck{(\brck A \to A)}$。
+（这种性质是选择公理的一个非常简单的形式，在没有 \LEM{} 的情况下可能不成立；参见~\cite{krausgeneralizations}。）
 \end{ex}
 
 \begin{ex}\label{ex:naive-lem-impl-ac}
-  We showed in \cref{thm:not-lem} that the following naive form of \LEM{} is inconsistent with univalence:
-  \[ \prd{A:\type} (A+(\neg A)) \]
-  In the absence of univalence, this axiom is consistent.
-  However, show that it implies the axiom of choice~\eqref{eq:ac}.
+我们在 \cref{thm:not-lem} 中证明了以下简单形式的 \LEM{} 与单值性（univalence）不一致：
+\[ \prd{A:\type} (A+(\neg A)) \]
+在没有单值性的情况下，这个公理是一致的。
+然而，证明它暗含了选择公理~\eqref{eq:ac}。
 \end{ex}
 
 \begin{ex}\label{ex:lem-brck}
-  Show that assuming \LEM{}, the double negation $\neg \neg A$ has the same recursion principle as the propositional truncation $\brck A$ but with a propositional computation rule rather than a judgmental one.
-  In other words, prove that assuming \LEM{}, if $B$ is a mere proposition and we have $f:A\to B$, then there is an induced $g:\neg\neg A \to B$ such that $g(\bproj a) = f(a)$ for all $a:A$.
-  Deduce that (assuming \LEM{}) we have $\eqv{\neg\neg A}{\brck{A}}$.
-  Thus, under \LEM{}, the propositional truncation can be defined rather than taken as a separate type former.
+证明假设 \LEM{}，双重否定 $\neg \neg A$ 具有与命题截断 $\brck A$ 相同的递归原则，但具有命题计算规则而不是判断规则。
+换句话说，证明假设 \LEM{}，如果 $B$ 是一个单纯命题并且我们有 $f:A\to B$，那么有一个诱导的 $g:\neg\neg A \to B$，使得对所有 $a:A$ 都有 $g(\bproj a) = f(a)$。
+推导出（假设 \LEM{}）我们有 $\eqv{\neg\neg A}{\brck{A}}$。
+因此，在 \LEM{} 下，命题截断可以定义出来，而不是作为一个单独的类型构造。
 \end{ex}
 
 \begin{ex}\label{ex:impred-brck}
-  \index{propositional!resizing}%
-  Show that if we assume propositional resizing as in \cref{subsec:prop-subsets}, then the type
-  \[\prd{P:\prop} \Parens{(A\to P)\to P}\]
-  has the same recursion principle as $\brck A$, \emph{with} the same judgmental computation rule.
-  Thus, we can also define the propositional truncation in this case.
+\index{命题调整（propositional resizing）}%
+证明如果我们假设如 \cref{subsec:prop-subsets} 中的命题调整，那么类型
+\[\prd{P:\prop} \Parens{(A\to P)\to P}\]
+具有与 $\brck A$ 相同的递归原则，\emph{并且}具有相同的判断计算规则。
+因此，在这种情况下，我们也可以定义命题截断。
 \end{ex}
 
 \begin{ex}\label{ex:lem-impl-dn-commutes}
-  Assuming \LEM{}, show that double negation commutes with universal quantification of mere propositions over sets.
-  That is, show that if $X$ is a set and each $Y(x)$ is a mere proposition, then \LEM{} implies
-  \begin{equation}
-    \eqv{\Parens{\prd{x:X} \neg\neg Y(x)}}{\Parens{\neg\neg \prd{x:X} Y(x)}}.\label{eq:dnshift}
-  \end{equation}
-  Observe that if we assume instead that each $Y(x)$ is a set, then~\eqref{eq:dnshift} becomes equivalent to the axiom of choice~\eqref{eq:epis-split}.
+假设 \LEM{}，证明双重否定与集上的单纯命题的全称量化是可交换的。
+也就是说，证明如果 $X$ 是一个集并且每个 $Y(x)$ 都是一个单纯命题，那么 \LEM{} 暗含
+\begin{equation}
+  \eqv{\Parens{\prd{x:X} \neg\neg Y(x)}}{\Parens{\neg\neg \prd{x:X} Y(x)}}。\label{eq:dnshift}
+\end{equation}
+请注意，如果我们改为假设每个 $Y(x)$ 是一个集，那么~\eqref{eq:dnshift} 变得等价于选择公理~\eqref{eq:epis-split}。
 \end{ex}
 
 \begin{ex}\label{ex:prop-trunc-ind}
-  \index{induction principle!for truncation}%
-  Show that the rules for the propositional truncation given in \cref{subsec:prop-trunc} are sufficient to imply the following induction principle: for any type family $B:\brck A \to \type$ such that each $B(x)$ is a mere proposition, if for every $a:A$ we have $B(\bproj a)$, then for every $x:\brck A$ we have $B(x)$.
+\index{截断的归纳原则（induction principle for truncation）}%
+证明 \cref{subsec:prop-trunc} 中给出的命题截断的规则足以暗含以下归纳原则：对于任意类型族 $B:\brck A \to \type$，如果每个 $B(x)$ 都是一个单纯命题，并且对于每个 $a:A$ 我们都有 $B(\bproj a)$，那么对于每个 $x:\brck A$ 我们都有 $B(x)$。
 \end{ex}
 
 \begin{ex}\label{ex:lem-ldn}
-  Show that the law of excluded middle~\eqref{eq:lem} and the law of double negation~\eqref{eq:ldn} are logically equivalent.
+证明中间排律~\eqref{eq:lem} 和双重否定律~\eq{eq:ldn} 在逻辑上是等价的。
 \end{ex}
 
 \begin{ex}\label{ex:decidable-choice}
-  Suppose $P:\nat\to\type$ is a decidable family (see \cref{defn:decidable-equality}\ref{item:decidable-equality2}) of mere propositions.
-  Prove that
-  \[ \Brck{\sm{n:\nat} P(n)} \;\to\; \sm{n:\nat}P(n).\]
+假设 $P:\nat\to\type$ 是一个可判定的族（参见 \cref{defn:decidable-equality}\ref{item:decidable-equality2}）的单纯命题。
+证明
+\[ \Brck{\sm{n:\nat} P(n)} \;\to\; \sm{n:\nat}P(n)。\]
 \end{ex}
 
 \begin{ex}\label{ex:omit-contr2}
-  Prove \cref{thm:omit-contr}\ref{item:omitcontr2}: if $A$ is contractible with center $a$, then $\sm{x:A} P(x)$ is equivalent to $P(a)$.
+证明 \cref{thm:omit-contr}\ref{item:omitcontr2}：如果 $A$ 是以 $a$ 为中心的可收缩集（contractible），那么 $\sm{x:A} P(x)$ 与 $P(a)$ 是等价的。
 \end{ex}
 
 \begin{ex}\label{ex:isprop-equiv-equiv-bracket}
-  Prove that $\isprop(P) \simeq (P \simeq \brck P)$.
+证明 $\isprop(P) \simeq (P \simeq \brck P)$。
 \end{ex}
 
 \begin{ex}\label{ex:finite-choice}
-  As in classical set theory, the finite version of the axiom of choice is a theorem.  Prove that the axiom of choice \eqref{eq:ac} holds when $X$ is a finite type $\Fin(n)$ (as defined in \cref{ex:fin}).
+正如经典集合论中那样，有限版本的选择公理是一个定理。证明当 $X$ 是一个有限类型 $\Fin(n)$（如 \cref{ex:fin} 中定义的）时，选择公理 \eqref{eq:ac} 成立。
 \end{ex}
 
 \begin{ex}\label{ex:decidable-choice-strong}
-  Show that the conclusion of \cref{ex:decidable-choice} is true if $P:\nat\to\type$ is any decidable family.
+证明 \cref{ex:decidable-choice} 的结论对于任意可判定族 $P:\nat\to\type$ 也成立。
 \end{ex}
 
 \begin{ex}\label{ex:n-set}
-  Simplify the proof of \cref{thm:path-nat} by first proving that $\code(m,n)$ is a mere proposition for all $m,n$.
+通过首先证明对于所有 $m,n$，$\code(m,n)$ 是一个单纯命题来简化 \cref{thm:path-nat} 的证明。
 \end{ex}
 
 % Local Variables:
