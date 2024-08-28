@@ -1303,294 +1303,223 @@ $\brck A$ 还有一个归纳原理 (induction principle)，它表示给定任意
 
 \index{集合商|)}%
 
-
-\section{Algebra}
+\section{代数 (Algebra)}
 \label{sec:free-algebras}
 
-In addition to constructing higher-dimensional objects such as spheres and cell complexes, higher inductive types are also very useful even when working only with sets.
-We have seen one example already in \cref{thm:set-pushout}: they allow us to construct the colimit of any diagram of sets, which is not possible in the base type theory of \cref{cha:typetheory}.
-Higher inductive types are also very useful when we study sets with algebraic structure.
+除了构造球面和胞腔复形 (cell complexes) 这样的高维对象外，即使仅在集合上工作，高阶归纳类型 (higher inductive types) 也非常有用。我们在 \cref{thm:set-pushout} 中已经看到了一个例子：它们允许我们构造任何集合图的余极限 (colimit)，而这是在 \cref{cha:typetheory} 的基础类型论中无法实现的。当我们研究具有代数结构的集合时，高阶归纳类型也非常有用。
 
-As a running example in this section, we consider \emph{groups}, which are familiar to most mathematicians and exhibit the essential phenomena (and will be needed in later chapters).
-However, most of what we say applies equally well to any sort of algebraic structure.
+在本节中，我们将以\emph{群 (groups)} 作为一个持续的例子，这对于大多数数学家来说是熟悉的，并展示了基本现象（在后续章节中也将需要它们）。然而，我们所说的大部分内容同样适用于任何形式的代数结构。
 
-\index{monoid|(}%
+\index{幺半群|(}%
 
 \begin{defn}
-  A \define{monoid}
+  \define{幺半群 (monoid)}
   \indexdef{monoid}%
-  is a set $G$ together with
+  是一个集合 $G$ 以及
   \begin{itemize}
-  \item a \emph{multiplication}
+    \item 一个\emph{乘法 (multiplication)}
     \indexdef{multiplication!in a monoid}%
     \indexdef{multiplication!in a group}%
-    function $G\times G\to G$, written infix as $(x,y) \mapsto x\cdot y$; and
-  \item a \emph{unit}
+    函数 $G\times G\to G$，写作中缀形式 $(x,y) \mapsto x\cdot y$；以及
+    \item 一个\emph{单位元 (unit)}
     \indexdef{unit!of a monoid}%
     \indexdef{unit!of a group}%
-    element $e:G$; such that
-  \item for any $x:G$, we have $x\cdot e = x$ and $e\cdot x = x$; and
-  \item for any $x,y,z:G$, we have $x\cdot (y\cdot z) = (x\cdot y)\cdot z$.
+    元素 $e:G$；使得
+    \item 对于任意 $x:G$，我们有 $x\cdot e = x$ 且 $e\cdot x = x$；以及
+    \item 对于任意 $x,y,z:G$，我们有 $x\cdot (y\cdot z) = (x\cdot y)\cdot z$。
     \index{associativity!in a monoid}%
     \index{associativity!in a group}%
   \end{itemize}
-  A \define{group}
+  \define{群 (group)}
   \indexdef{group}%
-  is a monoid $G$ together with
+  是一个幺半群 $G$，并且
   \begin{itemize}
-  \item an \emph{inversion} function $i:G\to G$, written $x\mapsto \opp x$; such that
+    \item 一个\emph{逆元 (inversion)} 函数 $i:G\to G$，写作 $x\mapsto \opp x$；使得
     \index{inverse!in a group}%
-  \item for any $x:G$ we have $x\cdot \opp x = e$ and $\opp x \cdot x = e$.
+    \item 对于任意 $x:G$ 我们有 $x\cdot \opp x = e$ 且 $\opp x \cdot x = e$。
   \end{itemize}
 \end{defn}
 
 \begin{rmk}\label{rmk:infty-group}
-Note that we require a group to be a set.
-We could consider a more general notion of ``$\infty$-group''%
+注意，我们要求群是一个集合。我们可以考虑一种更一般的“$\infty$-群 ($\infty$-group)”%
 \index{.infinity-group@$\infty$-group}
-which is not a set, but this would take us further afield than is appropriate at the moment.
-With our current definition, we may expect the resulting ``group theory'' to behave similarly to the way it does in set-theoretic mathematics (with the caveat that, unless we assume \LEM{}, it will be ``constructive'' group theory).\index{mathematics!constructive}
+它不一定是一个集合，但这会让我们偏离当前的讨论主题。在我们的定义中，我们可以期望所得到的“群论”表现得与集合论数学中的方式类似（除非我们假设 \LEM{}，否则它将是“构造性的”群论 (constructive group theory)）。\index{mathematics!constructive}
 \end{rmk}
 
 \begin{eg}
-  The natural numbers \N are a monoid under addition, with unit $0$, and also under multiplication, with unit $1$.
-  If we define the arithmetical operations on the integers \Z in the obvious way, then as usual they are a group under addition and a monoid under multiplication (and, of course, a ring).
-  For instance, if $u, v \in \Z$ are represented by $(a,b)$ and $(c,d)$, respectively, then $u + v$ is represented by $(a + c, b + d)$, $-u$ is represented by $(b, a)$, and $u v$ is represented by $(a c + b d, a d + b c)$.
+  自然数 \N 在加法下是一个幺半群，单位元是 $0$，在乘法下也是一个幺半群，单位元是 $1$。如果我们以显而易见的方式定义整数 \Z 上的算术运算，那么通常它们在加法下是一个群，在乘法下是一个幺半群（当然，它们也是一个环）。例如，如果 $u, v \in \Z$ 分别表示为 $(a,b)$ 和 $(c,d)$，那么 $u + v$ 表示为 $(a + c, b + d)$，$-u$ 表示为 $(b, a)$，而 $u v$ 表示为 $(a c + b d, a d + b c)$。
 \end{eg}
 
 \begin{eg}\label{thm:homotopy-groups}
-  We essentially observed in \cref{sec:equality} that if $(A,a)$ is a pointed type, then its loop space\index{loop space} $\Omega(A,a)\defeq (\id[A]aa)$ has all the structure of a group, except that it is not in general a set.
-  It should be an ``$\infty$-group'' in the sense mentioned in \cref{rmk:infty-group}, but we can also make it a group by truncation.
-  Specifically, we define the \define{fundamental group}
-  \indexsee{group!fundamental}{fundamental group}%
-  \indexdef{fundamental!group}%
-  of $A$ based at $a:A$ to be
-  \[\pi_1(A,a)\defeq \trunc0{\Omega(A,a)}.\]
-  This inherits a group structure; for instance, the multiplication $\pi_1(A,a) \times \pi_1(A,a) \to \pi_1(A,a)$ is defined by double induction on truncation from the concatenation of paths.
+我们在 \cref{sec:equality} 中实质上观察到，如果 $(A,a)$ 是一个尖点类型 (pointed type)，那么它的循环空间 (loop space)\index{loop space} $\Omega(A,a)\defeq (\id[A]aa)$ 具有群的所有结构，除了它通常不是一个集合。它应该是 \cref{rmk:infty-group} 中提到的“$\infty$-群”，但我们也可以通过截断 (truncation) 使它成为一个群。具体地，我们定义 $A$ 在点 $a:A$ 处的 \define{基本群 (fundamental group)}
+\indexsee{group!fundamental}{fundamental group}%
+\indexdef{fundamental!group}%
+为
+\[\pi_1(A,a)\defeq \trunc0{\Omega(A,a)}。\]
+这继承了一个群结构；例如，通过对路径的连接进行双重截断，定义了乘法 $\pi_1(A,a) \times \pi_1(A,a) \to \pi_1(A,a)$。
 
-  More generally, the \define{$n^{\mathrm{th}}$ homotopy group}
-  \index{homotopy!group}%
-  \indexsee{group!homotopy}{homotopy group}%
-  of $(A,a)$ is $\pi_n(A,a)\defeq \trunc0{\Omega^n(A,a)}$.
-  \index{loop space!iterated}%
-  Then $\pi_n(A,a) = \pi_1(\Omega^{n-1}(A,a))$ for $n\ge 1$, so it is also a group.
-  (When $n=0$, we have $\pi_0(A) \jdeq \trunc0 A$, which is not a group.)
-  Moreover, the Eckmann--Hilton argument \index{Eckmann--Hilton argument} (\cref{thm:EckmannHilton}) implies that if $n\ge 2$, then $\pi_n(A,a)$ is an \emph{abelian}\index{group!abelian} group, i.e.\ we have $x\cdot y = y\cdot x$ for all $x,y$.
-  \cref{cha:homotopy} will be largely the study of these groups.
+更一般地，$(A,a)$ 的 \define{$n$ 阶同伦群 (homotopy group)}
+\index{homotopy!group}%
+\indexsee{group!homotopy}{homotopy group}%
+定义为 $\pi_n(A,a)\defeq \trunc0{\Omega^n(A,a)}$。
+\index{loop space!iterated}%
+因此对于 $n\ge 1$，有 $\pi_n(A,a) = \pi_1(\Omega^{n-1}(A,a))$，所以它也是一个群。（当 $n=0$ 时，我们有 $\pi_0(A) \jdeq \trunc0 A$，它不是一个群。）此外，Eckmann-Hilton 论证 \index{Eckmann--Hilton argument} (\cref{thm:EckmannHilton}) 表明，如果 $n\ge 2$，则 $\pi_n(A,a)$ 是一个\emph{阿贝尔群 (abelian group)}，即对于所有 $x,y$ 有 $x\cdot y = y\cdot x$。\cref{cha:homotopy} 将主要研究这些群。
 \end{eg}
 
 \index{algebra!free}%
 \index{free!algebraic structure}%
-One important notion in group theory is that of the \emph{free group} generated by a set, or more generally of a group \emph{presented} by generators\index{generator!of a group} and relations.
-It is well-known in type theory that \emph{some} free algebraic objects can be defined using \emph{ordinary} inductive types.
+群论中的一个重要概念是由一个集合生成的\emph{自由群 (free group)}，或更一般地，由生成元 (generators)\index{generator!of a group} 和关系 (relations) 表示的群。众所周知，在类型论中，\emph{一些} 自由代数对象可以使用\emph{普通的}归纳类型 (inductive types) 定义。
 \symlabel{lst-freemonoid}%
 \indexdef{type!of lists}%
 \indexsee{list type}{type, of lists}%
 \index{monoid!free|(}%
-For instance, the free monoid on a set $A$ can be identified with the type $\lst A$ of \emph{finite lists} \index{finite!lists, type of} of elements of $A$, which is inductively generated by
+例如，集合 $A$ 上的自由幺半群可以与 $A$ 元素的\emph{有限列表 (finite lists)} 类型 $\lst A$ 进行标识，后者通过归纳生成：
 \begin{itemize}
-\item a constructor $\nil:\lst A$, and
-\item for each $\ell:\lst A$ and $a:A$, an element $\cons(a,\ell):\lst A$.
+  \item 构造函数 $\nil:\lst A$，以及
+  \item 对于每个 $\ell:\lst A$ 和 $a:A$，生成一个元素 $\cons(a,\ell):\lst A$。
 \end{itemize}
-We have an obvious inclusion $\eta : A\to \lst A$ defined by $a\mapsto \cons(a,\nil)$.
-The monoid operation on $\lst A$ is concatenation, defined recursively by
+我们有一个显然的包含 $\eta : A\to \lst A$，定义为 $a\mapsto \cons(a,\nil)$。$\lst A$ 上的幺半群运算是连接 (concatenation)，递归定义为
 \begin{align*}
   \nil \cdot \ell &\defeq \ell\\
-  \cons (a,\ell_1) \cdot \ell_2 &\defeq \cons(a, \ell_1\cdot\ell_2).
+  \cons (a,\ell_1) \cdot \ell_2 &\defeq \cons(a, \ell_1\cdot\ell_2)。
 \end{align*}
-It is straightforward to prove, using the induction principle for $\lst A$, that $\lst A$ is a set and that concatenation of lists is associative
+使用 $\lst A$ 的归纳原理可以很容易地证明 $\lst A$ 是一个集合，并且列表的连接是结合的 (associative)
 \index{associativity!of list concatenation}%
-and has $\nil$ as a unit.
-Thus, $\lst A$ is a monoid.
+并且 $\nil$ 作为单位元。因此，$\lst A$ 是一个幺半群。
 
 \begin{lem}\label{thm:free-monoid}
-  \indexsee{free!monoid}{monoid, free}%
-  For any set $A$, the type $\lst A$ is the free monoid on $A$.
-  In other words, for any monoid $G$, composition with $\eta$ is an equivalence
-  \[ \eqv{\hom_{\mathrm{Monoid}}(\lst A,G)}{(A\to G)}, \]
-  where $\hom_{\mathrm{Monoid}}(\blank,\blank)$ denotes the set of monoid homomorphisms (functions which preserve the multiplication and unit).
-  \indexdef{homomorphism!monoid}%
-  \indexdef{monoid!homomorphism}%
+\indexsee{free!monoid}{monoid, free}%
+对于任意集合 $A$，类型 $\lst A$ 是 $A$ 上的自由幺半群。换句话说，对于任意幺半群 $G$，与 $\eta$ 的合成是一个等价性
+\[ \eqv{\hom_{\mathrm{Monoid}}(\lst A,G)}{(A\to G)}, \]
+其中 $\hom_{\mathrm{Monoid}}(\blank,\blank)$ 表示幺半群同态 (monoid homomorphisms) 的集合（即保持乘法和单位元的函数）。
+\indexdef{homomorphism!monoid}%
+\indexdef{monoid!homomorphism}%
 \end{lem}
 \begin{proof}
-  Given $f:A\to G$, we define $\bar{f}:\lst A \to G$ by recursion:
+  给定 $f:A\to G$，我们通过递归定义 $\bar{f}:\lst A \to G$：
   \begin{align*}
     \bar{f}(\nil) &\defeq e\\
-    \bar{f}(\cons(a,\ell)) &\defeq f(a) \cdot \bar{f}(\ell).
+    \bar{f}(\cons(a,\ell)) &\defeq f(a) \cdot \bar{f}(\ell)。
   \end{align*}
-  It is straightforward to prove by induction that $\bar{f}$ is a monoid homomorphism, and that $f\mapsto \bar f$ is a quasi-inverse of $(\blank\circ \eta)$; see \cref{ex:free-monoid}.
+  通过归纳可以很容易地证明 $\bar{f}$ 是一个幺半群同态，并且 $f\mapsto \bar f$ 是 $(\blank\circ \eta)$ 的一个拟逆；参见 \cref{ex:free-monoid}。
 \end{proof}
 
 \index{monoid!free|)}%
 
-This construction of the free monoid is possible essentially because elements of the free monoid have computable canonical forms (namely, finite lists).
-However, elements of other free (and presented) algebraic structures --- such as groups --- do not in general have \emph{computable} canonical forms.
-For instance, equality of words in group presentations is algorithmically\index{algorithm} undecidable.
-However, we can still describe free algebraic objects as \emph{higher} inductive types, by simply asserting all the axiomatic equations as path constructors.
+这种自由幺半群的构造之所以可能，基本上是因为自由幺半群的元素具有可计算的标准形式（即有限列表）。然而，其他自由（和表示的）代数结构（例如群）的元素通常没有\emph{可计算的}标准形式。例如，群表示中的词的相等性是算法上不可判定的 (undecidable)。然而，我们仍然可以通过简单地将所有公理化的等式作为路径构造来描述自由代数对象为\emph{高阶}归纳类型。
 
 \indexsee{free!group}{group, free}%
 \index{group!free|(}%
-For example, let $A$ be a set, and define a higher inductive type $\freegroup{A}$ with the following generators.
+例如，设 $A$ 是一个集合，定义一个具有以下生成元的高阶归纳类型 $\freegroup{A}$：
 \begin{itemize}
-\item A function $\eta:A\to \freegroup{A}$.
-\item A function $m: \freegroup{A} \times \freegroup{A} \to \freegroup{A}$.
-\item An element $e:\freegroup{A}$.
-\item A function $i:\freegroup{A} \to \freegroup{A}$.
-\item For each $x,y,z:\freegroup{A}$, an equality $m(x,m(y,z)) = m(m(x,y),z)$.
-\item For each $x:\freegroup{A}$, equalities $m(x,e) = x$ and $m(e,x) = x$.
-\item For each $x:\freegroup{A}$, equalities $m(x,i(x)) = e$ and $m(i(x),x) = e$.
-\item The $0$-truncation constructor: for any $x,y:\freegroup{A}$ and $p,q:x=y$, we have $p=q$.
+  \item 一个函数 $\eta:A\to \freegroup{A}$。
+  \item 一个函数 $m: \freegroup{A} \times \freegroup{A} \to \freegroup{A}$。
+  \item 一个元素 $e:\freegroup{A}$。
+  \item 一个函数 $i:\freegroup{A} \to \freegroup{A}$。
+  \item 对于每个 $x,y,z:\freegroup{A}$，有一个等式 $m(x,m(y,z)) = m(m(x,y),z)$。
+  \item 对于每个 $x:\freegroup{A}$，有等式 $m(x,e) = x$ 和 $m(e,x) = x$。
+  \item 对于每个 $x:\freegroup{A}$，有等式 $m(x,i(x)) = e$ 和 $m(i(x),x) = e$。
+  \item $0$-截断构造器：对于任意 $x,y:\freegroup{A}$ 和 $p,q:x=y$，我们有 $p=q$。
 \end{itemize}
-The first constructor says that $A$ maps to $\freegroup{A}$.
-The next three give $\freegroup{A}$ the operations of a group: multiplication, an identity element, and inversion.
-The three constructors after that assert the axioms of a group: associativity\index{associativity}, unitality, and inverses.
-Finally, the last constructor asserts that $\freegroup{A}$ is a set.
+第一个构造器表示 $A$ 映射到 $\freegroup{A}$。接下来的三个给出了 $\freegroup{A}$ 的群运算：乘法、单位元和逆元。再往下的三个构造器断言了群的公理：结合律 (associativity)、单位律 (unitality) 和逆元律 (inverses)。最后，最后一个构造器断言 $\freegroup{A}$ 是一个集合。
 
-Therefore, $\freegroup{A}$ is a group.
-It is also straightforward to prove:
+因此，$\freegroup{A}$ 是一个群。也可以很容易地证明：
 
 \begin{thm}
   \index{universal!property!of free group}%
-  $\freegroup{A}$ is the free group on $A$.
-  In other words, for any (set) group $G$, composition with $\eta:A\to \freegroup{A}$ determines an equivalence
+  $\freegroup{A}$ 是 $A$ 上的自由群。换句话说，对于任意（集合）群 $G$，与 $\eta:A\to \freegroup{A}$ 的合成决定了一个等价性
   \[ \hom_{\mathrm{Group}}(\freegroup{A},G) \eqvsym (A\to G) \]
-  where $\hom_{\mathrm{Group}}(\blank,\blank)$ denotes the set of group homomorphisms between two groups.
+  其中 $\hom_{\mathrm{Group}}(\blank,\blank)$ 表示两个群之间的群同态 (group homomorphisms) 的集合。
   \indexdef{group!homomorphism}%
   \indexdef{homomorphism!group}%
 \end{thm}
 \begin{proof}
-  The recursion principle of the higher inductive type $\freegroup{A}$ says \emph{precisely} that if $G$ is a group and we have $f:A\to G$, then we have $\bar{f}:\freegroup{A} \to G$.
-  Its computation rules say that $\bar{f}\circ \eta \jdeq f$, and that $\bar f$ is a group homomorphism.
-  Thus, $(\blank\circ \eta) :  \hom_{\mathrm{Group}}(\freegroup{A},G) \to (A\to G)$ has a right inverse.
-  It is straightforward to use the induction principle of $\freegroup{A}$ to show that this is also a left inverse.
+  高阶归纳类型 $\freegroup{A}$ 的递归原理精确地说明，如果 $G$ 是一个群并且我们有 $f:A\to G$，那么我们有 $\bar{f}:\freegroup{A} \to G$。它的计算规则说明 $\bar{f}\circ \eta \jdeq f$，并且 $\bar f$ 是一个群同态。因此，$(\blank\circ \eta) :  \hom_{\mathrm{Group}}(\freegroup{A},G) \to (A\to G)$ 有一个右逆。使用 $\freegroup{A}$ 的归纳原理很容易证明这也是一个左逆。
 \end{proof}
 
 \index{acceptance}
-It is worth taking a step back to consider what we have just done.
-We have proven that the free group on any set exists \emph{without} giving an explicit construction of it.
-Essentially all we had to do was write down the universal property that it should satisfy.
-In set theory, we could achieve a similar result by appealing to black boxes such as the adjoint functor theorem\index{adjoint!functor theorem}; type theory builds such constructions into the foundations of mathematics.
+我们不妨退一步考虑我们刚刚完成的工作。我们已经证明，对于任意集合上的自由群的存在\emph{不需要}给出一个明确的构造。基本上，我们只需要写下它应该满足的普遍性质即可。在集合论中，我们可以通过调用诸如伴随函子定理 (adjoint functor theorem)\index{adjoint!functor theorem} 之类的黑箱来实现类似的结果；类型论将这样的构造内置于数学基础中。
 
-Of course, it is sometimes also useful to have a concrete description of free algebraic structures.
-In the case of free groups, we can provide one, using quotients.
-Consider $\lst{A+A}$, where in $A+A$ we write $\inl(a)$ as $a$, and $\inr(a)$ as $\hat{a}$ (intended to stand for the formal inverse of $a$).
-The elements of $\lst{A+A}$ are \emph{words} for the free group on $A$.
+当然，有时也有一个具体的自由代数结构描述是有用的。在自由群的情况下，我们可以使用商来提供一个。例如，考虑 $\lst{A+A}$，在 $A+A$ 中，我们写 $\inl(a)$ 为 $a$，并写 $\inr(a)$ 为 $\hat{a}$（表示 $a$ 的形式逆元）。$\lst{A+A}$ 的元素是 $A$ 上的自由群的\emph{词 (words)}。
 
 \begin{thm}
-  Let $A$ be a set, and let $\freegroupx{A}$ be the set-quotient of $\lst{A+A}$ by the following relations.
+  设 $A$ 是一个集合，设 $\freegroupx{A}$ 是 $\lst{A+A}$ 的按以下关系进行的集合商：
   \begin{align*}
-    (\dots,a_1,a_2,\widehat{a_2},a_3,\dots) &=
-    (\dots,a_1,a_3,\dots)\\
-    (\dots,a_1,\widehat{a_2},a_2,a_3,\dots) &=
-    (\dots,a_1,a_3,\dots).
+  (\dots,a_1,a_2,\widehat{a_2},a_3,\dots) &=
+  (\dots,a_1,a_3,\dots)\\
+  (\dots,a_1,\widehat{a_2},a_2,a_3,\dots) &=
+  (\dots,a_1,a_3,\dots)。
   \end{align*}
-  Then $\freegroupx{A}$ is also the free group on the set $A$.
+  那么 $\freegroupx{A}$ 也是集合 $A$ 上的自由群。
 \end{thm}
 \begin{proof}
-  First we show that $\freegroupx{A}$ is a group.
-  We have seen that $\lst{A+A}$ is a monoid; we claim that the monoid structure descends to the quotient.
-  We define $\freegroupx{A} \times \freegroupx{A} \to \freegroupx{A}$ by double quotient recursion; it suffices to check that the equivalence relation generated by the given relations is preserved by concatenation of lists.
-  Similarly, we prove the associativity and unit laws by quotient induction.
+  首先，我们证明 $\freegroupx{A}$ 是一个群。我们已经看到 $\lst{A+A}$ 是一个幺半群；我们声称幺半群结构可以下降到商。我们通过双重商递归定义 $\freegroupx{A} \times \freegroupx{A} \to \freegroupx{A}$；只需检查生成的等价关系是否在列表的连接中得到保持。同样，我们通过商归纳来证明结合性和单位律。
 
-  In order to define inverses in $\freegroupx{A}$, we first define $\mathsf{reverse}:\lst B\to\lst B$ by recursion on lists:
+  为了在 $\freegroupx{A}$ 中定义逆元，我们首先通过列表递归定义 $\mathsf{reverse}:\lst B\to\lst B$：
   \begin{align*}
     \mathsf{reverse}(\nil) &\defeq \nil,\\
-    \mathsf{reverse}(\cons(b,\ell))&\defeq \mathsf{reverse}(\ell)\cdot \cons(b,\nil).
+    \mathsf{reverse}(\cons(b,\ell))&\defeq \mathsf{reverse}(\ell)\cdot \cons(b,\nil)。
   \end{align*}
-  Now we define $i:\freegroupx{A}\to \freegroupx{A}$ by quotient recursion, acting on a list $\ell:\lst{A+A}$ by switching the two copies of $A$ and reversing the list.
-  This preserves the relations, hence descends to the quotient.
-  And we can prove that $i(x) \cdot x = e$ for $x:\freegroupx{A}$ by induction.
-  First, quotient induction allows us to assume $x$ comes from $\ell:\lst{A+A}$, and then we can do list induction; if we write $q:\lst{A+A}\to \freegroupx{A}$ for the quotient map, the cases are
+  现在我们通过商递归定义 $i:\freegroupx{A}\to \freegroupx{A}$，作用在列表 $\ell:\lst{A+A}$ 上，通过交换 $A$ 的两个副本并反转列表。这样可以保持关系，因此可以下降到商中。通过归纳可以证明，对于 $x:\freegroupx{A}$，我们有 $i(x) \cdot x = e$。首先，通过商归纳我们可以假设 $x$ 来自 $\ell:\lst{A+A}$，然后我们可以进行列表归纳；如果我们写 $q:\lst{A+A}\to \freegroupx{A}$ 表示商映射，情况如下：
   \begin{align*}
     i(q(\nil)) \ct q(\nil) &= q(\nil) \ct q(\nil)\\
     &= q(\nil)\\
     i(q(\cons(a,\ell))) \ct q(\cons(a,\ell)) &= i(q(\ell)) \ct q(\cons(\hat{a},\nil)) \ct q(\cons(a,\ell))\\
     &= i(q(\ell)) \ct q(\cons(\hat{a},\cons(a,\ell)))\\
     &= i(q(\ell)) \ct q(\ell)\\
-    &= q(\nil). \tag{by the inductive hypothesis}
+    &= q(\nil)。 \tag{通过归纳假设}
   \end{align*}
-  (We have omitted a number of fairly evident lemmas about the behavior of concatenation of lists, etc.)
+  （我们省略了一些相当明显的关于列表连接等行为的引理。）
 
-  This completes the proof that $\freegroupx{A}$ is a group.
-  Now if $G$ is any group with a function $f:A\to G$, we can define $A+A\to G$ to be $f$ on the first copy of $A$ and $f$ composed with the inversion map of $G$ on the second copy.
-  Now the fact that $G$ is a monoid yields a monoid homomorphism $\lst{A+A} \to G$.
-  And since $G$ is a group, this map respects the relations, hence descends to a map $\freegroupx{A}\to G$.
-  It is straightforward to prove that this is a group homomorphism, and the unique one which restricts to $f$ on $A$.
+  这就完成了对 $\freegroupx{A}$ 是一个群的证明。现在，如果 $G$ 是一个具有函数 $f:A\to G$ 的群，我们可以定义 $A+A\to G$ 为 $f$ 在 $A$ 的第一个副本上的作用，$f$ 在 $G$ 的逆映射上的作用。现在，$G$ 是一个幺半群的事实产生了一个幺半群同态 $\lst{A+A} \to G$。并且由于 $G$ 是一个群，这个映射保持了关系，因此下降为一个从 $\freegroupx{A}$ 到 $G$ 的映射。可以很容易地证明这是一个群同态，并且是唯一一个在 $A$ 上限制为 $f$ 的同态。
 \end{proof}
 
 \index{monoid|)}%
 
-If $A$ has decidable equality\index{decidable!equality} (such as if we assume excluded middle), then the quotient defining $\freegroupx{A}$ can be obtained from an idempotent as in \cref{lem:quotient-when-canonical-representatives}.
-We define a word, which we recall is just an element of $\lst{A+A}$, to be \define{reduced}
-\indexdef{reduced word in a free group}
-if it contains no adjacent pairs of the form $(a,\hat a)$ or $(\hat a,a)$.
-When $A$ has decidable equality, it is straightforward to define the \define{reduction}
-\index{reduction!of a word in a free group}%
-of a word, which is an idempotent generating the appropriate quotient; we leave the details to the reader.
+如果 $A$ 具有可判定相等性\index{decidable!equality}（例如，如果我们假设排中律 (excluded middle)），那么通过 \cref{lem:quotient-when-canonical-representatives} 中的幺等映射可以获得定义 $\freegroupx{A}$ 的商。我们将一个词定义为\define{简化 (reduced)}\indexdef{reduced word in a free group}，如果它不包含形如 $(a,\hat a)$ 或 $(\hat a,a)$ 的相邻对。当 $A$ 具有可判定相等性时，很容易定义词的\define{简化 (reduction)}\index{reduction!of a word in a free group}，这是生成适当商的一个幺等映射；我们将细节留给读者。
 
-If $A\defeq \unit$, which has decidable equality, a reduced word must consist either entirely of $\ttt$'s or entirely of $\hat{\ttt}$'s.
-Thus, the free group on $\unit$ is equivalent to the integers \Z, with $0$ corresponding to $\nil$, the positive integer $n$ corresponding to a reduced word of $n$ $\ttt$'s, and the negative integer $(-n)$ corresponding to a reduced word of $n$ $\hat{\ttt}$'s.
-One could also, of course, show directly that \Z has the universal property of $\freegroup{\unit}$.
+如果 $A\defeq \unit$，其具有可判定相等性，那么一个简化词必须完全由 $\ttt$ 组成或完全由 $\hat{\ttt}$ 组成。因此，$\unit$ 上的自由群等价于整数 \Z，其中 $0$ 对应于 $\nil$，正整数 $n$ 对应于 $n$ 个 $\ttt$ 的简化词，负整数 $(-n)$ 对应于 $n$ 个 $\hat{\ttt}$ 的简化词。当然，也可以直接证明 \Z 具有 $\freegroup{\unit}$ 的普遍性质。
 
 \begin{rmk}\label{thm:freegroup-nonset}
-  Nowhere in the construction of $\freegroup{A}$ and $\freegroupx{A}$, and the proof of their universal properties, did we use the assumption that $A$ is a set.
-  Thus, we can actually construct the free group on an arbitrary type.
-  Comparing universal properties, we conclude that $\eqv{\freegroup{A}}{\freegroup{\trunc0A}}$.
+在 $\freegroup{A}$ 和 $\freegroupx{A}$ 的构造及其普遍性质的证明中，我们从未使用 $A$ 是一个集合的假设。因此，我们实际上可以构造任意类型上的自由群。比较普遍性质，我们得出 $\eqv{\freegroup{A}}{\freegroup{\trunc0A}}$。
 \end{rmk}
 
 \index{group!free|)}%
 
 \index{algebra!colimits of}%
-We can also use higher inductive types to construct colimits of algebraic objects.
-For instance, suppose $f:G\to H$ and $g:G\to K$ are group homomorphisms.
-Their pushout in the category of groups, called the \define{amalgamated free product}
-\indexdef{amalgamated free product}%
+我们还可以使用高阶归纳类型来构造代数对象的余极限。例如，假设 $f:G\to H$ 和 $g:G\to K$ 是群同态 (group homomorphisms)。在群范畴中的它们的推积 (pushout)，称为\define{并合自由积 (amalgamated free product)}\indexdef{amalgamated free product}%
 \indexdef{free!product!amalgamated}%
-$H *_G K$, can be constructed as the higher inductive type generated by
+$H *_G K$，可以构造为由以下部分生成的高阶归纳类型：
 \begin{itemize}
-\item Functions $h:H\to H *_G K$ and $k:K\to H *_G K$.
-\item The operations and axioms of a group, as in the definition of $\freegroup{A}$.
-\item Axioms asserting that $h$ and $k$ are group homomorphisms.
-\item For $x:G$, we have $h(f(x)) = k(g(x))$.
-\item The $0$-truncation constructor.
+  \item 函数 $h:H\to H *_G K$ 和 $k:K\to H *_G K$。
+  \item 群的运算和公理，如在 $\freegroup{A}$ 的定义中。
+  \item 断言 $h$ 和 $k$ 是群同态的公理。
+  \item 对于 $x:G$，我们有 $h(f(x)) = k(g(x))$。
+  \item $0$-截断构造器。
 \end{itemize}
-On the other hand, it can also be constructed explicitly, as the set-quotient of $\lst{H+K}$ by the following relations:
+另一方面，它也可以显式地构造为 $\lst{H+K}$ 的集合商，遵循以下关系：
 \begin{align*}
-  (\dots, x_1, x_2, \dots) &= (\dots, x_1\cdot x_2, \dots)
-  & &\text{for $x_1,x_2:H$}\\
-  (\dots, y_1, y_2, \dots) &= (\dots, y_1\cdot y_2, \dots)
-  & &\text{for $y_1,y_2:K$}\\
-  (\dots, 1_G, \dots) &= (\dots, \dots) &&  \\
-  (\dots, 1_H, \dots) &= (\dots, \dots) &&  \\
-  (\dots, f(x), \dots) &= (\dots, g(x), \dots)
-  & &\text{for $x:G$.}
+(\dots, x_1, x_2, \dots) &= (\dots, x_1\cdot x_2, \dots)
+& &\text{对于 $x_1,x_2:H$}\\
+(\dots, y_1, y_2, \dots) &= (\dots, y_1\cdot y_2, \dots)
+& &\text{对于 $y_1,y_2:K$}\\
+(\dots, 1_G, \dots) &= (\dots, \dots) &&  \\
+(\dots, 1_H, \dots) &= (\dots, \dots) &&  \\
+(\dots, f(x), \dots) &= (\dots, g(x), \dots)
+& &\text{对于 $x:G$。}
 \end{align*}
-We leave the proofs to the reader.
-In the special case that $G$ is the trivial group, the last relation is unnecessary, and we obtain the \define{free product}
-\indexdef{free!product}%
-$H*K$, the coproduct in the category of groups.
-(This notation unfortunately clashes with that for the \emph{join} of types, as in \cref{sec:colimits}, but context generally disambiguates.)
+我们将证明留给读者。在 $G$ 是平凡群 (trivial group) 的特殊情况下，最后一个关系是不必要的，我们得到\define{自由积 (free product)}\indexdef{free!product}%
+$H*K$，这是群范畴中的余积 (coproduct)。（不幸的是，这个符号与类型的\emph{连接 (join)} 符号冲突，如 \cref{sec:colimits}，但上下文通常可以消除歧义。）
 
 \index{presentation!of a group}%
-Note that groups defined by \emph{presentations} can be regarded as a special case of colimits.
-Suppose given a set (or more generally a type) $A$, and a pair of functions $R\rightrightarrows \freegroup{A}$.
-We regard $R$ as the type of ``relations'', with the two functions assigning to each relation the two words that it sets equal.
-For instance, in the presentation $\langle a \mid a^2 = e \rangle$ we would have $A\defeq \unit$ and $R\defeq \unit$, with the two morphisms $R\rightrightarrows \freegroup{A}$ picking out the list $(a,a)$ and the empty list $\nil$, respectively.
-Then by the universal property of free groups, we obtain a pair of group homomorphisms $\freegroup{R} \rightrightarrows \freegroup{A}$.
-Their coequalizer in the category of groups, which can be built just like the pushout, is the group \emph{presented} by this presentation.
+注意，通过\emph{表示 (presentations)} 定义的群可以看作是余极限的一个特例。假设给定一个集合（或更一般的一个类型）$A$ 和一对函数 $R\rightrightarrows \freegroup{A}$。我们将 $R$ 看作是“关系”的类型，两函数为每个关系分配了两个相等的词。例如，在表示 $\langle a \mid a^2 = e \rangle$ 中，我们有 $A\defeq \unit$ 和 $R\defeq \unit$，两个态射 $R\rightrightarrows \freegroup{A}$ 分别选取列表 $(a,a)$ 和空列表 $\nil$。然后通过自由群的普遍性质，我们得到一对群同态 $\freegroup{R} \rightrightarrows \freegroup{A}$。它们在群范畴中的等距 (coequalizer)，可以像推积一样构造，即是由此表示所\emph{表示}的群。
 
 \mentalpause
 
-Note that all these sorts of construction only apply to \emph{algebraic} theories,\index{theory!algebraic} which are theories whose axioms are (universally quantified) equations referring to variables, constants, and operations from a given signature\index{signature!of an algebraic theory}.
-They can be modified to apply also to what are called \emph{essentially algebraic theories}:\index{theory!essentially algebraic} those whose operations are partially defined on a domain specified by equalities between previous operations.
-They do not apply, for instance, to the theory of fields, in which the ``inversion'' operation is partially defined on a domain $\setof{x | x \mathrel{\#} 0}$ specified by an \emph{apartness} $\#$ between previous operations, see \cref{RD-inverse-apart-0}.
-And indeed, it is well-known that the category of fields has no initial object.
-\index{initial!field}%
+注意，所有这些类型的构造仅适用于\emph{代数}理论 (algebraic theories)，\index{theory!algebraic}即其公理是（全称量化的）等式，涉及给定签名中的变量、常量和运算符。\index{signature!of an algebraic theory} 它们也可以修改为适用于所谓的\emph{本质代数理论 (essentially algebraic theories)}：\index{theory!essentially algebraic} 这些理论中的操作部分地定义在由先前操作之间的等式指定的域上。它们不适用于例如域 (fields) 的理论，其中“逆运算”部分地定义在由先前操作之间的\emph{不相容性 (apartness)} $\#$ 指定的域 $\setof{x | x \mathrel{\#} 0}$ 上，参见 \cref{RD-inverse-apart-0}。事实上，众所周知，域的范畴没有初对象 (initial object)。\index{initial!field}%
 
-On the other hand, these constructions do apply just as well to \emph{infinitary}\index{infinitary!algebraic theory} algebraic theories, whose ``operations'' can take infinitely many inputs.
-In such cases, there may not be any presentation of free algebras or colimits of algebras as a simple quotient, unless we assume the axiom of choice.
-This means that higher inductive types represent a significant strengthening of constructive type theory (not necessarily in terms of proof-theoretic strength, but in terms of practical power), and indeed are stronger in some ways than Zermelo--Fraenkel\index{set theory!Zermelo--Fraenkel} set theory (without choice)~\cite{blass:freealg}.
-% We will see an example of this in \cref{sec:ordinals}.
+另一方面，这些构造同样适用于\emph{无穷}代数理论 (infinitary algebraic theories)，\index{infinitary!algebraic theory}其“运算”可以接受无限多个输入。在这种情况下，除非我们假设选择公理 (axiom of choice)，否则可能不存在作为简单商的自由代数或代数余极限的表示。这意味着高阶归纳类型在某些方面显著加强了构造型类型论（不一定是在证明论强度方面，而是在实践能力方面），事实上在某些方面比 Zermelo--Fraenkel 集合论 (Zermelo--Fraenkel set theory)（没有选择公理）更强~\cite{blass:freealg}。
+% 我们将在 \cref{sec:ordinals} 中看到一个例子。
 
 
 \section{The flattening lemma}
