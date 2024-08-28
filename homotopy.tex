@@ -126,454 +126,421 @@
 \section{\texorpdfstring{$\pi_1(S^1)$}{π₁(S¹)}}
 \label{sec:pi1-s1-intro}
 
-In this section, our goal is to show that $\id {\pi_1(\Sn ^1)} {\Z}$.
-In fact, we will show that the loop space\index{loop space} ${\Omega(\Sn ^1)}$ is equivalent to $\Z$.
-This is a stronger statement, because $\id{\pi_1(\Sn ^1)} {\trunc 0 {\Omega(\Sn ^1)}}$ by
-definition; so if $\id {\Omega(\Sn ^1)} {\Z}$, then $\id {\trunc
-  0 {\Omega(\Sn ^1)}} {\trunc 0 {\Z}}$ by congruence, and
-$\Z$ is a set by definition (being a set-quotient; see \cref{defn-Z,Z-quotient-by-canonical-representatives}), so $\id {\trunc 0 {\Z}} {\Z}$.
-Moreover, knowing that ${\Omega(\Sn ^1)}$ is a set will imply that $\pi_n(\Sn^1)$ is trivial for $n>1$, so we will actually have calculated \emph{all} the homotopy groups of $\Sn^1$.
+在本节中，我们的目标是证明 $\id {\pi_1(\Sn ^1)} {\Z}$。
+实际上，我们将证明环空间（loop space）${\Omega(\Sn ^1)}$ 等价于 $\Z$。
+这是一个更强的陈述，因为根据定义，$\id{\pi_1(\Sn ^1)} {\trunc 0 {\Omega(\Sn ^1)}}$；因此，如果 $\id {\Omega(\Sn ^1)} {\Z}$，那么通过一致性，$\id {\trunc 0 {\Omega(\Sn ^1)}} {\trunc 0 {\Z}}$，并且 $\Z$ 根据定义是一个集合（作为一个集合商；参见 \cref{defn-Z,Z-quotient-by-canonical-representatives}），所以 $\id {\trunc 0 {\Z}} {\Z}$。
+此外，知道 ${\Omega(\Sn ^1)}$ 是一个集合将意味着 $\pi_n(\Sn^1)$ 对于 $n>1$ 是平凡的，因此我们实际上计算了 \emph{所有} 的 $\Sn^1$ 的同伦群。
 
-\subsection{Getting started}
+\subsection{开始 (Getting started)}
 \label{sec:pi1s1-initial-thoughts}
 
-It is not too hard to define functions in both directions between $\Omega(\Sn^1)$ and \Z.
-By specializing \cref{thm:looptothe} to $\lloop:\base=\base$, we have a function $\lloop^{\blank} : \Z \rightarrow (\id{\base}{\base})$ defined (loosely speaking) by
+定义 $\Omega(\Sn^1)$ 和 $\Z$ 之间双向的函数并不困难。
+通过将 \cref{thm:looptothe} 专门化为 $\lloop:\base=\base$，我们得到了一个函数 $\lloop^{\blank} : \Z \rightarrow (\id{\base}{\base})$，它（粗略地说）定义如下：
 \[
   \lloop^n =
   \begin{cases}
-    \underbrace{\lloop \ct \lloop \ct \cdots \ct \lloop}_{n}  & \text{if $n > 0$,} \\
-    \underbrace{\opp \lloop \ct \opp \lloop \ct \cdots \ct \opp \lloop}_{-n} & \text{if $n < 0$,} \\
-    \refl{\base} & \text{if $n = 0$.}
-\end{cases}
+    \underbrace{\lloop \ct \lloop \ct \cdots \ct \lloop}_{n}  & \text{如果 $n > 0$,} \\
+    \underbrace{\opp \lloop \ct \opp \lloop \ct \cdots \ct \opp \lloop}_{-n} & \text{如果 $n < 0$,} \\
+    \refl{\base} & \text{如果 $n = 0$.}
+  \end{cases}
 \]
 %
-Defining a function $g:\Omega(\Sn^1)\to\Z$ in the other direction is a bit trickier.
-Note that the successor function $\Zsuc:\Z\to\Z$ is an equivalence,
+定义一个函数 $g:\Omega(\Sn^1)\to\Z$ 在另一个方向上有点棘手。
+注意，后继函数 $\Zsuc:\Z\to\Z$ 是一个等价，
 \index{successor!isomorphism on Z@isomorphism on $\Z$}%
-and hence induces a path $\ua(\Zsuc):\Z=\Z$ in the universe \type.
-Thus, the recursion principle of $\Sn^1$ induces a map $c:\Sn^1\to\type$ by $c(\base)\defeq \Z$ and $\apfunc c (\lloop) \defid \ua(\Zsuc)$.
-Then we have $\apfunc{c} : (\base=\base) \to (\Z=\Z)$, and we can define $g(p)\defeq \transfib{X\mapsto X}{\apfunc{c}(p)}{0}$.
+因此在宇宙 \type 中诱导出一个路径 $\ua(\Zsuc):\Z=\Z$。
+因此，$\Sn^1$ 的递归原理诱导出一个映射 $c:\Sn^1\to\type$，其中 $c(\base)\defeq \Z$，而 $\apfunc c (\lloop) \defid \ua(\Zsuc)$。
+然后我们有 $\apfunc{c} : (\base=\base) \to (\Z=\Z)$，并且我们可以定义 $g(p)\defeq \transfib{X\mapsto X}{\apfunc{c}(p)}{0}$。
 
-With these definitions, we can even prove that $g(\lloop^n)=n$ for any $n:\Z$, using the induction principle \cref{thm:sign-induction} for $n$.
-(We will prove something more general a little later on.)
-However, the other equality $\lloop^{g(p)}=p$ is significantly harder.
-The obvious thing to try is path induction, but path induction does not apply to loops such as $p:(\base=\base)$ that have \emph{both} endpoints fixed!
-A new idea is required, one which can be explained both in terms of classical homotopy theory and in terms of type theory.
-We begin with the former.
+通过这些定义，我们甚至可以证明对于任何 $n:\Z$，$g(\lloop^n)=n$，使用 \cref{thm:sign-induction} 的归纳原理。
+（我们稍后将证明更一般的情况。）
+然而，另一个等式 $\lloop^{g(p)}=p$ 则要困难得多。
+显而易见的方法是路径归纳，但路径归纳不适用于像 $p:(\base=\base)$ 这样具有 \emph{两端固定} 的环路！
+需要一个新的想法，这可以用经典的同伦理论和类型理论来解释。
+我们从前者开始。
 
-
-\subsection{The classical proof}
+\subsection{经典证明 (The classical proof)}
 \label{sec:pi1s1-classical-proof}
 
 \index{classical!homotopy theory|(}%
-In classical homotopy theory, there is a standard proof of $\pi_1(\Sn^1)=\Z$ using universal covering spaces.
-Our proof can be regarded as a type-theoretic version of this proof, with covering spaces appearing here as fibrations whose fibers are sets.
+在经典同伦理论中，有一个标准证明 $\pi_1(\Sn^1)=\Z$ 使用了通用覆盖空间。
+我们的证明可以看作是这个证明的类型理论版本，其中覆盖空间在这里出现为纤维，其纤维是集合。
 \index{fibration}%
 \index{total!space}%
-Recall that \emph{fibrations} over a space $B$ in homotopy theory correspond to type families $B\to\type$ in type theory.
+回顾一下，在同伦理论中，某个空间 $B$ 上的纤维对应于类型理论中的类型族 $B\to\type$。
 \index{path!fibration}%
 \index{fibration!of paths}%
-In particular, for a point $x_0:B$, the type family $(x\mapsto (x_0=x))$ corresponds to the \emph{path fibration} $P_{x_0} B \to B$, in which the points of $P_{x_0} B$ are paths in $B$ starting at $x_0$, and the map to $B$ selects the other endpoint of such a path.
-This total space $P_{x_0} B$ is contractible, since we can ``retract'' any path to its initial endpoint $x_0$ --- we have seen the type-theoretic version of this as \cref{thm:contr-paths}.
-Moreover, the fiber over $x_0$ is the loop space\index{loop space} $\Omega(B,x_0)$ --- in type theory this is obvious by definition of the loop space.
+特别地，对于一个点 $x_0:B$，类型族 $(x\mapsto (x_0=x))$ 对应于 \emph{路径纤维} $P_{x_0} B \to B$，其中 $P_{x_0} B$ 的点是从 $x_0$ 开始的 $B$ 中的路径，映射到 $B$ 选择了这种路径的另一端点。
+这个总空间 $P_{x_0} B$ 是可收缩的，因为我们可以“收缩”任何路径到其初始端点 $x_0$ ——我们已经看到了类型理论版本的这一点，如 \cref{thm:contr-paths}。
+此外，$x_0$ 之上的纤维是环空间（loop space）$\Omega(B,x_0)$ —— 在类型理论中这是显而易见的，因为这是环空间的定义。
 
 \begin{figure}\centering
-  \begin{tikzpicture}[xscale=1.4,yscale=.6]
-    \node (R) at (2,1) {$\mathbb{R}$};
-    \node (S1) at (2,-2) {$S^1$};
-    \draw[->] (R) -- node[auto] {$w$} (S1);
-    \draw (0,-2) ellipse (1 and .4);
-    \draw[dotted] (1,0) arc (0:-30:1 and .8);
-    \draw (1,0) arc (0:90:1 and .8) arc (90:270:1 and .3) coordinate (t1);
-    \draw[white,line width=4pt] (t1) arc (-90:90:1 and .8);
-    \draw (t1) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t2);
-    \draw[white,line width=4pt] (t2) arc (-90:90:1 and .8);
-    \draw (t2) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t3);
-    \draw[white,line width=4pt] (t3) arc (-90:90:1 and .8);
-    \draw (t3) arc (-90:-30:1 and .8) coordinate (t4);
-    \draw[dotted] (t4) arc (-30:0:1 and .8);
-    \node[fill,circle,inner sep=1pt,label={below:\scriptsize \base}] at (0,-2.4) {};
-    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 0}] at (0,.2) {};
-    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 1}] at (0,1.2) {};
-    \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 2}] at (0,2.2) {};
-  \end{tikzpicture}
-  \caption{The winding map in classical topology}\label{fig:winding}
+\begin{tikzpicture}[xscale=1.4,yscale=.6]
+  \node (R) at (2,1) {$\mathbb{R}$};
+  \node (S1) at (2,-2) {$S^1$};
+  \draw[->] (R) -- node[auto] {$w$} (S1);
+  \draw (0,-2) ellipse (1 and .4);
+  \draw[dotted] (1,0) arc (0:-30:1 and .8);
+  \draw (1,0) arc (0:90:1 and .8) arc (90:270:1 and .3) coordinate (t1);
+  \draw[white,line width=4pt] (t1) arc (-90:90:1 and .8);
+  \draw (t1) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t2);
+  \draw[white,line width=4pt] (t2) arc (-90:90:1 and .8);
+  \draw (t2) arc (-90:90:1 and .8) arc (90:270:1 and .3) coordinate (t3);
+  \draw[white,line width=4pt] (t3) arc (-90:90:1 and .8);
+  \draw (t3) arc (-90:-30:1 and .8) coordinate (t4);
+  \draw[dotted] (t4) arc (-30:0:1 and .8);
+  \node[fill,circle,inner sep=1pt,label={below:\scriptsize \base}] at (0,-2.4) {};
+  \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 0}] at (0,.2) {};
+  \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 1}] at (0,1.2) {};
+  \node[fill,circle,inner sep=1pt,label={above left:\scriptsize 2}] at (0,2.2) {};
+\end{tikzpicture}
+\caption{经典拓扑中的绕线映射 (The winding map in classical topology)}\label{fig:winding}
 \end{figure}
 
-Now in classical homotopy theory, where $\Sn^1$ is regarded as a topological space, we may proceed as follows.
+现在在经典同伦理论中，$\Sn^1$ 被视为一个拓扑空间，我们可以如下进行。
 \index{winding!map}%
-Consider the ``winding'' map $w:\mathbb{R}\to \Sn ^1$, which looks like a helix projecting down onto the circle (see \cref{fig:winding}).
-This map $w$ sends each point on the helix\index{helix} to the point on the circle that it is ``sitting above''.
-It is a fibration, and the fiber over each point is isomorphic to the integers.\index{integers}
-If we lift the path that goes counterclockwise around the loop on the bottom, we go up one level in the helix, incrementing the integer in the fiber.
-Similarly, going clockwise around the loop on the bottom corresponds to going down one level in the helix, decrementing this count.
-This fibration is called the \emph{universal cover} of the circle.
+考虑“绕线”映射 $w:\mathbb{R}\to \Sn ^1$，它看起来像是一个螺旋线投影到圆上（见 \cref{fig:winding}）。
+这个映射 $w$ 将螺旋线上每一点映射到它“坐在上面”的圆上的点。
+它是一个纤维，并且每个点的纤维与整数（integers）同构。
+如果我们提升底部逆时针绕过的路径，我们在螺旋线上升一个级别，增加纤维中的整数。
+类似地，顺时针绕过底部的路径对应于在螺旋线上下降一级，减少这个计数。
+这个纤维称为圆的\emph{通用覆盖}（universal cover）。
 \index{universal!cover}%
 \index{cover!universal}%
 \index{covering space!universal}%
 
-Now a basic fact in classical homotopy theory is that a map $E_1\to E_2$ of fibrations over $B$ which is a homotopy equivalence between $E_1$ and $E_2$ induces a homotopy equivalence on all fibers.
-(We have already seen the type-theoretic version of this as well in \cref{thm:total-fiber-equiv}.)
-Since $\mathbb{R}$ and $P_{\base} S^1$ are both contractible topological spaces, they are homotopy equivalent, and thus their fibers $\Z$ and $\Omega(\Sn ^1)$ over the basepoint are also homotopy equivalent.
+现在，经典同伦理论中的一个基本事实是 $E_1\to E_2$ 是 $B$ 上纤维之间的映射，它是 $E_1$ 和 $E_2$ 之间的同伦等价，因而在所有纤维上诱导同伦等价。
+（我们已经在 \cref{thm:total-fiber-equiv} 中看到了类型理论版本的这个事实。）
+因为 $\mathbb{R}$ 和 $P_{\base} S^1$ 都是可收缩的拓扑空间，所以它们是同伦等价的，因此它们在基点之上的纤维 $\Z$ 和 $\Omega(\Sn ^1)$ 也是同伦等价的。
 
 \index{classical!homotopy theory|)}%
 
-\subsection{The universal cover in type theory}
+\subsection{类型理论中的通用覆盖 (The universal cover in type theory)}
 \label{sec:pi1s1-universal-cover}
 
 \index{universal!cover|(}%
 \index{cover!universal|(}%
 \index{covering space!universal|(}%
 
-Let us consider how we might express the preceding proof in type theory.
-We have already remarked that the path fibration of $\Sn^1$ is represented by the type family $(x\mapsto (\base=x))$.
-We have also already seen a good candidate for the universal cover of $\Sn^1$: it's none other than the type family $c:\Sn^1\to\type$ which we defined in \cref{sec:pi1s1-initial-thoughts}!
-By definition, the fiber of this family over $\base$ is $\Z$, while the effect of transporting around $\lloop$ is to add one --- thus it behaves just as we would expect from \cref{fig:winding}.
+让我们考虑如何在类型理论中表达前面的证明。
+我们已经提到 $\Sn^1$ 的路径纤维由类型族 $(x\mapsto (\base=x))$ 表示。
+我们也已经看到了一个好的候选通用覆盖 $\Sn^1$：它正是我们在 \cref{sec:pi1s1-initial-thoughts} 中定义的类型族 $c:\Sn^1\to\type$！
+根据定义，这个家族在 $\base$ 上的纤维是 $\Z$，而绕过 $\lloop$ 的运输效应是增加一个——因此它的行为正如我们从 \cref{fig:winding} 所预期的那样。
 
-However, since we don't know yet that this family behaves like a universal cover is supposed to (for instance, that its total space is simply connected), we use a different name for it.
-For reference, therefore, we repeat the definition.
+然而，由于我们还不知道这个家族的行为是否像一个通用覆盖应该有的那样（例如，它的总空间是否是简单连通的），我们为它使用了一个不同的名字。
+因此，我们再次重复定义以供参考。
 \index{integers}
 
 \begin{defn}[Universal Cover of $\Sn^1$] \label{S1-universal-cover}
-  Define $\code : \Sn ^1 \to \type$ by circle-recursion, with
-  \begin{align*}
-    \code(\base) &\defeq \Z \\
-    \apfunc{\code}({\lloop}) &\defid \ua(\Zsuc).
-  \end{align*}
+通过圆递归定义 $\code : \Sn ^1 \to \type$，其中
+\begin{align*}
+  \code(\base) &\defeq \Z \\
+  \apfunc{\code}({\lloop}) &\defid \ua(\Zsuc)。
+\end{align*}
 \end{defn}
 
-We emphasize briefly the definition of this family, since it is so different from how one usually defines covering spaces in classical homotopy theory.
-To define a function by circle recursion, we need to find a point and a
-loop in the codomain.  In this case, the codomain is $\type$, and the point
-we choose is $\Z$, corresponding to our expectation that the
-fiber of the universal cover should be the integers.  The loop we choose
-is the successor/predecessor
+我们简要强调一下这个家族的定义，因为它与经典同伦理论中通常定义覆盖空间的方式是如此不同。
+要通过圆递归定义一个函数，我们需要在余码中找到一个点和一个环。
+在这种情况下，余码是 $\type$，我们选择的点是 $\Z$，对应于我们期望的通用覆盖的纤维应该是整数。
+我们选择的环是后继/前驱（successor/predecessor）
 \index{successor!isomorphism on Z@isomorphism on $\Z$}%
 \index{predecessor!isomorphism on Z@isomorphism on $\Z$}%
-isomorphism on $\Z$, which
-corresponds to the fact that going around the loop in the base goes up
-one level on the helix.  Univalence is necessary for this part of the
-proof, because we need to convert a \emph{non-trivial} equivalence on $\Z$ into an identity.
+的同构， 它对应于基座上的环绕上升一级的事实。
+在这一部分的证明中，等价性是必要的，因为我们需要将 $\Z$ 上的一个 \emph{非平凡} 等价转换为一个恒等式。
 
-We call this the fibration of ``codes'', because its elements are combinatorial data that act as codes for paths on the circle: the integer $n$ codes for the path which loops around the circle $n$ times.
+我们称这个纤维为“代码”（codes）的纤维，因为它的元素是组合数据，这些数据充当圆上路径的代码：整数 $n$ 为路径编码，该路径在圆上绕行 $n$ 次。
 
-From this definition, it is simple to calculate that transporting with
-$\code$ takes $\lloop$ to the successor function, and
-$\opp{\lloop}$ to the predecessor function:
+通过这个定义，很容易计算出使用 $\code$ 的运输会将 $\lloop$ 转换为后继函数，将 $\opp{\lloop}$ 转换为前驱函数：
 \begin{lem} \label{lem:transport-s1-code}
-\id{\transfib \code \lloop x} {x + 1} and
-\id{\transfib \code {\opp \lloop} x} {x - 1}.
+\id{\transfib \code \lloop x} {x + 1} 和
+\id{\transfib \code {\opp \lloop} x} {x - 1}。
 \end{lem}
 \begin{proof}
-For the first equation, we calculate as follows:
-\begin{align}
-{\transfib \code \lloop x}
-&= \transfib {A \mapsto A} {(\ap{\code}{\lloop})} x \tag{by \cref{thm:transport-compose}}\\
-&= \transfib {A \mapsto A} {\ua (\Zsuc)} x \tag{by computation for $\rec{\Sn^1}$}\\
-&= x + 1 \tag{by computation for \ua}.
-\end{align}
-The second equation follows from the first, because $\transfib{B}{p}{\blank}$ and $\transfib{B}{\opp p}{\blank}$ are always inverses, so $\transfib\code {\opp \lloop}{\blank}$ must be the inverse of $\Zsuc$.
+  对于第一个等式，我们按如下方式计算：
+  \begin{align}
+  {\transfib \code \lloop x}
+    &= \transfib {A \mapsto A} {(\ap{\code}{\lloop})} x \tag{依据 \cref{thm:transport-compose}}\\
+    &= \transfib {A \mapsto A} {\ua (\Zsuc)} x \tag{计算 \rec{\Sn^1}}\\
+    &= x + 1 \tag{依据 \ua 的计算结果}。
+  \end{align}
+  第二个等式由第一个得出，因为 $\transfib{B}{p}{\blank}$ 和 $\transfib{B}{\opp p}{\blank}$ 总是相互逆转，因此 $\transfib\code {\opp \lloop}{\blank}$ 必须是 $\Zsuc$ 的逆函数。
 \end{proof}
 
-We can now see what was wrong with our first approach: we defined $f$ and $g$ only on the fibers $\Omega(\Sn^1)$ and \Z, when we should have defined a whole morphism \emph{of fibrations} over $\Sn^1$.
-In type theory, this means we should have defined functions having types
+我们现在可以看到我们第一个方法的错误之处：我们仅在纤维 $\Omega(\Sn^1)$ 和 $\Z$ 上定义了 $f$ 和 $g$，而我们应该定义一个整个纤维上的态射（morphism）。
+在类型理论中，这意味着我们应该定义具有以下类型的函数
 \begin{align}
-  \prd{x:\Sn^1} &((\base=x) \to \code(x)) \qquad\text{and/or} \label{eq:pi1s1-encode}\\
+  \prd{x:\Sn^1} &((\base=x) \to \code(x)) \qquad\text{和/或} \label{eq:pi1s1-encode}\\
   \prd{x:\Sn^1} &(\code(x) \to (\base=x))\label{eq:pi1s1-decode}
 \end{align}
-instead of only the special cases of these when $x$ is \base.
-This is also an instance of a common observation in type theory: when attempting to prove something about particular inhabitants of some inductive type, it is often easier to generalize the statement so that it refers to \emph{all} inhabitants of that type, which we can then prove by induction.
-Looked at in this way, the proof of $\Omega(\Sn^1)=\Z$ fits into the same pattern as the characterization of the identity types of coproducts and natural numbers in \cref{sec:compute-coprod,sec:compute-nat}.
+而不仅仅是在 $x$ 为 \base 时的特殊情况。
+这也是类型理论中常见的观察的一个例子：当尝试证明某些归纳类型的特定居民时，通常更容易将陈述泛化，使其涉及 \emph{所有} 此类类型的居民，然后我们可以通过归纳证明。
+从这个角度来看，$\Omega(\Sn^1)=\Z$ 的证明符合与在 \cref{sec:compute-coprod,sec:compute-nat} 中的共产品和自然数的恒等类型的特征化相同的模式。
 
-At this point, there are two ways to finish the proof.
-We can continue mimicking the classical argument by constructing~\eqref{eq:pi1s1-encode} or~\eqref{eq:pi1s1-decode} (it doesn't matter which), proving that a homotopy equivalence between total spaces induces an equivalence on fibers, and then that the total space of the universal cover is contractible.
-The first type-theoretic proof of $\Omega(\Sn^1)=\Z$ followed this pattern; we call it the \emph{homotopy-theoretic} proof.
+在这一点上，有两种方法可以完成证明。
+我们可以继续模仿经典论证，构造~\eqref{eq:pi1s1-encode} 或~\eqref{eq:pi1s1-decode}（无论哪种都可以），证明总空间之间的同伦等价诱导纤维上的等价，然后证明通用覆盖的总空间是可收缩的。
+$\Omega(\Sn^1)=\Z$ 的第一个类型论证遵循了这一模式；我们称之为 \emph{同伦理论} 证明。
 
-Later, however, we discovered that there is an alternative proof, which has a more type-theoretic feel and more closely follows the proofs in \cref{sec:compute-coprod,sec:compute-nat}.
-In this proof, we directly construct both~\eqref{eq:pi1s1-encode} and~\eqref{eq:pi1s1-decode}, and prove that they are mutually inverse by calculation.
-We will call this the \emph{encode-decode} proof, because we call the functions~\eqref{eq:pi1s1-encode} and~\eqref{eq:pi1s1-decode} \emph{encode} and \emph{decode} respectively.
-Both proofs use the same construction of the cover given above.
-Where the classical proof induces an equivalence on fibers from an equivalence between total spaces, the encode-decode proof constructs the inverse map (\emph{decode}) explicitly as a map between fibers.
-And where the classical proof uses contractibility, the encode-decode proof uses path induction, circle induction, and integer induction.
-These are the same tools used to prove contractibility---indeed, path induction \emph{is} essentially contractibility of the path fibration composed with $\mathsf{transport}$---but they are applied in a different way.
+然而，后来我们发现有一个替代的证明，它更具类型理论的感觉，更接近于 \cref{sec:compute-coprod,sec:compute-nat} 中的证明。
+在这个证明中，我们直接构造了~\eqref{eq:pi1s1-encode} 和~\eqref{eq:pi1s1-decode}，并通过计算证明它们是互逆的。
+我们称之为 \emph{编码-解码} 证明（encode-decode proof），因为我们将函数~\eqref{eq:pi1s1-encode} 和~\eqref{eq:pi1s1-decode} 分别称为 \emph{编码} 和 \emph{解码}。
+两个证明都使用了上面给出的相同的覆盖结构。
+在经典证明中，从总空间的等价诱导出纤维上的等价，而编码-解码证明则明确地构造了一个作为纤维之间映射的逆映射（\emph{解码}）。
+在经典证明中使用了可收缩性，而在编码-解码证明中使用了路径归纳、圆归纳和整数归纳。
+这些是用于证明可收缩性的相同工具——实际上，路径归纳 \emph{本质上} 是与 $\mathsf{transport}$ 组合的路径纤维的可收缩性——但它们以不同的方式应用。
 
-Since this is a book about homotopy type theory, we present the encode-decode proof first.
-A homotopy theorist who gets lost is encouraged to skip to the homotopy-theoretic proof (\cref{subsec:pi1s1-homotopy-theory}).
+由于这是一本关于同伦类型论的书，我们首先介绍编码-解码证明。
+如果一个同伦理论者感到困惑，建议跳到同伦理论证明（\cref{subsec:pi1s1-homotopy-theory}）。
 
 \index{universal!cover|)}%
 \index{cover!universal|)}%
 \index{covering space!universal|)}%
 
-\subsection{The encode-decode proof}
+\subsection{编码-解码证明 (The encode-decode proof)}
 \label{subsec:pi1s1-encode-decode}
 
 \index{encode-decode method|(}%
 \indexsee{encode}{encode-decode method}%
 \indexsee{decode}{encode-decode method}%
-We begin with the function~\eqref{eq:pi1s1-encode} that maps paths to codes:
+我们首先介绍将路径映射到代码的函数~\eqref{eq:pi1s1-encode}：
 \begin{defn}
-Define $\encode : \prd{x : \Sn ^1} (\base=x) \rightarrow  \code(x)$ by
-\[
-\encode \: p \defeq \transfib{\code} p 0
-\]
-(we leave the argument $x$ implicit).
+  定义 $\encode : \prd{x : \Sn ^1} (\base=x) \rightarrow  \code(x)$，其中
+  \[
+    \encode \: p \defeq \transfib{\code} p 0
+  \]
+  （我们省略了参数 $x$）。
 \end{defn}
-Encode is defined by lifting a path into the universal cover, which
-determines an equivalence, and then applying the resulting equivalence
-to $0$.
-The interesting thing about this function is that it computes a concrete
-number from a loop on the circle, when this loop is represented using
-the abstract groupoidal framework of homotopy type theory.  To gain an
-intuition for how it does this, observe that by the above lemmas,
-$\transfib \code \lloop x$ is the successor map and $\transfib \code {\opp
-  \lloop} x$ is the predecessor map.
-Further, $\mathsf{transport}$ is functorial (\cref{cha:basics}), so
-$\transfib{\code} {\lloop \ct \lloop}{\blank}$ is
+编码是通过提升路径到通用覆盖中定义的，这确定了一个等价性，然后将结果等价性应用于 $0$。
+这个函数有趣的地方在于，它从圆上的环上计算出一个具体的数字，而这个环是使用同伦类型论的抽象群结构表示的。
+为了获得关于它如何做到这一点的直观理解，请注意，依据上面的引理，$\transfib \code \lloop x$ 是后继函数，而 $\transfib \code {\opp\lloop} x$ 是前驱函数。
+此外，$\mathsf{transport}$ 是函子性的（\cref{cha:basics}），所以 $\transfib{\code} {\lloop \ct \lloop}{\blank}$ 是
 \[(\transfib \code \lloop-) \circ (\transfib \code \lloop-)\]
-and so on.
-Thus, when $p$ is a composition like
+依此类推。
+因此，当 $p$ 是像
 \[
-\lloop \ct \opp \lloop \ct \lloop \ct \cdots
+  \lloop \ct \opp \lloop \ct \lloop \ct \cdots
 \]
-$\transfib{\code}{p}{\blank}$ will compute a composition of functions like
+这样的组合时，$\transfib{\code}{p}{\blank}$ 将计算一个类似于
 \[
-\Zsuc \circ \Zpred \circ \Zsuc \circ \cdots
+  \Zsuc \circ \Zpred \circ \Zsuc \circ \cdots
 \]
-Applying this composition of functions to 0 will compute the
-\index{winding!number}%
-\emph{winding number} of the path---how many times it goes around the
-circle, with orientation marked by whether it is positive or negative,
-after inverses have been canceled.  Thus, the computational behavior of
-$\encode$ follows from the reduction rules for higher-inductive types and
-univalence, and the action of $\mathsf{transport}$ on compositions and inverses.
+的函数组合。
+将这个函数组合应用于 $0$ 将计算路径的\emph{绕线数}（winding number）——路径绕过圆的次数，在逆转被取消之后，标志其方向是正还是负。
+因此，$\encode$ 的计算行为来自于高级归纳类型和等价性的简化规则，以及 $\mathsf{transport}$ 在组合和逆上的作用。
 
-Note that the instance $\encode' \defeq \encode_{\base}$ has type
-$(\id \base \base) \rightarrow \Z$.
-This will be one half of our desired equivalence; indeed, it is exactly the function $g$ defined in \cref{sec:pi1s1-initial-thoughts}.
+请注意，实例 $\encode' \defeq \encode_{\base}$ 的类型为 $(\id \base \base) \rightarrow \Z$。
+这将是我们所需等价的一个部分；实际上，它正是我们在 \cref{sec:pi1s1-initial-thoughts} 中定义的函数 $g$。
 
-Similarly, the function~\eqref{eq:pi1s1-decode} is a generalization of the function $\lloop^{\blank}$ from \cref{sec:pi1s1-initial-thoughts}.
+类似地，函数~\eqref{eq:pi1s1-decode} 是 \cref{sec:pi1s1-initial-thoughts} 中函数 $\lloop^{\blank}$ 的推广。
 
 \begin{defn}\label{thm:pi1s1-decode}
-Define $\decode : \prd{x : \Sn ^1}\code(x) \rightarrow (\base=x)$ by
-circle induction on $x$.  It suffices to give a function
-${\code(\base) \rightarrow (\base=\base)}$, for which we use $\lloop^{\blank}$, and
-to show that $\lloop^{\blank}$ respects the loop.
+通过圆归纳（circle induction）在 $x$ 上定义 $\decode : \prd{x : \Sn ^1}\code(x) \rightarrow (\base=x)$。
+它足以给出一个函数 ${\code(\base) \rightarrow (\base=\base)}$，我们使用 $\lloop^{\blank}$，并展示 $\lloop^{\blank}$ 是如何尊重这个环的。
 \end{defn}
 
 \begin{proof}
-To show that $\lloop^{\blank}$ respects the loop, it suffices to give a path
-from $\lloop^{\blank}$ to itself that lies over $\lloop$.
-By the definition of dependent paths, this means a path from
-\[\transfib {(x' \mapsto \code(x') \rightarrow (\base=x'))} {\lloop} {\lloop^{\blank}}\]
-to $\lloop^{\blank}$.  We define such a
-path as follows:
-\begin{align*}
-  \MoveEqLeft \transfib {(x' \mapsto \code(x') \rightarrow (\base=x'))} \lloop {\lloop^{\blank}}\\
-&= \transfibf {x'\mapsto (\base=x')}(\lloop) \circ {\lloop^{\blank}} \circ \transfibf \code ({\opp \lloop}) \\
-&= (- \ct \lloop) \circ (\lloop^{\blank}) \circ \transfibf \code ({\opp \lloop}) \\
-&= (- \ct \lloop) \circ (\lloop^{\blank}) \circ \Zpred \\
-&= (n \mapsto \lloop^{n - 1} \ct \lloop).
-\end{align*}
-On the first line, we apply the characterization of $\mathsf{transport}$
-when the outer connective of the fibration is $\rightarrow$, which
-reduces the $\mathsf{transport}$ to pre- and post-composition with
-$\mathsf{transport}$ at the domain and codomain types.  On the second line,
-we apply the characterization of $\mathsf{transport}$ when the type family
-is $x\mapsto \id{\base}{x}$, which is post-composition of paths.  On the third line,
-we use the action of $\code$ on $\opp \lloop$ from
-\cref{lem:transport-s1-code}.  And on the fourth line, we simply
-reduce the function composition.  Thus, it suffices to show that for all
-$n$, $\id{\lloop^{n - 1} \ct \lloop}{\lloop^{n}}$.  This is an easy application of \cref{thm:sign-induction}, using the groupoid laws.
+  要展示 $\lloop^{\blank}$ 是如何尊重这个环的，足以给出一个从 $\lloop^{\blank}$ 到它本身的路径，该路径位于 $\lloop$ 之上。
+  依据依赖路径的定义，这意味着一个路径从
+  \[\transfib {(x' \mapsto \code(x') \rightarrow (\base=x'))} {\lloop} {\lloop^{\blank}}\]
+  到 $\lloop^{\blank}$。
+  我们定义这样的路径如下：
+  \begin{align*}
+    \MoveEqLeft \transfib {(x' \mapsto \code(x') \rightarrow (\base=x'))} \lloop {\lloop^{\blank}}\\
+    &= \transfibf {x'\mapsto (\base=x')}(\lloop) \circ {\lloop^{\blank}} \circ \transfibf \code ({\opp \lloop}) \\
+    &= (- \ct \lloop) \circ (\lloop^{\blank}) \circ \transfibf \code ({\opp \lloop}) \\
+    &= (- \ct \lloop) \circ (\lloop^{\blank}) \circ \Zpred \\
+    &= (n \mapsto \lloop^{n - 1} \ct \lloop)。
+  \end{align*}
+  在第一行中，我们应用了 $\mathsf{transport}$ 的特征，当纤维的外连接是 $\rightarrow$ 时，这将 $\mathsf{transport}$ 简化为在域和余域类型上与 $\mathsf{transport}$ 的预组合和后组合。
+  在第二行中，我们应用了 $\mathsf{transport}$ 的特征，当类型族是 $x\mapsto \id{\base}{x}$ 时，这是路径的后组合。
+  在第三行中，我们使用了 \cref{lem:transport-s1-code} 中 $\code$ 对 $\opp \lloop$ 的作用。
+  在第四行中，我们只是简化了函数组合。
+  因此，足以证明对于所有 $n$，$\id{\lloop^{n - 1} \ct \lloop}{\lloop^{n}}$。
+  这是 \cref{thm:sign-induction} 的一个简单应用，使用了群论的法则。
 \end{proof}
 
-We can now show that $\encode$ and $\decode$ are quasi-inverses.
-What used to be the difficult direction is now easy!
+我们现在可以展示 $\encode$ 和 $\decode$ 是准逆的。
+以前困难的方向现在变得容易了！
 
 \begin{lem} \label{lem:s1-decode-encode}
-For all $x: \Sn ^1$ and $p : \id \base x$, $\id
-{\decode_x({{\encode_x(p)}})} p$.
+对于所有 $x: \Sn ^1$ 和 $p : \id \base x$，$\id
+{\decode_x({{\encode_x(p)}})} p$。
 \end{lem}
 
 \begin{proof}
-By path induction, it suffices to show that
-\narrowequation{\id {\decode_{\base}({{\encode_{\base}(\refl{\base})}})} {\refl{\base}}.}
-But
-\narrowequation{\encode_{\base}(\refl{\base}) \jdeq \transfib{\code}{\refl{\base}} 0 \jdeq 0,}
-and $\decode_{\base}(0) \jdeq \lloop^ 0 \jdeq \refl{\base}$.
+  通过路径归纳（path induction），足以证明
+  \narrowequation{\id {\decode_{\base}({{\encode_{\base}(\refl{\base})}})} {\refl{\base}}。}
+  但
+  \narrowequation{\encode_{\base}(\refl{\base}) \jdeq \transfib{\code}{\refl{\base}} 0 \jdeq 0，}
+  且 $\decode_{\base}(0) \jdeq \lloop^ 0 \jdeq \refl{\base}$。
 \end{proof}
 
-The other direction is not much harder.
+另一个方向并不困难。
 
-\begin{lem} \label{lem:s1-encode-decode} For all
-$x: \Sn ^1$ and $c : \code(x)$, we have $\id
-{\encode_x({{\decode_x(c)}})} c$.
+\begin{lem} \label{lem:s1-encode-decode} 对于所有
+$x: \Sn ^1$ 和 $c : \code(x)$，我们有 $\id
+{\encode_x({{\decode_x(c)}})} c$。
 \end{lem}
 
 \begin{proof}
-The proof is by circle induction.  It suffices to show the case for
-\base, because the case for \lloop is a path between paths in
-$\Z$, which is immediate because $\Z$ is a set.
+  证明是通过圆归纳（circle induction）进行的。
+  足以证明 \base 的情况，因为 \lloop 的情况是 $\Z$ 中路径之间的路径，这很简单，因为 $\Z$ 是一个集合。
 
-Thus, it suffices to show, for all $n : \Z$, that
-\[
-\id {\encode'(\lloop^n)} {n}.
-\]
-The proof is by induction, using \cref{thm:sign-induction}.
+  因此，足以证明，对于所有 $n : \Z$，
+  \[
+    \id {\encode'(\lloop^n)} {n}。
+  \]
+  证明是通过使用 \cref{thm:sign-induction} 的归纳进行的。
 %
-\begin{itemize}
+  \begin{itemize}
 
-\item In the case for $0$, the result is true by definition.
+    \item 对于 $0$ 的情况，结果根据定义为真。
 
-\item In the case for $n+1$,
-\begin{align}
- {\encode'(\lloop^{n+1})}
-&= {\encode'(\lloop^{n} \ct \lloop)} \tag{by definition of $\lloop^{\blank}$} \\
-&= \transfib{\code}{(\lloop^{n} \ct \lloop)}{0} \tag{by definition of $\encode$}\\
-&= \transfib{\code}{\lloop}{(\transfib{\code}{\lloop^n}{0})} \tag{by functoriality}\\
-&= {(\transfib{\code}{\lloop^n}{0})} + 1 \tag{by \cref{lem:transport-s1-code}}\\
-&= n + 1. \tag{by the inductive hypothesis}
-\end{align}
+    \item 对于 $n+1$ 的情况，
+    \begin{align}
+    {\encode'(\lloop^{n+1})}
+      &= {\encode'(\lloop^{n} \ct \lloop)} \tag{依据 $\lloop^{\blank}$ 的定义} \\
+      &= \transfib{\code}{(\lloop^{n} \ct \lloop)}{0} \tag{依据 $\encode$ 的定义}\\
+      &= \transfib{\code}{\lloop}{(\transfib{\code}{\lloop^n}{0})} \tag{依据函子性}\\
+      &= {(\transfib{\code}{\lloop^n}{0})} + 1 \tag{依据 \cref{lem:transport-s1-code}}\\
+      &= n + 1。 \tag{依据归纳假设}
+    \end{align}
 
-\item The case for negatives is analogous.  \qedhere
-\end{itemize}
+    \item 负数的情况是类似的。  \qedhere
+  \end{itemize}
 \end{proof}
 
-Finally, we conclude the theorem.
+最后，我们总结定理。
 
 \begin{thm}
-There is a family of equivalences $\prd{x : \Sn ^1} (\eqv {(\base=x)} {\code(x)})$.
+  存在一个等价的族 $\prd{x : \Sn ^1} (\eqv {(\base=x)} {\code(x)})$。
 \end{thm}
 \begin{proof}
-The maps $\encode$ and $\decode$ are quasi-inverses by
-\cref{lem:s1-decode-encode,lem:s1-encode-decode}.
+  $\encode$ 和 $\decode$ 是准逆的，通过
+  \cref{lem:s1-decode-encode,lem:s1-encode-decode}。
 \end{proof}
 
-Instantiating at {\base} gives
+在 \base 实例化给出
 \begin{cor}\label{cor:omega-s1}
-$\eqv {\Omega(\Sn^1,\base)} {\Z}$.
+$\eqv {\Omega(\Sn^1,\base)} {\Z}$。
 \end{cor}
 
-A simple induction shows that this equivalence takes addition to
-composition, so that $\Omega(\Sn ^1) = \Z$ as groups.
+一个简单的归纳表明，这个等价性将加法带入组合，因此 $\Omega(\Sn ^1) = \Z$ 作为群体。
 
 \begin{cor} \label{cor:pi1s1}
-$\id{\pi_1(\Sn ^1)} {\Z}$, while $\id{\pi_n(\Sn ^1)}0$ for $n>1$.
+$\id{\pi_1(\Sn ^1)} {\Z}$，而 $\id{\pi_n(\Sn ^1)}0$ 对于 $n>1$。
 \end{cor}
 \begin{proof}
-For $n=1$, we sketched the proof from \cref{cor:omega-s1} above.
-For $n > 1$, we have $\trunc 0 {\Omega^{n}(\Sn ^1)} = \trunc 0 {\Omega^{n-1}(\Omega{\Sn ^1})} = \trunc 0 {\Omega^{n-1}(\Z)}$.
-And since $\Z$ is a set, $\Omega^{n-1}(\Z)$ is contractible, so this is trivial.
+  对于 $n=1$，我们在 \cref{cor:omega-s1} 中概述了证明。
+  对于 $n > 1$，我们有 $\trunc 0 {\Omega^{n}(\Sn ^1)} = \trunc 0 {\Omega^{n-1}(\Omega{\Sn ^1})} = \trunc 0 {\Omega^{n-1}(\Z)}$。
+  由于 $\Z$ 是一个集合，$\Omega^{n-1}(\Z)$ 是可收缩的，因此这是平凡的。
 \end{proof}
 
 \index{encode-decode method|)}%
 
-
-\subsection{The homotopy-theoretic proof}
+\subsection{同伦理论的证明 (The homotopy-theoretic proof)}
 \label{subsec:pi1s1-homotopy-theory}
 
-In \cref{sec:pi1s1-universal-cover}, we defined the putative universal cover $\code:\Sn^1\to\type$ in type theory, and in \cref{subsec:pi1s1-encode-decode} we defined a map $\encode : \prd{x:\Sn^1} (\base=x) \to \code(x)$ from the path fibration to the universal cover.
-What remains for the classical proof is to show that this map induces an equivalence on total spaces because both are contractible, and to deduce from this that it must be an equivalence on each fiber.
+在 \cref{sec:pi1s1-universal-cover} 中，我们在类型理论中定义了推测的通用覆盖 $\code:\Sn^1\to\type$，并在 \cref{subsec:pi1s1-encode-decode} 中定义了从路径纤维到通用覆盖的映射 $\encode : \prd{x:\Sn^1} (\base=x) \to \code(x)$。
+经典证明剩下的内容是证明这个映射在总空间上诱导等价，因为两者都是可收缩的，并从中推导出它在每个纤维上的等价。
 
 \index{total!space}%
-In \cref{thm:contr-paths} we saw that the total space $\sm{x:\Sn^1} (\base=x)$ is contractible.
-For the other, we have:
+在 \cref{thm:contr-paths} 中，我们看到总空间 $\sm{x:\Sn^1} (\base=x)$ 是可收缩的。
+对于另一个，我们有：
 
 \begin{lem}\label{thm:iscontr-s1cover}
-  The type $\sm{x:\Sn^1}\code(x)$ is contractible.
+类型 $\sm{x:\Sn^1}\code(x)$ 是可收缩的。
 \end{lem}
 \begin{proof}
-  We apply the flattening lemma (\cref{thm:flattening}) with the following values:
+  我们应用 \cref{thm:flattening} 中的展平引理（flattening lemma），使用以下值：
   \begin{itemize}
-  \item $A\defeq\unit$ and $B\defeq\unit$, with $f$ and $g$ the obvious functions.
-    Thus, the base higher inductive type $W$ in the flattening lemma is equivalent to $\Sn^1$.
-  \item $C:A\to\type$ is constant at \Z.
-  \item $D:\prd{b:B} (\eqv{\Z}{\Z})$ is constant at $\Zsuc$.
+    \item $A\defeq\unit$ 和 $B\defeq\unit$，$f$ 和 $g$ 是显然的函数。
+    因此，展平引理中的基高阶归纳类型 $W$ 等价于 $\Sn^1$。
+    \item $C:A\to\type$ 是常数 $\Z$。
+    \item $D:\prd{b:B} (\eqv{\Z}{\Z})$ 是常数 $\Zsuc$。
   \end{itemize}
-  Then the type family $P:\Sn^1\to\type$ defined in the flattening lemma is equivalent to $\code:\Sn^1\to\type$.
-  Thus, the flattening lemma tells us that $\sm{x:\Sn^1}\code(x)$ is equivalent to a higher inductive type with the following generators, which we denote $R$:
+  然后，展平引理中定义的类型族 $P:\Sn^1\to\type$ 等价于 $\code:\Sn^1\to\type$。
+  因此，展平引理告诉我们，$\sm{x:\Sn^1}\code(x)$ 等价于一个具有以下生成器的高阶归纳类型，我们将其标记为 $R$：
   \begin{itemize}
-  \item A function $\mathsf{c}: \Z \to R$.
-  \item For each $z:\Z$, a path $\mathsf{p}_z:\mathsf{c}(z) = \mathsf{c}(\Zsuc(z))$.
+    \item 一个函数 $\mathsf{c}: \Z \to R$。
+    \item 对于每个 $z:\Z$，一个路径 $\mathsf{p}_z:\mathsf{c}(z) = \mathsf{c}(\Zsuc(z))$。
   \end{itemize}
-  We might call this type the \define{homotopical reals};
+  我们可以称这个类型为\define{同伦实数}（homotopical reals）；
   \indexdef{real numbers!homotopical}%
-  it plays the same role as the topological space $\mathbb{R}$ in the classical proof.
+  它与经典证明中的拓扑空间 $\mathbb{R}$ 起着相同的作用。
 
-  Thus, it remains to show that $R$ is contractible.
-  As center of contraction we choose $\mathsf{c}(0)$; we must now show that $x=\mathsf{c}(0)$ for all $x:R$.
-  We do this by induction on $R$.
-  Firstly, when $x$ is $\mathsf{c}(z)$, we must give a path $q_z:\mathsf{c}(0) = \mathsf{c}(z)$, which we can do by induction on $z:\Z$, using \cref{thm:sign-induction}:
+  因此，剩下的就是证明 $R$ 是可收缩的。
+  作为收缩的中心，我们选择 $\mathsf{c}(0)$；我们现在必须证明 $x=\mathsf{c}(0)$ 对于所有 $x:R$。
+  我们通过在 $R$ 上的归纳来做到这一点。
+  首先，当 $x$ 是 $\mathsf{c}(z)$ 时，我们必须给出一个路径 $q_z:\mathsf{c}(0) = \mathsf{c}(z)$，我们可以通过对 $z:\Z$ 的归纳来做到这一点，使用 \cref{thm:sign-induction}：
   \begin{align*}
     q_0 &\defid \refl{\mathsf{c}(0)}\\
-    q_{n+1} &\defid q_n \ct \mathsf{p}_n & &\text{for $n\ge 0$}\\
-    q_{n-1} &\defid q_n \ct \opp{\mathsf{p}_{n-1}} & &\text{for $n\le 0$.}
+    q_{n+1} &\defid q_n \ct \mathsf{p}_n & &\text{对于 $n\ge 0$}\\
+    q_{n-1} &\defid q_n \ct \opp{\mathsf{p}_{n-1}} & &\text{对于 $n\le 0$}。
   \end{align*}
-  Secondly, we must show that for any $z:\Z$, the path $q_z$ is transported along $\mathsf{p}_z$ to $q_{z+1}$.
-  By transport of paths, this means we want $q_z \ct \mathsf{p}_z = q_{z+1}$.
-  This is easy by induction on $z$, using the definition of $q_z$.
-  This completes the proof that $R$ is contractible, and thus so is $\sm{x:\Sn^1}\code(x)$.
+  其次，我们必须证明对于任何 $z:\Z$，路径 $q_z$ 在 $\mathsf{p}_z$ 上的运输是 $q_{z+1}$。
+  通过路径的运输，这意味着我们需要 $q_z \ct \mathsf{p}_z = q_{z+1}$。
+  这通过 $z$ 的归纳很容易做到，使用 $q_z$ 的定义。
+  这完成了 $R$ 是可收缩的证明，因此 $\sm{x:\Sn^1}\code(x)$ 也是可收缩的。
 \end{proof}
 
 \begin{cor}\label{thm:encode-total-equiv}
-  The map induced by \encode:
-  \[ \tsm{x:\Sn^1} (\base=x) \to \tsm{x:\Sn^1}\code(x) \]
-  is an equivalence.
+由 \encode 诱导的映射：
+\[ \tsm{x:\Sn^1} (\base=x) \to \tsm{x:\Sn^1}\code(x) \]
+是一个等价。
 \end{cor}
 \begin{proof}
-  Both types are contractible.
+  两种类型都是可收缩的。
 \end{proof}
 
 \begin{thm}
-  $\eqv {\Omega(\Sn^1,\base)} {\Z}$.
+  $\eqv {\Omega(\Sn^1,\base)} {\Z}$。
 \end{thm}
 \begin{proof}
-  Apply \cref{thm:total-fiber-equiv} to $\encode$, using \cref{thm:encode-total-equiv}.
+  将 \cref{thm:total-fiber-equiv} 应用于 $\encode$，使用 \cref{thm:encode-total-equiv}。
 \end{proof}
 
-In essence, the two proofs are not very different: the encode-decode one may be seen as a ``reduction'' or ``unpackaging'' of the homotopy-theoretic one.
-Each has its advantages; the interplay between the two points of view is part of the interest of the subject.
+本质上，这两个证明没有太大不同：编码-解码的证明可以看作是同伦理论证明的“简化”或“解包”。
+每个都有其优势；两者之间的相互作用是该主题的一部分兴趣所在。
 \index{fundamental!group!of circle|)}
 
-
-\subsection{The universal cover as an identity system}
+\subsection{通用覆盖作为恒等系统 (The universal cover as an identity system)}
 \label{sec:pi1s1-idsys}
 
-Note that the fibration $\code:\Sn^1\to\type$ together with $0:\code(\base)$ is a \emph{pointed predicate} in the sense of \cref{defn:identity-systems}.
-From this point of view, we can see that the encode-decode proof in \cref{subsec:pi1s1-encode-decode} consists of proving that \code satisfies \cref{thm:identity-systems}\ref{item:identity-systems3}, while the homotopy-theoretic proof in \cref{subsec:pi1s1-homotopy-theory} consists of proving that it satisfies \cref{thm:identity-systems}\ref{item:identity-systems4}.
-This suggests a third approach.
+请注意，纤维 $\code:\Sn^1\to\type$ 与 $0:\code(\base)$ 一起是 \cref{defn:identity-systems} 中所述的\emph{指向谓词}（pointed predicate）。
+从这个角度来看，我们可以看到，在 \cref{subsec:pi1s1-encode-decode} 中的编码-解码证明由证明 \code 满足 \cref{thm:identity-systems}\ref{item:identity-systems3} 组成，而在 \cref{subsec:pi1s1-homotopy-theory} 中的同伦理论证明则由证明它满足 \cref{thm:identity-systems}\ref{item:identity-systems4} 组成。
+这暗示了一种第三种方法。
 
 \begin{thm}
-  The pair $(\code,0)$ is an identity system at $\base:\Sn^1$ in the sense of \cref{defn:identity-systems}.
+  对于 $\base:\Sn^1$，对偶 $(\code,0)$ 是 \cref{defn:identity-systems} 中所定义的恒等系统（identity system）。
 \end{thm}
 \begin{proof}
-  Let $D:\prd{x:\Sn^1} \code(x) \to \type$ and $d:D(\base,0)$ be given; we want to define a function $f:\prd{x:\Sn^1}{c:\code(x)} D(x,c)$.
-  By circle induction, it suffices to specify $f(\base):\prd{c:\code(\base)} D(\base,c)$ and verify that $\trans{\lloop}{f(\base)} = f(\base)$.
+  令 $D:\prd{x:\Sn^1} \code(x) \to \type$ 和 $d:D(\base,0)$ 已给出；我们要定义一个函数 $f:\prd{x:\Sn^1}{c:\code(x)} D(x,c)$。
+  通过圆归纳，足以指定 $f(\base):\prd{c:\code(\base)} D(\base,c)$ 并验证 $\trans{\lloop}{f(\base)} = f(\base)$。
 
-  Of course, $\code(\base)\jdeq \Z$.
-  By \cref{lem:transport-s1-code} and induction on $n$, we may obtain a path $p_n : \transfib{\code}{\lloop^n}{0} = n$ for any integer $n$.
-  Therefore, by paths in $\Sigma$-types, we have a path $\pairpath(\lloop^n,p_n) : (\base,0) = (\base,n)$ in $\sm{x:\Sn^1} \code(x)$.
-  Transporting $d$ along this path in the fibration $\widehat{D}:(\sm{x:\Sn^1} \code(x)) \to\type$ associated to $D$, we obtain an element of $D(\base,n)$ for any $n:\Z$.
-  We define this element to be $f(\base)(n)$:
-  \[ f(\base)(n) \defeq \transfib{\widehat{D}}{\pairpath(\lloop^n,p_n)}{d}. \]
+  当然，$\code(\base)\jdeq \Z$。
+  通过 \cref{lem:transport-s1-code} 和对 $n$ 的归纳，我们可以为任何整数 $n$ 获得一个路径 $p_n : \transfib{\code}{\lloop^n}{0} = n$。
+  因此，通过 $\Sigma$-类型的路径，我们在 $\sm{x:\Sn^1} \code(x)$ 中有一个路径 $\pairpath(\lloop^n,p_n) : (\base,0) = (\base,n)$。
+  在与 $D$ 相关联的纤维 $\widehat{D}:(\sm{x:\Sn^1} \code(x)) \to\type$ 中沿着这个路径运输 $d$，我们获得 $D(\base,n)$ 的一个元素。
+  我们定义这个元素为 $f(\base)(n)$：
+  \[ f(\base)(n) \defeq \transfib{\widehat{D}}{\pairpath(\lloop^n,p_n)}{d}。 \]
   %
-  Now we need $\transfib{\lam{x} \prd{c:\code(x)} D(x,c)}{\lloop}{f(\base)} = f(\base)$.
-  By \cref{thm:dpath-forall}, this means we need to show that for any $n:\Z$,
+  现在我们需要 $\transfib{\lam{x} \prd{c:\code(x)} D(x,c)}{\lloop}{f(\base)} = f(\base)$。
+  通过 \cref{thm:dpath-forall}，这意味着我们需要证明对于任何 $n:\Z$，
   %
   \begin{narrowmultline*}
     \transfib{\widehat D}{\pairpath(\lloop,\refl{\trans\lloop n})}{f(\base)(n)}
     =_{D(\base,\trans\lloop n)} \narrowbreak
-    f(\base)(\trans\lloop n).
+    f(\base)(\trans\lloop n)。
   \end{narrowmultline*}
   %
-  Now we have a path $q:\trans\lloop n = n+1$, so transporting along this, it suffices to show
+  现在我们有一个路径 $q:\trans\lloop n = n+1$，所以沿着这个路径运输，足以证明
   \begin{multline*}
     \transfib{D(\base)}{q}{\transfib{\widehat D}{\pairpath(\lloop,\refl{\trans\lloop n})}{f(\base)(n)}}\\
-    =_{D(\base,n+1)} \transfib{D(\base)}{q}{f(\base)(\trans\lloop n)}.
+    =_{D(\base,n+1)} \transfib{D(\base)}{q}{f(\base)(\trans\lloop n)}。
   \end{multline*}
-  By a couple of lemmas about transport and dependent application, this is equivalent to
-  \[ \transfib{\widehat D}{\pairpath(\lloop,q)}{f(\base)(n)} =_{D(\base,n+1)} f(\base)(n+1). \]
-  However, expanding out the definition of $f(\base)$, we have
+  通过关于运输和依赖应用的几个引理，这等效于
+  \[ \transfib{\widehat D}{\pairpath(\lloop,q)}{f(\base)(n)} =_{D(\base,n+1)} f(\base)(n+1)。 \]
+  然而，展开 $f(\base)$ 的定义，我们有
   \begin{narrowmultline*}
     \transfib{\widehat D}{\pairpath(\lloop,q)}{f(\base)(n)}
     \narrowbreak
@@ -581,32 +548,32 @@ This suggests a third approach.
       &= \transfib{\widehat D}{\pairpath(\lloop,q)}{\transfib{\widehat{D}}{\pairpath(\lloop^n,p_n)}{d}}\\
       &= \transfib{\widehat D}{\pairpath(\lloop^n,p_n) \ct \pairpath(\lloop,q)}{d}\\
       &= \transfib{\widehat D}{\pairpath(\lloop^{n+1},p_{n+1})}{d}\\
-      &= f(\base)(n+1).
+      &= f(\base)(n+1)。
     \end{aligned}
   \end{narrowmultline*}
-  We have used the functoriality of transport, the characterization of composition in $\Sigma$-types (which was an exercise for the reader), and a lemma relating $p_n$ and $q$ to $p_{n+1}$ which we leave it to the reader to state and prove.
+  我们使用了运输的函子性，$\Sigma$-类型中的组合的特征（这是读者的练习），以及一个将 $p_n$ 和 $q$ 关联到 $p_{n+1}$ 的引理，我们将留给读者陈述和证明。
 
-  This completes the construction of $f:\prd{x:\Sn^1}{c:\code(x)} D(x,c)$.
-  Since
-  \[f(\base,0) \jdeq \trans{\pairpath(\lloop^0,p_0)}{d} = \trans{\refl{\base}}{d} = d,\]
-  we have shown that $(\code,0)$ is an identity system.
+  这完成了函数 $f:\prd{x:\Sn^1}{c:\code(x)} D(x,c)$ 的构造。
+  由于
+  \[f(\base,0) \jdeq \trans{\pairpath(\lloop^0,p_0)}{d} = \trans{\refl{\base}}{d} = d，\]
+  我们已经证明了 $(\code,0)$ 是一个恒等系统。
 \end{proof}
 
 \begin{cor}
-  For any $x:\Sn^1$, we have $\eqv{(\base=x)}{\code(x)}$.
+  对于任何 $x:\Sn^1$，我们有 $\eqv{(\base=x)}{\code(x)}$。
 \end{cor}
 \begin{proof}
-  By \cref{thm:identity-systems}.
+  通过 \cref{thm:identity-systems}。
 \end{proof}
 
-Of course, this proof also contains essentially the same elements as the previous two.
-Roughly, we can say that it unifies the proofs of \cref{thm:pi1s1-decode,lem:s1-encode-decode}, performing the requisite inductive argument only once in a generic case.
+当然，这个证明也包含了前两个证明的基本元素。
+大致上，我们可以说它统一了 \cref{thm:pi1s1-decode,lem:s1-encode-decode} 的证明，在一般情况下只执行一次所需的归纳论证。
 
 \begin{rmk}
-  Note that all of the above proofs that $\eqv{\pi_1(\Sn^1)}{\Z}$ use the univalence axiom in an essential way.
-  This is unavoidable: univalence or something like it is \emph{necessary} in order to prove $\eqv{\pi_1(\Sn^1)}{\Z}$.
-  In the absence of univalence, it is consistent to assume the statement ``all types are sets'' (a.k.a.\ ``uniqueness of identity proofs'' or ``Axiom K'', as discussed in \cref{sec:hedberg}), and this statement implies instead that $\eqv{\pi_1(\Sn^1)}{\unit}$.
-  In fact, the (non)triviality of $\pi_1(\Sn^1)$ detects exactly whether all types are sets: the proof of \cref{thm:loop-nontrivial} showed conversely that if $\lloop=\refl{\base}$ then all types are sets.
+  请注意，所有上述证明 $\eqv{\pi_1(\Sn^1)}{\Z}$ 都在本质上使用了等价性公理。
+  这是不可避免的：等价性或类似的东西是\emph{必要的}，以证明 $\eqv{\pi_1(\Sn^1)}{\Z}$。
+  在没有等价性的情况下，可以假设“所有类型都是集合”的陈述（又称为“恒等证明的唯一性”或“Axiom K”，如 \cref{sec:hedberg} 中讨论的），该陈述则意味着 $\eqv{\pi_1(\Sn^1)}{\unit}$。
+  实际上，$\pi_1(\Sn^1)$ 的（非）平凡性正好检测所有类型是否为集合：\cref{thm:loop-nontrivial} 的证明反过来表明，如果 $\lloop=\refl{\base}$，则所有类型都是集合。
 \end{rmk}
 
 \section{Connectedness of suspensions}
