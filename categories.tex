@@ -1,282 +1,259 @@
-\chapter{Category theory}
+\chapter{范畴论 (Category theory)}
 \label{cha:category-theory}
 
-Of the branches of mathematics, category theory is one which perhaps fits the least comfortably in set theoretic foundations.
-One problem is that most of category theory is invariant under weaker notions of ``sameness'' than equality, such as isomorphism in a category or equivalence of categories, in a way which set theory fails to capture.
-But this is the same sort of problem that the univalence axiom solves for types, by identifying equality with equivalence.
-Thus, in univalent foundations it makes sense to consider a notion of ``category'' in which equality of objects is identified with isomorphism in a similar way.
+在数学的各个分支中，范畴论可能是最不适合基于集合论基础的学科之一。
+一个问题是，大多数范畴论的内容在弱于等同性的“相同”概念下是不变的，例如范畴中的同构或者范畴之间的等价，而集合论无法捕捉这一点。
+但是，对于类型论中的等同性，无效性公理 (univalence axiom) 通过将等同性与等价性等同解决了类似的问题。
+因此，在无效性基础 (univalent foundations) 中，考虑一种“范畴”概念是合理的，在这种范畴中，对象的等同性与同构被以类似的方式识别。
 
-Ignoring size issues, in set-based mathematics a category consists of a \emph{set} $A_0$ of objects and, for each $x,y\in A_0$, a \emph{set} $\hom_A(x,y)$ of morphisms.
-Under univalent foundations, a ``naive'' definition of category would simply mimic this with a \emph{type} of objects and \emph{types} of morphisms.
-If we allowed these types to contain arbitrary higher homotopy, then we ought to impose higher coherence conditions, leading to some notion of $(\infty,1)$-category,
-\index{.infinity1-category@$(\infty,1)$-category}%
-but at present our goal is more modest.
-We consider only 1-categories, and therefore we restrict the types $\hom_A(x,y)$ to be sets, i.e.\ 0-types.
-If we impose no further conditions, we will call this notion a \emph{precategory}.
+忽略大小问题，在基于集合的数学中，范畴由一个对象的\emph{集合} $A_0$ 和对于每个 $x,y\in A_0$ 的\emph{集合} $\hom_A(x,y)$ 组成。
+在无效性基础下，一个“朴素的”范畴定义只是模仿这个结构，用一个\emph{类型}的对象和\emph{类型}的态射。
+如果我们允许这些类型包含任意的高阶同伦，则应当引入更高的连贯条件，从而导向某种 $(\infty,1)$-范畴的概念，\index{.infinity1-category@$(\infty,1)$-范畴}%
+但目前我们的目标更加温和。我们只考虑 1-范畴，因此我们将 $\hom_A(x,y)$ 的类型限制为集合，即 0-类型。如果我们不施加进一步的条件，我们将这种概念称为\emph{预范畴}。
 
-If we add the requirement that the type $A_0$ of objects is a set, then we end up with a definition that behaves much like the traditional set-theoretic one.
-Following Toby Bartels, we call this notion a \emph{strict category}.
-\index{strict!category}%
-Alternatively, we can require a generalized version of the univalence axiom, identifying $(x=_{A_0} y)$ with the type $\mathsf{iso}(x,y)$ of isomorphisms from $x$ to $y$.
-Since we regard the latter choice as usually the ``correct'' definition, we will call it simply a \emph{category}.
+如果我们添加条件，使得对象类型 $A_0$ 是一个集合，那么我们得到一个行为与传统集合论定义相似的定义。
+我们称这种概念为\emph{严格范畴} (strict category)。
+\index{严格!范畴 (strict category)}%
+或者，我们可以要求无效性公理的广义版本，将 $(x=_{A_0} y)$ 与 $x$ 到 $y$ 的同构类型 $\mathsf{iso}(x,y)$ 识别。
+由于我们认为后一种选择通常是“正确的”定义，因此我们简单地称它为\emph{范畴}。
 
-A good example of the difference between the three notions of category is provided by the statement ``every fully faithful and essentially surjective functor is an equivalence of categories'', which in classical set-based category theory is equivalent to the axiom of choice.
-\index{mathematics!classical}%
-\index{axiom!of choice}%
-\index{classical!category theory}%
+一个关于这三种范畴概念的区别的好例子是“每个满忠实且本质满的函子是范畴等价”的命题，在经典基于集合的范畴论中，该命题等价于选择公理。
+\index{数学!经典 (mathematics!classical)}%
+\index{公理!选择 (axiom!of choice)}%
+\index{经典!范畴论 (classical!category theory)}%
 \begin{enumerate}
-\item For strict categories, this is still equivalent to the axiom of choice.
-\item For precategories, there is no consistent axiom of choice which can make it true.
-\item For categories, it is provable \emph{without} any axiom of choice.
+  \item 对于严格范畴，这一命题仍然等价于选择公理。
+  \item 对于预范畴，没有一致的选择公理可以使其成立。
+  \item 对于范畴，它可以\emph{不使用}任何选择公理的情况下被证明。
 \end{enumerate}
-We will prove the latter statement in this chapter, as well as other pleasant properties of categories, e.g.\ that equivalent categories are equal (as elements of the type of categories).
-We will also describe a universal way of ``saturating'' a precategory $A$ into a category $\widehat A$, which we call its \emph{Rezk completion},
-\index{completion!Rezk}%
-although it could also reasonably be called the \emph{stack completion} (see the Notes).
+我们将在本章中证明最后一个命题，并讨论范畴的其他令人愉快的性质，例如等价范畴是相等的（作为范畴类型的元素）。
+我们还将描述一种将预范畴 $A$“饱和”成范畴 $\widehat A$ 的通用方式，我们称之为它的\emph{Rezk 完成}，\index{完成!Rezk (completion!Rezk)}%
+尽管它也可以合理地称为\emph{栈完成}（见注释）。
 
-The Rezk completion also sheds further light on the notion of equivalence of categories.
-For instance, the functor $A \to \widehat{A}$ is always fully faithful and essentially surjective, hence a ``weak equivalence''.
-It follows that a precategory is a category exactly when it ``sees'' all fully faithful and essentially surjective functors as equivalences; thus our notion of ``category'' is already inherent in the notion of ``fully faithful and essentially surjective functor''.
+Rezk 完成还进一步阐明了范畴等价的概念。
+例如，函子 $A \to \widehat{A}$ 始终是满忠实且本质满的，因此是“弱等价”。
+因此，一个预范畴是范畴的必要和充分条件是它“视”所有满忠实且本质满的函子为等价；因此我们的“范畴”概念已经内在于“满忠实且本质满函子”的概念之中。
 
-We assume the reader has some basic familiarity with classical category theory.\index{classical!category theory}
-Recall that whenever we write \type it denotes some universe of types, but perhaps a different one at different times; everything we say remains true for any consistent choice of universe levels\index{universe level}.
-We will use the basic notions of homotopy type theory from \cref{cha:typetheory,cha:basics} and the propositional truncation from \cref{cha:logic}, but not much else from \cref{part:foundations}, except that our second construction of the Rezk completion will use a higher inductive type.
+我们假定读者对经典范畴论有一定的基本了解。 \index{经典!范畴论 (classical!category theory)}
+请记住，每当我们写到 \type 时，它表示某个类型的宇宙，但在不同情况下可能是不同的宇宙；我们所说的一切都对任何一致的宇宙层次的选择成立。\index{宇宙层次 (universe level)}
+我们将使用 \cref{cha:typetheory,cha:basics} 中的同伦类型论的基本概念以及 \cref{cha:logic} 中的命题截断，但不会涉及 \cref{part:foundations} 的大部分内容，除非我们将在第二种 Rezk 完成的构造中使用高阶归纳类型。
 
-
-\section{Categories and precategories}
+\section{范畴与预范畴 (Categories and precategories)}
 \label{sec:cats}
 
-In classical mathematics, there are many equivalent definitions of a category.
-In our case, since we have dependent types, it is natural to choose the arrows to be a type family indexed by the objects.
-This matches the way hom-types are always used in category theory: we never even consider comparing two arrows unless we know their domains and codomains agree.
-Furthermore, it seems clear that for a theory of 1-categories, the hom-types should all be sets.
-This leads us to the following definition.
+在经典数学中，有许多等价的范畴定义。
+在我们的情况下，由于我们有依赖类型，因此将箭头作为对象的类型族是很自然的。
+这与范畴论中 Hom-类型的使用方式相匹配：我们在比较两个箭头之前从未考虑过它们的域和陪域是否一致。
+此外，显然，对于 1-范畴理论，所有的 Hom-类型都应该是集合。
+这引导我们到以下定义。
 
 \begin{defn}\label{ct:precategory}
-  A \define{precategory}
-  \indexdef{precategory}
-  $A$ consists of the following.
-  \begin{enumerate}
-  \item A type $A_0$, whose elements are called \define{objects}.%
-    \indexdef{object!in a (pre)category}
-    We write $a:A$ for $a:A_0$.
-  \item For each $a,b:A$, a set $\hom_A(a,b)$, whose elements are called \define{arrows} or \define{morphisms}.%
-    \indexsee{arrow}{morphism}%
-    \indexdef{morphism!in a (pre)category}%
-    \indexdef{hom-set}%
-  \item For each $a:A$, a morphism $1_a:\hom_A(a,a)$, called the \define{identity morphism}.%
-    \indexdef{identity!morphism in a (pre)category}
-  \item For each $a,b,c:A$, a function%
-    \indexdef{composition!of morphisms in a (pre)category}
-    \[  \hom_A(b,c) \to \hom_A(a,b) \to \hom_A(a,c) \]
-    called \define{composition}, and denoted infix by $g\mapsto f\mapsto g\circ f$, or sometimes simply by $gf$.
-  \item For each $a,b:A$ and $f:\hom_A(a,b)$, we have $\id f {1_b\circ f}$ and $\id f {f\circ 1_a}$.
-  \item For each $a,b,c,d:A$ and
-    \begin{equation*}
-      f:\hom_A(a,b), \qquad
-      g:\hom_A(b,c), \qquad
-      h:\hom_A(c,d),
-    \end{equation*}
-    we have $\id {h\circ (g\circ f)}{(h\circ g)\circ f}$.
-  \end{enumerate}
+一个\define{预范畴 (precategory)}\indexdef{预范畴 (precategory)}$A$ 包含以下内容。
+\begin{enumerate}
+  \item 一个类型 $A_0$，其元素称为\define{对象 (objects)}。%
+  \indexdef{对象!在(预)范畴中 (object!in a (pre)category)}
+  我们记 $a:A$ 表示 $a:A_0$。
+  \item 对于每个 $a,b:A$，有一个集合 $\hom_A(a,b)$，其元素称为\define{箭头 (arrows)} 或\define{态射 (morphisms)}。%
+  \indexsee{箭头}{态射}%
+  \indexdef{态射!在(预)范畴中 (morphism!in a (pre)category)}%
+  \indexdef{同态集 (hom-set)}%
+  \item 对于每个 $a:A$，有一个态射 $1_a:\hom_A(a,a)$，称为\define{恒等态射 (identity morphism)}。%
+  \indexdef{恒等!在(预)范畴中 (identity!morphism in a (pre)category)}
+  \item 对于每个 $a,b,c:A$，有一个函数%
+  \indexdef{态射的复合在(预)范畴中 (composition!of morphisms in a (pre)category)}
+  \[  \hom_A(b,c) \to \hom_A(a,b) \to \hom_A(a,c) \]
+  称为\define{复合 (composition)}，记为中缀形式 $g\mapsto f\mapsto g\circ f$，有时简单记为 $gf$。
+  \item 对于每个 $a,b:A$ 和 $f:\hom_A(a,b)$，我们有 $\id f {1_b\circ f}$ 和 $\id f {f\circ 1_a}$。
+  \item 对于每个 $a,b,c,d:A$ 和
+  \begin{equation*}
+    f:\hom_A(a,b), \qquad
+    g:\hom_A(b,c), \qquad
+    h:\hom_A(c,d),
+  \end{equation*}
+  我们有 $\id {h\circ (g\circ f)}{(h\circ g)\circ f}$。
+\end{enumerate}
 \end{defn}
 
-The problem with the notion of precategory is that for objects $a,b:A$, we have two possibly-different notions of ``sameness''.
-On the one hand, we have the type $(\id[A_0]{a}{b})$.
-But on the other hand, there is the standard categorical notion of \emph{isomorphism}.
+预范畴的一个问题是，对于对象 $a,b:A$，我们有两种可能不同的“相同”概念。
+一方面，我们有类型 $(\id[A_0]{a}{b})$。
+但另一方面，有标准的范畴论中的\emph{同构 (isomorphism)}的概念。
 
 \begin{defn}\label{ct:isomorphism}
-  A morphism $f:\hom_A(a,b)$ is an \define{isomorphism}
-  \indexdef{isomorphism!in a (pre)category}%
-  if there is a morphism $g:\hom_A(b,a)$ such that $\id{g\circ f}{1_a}$ and $\id{f\circ g}{1_b}$.
-  We write $a\cong b$ for the type of such isomorphisms.
+态射 $f:\hom_A(a,b)$ 是一个\define{同构 (isomorphism)}\indexdef{同构!在(预)范畴中 (isomorphism!in a (pre)category)}%
+如果存在态射 $g:\hom_A(b,a)$ 使得 $\id{g\circ f}{1_a}$ 和 $\id{f\circ g}{1_b}$。
+我们记 $a\cong b$ 表示这种同构的类型。
 \end{defn}
 
 \begin{lem}\label{ct:isoprop}
-  For any $f:\hom_A(a,b)$, the type ``$f$ is an isomorphism'' is a mere proposition.
-  Therefore, for any $a,b:A$ the type $a\cong b$ is a set.
+对于任意 $f:\hom_A(a,b)$，类型“$f$ 是同构”是一个单命题。
+因此，对于任意 $a,b:A$，类型 $a\cong b$ 是一个集合。
 \end{lem}
 \begin{proof}
-  Suppose given $g:\hom_A(b,a)$ and $\eta:(\id{1_a}{g\circ f})$ and $\epsilon:(\id{f\circ g}{1_b})$, and similarly $g'$, $\eta'$, and $\epsilon'$.
-We must show $\id{(g,\eta,\epsilon)}{(g',\eta',\epsilon')}$.
-  But since all hom-sets are sets, their identity types are mere propositions, so it suffices to show $\id g {g'}$.
-  For this we have
+  假设给定 $g:\hom_A(b,a)$ 和 $\eta:(\id{1_a}{g\circ f})$ 以及 $\epsilon:(\id{f\circ g}{1_b})$，类似地有 $g'$，$\eta'$ 和 $\epsilon'$。
+  我们必须证明 $\id{(g,\eta,\epsilon)}{(g',\eta',\epsilon')}$。
+  但由于所有同态集都是集合，因此它们的等同性类型是单命题，所以只需证明 $\id g {g'}$。
+  为此我们有
   \[g' = 1_a\circ g' = (g\circ f)\circ g' = g\circ (f\circ g') = g\circ 1_b = g\]
-  using $\eta$ and $\epsilon'$.
+  使用 $\eta$ 和 $\epsilon'$。
 \end{proof}
 
 \symlabel{ct:inv}
-\index{inverse!in a (pre)category}%
-If $f:a\cong b$, then we write $\inv f$ for its inverse, which by \cref{ct:isoprop} is uniquely determined.
+\index{逆在(预)范畴中 (inverse!in a (pre)category)}%
+如果 $f:a\cong b$，我们记 $\inv f$ 表示它的逆，由 \cref{ct:isoprop} 唯一确定。
 
-The only relationship between these two notions of sameness that we have in a precategory is the following.
+在预范畴中，这两种相同性概念之间的唯一关系如下。
 
 \begin{lem}[\textsf{idtoiso}]\label{ct:idtoiso}
-  If $A$ is a precategory and $a,b:A$, then
-  \[(\id a b)\to (a \cong b).\]
+如果 $A$ 是一个预范畴，$a,b:A$，则
+\[(\id a b)\to (a \cong b)\]。
 \end{lem}
 \begin{proof}
-  By induction on identity, we may assume $a$ and $b$ are the same.
-  But then we have $1_a:\hom_A(a,a)$, which is clearly an isomorphism.
+  通过等同性归纳，我们可以假设 $a$ 和 $b$ 是相同的。
+  但是在这种情况下，我们有 $1_a:\hom_A(a,a)$，它显然是一个同构。
 \end{proof}
 
-Evidently, this situation is analogous to the issue that motivated us to introduce the univalence axiom.
-In fact, we have the following:
+显然，这种情况类似于促使我们引入无效性公理的问题。
+实际上，我们有以下例子：
 
 \begin{eg}\label{ct:precatset}
-  \index{set}%
-  There is a precategory \uset, whose type of objects is \set, and with $\hom_{\uset}(A,B) \defeq (A\to B)$.
-  The identity morphisms are identity functions and the composition is function composition.
-  For this precategory, \cref{ct:idtoiso} is equal to (the restriction to sets of) the map $\idtoeqv$ from \cref{sec:compute-universe}.
+\index{集合 (set)}%
+存在一个预范畴 \uset，其对象的类型是 \set，并且 $\hom_{\uset}(A,B) \defeq (A\to B)$。
+恒等态射是恒等函数，复合是函数复合。
+对于这个预范畴，\cref{ct:idtoiso} 等同于（限制到集合的）来自 \cref{sec:compute-universe} 中的 $\idtoeqv$。
 
-  Of course, to be more precise we should call this category $\uset_\UU$, since its objects are only the \emph{small sets}
-  \index{small!set}%
-  relative to a universe \UU.
+当然，更准确地说，我们应该称这个范畴为 $\uset_\UU$，因为它的对象仅是相对于某个宇宙 \UU 的\emph{小集合}。\index{小!集合 (small!set)}%
 \end{eg}
 
-Thus, it is natural to make the following definition.
+因此，引入以下定义是合乎逻辑的。
 
 \begin{defn}\label{ct:category}
-  A \define{category}
-  \indexdef{category}
-  is a precategory such that for all $a,b:A$, the function $\idtoiso_{a,b}$ from \cref{ct:idtoiso} is an equivalence.
+一个\define{范畴 (category)}\indexdef{范畴 (category)}是一个预范畴，使得对于所有 $a,b:A$，\cref{ct:idtoiso} 中的函数 $\idtoiso_{a,b}$ 是一个等价。
 \end{defn}
 
-In particular, in a category, if $a\cong b$, then $a=b$.
+特别是，在一个范畴中，如果 $a\cong b$，那么 $a=b$。
 
 \begin{eg}\label{ct:eg:set}
-  \index{univalence axiom}%
-  The univalence axiom implies immediately that \uset is a category.
-  One can also show, using univalence, that any precategory of set-level structures such as groups, rings, topological spaces, etc.\ is a category; see \cref{sec:sip}.
+\index{无效性公理 (univalence axiom)}%
+无效性公理立即蕴含 \uset 是一个范畴。
+还可以通过无效性公理证明，任何集合层次的结构（如群、环、拓扑空间等）的预范畴都是一个范畴；见 \cref{sec:sip}。
 \end{eg}
 
-We also note the following.
+我们还注意到以下内容。
 
 \begin{lem}\label{ct:obj-1type}
-  In a category, the type of objects is a 1-type.
+在一个范畴中，对象的类型是一个 1-类型。
 \end{lem}
 \begin{proof}
-  It suffices to show that for any $a,b:A$, the type $\id a b$ is a set.
-  But $\id a b$ is equivalent to $a \cong b$, which is a set.
+  证明对于任意 $a,b:A$，类型 $\id a b$ 是一个集合即可。
+  但 $\id a b$ 等价于 $a \cong b$，而后者是一个集合。
 \end{proof}
 
 \symlabel{isotoid}
-We write $\isotoid$ for the inverse $(a\cong b) \to (\id a b)$ of the map $\idtoiso$ from \cref{ct:idtoiso}.
-The following relationship between the two is important.
+我们记 $\isotoid$ 为 \cref{ct:idtoiso} 中从 $(a\cong b)$ 到 $(\id a b)$ 的逆。
+以下关系非常重要。
 
 \begin{lem}\label{ct:idtoiso-trans}
-  For $p:\id a a'$ and $q:\id b b'$ and $f:\hom_A(a,b)$, we have
-  \begin{equation}\label{ct:idtoisocompute}
-    \id{\trans{(p,q)}{f}}
-    {\idtoiso(q)\circ f \circ \inv{\idtoiso(p)}}.
-  \end{equation}
+对于 $p:\id a a'$ 和 $q:\id b b'$ 以及 $f:\hom_A(a,b)$，我们有
+\begin{equation}\label{ct:idtoisocompute}
+\id{\trans{(p,q)}{f}}
+{\idtoiso(q)\circ f \circ \inv{\idtoiso(p)}}。
+\end{equation}
 \end{lem}
 \begin{proof}
-  By induction, we may assume $p$ and $q$ are $\refl a$ and $\refl b$ respectively.
-Then the left-hand side of~\eqref{ct:idtoisocompute} is simply $f$.
-  But by definition, $\idtoiso(\refl a)$ is $1_a$, and $\idtoiso(\refl b)$ is $1_b$, so the right-hand side of~\eqref{ct:idtoisocompute} is $1_b\circ f\circ 1_a$, which is equal to $f$.
+  通过归纳法，我们可以假设 $p$ 和 $q$ 分别是 $\refl a$ 和 $\refl b$。
+  在这种情况下，\eqref{ct:idtoisocompute} 的左边简化为 $f$。
+  但根据定义，$\idtoiso(\refl a)$ 是 $1_a$，$\idtoiso(\refl b)$ 是 $1_b$，因此 \eqref{ct:idtoisocompute} 的右边为 $1_b\circ f\circ 1_a$，这等于 $f$。
 \end{proof}
 
-Similarly, we can show
+类似地，我们可以证明
 \begin{gather}
   \id{\idtoiso(\rev p)}{\inv {(\idtoiso(p))}}\\
   \id{\idtoiso(p\ct q)}{\idtoiso(q)\circ \idtoiso(p)}\\
   \id{\isotoid(f\circ e)}{\isotoid(e)\ct \isotoid(f)}
 \end{gather}
-and so on.
+等等。
 
 \begin{eg}\label{ct:orders}
-  A precategory in which each set $\hom_A(a,b)$ is a mere proposition is equivalently a type $A_0$ equipped with a mere relation ``$\le$'' that is reflexive ($a\le a$) and transitive (if $a\le b$ and $b\le c$, then $a\le c$).
-  We call this a \define{preorder}.
-  \indexdef{preorder}
+一个预范畴，其中每个集合 $\hom_A(a,b)$ 是单命题等价于一个类型 $A_0$，配有一个反身 ($a\le a$) 和传递 ($a\le b$ 且 $b\le c$，则 $a\le c$) 的单命题关系“$\le$”。
+我们称这种结构为\define{预序 (preorder)}。\indexdef{预序 (preorder)}
 
-  In a preorder, a witness $f: a\le b$ is an isomorphism just when there exists some witness $g: b\le a$.
-  Thus, $a\cong b$ is the mere proposition that $a\le b$ and $b\le a$.
-  Therefore, a preorder $A$ is a category just when (1) each type $a=b$ is a mere proposition, and (2) for any $a,b:A_0$ there exists a function $(a\cong b) \to (a=b)$.
-  In other words, $A_0$ must be a set, and $\le$ must be antisymmetric\index{relation!antisymmetric} (if $a\le b$ and $b\le a$, then $a=b$).
-  We call this a \define{(partial) order} or a \define{poset}.
-  \indexdef{partial order}%
-  \indexdef{poset}%
+在预序中，证据 $f: a\le b$ 是一个同构当且仅当存在某种证据 $g: b\le a$。
+因此，$a\cong b$ 是单命题，即 $a\le b$ 且 $b\le a$。
+因此，一个预序 $A$ 是范畴当且仅当 (1) 每个类型 $a=b$ 是单命题，(2) 对于任何 $a,b:A_0$ 存在一个函数 $(a\cong b) \to (a=b)$。
+换句话说，$A_0$ 必须是一个集合，且 $\le$ 必须是反对称的\index{关系!反对称 (relation!antisymmetric)}（如果 $a\le b$ 且 $b\le a$，则 $a=b$）。
+我们称这种结构为\define{(偏序) (partial) order} 或\define{偏序集 (poset)}。\indexdef{偏序 (partial order)}%
+\indexdef{偏序集 (poset)}%
 \end{eg}
 
 \begin{eg}\label{ct:gaunt}
-  If $A$ is a category, then $A_0$ is a set if and only if for any $a,b:A_0$, the type $a\cong b$ is a mere proposition.
-  Given that $A$ is a category, this is equivalent to saying that every automorphism in $A$ is an identity arrow. On the other hand, if $A$ is a precategory such that $A_0$ is a set, then $A$ is a category precisely if it is skeletal\index{mathematics!classical} (any two isomorphic objects are equal) \emph{and} every automorphism is an identity arrow.
-  Categories of this sort are sometimes called \define{gaunt}~\cite{bsp12infncats}.
-  \indexdef{category!gaunt}%
-  \indexdef{gaunt category}%
-  \index{skeletal category}%
-  \index{category!skeletal}%
-  There is not really any notion of ``skeletality'' for our categories, unless one considers \cref{ct:category} itself to be such.
+如果 $A$ 是一个范畴，那么 $A_0$ 是一个集合当且仅当对于任意 $a,b:A_0$，类型 $a\cong b$ 是单命题。
+给定 $A$ 是一个范畴，这等价于说每个自同构在 $A$ 中都是恒等箭头。另一方面，如果 $A$ 是一个预范畴且 $A_0$ 是一个集合，那么 $A$ 是范畴当且仅当它是骨架 (skeletal)\index{数学!经典 (mathematics!classical)}（任何两个同构的对象是相等的）\emph{并且}每个自同构是恒等箭头。
+这种类型的范畴有时被称为\define{gaunt} 范畴~\cite{bsp12infncats}。\indexdef{范畴!gaunt (category!gaunt)}%
+\indexdef{gaunt 范畴 (gaunt category)}%
+\index{骨架范畴 (skeletal category)}%
+\index{范畴!骨架 (category!skeletal)}%
+对于我们的范畴，没有真正的“骨架性”概念，除非认为 \cref{ct:category} 本身是这样的。
 \end{eg}
 
 \begin{eg}\label{ct:discrete}
-  For any 1-type $X$, there is a category with $X$ as its type of objects and with $\hom(x,y) \defeq (x=y)$.
-  If $X$ is a set, we call this the \define{discrete}
-  \indexdef{category!discrete}%
-  \indexdef{discrete!category}%
-  category on $X$.
-  In general, we call it a \define{groupoid}
-  \indexdef{groupoid}
-  (see \cref{ct:groupoids}).
+对于任意 1-类型 $X$，存在一个范畴，其对象类型为 $X$，且 $\hom(x,y) \defeq (x=y)$。
+如果 $X$ 是一个集合，我们称其为\define{离散范畴 (discrete category)}。\indexdef{范畴!离散 (category!discrete)}%
+\indexdef{离散!范畴 (discrete!category)}%
+通常我们称其为\define{群组 (groupoid)}（见 \cref{ct:groupoids}）。
 \end{eg}
 
 \begin{eg}\label{ct:fundgpd}
-  For \emph{any} type $X$, there is a precategory with $X$ as its type of objects and with $\hom(x,y) \defeq \pizero{x=y}$.
-  The composition operation
-  \[ \pizero{y=z} \to \pizero{x=y} \to \pizero{x=z} \]
-  is defined by induction on truncation from concatenation $(y=z)\to(x=y)\to(x=z)$.
-  We call this the \define{fundamental pregroupoid}
-  \indexdef{fundamental!pregroupoid}%
-  \indexsee{pregroupoid, fundamental}{fundamental pregroupoid}%
-  of $X$.
-  (In fact, we have met it already in \cref{sec:van-kampen}; see also \cref{ex:rezk-vankampen}.)
+对于\emph{任意}类型 $X$，存在一个预范畴，其对象类型为 $X$，且 $\hom(x,y) \defeq \pizero{x=y}$。
+复合运算
+\[ \pizero{y=z} \to \pizero{x=y} \to \pizero{x=z} \]
+通过同伦连接从复合 $(y=z)\to(x=y)\to(x=z)$ 归纳定义。
+我们称其为 $X$ 的\define{基本预群组 (fundamental pregroupoid)}。\indexdef{基本!预群组 (fundamental!pregroupoid)}%
+\indexsee{预群组，基本 (pregroupoid, fundamental)}{基本预群组 (fundamental pregroupoid)}%
+（实际上，我们在 \cref{sec:van-kampen} 中已经遇到了它；另见 \cref{ex:rezk-vankampen}。）
 \end{eg}
 
 \begin{eg}\label{ct:hoprecat}
-  There is a precategory whose type of objects is \type and with $\hom(X,Y) \defeq \pizero{X\to Y}$, and composition defined by induction on truncation from ordinary composition $(Y\to Z) \to (X\to Y) \to (X\to Z)$.
-  We call this the \define{homotopy precategory of types}.
-  \indexdef{precategory!of types}%
-  \index{homotopy!category of types@(pre)category of types}%
+存在一个预范畴，其对象类型是 \type，且 $\hom(X,Y) \defeq \pizero{X\to Y}$，复合通过同伦连接从普通复合 $(Y\to Z) \to (X\to Y) \to (X\to Z)$ 归纳定义。
+我们称其为\define{类型的同伦预范畴 (homotopy precategory of types)}。\indexdef{类型的预范畴 (precategory!of types)}%
+\index{同伦!类型范畴 (homotopy!category of types)}%
 \end{eg}
 
 \begin{eg}\label{ct:rel}
-  Let \urel be the following precategory:
-  \begin{itemize}
-  \item Its objects are sets.
-  \item $\hom_{\urel}(X,Y) = X\to Y\to \prop$.
-  \item For a set $X$, we have $1_X(x,x') \defeq (x=x')$.
-  \item For $R:\hom_{\urel}(X,Y)$ and $S:\hom_{\urel}(Y,Z)$, their composite is defined by
-    \[ (S\circ R)(x,z) \defeq \Brck{\sm{y:Y} R(x,y) \times S(y,z)}.\]
-  \end{itemize}
-  Suppose $R:\hom_{\urel}(X,Y)$ is an isomorphism, with inverse $S$.
-  We observe the following.
-  \begin{enumerate}
-  \item If $R(x,y)$ and $S(y',x)$, then $(R\circ S)(y',y)$, and hence $y'=y$.
-    Similarly, if $R(x,y)$ and $S(y,x')$, then $x=x'$.\label{item:rel1}
-  \item For any $x$, we have $x=x$, hence $(S\circ R)(x,x)$.
-    Thus, there merely exists a $y:Y$ such that $R(x,y)$ and $S(y,x)$.\label{item:rel2}
-  \item Suppose $R(x,y)$.
-    By~\ref{item:rel2}, there merely exists a $y'$ with $R(x,y')$ and $S(y',x)$.
-    But then by~\ref{item:rel1}, merely $y'=y$, and hence $y'=y$ since $Y$ is a set.
-    Therefore, by transporting $S(y',x)$ along this equality, we have $S(y,x)$.
-    In conclusion, $R(x,y)\to S(y,x)$.
-    Similarly, $S(y,x) \to R(x,y)$.\label{item:rel3}
-  \item If $R(x,y)$ and $R(x,y')$, then by~\ref{item:rel3}, $S(y',x)$, so that by~\ref{item:rel1}, $y=y'$.
-    Thus, for any $x$ there is at most one $y$ such that $R(x,y)$.
-    And by~\ref{item:rel2}, there merely exists such a $y$, hence there exists such a $y$.
-  \end{enumerate}
-  In conclusion, if $R:\hom_{\urel}(X,Y)$ is an isomorphism, then for each $x:X$ there is exactly one $y:Y$ such that $R(x,y)$, and dually.
-  Thus, there is a function $f:X\to Y$ sending each $x$ to this $y$, which is an equivalence; hence $X=Y$.
-  With a little more work, we conclude that \urel is a category.
+令 \urel 为以下预范畴：
+\begin{itemize}
+  \item 其对象是集合。
+  \item $\hom_{\urel}(X,Y) = X\to Y\to \prop$。
+  \item 对于集合 $X$，我们有 $1_X(x,x') \defeq (x=x')$。
+  \item 对于 $R:\hom_{\urel}(X,Y)$ 和 $S:\hom_{\urel}(Y,Z)$，它们的复合定义为
+  \[ (S\circ R)(x,z) \defeq \Brck{\sm{y:Y} R(x,y) \times S(y,z)}。\]
+\end{itemize}
+假设 $R:\hom_{\urel}(X,Y)$ 是一个同构，其逆为 $S$。
+我们观察到以下几点。
+\begin{enumerate}
+  \item 如果 $R(x,y)$ 且 $S(y',x)$，则 $(R\circ S)(y',y)$，从而 $y'=y$。
+  类似地，如果 $R(x,y)$ 且 $S(y,x')$，则 $x=x'$。\label{item:rel1}
+  \item 对于任意 $x$，我们有 $x=x$，因此 $(S\circ R)(x,x)$。
+  因此，仅存在某个 $y:Y$ 使得 $R(x,y)$ 且 $S(y,x)$。\label{item:rel2}
+  \item 假设 $R(x,y)$。
+  根据~\ref{item:rel2}，仅存在某个 $y'$ 使得 $R(x,y')$ 且 $S(y',x)$。
+  但随后根据~\ref{item:rel1}，仅 $y'=y$，因此由于 $Y$ 是集合，所以 $y'=y$。
+  因此，通过沿此等同性传递 $S(y',x)$，我们有 $S(y,x)$。
+  结论是 $R(x,y)\to S(y,x)$。
+  类似地，$S(y,x) \to R(x,y)$。\label{item:rel3}
+  \item 如果 $R(x,y)$ 且 $R(x,y')$，则根据~\ref{item:rel3}，$S(y',x)$，因此根据~\ref{item:rel1}，$y=y'$。
+  因此，对于任意 $x$，至多存在一个 $y$ 使得 $R(x,y)$。
+  根据~\ref{item:rel2}，仅存在这样的 $y$，因此存在这样的 $y$。
+\end{enumerate}
+结论是，如果 $R:\hom_{\urel}(X,Y)$ 是同构，则对于每个 $x:X$，存在且仅存在一个 $y:Y$ 使得 $R(x,y)$，反之亦然。
+因此，存在一个函数 $f:X\to Y$，将每个 $x$ 映射到此 $y$，该函数是等价的；因此 $X=Y$。
+经过更多的推导，我们可以得出 \urel 是一个范畴。
 \end{eg}
 
-We might now restrict ourselves to considering categories rather than precategories.
-Instead, we will develop many concepts for precategories as well as categories, in order to emphasize how much better-behaved categories are, as compared both to precategories and to ordinary categories in classical\index{mathematics!classical} mathematics.
+我们现在可能将自己限制为仅考虑范畴而非预范畴。
+相反，我们将对预范畴和范畴进行许多概念的开发，以强调范畴相比于预范畴以及经典\index{数学!经典 (mathematics!classical)}数学中的普通范畴如何更加良好。
 
-We will also see in \crefrange{sec:strict-categories}{sec:dagger-categories} that in slightly more exotic contexts, there are uses for certain kinds of precategories other than categories, each of which ``fixes'' the equality of objects in different ways.
-This emphasizes the ``pre''-ness of precategories: they are the raw material out of which multiple important categorical structures can be defined.
-
+我们还将在 \crefrange{sec:strict-categories}{sec:dagger-categories} 中看到，在稍微异质的背景下，某些类型的预范畴除了范畴之外还有其他用途，每种预范畴以不同的方式“修复”对象的等同性。
+这进一步强调了预范畴的“预”性：它们是从中可以定义多种重要范畴结构的原材料。
 
 \section{Functors and transformations}
 \label{sec:transfors}
