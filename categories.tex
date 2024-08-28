@@ -824,203 +824,177 @@ Rezk 完成还进一步阐明了范畴等价的概念。
 因此，范畴的类型是一个 2-类型。
 因为 $\cteqv A B$ 是函子类型的一个子类型，而函子是范畴的对象，所以它是一个 1-类型；因此 $\id A B$ 的恒等类型也是 1-类型。
 
-\section{The Yoneda lemma}
+\section{Yoneda 引理 (The Yoneda Lemma)}
 \label{sec:yoneda}
 \index{Yoneda!lemma|(}
 
-Recall that we have a category \uset whose objects are sets and whose morphisms are functions.
-We now show that every precategory has a \uset-valued hom-functor.
-First we need to define opposites and products of (pre)categories.
+回顾一下，我们有一个范畴 \uset，其对象是集合，其态射是函数。现在我们展示每个前范畴都有一个取值为 \uset 的 $\hom$-函子。首先我们需要定义（前）范畴的对偶与积。
 
 \begin{defn}\label{ct:opposite-category}
-  For a precategory $A$, its \define{opposite}
-  \indexdef{opposite of a (pre)category}%
-  \indexdef{precategory!opposite}%
-  \indexdef{category!opposite}%
-  $A\op$ is a precategory with the same type of objects, with $\hom_{A\op}(a,b) \defeq \hom_A(b,a)$, and with identities and composition inherited from $A$.
+对于一个前范畴 $A$，其 \define{对偶 (opposite)}
+\indexdef{opposite of a (pre)category}{(前)范畴的对偶}%
+\indexdef{precategory!opposite}{前范畴的对偶}%
+\indexdef{category!opposite}{范畴的对偶}%
+$A\op$ 是一个具有相同对象类型的前范畴，其中 $\hom_{A\op}(a,b) \defeq \hom_A(b,a)$，而其恒等元和复合则继承自 $A$。
 \end{defn}
 
 \begin{defn}\label{ct:prod-cat}
-  For precategories $A$ and $B$, their \define{product}
-  \index{precategory!product of}%
-  \index{category!product of}%
-  \index{product!of (pre)categories}%
-  $A\times B$ is a precategory with $(A\times B)_0 \defeq A_0 \times B_0$ and
-  \[\hom_{A\times B}((a,b),(a',b')) \defeq \hom_A(a,a') \times \hom_B(b,b').\]
-  Identities are defined by $1_{(a,b)}\defeq (1_a,1_b)$ and composition by
-  \narrowequation{(g,g')(f,f') \defeq ((gf),(g'f')).}
+对于前范畴 $A$ 和 $B$，它们的 \define{积 (product)}
+\index{precategory!product of}{前范畴的积}%
+\index{category!product of}{范畴的积}%
+\index{product!of (pre)categories}{(前)范畴的积}%
+$A\times B$ 是一个前范畴，其 $(A\times B)_0 \defeq A_0 \times B_0$ 且
+\[\hom_{A\times B}((a,b),(a',b')) \defeq \hom_A(a,a') \times \hom_B(b,b')。\]
+恒等元定义为 $1_{(a,b)}\defeq (1_a,1_b)$，复合定义为
+\narrowequation{(g,g')(f,f') \defeq ((gf),(g'f'))。}
 \end{defn}
 
 \begin{lem}\label{ct:functorexpadj}
-  For precategories $A,B,C$, the following types are equivalent.
-  \begin{enumerate}
-  \item Functors $A\times B\to C$.
-  \item Functors $A\to C^B$.
-  \end{enumerate}
+对于前范畴 $A,B,C$，下列类型是等价的。
+\begin{enumerate}
+  \item 函子 $A\times B\to C$。
+  \item 函子 $A\to C^B$。
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  Given $F:A\times B\to C$, for any $a:A$ we obviously have a functor $F_a : B\to C$.
-  This gives a function $A_0 \to (C^B)_0$.
-  Next, for any $f:\hom_A(a,a')$, we have for any $b:B$ the morphism $F_{(a,b),(a',b)}(f,1_b):F_a(b) \to F_{a'}(b)$.
-  These are the components of a natural transformation $F_a \to F_{a'}$.
-  Functoriality in $a$ is easy to check, so we have a functor $\hat{F}:A\to C^B$.
+  给定 $F:A\times B\to C$，对于任意 $a:A$，我们显然有一个函子 $F_a : B\to C$。这给出了一个函数 $A_0 \to (C^B)_0$。接下来，对于任意 $f:\hom_A(a,a')$，我们对于任意 $b:B$ 都有态射 $F_{(a,b),(a',b)}(f,1_b):F_a(b) \to F_{a'}(b)$。这些是自然变换 $F_a \to F_{a'}$ 的分量。在 $a$ 上的函子性易于验证，因此我们有一个函子 $\hat{F}:A\to C^B$。
 
-  Conversely, suppose given $G:A\to C^B$.
-  Then for any $a:A$ and $b:B$ we have the object $G(a)(b):C$, giving a function $A_0 \times B_0 \to C_0$.
-  And for $f:\hom_A(a,a')$ and $g:\hom_B(b,b')$, we have the morphism
+  反过来，假设给定 $G:A\to C^B$。那么对于任意 $a:A$ 和 $b:B$，我们有对象 $G(a)(b):C$，给出一个函数 $A_0 \times B_0 \to C_0$。对于 $f:\hom_A(a,a')$ 和 $g:\hom_B(b,b')$，我们有态射
   \begin{equation*}
-     G(a')_{b,b'}(g)\circ G_{a,a'}(f)_b = G_{a,a'}(f)_{b'} \circ  G(a)_{b,b'}(g)
+    G(a')_{b,b'}(g)\circ G_{a,a'}(f)_b = G_{a,a'}(f)_{b'} \circ  G(a)_{b,b'}(g)
   \end{equation*}
-  in $\hom_C(G(a)(b), G(a')(b'))$.
-  Functoriality is again easy to check, so we have a functor $\check{G}:A\times B \to C$.
+  在 $\hom_C(G(a)(b), G(a')(b'))$ 中。函子性再次容易验证，因此我们有一个函子 $\check{G}:A\times B \to C$。
 
-  Finally, it is also clear that these operations are inverses.
+  最后，这些操作是互逆的也很明显。
 \end{proof}
 
-Now for any precategory $A$, we have a hom-functor
-\indexdef{hom-functor}%
-\[\hom_A : A\op \times A \to \uset.\]
-It takes a pair $(a,b): (A\op)_0 \times A_0 \jdeq A_0 \times A_0$ to the set $\hom_A(a,b)$.
-For a morphism $(f,f') : \hom_{A\op\times A}((a,b),(a',b'))$, by definition we have $f:\hom_A(a',a)$ and $f':\hom_A(b,b')$, so we can define
+现在对于任何前范畴 $A$，我们有一个 $\hom$-函子
+\indexdef{hom-functor}{$\hom$-函子}%
+\[\hom_A : A\op \times A \to \uset。\]
+它将一个对 $(a,b): (A\op)_0 \times A_0 \jdeq A_0 \times A_0$ 映射为集合 $\hom_A(a,b)$。对于一个态射 $(f,f') : \hom_{A\op\times A}((a,b),(a',b'))$，根据定义我们有 $f:\hom_A(a',a)$ 和 $f':\hom_A(b,b')$，因此我们可以定义
 \begin{align*}
-  (\hom_A)_{(a,b),(a',b')}(f,f')
-  &\defeq (g \mapsto (f'gf))\\
-  &: \hom_A(a,b) \to \hom_A(a',b').
+(\hom_A)_{(a,b),(a',b')}(f,f')
+&\defeq (g \mapsto (f'gf))\\
+&: \hom_A(a,b) \to \hom_A(a',b')。
 \end{align*}
-Functoriality is easy to check.
+函子性易于验证。
 
-By \cref{ct:functorexpadj}, therefore, we have an induced functor $\y:A\to \uset^{A\op}$, which we call the \define{Yoneda embedding}.
-\indexdef{Yoneda!embedding}%
-\indexdef{embedding!Yoneda}%
+因此根据 \cref{ct:functorexpadj}，我们有一个诱导的函子 $\y:A\to \uset^{A\op}$，我们称之为 \define{Yoneda 嵌入 (Yoneda embedding)}。
+\indexdef{Yoneda!embedding}{Yoneda 嵌入}%
+\indexdef{embedding!Yoneda}{嵌入!Yoneda}%
 
-\begin{thm}[The Yoneda lemma]\label{ct:yoneda}
-  \indexdef{Yoneda!lemma}
-  For any precategory $A$, any $a:A$, and any functor $F:\uset^{A\op}$, we have an isomorphism
-  \begin{equation}\label{eq:yoneda}
-    \hom_{\uset^{A\op}}(\y a, F) \cong Fa.
-  \end{equation}
-  Moreover, this is natural in both $a$ and $F$.
+\begin{thm}[Yoneda 引理]\label{ct:yoneda}
+\indexdef{Yoneda!lemma}{Yoneda 引理}
+对于任何前范畴 $A$，任意 $a:A$ 和任意函子 $F:\uset^{A\op}$，我们有一个同构
+\begin{equation}\label{eq:yoneda}
+\hom_{\uset^{A\op}}(\y a, F) \cong Fa。
+\end{equation}
+此外，这在 $a$ 和 $F$ 中都是自然的。
 \end{thm}
 \begin{proof}
-  Given a natural transformation $\alpha:\y a \to F$, we can consider the component $\alpha_a : \y a(a) \to F a$.
-  Since $\y a(a)\jdeq \hom_A(a,a)$, we have $1_a : \y a(a)$, so that $\alpha_a(1_a) : F a$.
-  This gives a function $(\alpha \mapsto \alpha_a(1_a))$ from left to right in~\eqref{eq:yoneda}.
+  给定一个自然变换 $\alpha:\y a \to F$，我们可以考虑分量 $\alpha_a : \y a(a) \to F a$。由于 $\y a(a)\jdeq \hom_A(a,a)$，我们有 $1_a : \y a(a)$，因此 $\alpha_a(1_a) : F a$。这给出了~\eqref{eq:yoneda} 中从左到右的一个函数 $(\alpha \mapsto \alpha_a(1_a))$。
 
-  In the other direction, given $x:F a$, we define $\alpha:\y a \to F$ by
-  \[\alpha_{a'}(f) \defeq F_{a,a'}(f)(x). \]
-  Naturality is easy to check, so this gives a function from right to left in~\eqref{eq:yoneda}.
+  反过来，给定 $x:F a$，我们通过定义 $\alpha:\y a \to F$
+  \[\alpha_{a'}(f) \defeq F_{a,a'}(f)(x)。\]
+  自然性易于验证，因此这给出了~\eqref{eq:yoneda} 中从右到左的一个函数。
 
-  To show that these are inverses, first suppose given $x:F a$.
-  Then with $\alpha$ defined as above, we have $\alpha_a(1_a) = F_{a,a}(1_a)(x) = 1_{F a}(x) = x$.
-  On the other hand, if we suppose given $\alpha:\y a \to F$ and define $x$ as above, then for any $f:\hom_A(a',a)$ we have
+  为了证明这些是互逆的，首先假设给定 $x:F a$。那么按照上面的方法定义的 $\alpha$ 满足 $\alpha_a(1_a) = F_{a,a}(1_a)(x) = 1_{F a}(x) = x$。另一方面，如果假设给定 $\alpha:\y a \to F$ 并按照上面的方法定义 $x$，那么对于任意 $f:\hom_A(a',a)$ 我们有
   \begin{align*}
     \alpha_{a'}(f)
     &= \alpha_{a'} (\y a_{a,a'}(f)(1_a))\\
     &= (\alpha_{a'}\circ \y a_{a,a'}(f))(1_a)\\
     &= (F_{a,a'}(f)\circ \alpha_a)(1_a)\\
     &= F_{a,a'}(f)(\alpha_a(1_a))\\
-    &= F_{a,a'}(f)(x).
+    &= F_{a,a'}(f)(x)。
   \end{align*}
-  Thus, both composites are equal to identities.
-  We leave the proof of naturality to the reader.
+  因此，两个复合都等于恒等式。我们将自然性的证明留给读者。
 \end{proof}
 
 \begin{cor}\label{ct:yoneda-embedding}
-  The Yoneda embedding $\y :A\to \uset^{A\op}$ is fully faithful.
+Yoneda 嵌入 $\y :A\to \uset^{A\op}$ 是完全忠实的。
 \end{cor}
 \begin{proof}
-  By \cref{ct:yoneda}, we have
-  \[ \hom_{\uset^{A\op}}(\y a, \y b) \cong \y b(a) \jdeq \hom_A(a,b). \]
-  It is easy to check that this isomorphism is in fact the action of \y on hom-sets.
+  根据 \cref{ct:yoneda}，我们有
+  \[ \hom_{\uset^{A\op}}(\y a, \y b) \cong \y b(a) \jdeq \hom_A(a,b)。\]
+  验证这个同构实际上是 \y 在 $\hom$ 集上的作用是容易的。
 \end{proof}
 
 \begin{cor}\label{ct:yoneda-mono}
-  If $A$ is a category, then $\y_0 : A_0 \to (\uset^{A\op})_0$ is an embedding.
-  In particular, if $\y a = \y b$, then $a=b$.
+如果 $A$ 是一个范畴，那么 $\y_0 : A_0 \to (\uset^{A\op})_0$ 是一个嵌入。特别地，如果 $\y a = \y b$，那么 $a=b$。
 \end{cor}
 \begin{proof}
-  By \cref{ct:yoneda-embedding}, \y induces an isomorphism on sets of isomorphisms.
-  But as $A$ and $\uset^{A\op}$ are categories and \y is a functor, this is equivalently an isomorphism on identity types, which is the definition of being an embedding.
+  根据 \cref{ct:yoneda-embedding}，\y 在同构集上诱导了一个同构。由于 $A$ 和 $\uset^{A\op}$ 是范畴且 \y 是一个函子，这等价于在身份类型上的同构，这就是嵌入的定义。
 \end{proof}
 
 \begin{defn}\label{ct:representable}
-  A functor $F:\uset^{A\op}$ is said to be \define{representable}
-  \indexdef{functor!representable}%
-  \indexdef{representable functor}%
-  if there exists $a:A$ and an isomorphism $\y a \cong F$.
+一个函子 $F:\uset^{A\op}$ 被称为 \define{可表示的 (representable)}
+\indexdef{functor!representable}{可表示函子}%
+\indexdef{representable functor}{可表示函子}%
+如果存在 $a:A$ 并且有一个同构 $\y a \cong F$。
 \end{defn}
 
 \begin{thm}\label{ct:representable-prop}
-  If $A$ is a category, then the type ``$F$ is representable'' is a mere proposition.
+如果 $A$ 是一个范畴，那么“$F$ 是可表示的”类型是一个纯命题。
 \end{thm}
 \begin{proof}
-  By definition ``$F$ is representable'' is just the fiber of $\y_0$ over $F$.
-  Since $\y_0$ is an embedding by \cref{ct:yoneda-mono}, this fiber is a mere proposition.
+  根据定义“$F$ 是可表示的”恰好是 $\y_0$ 在 $F$ 上的纤维。由于 \cref{ct:yoneda-mono} 中的 $\y_0$ 是一个嵌入，因此这个纤维是一个纯命题。
 \end{proof}
 
-In particular, in a category, any two representations of the same functor are equal.
-We can use this to give a different proof of \cref{ct:adjprop}.
-First we give a characterization of adjunctions in terms of representability.
+特别地，在一个范畴中，同一个函子的任何两个表示都是相等的。我们可以利用这一点给出 \cref{ct:adjprop} 的另一种证明。首先我们给出一种用可表示性描述伴随关系的特征。
 
 \begin{lem}\label{ct:adj-repr}
-  For any precategories $A$ and $B$ and a functor $F:A\to B$, the following types are equivalent.
-  \begin{enumerate}
-  \item $F$ is a left adjoint\index{adjoint!functor}.\label{item:ct:ar1}
-  \item For each $b:B$, the functor $(a \mapsto \hom_B(Fa,b))$ from $A\op$ to \uset is representable\index{representable functor}.\label{item:ct:ar2}
-  \end{enumerate}
+对于任意前范畴 $A$ 和 $B$ 以及一个函子 $F:A\to B$，下列类型是等价的。
+\begin{enumerate}
+  \item $F$ 是一个左伴随 (left adjoint)\index{adjoint!functor}{伴随函子}。\label{item:ct:ar1}
+  \item 对于每个 $b:B$，从 $A\op$ 到 \uset 的函子 $(a \mapsto \hom_B(Fa,b))$ 是可表示的\index{representable functor}{可表示函子}。\label{item:ct:ar2}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  An element of the type~\ref{item:ct:ar2} consists of a function $G_0:B_0 \to A_0$ together with, for every $a:A$ and $b:B$ an isomorphism
+  类型~\ref{item:ct:ar2} 的一个元素由一个函数 $G_0:B_0 \to A_0$ 以及对于每个 $a:A$ 和 $b:B$ 的一个同构
   \[ \gamma_{a,b}:\hom_B(Fa,b) \cong \hom_A(a,G_0 b) \]
-  such that $\gamma_{a,b}(g \circ Ff) = \gamma_{a',b}(g)\circ f$ for $f:\hom_{A}(a,a')$.
+  构成，满足 $\gamma_{a,b}(g \circ Ff) = \gamma_{a',b}(g)\circ f$ 对于 $f:\hom_{A}(a,a')$。
 
-  Given this, for $a:A$ we define $\eta_a \defeq \gamma_{a,Fa}(1_{Fa})$, and for $b:B$ we define $\epsilon_b \defeq \inv{(\gamma_{Gb,b})}(1_{Gb})$.
-  Now for $g:\hom_B(b,b')$ we define
+  有了这个，对于 $a:A$，我们定义 $\eta_a \defeq \gamma_{a,Fa}(1_{Fa})$，对于 $b:B$，我们定义 $\epsilon_b \defeq \inv{(\gamma_{Gb,b})}(1_{Gb})$。现在对于 $g:\hom_B(b,b')$ 我们定义
   \[ G_{b,b'}(g) \defeq \gamma_{G b, b'}(g \circ \epsilon_b) \]
-  The verifications that $G$ is a functor and $\eta$ and $\epsilon$ are natural transformations satisfying the triangle identities are exactly as in the classical case, and as they are all mere propositions we will not care about their values.
-  Thus, we have a function~\ref{item:ct:ar2}$\to$\ref{item:ct:ar1}.
+  验证 $G$ 是一个函子且 $\eta$ 和 $\epsilon$ 是满足三角恒等式的自然变换的过程与经典情形完全相同，并且由于它们都是纯命题，我们不会关心它们的具体值。因此，我们有一个从~\ref{item:ct:ar2} 到~\ref{item:ct:ar1} 的函数。
 
-  In the other direction, if $F$ is a left adjoint, we of course have $G_0$ specified, and we can take $\gamma_{a,b}$ to be the composite
+  反过来，如果 $F$ 是一个左伴随，我们当然有 $G_0$ 指定的，我们可以将 $\gamma_{a,b}$ 取为复合
   \[ \hom_B(Fa,b)
   \xrightarrow{G_{Fa,b}} \hom_A(GFa,Gb)
-  \xrightarrow{(\blank\circ \eta_a)} \hom_A(a,Gb).
+  \xrightarrow{(\blank\circ \eta_a)} \hom_A(a,Gb)。
   \]
-  This is clearly natural since $\eta$ is, and it has an inverse given by
+  由于 $\eta$ 是自然的，因此这显然是自然的，并且它有一个逆元给出
   \[ \hom_A(a,Gb)
   \xrightarrow{F_{a,Gb}} \hom_B(Fa,FGb)
   \xrightarrow{(\epsilon_b \circ \blank )} \hom_A(Fa,b)
   \]
-  (by the triangle identities).
-  Thus we also have~\ref{item:ct:ar1}$\to$~\ref{item:ct:ar2}.
+  （通过三角恒等式）。
+  因此我们也有~\ref{item:ct:ar1} 到~\ref{item:ct:ar2}。
 
-  For the composite~\ref{item:ct:ar2}$\to$\ref{item:ct:ar1}$\to$~\ref{item:ct:ar2}, clearly the function $G_0$ is preserved, so it suffices to check that we get back $\gamma$.
-  But the new $\gamma$ is defined to take $f:\hom_B(Fa,b)$ to
+  对于复合~\ref{item:ct:ar2} 到~\ref{item:ct:ar1} 再到~\ref{item:ct:ar2}，显然函数 $G_0$ 是保持的，因此只需检查我们是否得到了 $\gamma$。但是新定义的 $\gamma$ 被定义为将 $f:\hom_B(Fa,b)$ 映射为
   \begin{align*}
     G(f) \circ \eta_a
     &\jdeq \gamma_{G Fa, b}(f \circ \epsilon_{Fa}) \circ \eta_a\\
     &= \gamma_{G Fa, b}(f \circ \epsilon_{Fa} \circ F\eta_a)\\
     &= \gamma_{G Fa, b}(f)
   \end{align*}
-  so it agrees with the old one.
+  所以它与旧的 $\gamma$ 一致。
 
-  Finally, for~\ref{item:ct:ar1}$\to$\ref{item:ct:ar2}$\to$~\ref{item:ct:ar1}, we certainly get back the functor $G$ on objects.
-  The new $G_{b,b'}:\hom_B(b,b') \to \hom_A(Gb,Gb')$ is defined to take $g$ to
+  最后，对于~\ref{item:ct:ar1} 到~\ref{item:ct:ar2} 再到~\ref{item:ct:ar1}，我们肯定会得到对象上的函子 $G$。新的 $G_{b,b'}:\hom_B(b,b') \to \hom_A(Gb,Gb')$ 被定义为将 $g$ 映射为
   \begin{align*}
     \gamma_{G b, b'}(g \circ \epsilon_b)
     &\jdeq G(g \circ \epsilon_b) \circ \eta_{Gb}\\
     &= G(g) \circ G\epsilon_b \circ \eta_{Gb}\\
     &= G(g)
   \end{align*}
-  so it agrees with the old one.
-  The new $\eta_a$ is defined to be $\gamma_{a,Fa}(1_{Fa}) \jdeq G(1_{Fa}) \circ \eta_a$, so it equals the old $\eta_a$.
-  And finally, the new $\epsilon_b$ is defined to be $\inv{(\gamma_{Gb,b})}(1_{Gb}) \jdeq \epsilon_b \circ F(1_{Gb})$, which also equals the old $\epsilon_b$.
+  所以它与旧的 $G$ 一致。新的 $\eta_a$ 被定义为 $\gamma_{a,Fa}(1_{Fa}) \jdeq G(1_{Fa}) \circ \eta_a$，因此它等于旧的 $\eta_a$。最后，新的 $\epsilon_b$ 被定义为 $\inv{(\gamma_{Gb,b})}(1_{Gb}) \jdeq \epsilon_b \circ F(1_{Gb})$，这也等于旧的 $\epsilon_b$。
 \end{proof}
 
 \begin{cor}\label{ct:adjprop2}[\cref{ct:adjprop}]
-  If $A$ is a category and $F:A\to B$, then the type ``$F$ is a left adjoint'' is a mere proposition.
+如果 $A$ 是一个范畴且 $F:A\to B$，那么类型“$F$ 是一个左伴随”是一个纯命题。
 \end{cor}
 \begin{proof}
-  By \cref{ct:representable-prop}, if $A$ is a category then the type in \cref{ct:adj-repr}\ref{item:ct:ar2} is a mere proposition.
+  根据 \cref{ct:representable-prop}，如果 $A$ 是一个范畴，那么 \cref{ct:adj-repr} 中的类型 \ref{item:ct:ar2} 是一个纯命题。
 \end{proof}
 \index{Yoneda!lemma|)}
 
