@@ -1414,194 +1414,171 @@ $x\subseteq y$ 在 $V$ 上的定义与通常一样
 对于任意 $u,v:V$ 我们有 $(u=_V v) = (u \bisim v)$。
 \end{lem}
 
-
 \begin{proof}
-An easy induction shows that $\bisim$ is reflexive, so by transport we have $(u=_V v)\to (u \bisim v)$.
-Thus, it remains to show that $(u \bisim v)\to (u=_V v)$.
-By induction on $u$ and $v$, we may assume they are $\vset(A,f)$ and $\vset(B,g)$ respectively.
-(We can ignore the path constructors of $V$, since $(u \bisim v)\to (u=_V v)$ is a mere proposition.)
-Then by definition, $\vset(A,f)\bisim\vset(B,g)$ implies $(\fall{a:A}\exis{b:B}f(a)  \bisim g(b))$ and conversely.
-But the inductive hypothesis then tells us that $(\fall{a:A}\exis{b:B}f(a) = g(b))$ and conversely.
-So by the path con\-struc\-tor for $V$ we have $\vset(A,f) =_V \vset(B,g)$.
+一个简单的归纳法表明 $\bisim$ 是自反的，因此通过传递性，我们有 $(u=_V v)\to (u \bisim v)$。
+因此，剩下的要证明的是 $(u \bisim v)\to (u=_V v)$。
+通过对 $u$ 和 $v$ 的归纳，我们可以假设它们分别是 $\vset(A,f)$ 和 $\vset(B,g)$。
+（我们可以忽略 $V$ 的路径构造子，因为 $(u \bisim v)\to (u=_V v)$ 是一个单纯命题。）
+然后根据定义，$\vset(A,f)\bisim\vset(B,g)$ 意味着 $(\fall{a:A}\exis{b:B}f(a)  \bisim g(b))$，反之亦然。
+但是根据归纳假设，我们可以得出 $(\fall{a:A}\exis{b:B}f(a) = g(b))$，反之亦然。
+所以根据 $V$ 的路径构造子，我们有 $\vset(A,f) =_V \vset(B,g)$。
 \end{proof}
 
-One might think that we could omit the 0-truncation constructor of $V$ and \emph{prove} that $V$ is 0-truncated by applying \cref{thm:h-set-refrel-in-paths-sets} to the bisimulation.
-However, in the proof of \cref{lem:BisimEqualsId} we used the fact that $V$ is 0-truncated, to conclude that $(u \bisim v)\to (u=_V v)$ is a mere proposition so that in the induction it suffices to assume $u$ and $v$ are $\vset(A,f)$ and $\vset(B,g)$.
+有人可能会认为我们可以省略 $V$ 的 0-截断构造子，并通过将 \cref{thm:h-set-refrel-in-paths-sets} 应用于仿真来\emph{证明} $V$ 是 0-截断的。
+然而，在 \cref{lem:BisimEqualsId} 的证明中，我们使用了 $V$ 是 0-截断的事实，得出 $(u \bisim v)\to (u=_V v)$ 是一个单纯命题，因此在归纳中我们可以假设 $u$ 和 $v$ 是 $\vset(A,f)$ 和 $\vset(B,g)$。
 
-Now we can use the resized identity relation to get the following useful principle.
+现在我们可以使用调整大小的恒等关系来得到以下有用的原理。
 
 \begin{lem}\label{lem:MonicSetPresent}
-For every $u:V$ there is a given $A_u:\UU$ and monic $m_u: A_u \mono V$ such that $u = \vset(A_u, m_u)$.
+对于每个 $u:V$，存在一个给定的 $A_u:\UU$ 和单射 $m_u: A_u \mono V$，使得 $u = \vset(A_u, m_u)$。
 \end{lem}
 
 \begin{proof}
-  Take any presentation $u = \vset(A,f)$ and factor $f:A\to V$ as a surjection followed by an injection:
-  %
-  \begin{equation*}
-    f = m_u\circ e_u : A \epi A_u \mono V.
-  \end{equation*}
-  %
-  Clearly $u = \vset(A_u, m_u)$ if only $A_u$ is still in $\UU$, which holds if the kernel of $e_u : A \epi A_u$ is in $\UU$.  But the kernel of $e_u : A \epi A_u$ is the pullback along $f : A\to V$ of the identity on $V$, which we just showed to be $\UU$-small, up to equivalence.  Now, this construction of the pair $(A_u, m_u)$ with $m_u :A_u \mono V$ and $u = \vset(A_u, m_u)$ from $u:V$ is unique up to equivalence over $V$, and hence up to identity by univalence.  Thus by the principle of unique choice \eqref{cor:UC} there is a map $c : V\to\sm{A:\UU}(A\to V)$ such that $c(u) = (A_u, m_u)$, with $m_u :A_u \mono V$ and $u = \vset(c(u))$, as claimed.
+取任意表示 $u = \vset(A,f)$ 并将 $f:A\to V$ 分解为一个满射后跟一个单射：
+%
+\begin{equation*}
+f = m_u\circ e_u : A \epi A_u \mono V.
+\end{equation*}
+%
+显然，如果 $A_u$ 仍在 $\UU$ 中，则 $u = \vset(A_u, m_u)$ 成立，这在 $e_u : A \epi A_u$ 的核在 $\UU$ 中时成立。但是 $e_u : A \epi A_u$ 的核是 $f : A\to V$ 上的恒等的拉回，我们刚刚证明它在等价的意义下是 $\UU$-小的。现在，从 $u:V$ 构造出 $m_u :A_u \mono V$ 和 $u = \vset(A_u, m_u)$ 的对 $(A_u, m_u)$ 是在 $V$ 上等价的唯一的，因此通过单一选择原理 \eqref{cor:UC}，存在一个映射 $c : V\to\sm{A:\UU}(A\to V)$，使得 $c(u) = (A_u, m_u)$，其中 $m_u :A_u \mono V$ 并且 $u = \vset(c(u))$，如所述。
 \end{proof}
 
 \begin{defn}\label{def:TypeOfElements}
-  For $u:V$, the just constructed monic presentation $m_u: A_u \mono V$ such that $u = \vset(A_u, m_u)$ may be called the \define{type of members}
-  \indexdef{type!of members}%
-  of $u$ and denoted $m_u : [u] \mono V$, or even $[u] \mono V$.  We can think of $[u]$ as the ``subclass of $V$ consisting of members of $u$''.
+对于 $u:V$，刚刚构造的单射表示 $m_u: A_u \mono V$ 使得 $u = \vset(A_u, m_u)$ 可以称为 $u$ 的\define{成员类型 (type of members)}，记为 $m_u : [u] \mono V$，或者简写为 $[u] \mono V$。我们可以将 $[u]$ 视为“由 $u$ 的成员组成的 $V$ 的子类”。
 \end{defn}
 
 \begin{thm}\label{thm:VisCST}
-  \index{axiom!of set theory, for the cumulative hierarchy}%
-  The following hold for $(V, {\in})$:
-  %
-  \begin{enumerate}
-  \item \emph{extensionality:}
-    %
-    \begin{equation*}
-      \fall{x, y : V} x \subseteq y \land y \subseteq x \Leftrightarrow x = y.
-    \end{equation*}
-    %
-     \item \emph{empty set:} for all $x:V$, we have $\neg (x\in \emptyset)$.
-    %
-    \item \emph{pairing:} for all $u, v:V$, the class $\{u, v\} \defeq \setof{ x | x = u \vee x = v}$ is a $V$-set.
-      %
-    \item \emph{infinity:}\index{axiom!of infinity}  there is a $v:V$ with $\emptyset\in v$ and $x\in v$ implies $x\cup \{x\}\in v$.
-    %
-  \item \emph{union:} for all $v:V$, the class $\cup v\defeq \setof{ x | \exis{u:V} x \in u \in v}$ is a $V$-set.
-    %
-    \item \emph{function set:} for all $u, v:V$, the class $v^u \defeq \setof{ x | x : u\to v}$ is a $V$-set.%
-      \footnote{Here $x:u\to v$ means that $x$ is an appropriate set of ordered pairs, according to the usual way of encoding functions in set theory.}
-    %
-   \item \emph{$\in$-induction:} if $C : V \to \prop$ is a class such that $C(a)$ holds whenever $C(x)$ for all $x\in a$, then $C(v)$ for all $v:V$.
-   %
-     \item \emph{replacement:}\index{axiom!of replacement} given any $r : V \to V$ and $x : V$, the class
-       %
-       \begin{equation*}
-         \setof{ y | \exis{z : V} z \in x \land y = r(z)}
-       \end{equation*}
-       %
-       is a $V$-set.
-  %
-   \item \emph{separation:}\index{axiom!of separation}  given any $a : V$ and $\UU$-small $C : V \to \propU$, the class
-     %
-     \begin{equation*}
-       \setof{ x | x \in a \land C(x)}
-     \end{equation*}
-     %
-     is a $V$-set.
-  \end{enumerate}
+\index{axiom!of set theory, for the cumulative hierarchy}%
+以下关于 $(V, {\in})$ 成立：
+%
+\begin{enumerate}
+\item \emph{外延性 (extensionality):}
+%
+\begin{equation*}
+\fall{x, y : V} x \subseteq y \land y \subseteq x \Leftrightarrow x = y.
+\end{equation*}
+%
+\item \emph{空集 (empty set):} 对于所有 $x:V$，我们有 $\neg (x\in \emptyset)$。
+%
+\item \emph{配对 (pairing):} 对于所有 $u, v:V$，类 $\{u, v\} \defeq \setof{ x | x = u \vee x = v}$ 是一个 $V$-集合。
+%
+\item \emph{无穷 (infinity):}\index{axiom!of infinity} 存在 $v:V$ 使得 $\emptyset\in v$ 且 $x\in v$ 意味着 $x\cup \{x\}\in v$。
+%
+\item \emph{并集 (union):} 对于所有 $v:V$，类 $\cup v\defeq \setof{ x | \exis{u:V} x \in u \in v}$ 是一个 $V$-集合。
+%
+\item \emph{函数集 (function set):} 对于所有 $u, v:V$，类 $v^u \defeq \setof{ x | x : u\to v}$ 是一个 $V$-集合。%
+\footnote{这里 $x:u\to v$ 的意思是 $x$ 是一组适当的有序对，根据集合论中编码函数的常规方式。}
+%
+\item \emph{$\in$-归纳 (induction):} 如果 $C : V \to \prop$ 是一个类，并且当对所有 $x\in a$ 都有 $C(x)$ 时 $C(a)$ 成立，那么对于所有 $v:V$，$C(v)$ 成立。
+%
+\item \emph{替代 (replacement):}\index{axiom!of replacement} 给定任何 $r : V \to V$ 和 $x : V$，类
+%
+\begin{equation*}
+\setof{ y | \exis{z : V} z \in x \land y = r(z)}
+\end{equation*}
+%
+是一个 $V$-集合。
+%
+\item \emph{分离 (separation):}\index{axiom!of separation} 给定任何 $a : V$ 和 $\UU$-小 $C : V \to \propU$，类
+%
+\begin{equation*}
+\setof{ x | x \in a \land C(x)}
+\end{equation*}
+%
+是一个 $V$-集合。
+\end{enumerate}
 \end{thm}
 
+\begin{proof}[证明 (Sketch of proof)]
+\mbox{}
+%
+\begin{enumerate}
+\item \emph{外延性 (Extensionality):} 如果 $\vset(A,f) \subseteq \vset(B, g)$，那么对于每个 $a : A$，有 $f(a) \in \vset(B, g)$，因此对于每个 $a : A$，仅存在 $b : B$ 使得 $f(a) = g(b)$。假设 $\vset(B, g) \subseteq \vset(A, f)$ 得到了 \eqref{eq:V-path} 的另一半，因此 $\vset(A,f) = \vset(B,g)$。
 
-\begin{proof}[Sketch of proof]
-  \mbox{}
-  %
-  \begin{enumerate}
-  \item Extensionality: if $\vset(A,f) \subseteq \vset(B, g)$ then $f(a) \in \vset(B, g)$
-    for every $a : A$, therefore for every $a : A$ there merely exists $b : B$ such that
-    $f(a) = g(b)$. The assumption $\vset(B, g) \subseteq \vset(A, f)$ gives the other half
-    of~\eqref{eq:V-path}, therefore $\vset(A,f) = \vset(B,g)$.
+\item \emph{空集 (Empty set):} 假设 $x\in \emptyset = \vset(\emptyt,\rec\emptyt(V))$。那么 $\exis{a:\emptyt}x=\, \rec\emptyt(V,a)$，这是荒谬的。
 
-  \item Empty set: suppose $x\in \emptyset = \vset(\emptyt,\rec\emptyt(V))$.  Then $\exis{a:\emptyt}x=\, \rec\emptyt(V,a)$, which is absurd.
+\item \emph{配对 (Pairing):} 给定 $u$ 和 $v$，令 $w=\vset(\bool,\rec\bool(V,u,v))$。
+\index{pair!unordered}
 
-  \item Pairing: given $u$ and $v$, let $w=\vset(\bool,\rec\bool(V,u,v))$.
-    \index{pair!unordered}
+\item \emph{无穷 (Infinity):} 取 $w = \vset(\nat,I)$，其中 $I: \nat \to V$ 由递归 $I(0) \defeq \emptyset$ 和 $I(n+1) \defeq I(n)\cup \{I(n)\}$ 给出。
 
-  \item Infinity: take $w = \vset(\nat,I)$, where $I: \nat \to V$ is given by the recursion $I(0) \defeq \emptyset$ and $I(n+1) \defeq I(n)\cup \{I(n)\}$.
+\item \emph{并集 (Union):} 取任意 $v:V$ 和任意表示 $f :A\to V$，使得 $v=\vset(A,f)$。然后令 $\tilde{A} \defeq \sm{a:A}[fa]$，其中 $m_{fa} : [fa] \mono V$ 是来自 \cref{def:TypeOfElements} 的成员类型。显然 $\tilde{A}$ 是 $\UU$-小的，我们定义 $\cup v \defeq \vset(\tilde{A}, \lam{x} m_{f(\proj1(x))}(\proj2(x)))$。
 
-  \item Union: Take any $v:V$ and any presentation $f :A\to V$ with $v=\vset(A,f)$.  Then let $\tilde{A} \defeq \sm{a:A}[fa]$, where $m_{fa} : [fa] \mono V$ is the type of members from \cref{def:TypeOfElements}.  $\tilde{A}$ is plainly $\UU$-small, and we have $\cup v \defeq \vset(\tilde{A}, \lam{x} m_{f(\proj1(x))}(\proj2(x)))$.
+\item \emph{函数集 (Function set):} 给定 $u, v:V$，取成员类型 $[u] \mono V$ 和 $[v] \mono V$ 以及函数类型 $[u]\to [v]$。我们想要定义一个映射
+\[
+r: ([u]\to [v])\ \longrightarrow\ V
+\]
+其中“$r(f) = \setof{ \pairr{x, f(x)} | x : [u] }$”，但为了使其有意义，我们首先必须定义有序对 $\pairr{x, y}$，然后我们取映射 $r': x \mapsto \pairr{x, f(x)}$，然后我们可以定义 $r(f)\defeq \vset([u], r')$。但有序对可以根据通常的无序配对定义。
 
-  \item Function set: given $u, v:V$, take the types of members $[u] \mono V$ and $[v] \mono V$, and the function type $[u]\to [v]$.  We want to define a map
-  \[
- r: ([u]\to [v])\ \longrightarrow\ V
-  \]
-   with ``$r(f) = \setof{ \pairr{x, f(x)} | x : [u] }$'', but in order for this to make sense we must first define the ordered pair $\pairr{x, y}$, and then we take the map $r': x \mapsto \pairr{x, f(x)}$, and then we can put $r(f)\defeq \vset([u], r')$.  But the ordered pair can be defined in terms of unordered pairing as usual.
+\item \emph{$\in$-归纳 ($\in$-induction):} 令 $C : V \to \prop$ 为一个类，假设当对所有 $x\in a$ 都有 $C(x)$ 时 $C(a)$ 成立，并且取任意 $v=\vset(B,g)$。为了通过归纳证明 $C(v)$，假设对所有 $b:B$，有 $C(g(b))$。对于每个 $x\in v$，仅存在 $b:B$，使得 $x = g(b)$，因此 $C(x)$ 成立。因此 $C(v)$ 成立。
 
-  \item $\in$-induction: let $C : V \to \prop$ be a class such that $C(a)$ holds whenever $C(x)$ for all $x\in a$, and take any $v=\vset(B,g)$.  To show that $C(v)$ by induction, assume that $C(g(b))$ for all $b:B$.  For every $x\in v$ there merely exists some $b:B$ with $x = g(b)$, and so $C(x)$.  Thus $C(v)$.
+\item \emph{替代 (Replacement):} 令 $C$ 表示上述的类。
+声明“$C$ 是一个 $V$-集合”是一个单纯命题，因此我们可以通过如下归纳进行推导。假设 $x$ 是 $\vset(A, f)$，我们断言 $w
+\defeq \vset(A, r \circ f)$ 是我们寻找的集合。如果 $C(y)$ 成立，那么仅存在
+$z : V$ 和 $a : A$ 使得 $z = f(a)$ 且 $y = r(z)$，因此 $y \in w$。
+反之，如果 $y \in w$，那么仅存在 $a : A$ 使得 $y = r(f(a))$，因此
+如果我们取 $z \defeq f(a)$，我们可以看到 $C(y)$ 成立。
 
-  \item Replacement: let $C$ denote the class in question.
-    The statement ``$C$ is a $V$-set'' is a mere proposition, so we may
-    proceed by induction as follows. Supposing $x$ is $\vset(A, f)$, we claim that $w
-    \defeq \vset(A, r \circ f)$ is the set we are looking for.  If $C(y)$ then there merely exists
-    $z : V$ and $a : A$ such that $z = f(a)$ and $y = r(z)$, therefore $y \in w$.
-    Conversely, if $y \in w$ then there merely exists $a : A$ such that $y = r(f(a))$, so
-    if we take $z \defeq f(a)$ we see that $C(y)$ holds.
-
-  \item Let us say that a class $C: V\to\prop$ is \define{separable}
-    \indexdef{class!separable}%
-    \indexdef{separable class}%
-    if for any $a:V$ the class
-  %
-  \symlabel{class-intersection}
-  \begin{equation*}
-    a \cap C \defeq\setof{x | x\in a \wedge C(x)}
-  \end{equation*}
-  %
-  is a $V$-set.
-We need to show that any $\UU$-small  $C: V \to \propU$ is separable. Indeed, given $a=\vset(A,f)$, let $A' = \sm{x:A}C(fx)$, and take $f' = f\circ i$, where $i : A' \to A$ is the obvious inclusion.  Then we can take $a' = \vset(A',f')$ and we have $x\in a\wedge C(x) \Leftrightarrow x\in a'$ as claimed.  We needed the assumption that $C$ lands in $\UU$ in order for $A' = \sm{x:A}C(fx)$ to be in $\UU$.\qedhere
+\item 令我们称一个类 $C: V\to\prop$ 是\define{可分离的 (separable)}，如果对于任何 $a:V$，类
+%
+\symlabel{class-intersection}
+\begin{equation*}
+a \cap C \defeq\setof{x | x\in a \wedge C(x)}
+\end{equation*}
+%
+是一个 $V$-集合。
+我们需要证明任何 $\UU$-小的 $C: V \to \propU$ 是可分离的。事实上，给定 $a=\vset(A,f)$，令 $A' = \sm{x:A}C(fx)$，并取 $f' = f\circ i$，其中 $i : A' \to A$ 是明显的包含映射。然后我们可以取 $a' = \vset(A',f')$，并且有 $x\in a\wedge C(x) \Leftrightarrow x\in a'$，如所述。我们需要假设 $C$ 的值域在 $\UU$ 中，以便 $A' = \sm{x:A}C(fx)$ 在 $\UU$ 中。\qedhere
 \end{enumerate}
 \end{proof}
 
-It is also convenient to have a strictly syntactic criterion of separability, so that one can read off from the expression for a class that it produces a $V$-set.  One such familiar condition is being ``$\Delta_0$'', which means that the expression is built up from equality $x=_V y$ and membership $x\in y$, using only mere-propositional connectives $\neg$, $\land$, $\lor$, $\Rightarrow$ and quantifiers $\forall$, $\exists$ over particular sets, i.e.\ of the form $\exists(x\in a)$ and $\forall(y\in b)$ (these are called \define{bounded} quantifiers\index{bounded!quantifier}\index{quantifier!bounded}).\indexdef{separation!.Delta0@$\Delta_0$}%
+我们还可以使用一个严格的句法标准来判断可分离性，以便从类的表达式中读出它是否产生了一个 $V$-集合。一个熟悉的条件是 $\Delta_0$，这意味着表达式是由等式 $x=_V y$ 和隶属关系 $x\in y$ 通过仅限于单纯命题的连接词 $\neg$，$\land$，$\lor$，$\Rightarrow$ 和量词 $\forall$，$\exists$ （即所谓的\define{有界量词 (bounded quantifiers)}）构建的。
 
 \begin{cor}\label{cor:Delta0sep}
-If the class $C: V \to \prop$ is $\Delta_0$ in the above sense, then it is separable.
+如果类 $C: V \to \prop$ 是上述意义上的 $\Delta_0$，那么它是可分离的。
 \end{cor}
 \index{axiom!of $\Delta_0$-separation}%
 
 \begin{proof}
-Recall that we have a $\UU$-small resizing $x \bisim y$ of identity $x = y$. Since $x\in y$ is defined in terms of $x=y$, we also have a $\UU$-small resizing of membership
+记住我们有一个 $\UU$-小的 $\bisim$ 恒等关系 $x = y$。由于 $x\in y$ 是根据 $x=y$ 定义的，我们也有一个 $\UU$-小的隶属关系的调整大小
 %
 \symlabel{resized-membership}
 \begin{equation*}
-  x\bin\vset(A,f) \defeq \exis{a:A} x \bisim f(a).
+x\bin\vset(A,f) \defeq \exis{a:A} x \bisim f(a)。
 \end{equation*}
 %
-Now, let $\Phi$ be a $\Delta_0$ expression for $C$, so that as classes $\Phi = C$ (strictly speaking, we should distinguish expressions from their meanings, but we will blur the difference). Let $\widetilde{\Phi}$ be the result of replacing all occurrences of $=$ and $\in$ by their resized equivalents $\bisim$ and $\bin$.  Clearly then $\widetilde{\Phi}$ also expresses $C$, in the sense that for all $x:V$, $\widetilde{\Phi}(x) \Leftrightarrow C(x)$, and hence $\widetilde{\Phi}=C$ by univalence.  It now suffices to show that $\widetilde{\Phi}$ is $\UU$-small, for then it will be separable by the theorem.
+现在，设 $\Phi$ 为 $C$ 的 $\Delta_0$ 表达式，因此作为类 $\Phi = C$（严格来说，我们应该区分表达式和它们的意义，但我们将模糊它们之间的差异）。令 $\widetilde{\Phi}$ 为将所有出现的 $=$ 和 $\in$ 替换为它们的调整后的等价物 $\bisim$ 和 $\bin$ 的结果。显然，$\widetilde{\Phi}$ 也表达了 $C$，就类 $x:V$ 而言，$\widetilde{\Phi}(x) \Leftrightarrow C(x)$，因此根据同一性原理，$\widetilde{\Phi}=C$。现在只需要证明 $\widetilde{\Phi}$ 是 $\UU$-小的，因为这样它将通过定理成为可分离的。
 
-We show that  $\widetilde{\Phi}$ is $\UU$-small by induction on the construction of the expression.  The base cases are $x \bisim y$ and $x\bin y$, which have already been resized into $\UU$.  It is also clear that $\UU$ is closed under the mere-propositional operations (and $(-1)$-truncation), so it just remains to check the bounded quantifiers $\exists(x\in a)$ and $\forall(y\in b)$.  By definition,
+我们通过对表达式的构造进行归纳来证明 $\widetilde{\Phi}$ 是 $\UU$-小的。基础情况是 $x \bisim y$ 和 $x\bin y$，它们已经被调整大小为 $\UU$。显然，$\UU$ 在单纯命题操作（和 $(-1)$-截断）下是封闭的，因此剩下的只是检查有界量词 $\exists(x\in a)$ 和 $\forall(y\in b)$。根据定义，
 \begin{align*}
 \exists(x\in a) P(x) &\defeq \Brck {\sm{x:V}(x\bin a \land P(x))},\\
-\forall(y\in b) P(x) &\defeq  \prd{x:V}(x\bin a \to P(x)).
+\forall(y\in b) P(x) &\defeq  \prd{x:V}(x\bin a \to P(x))。
 \end{align*}
-Let us consider $\brck {\sm{x:V}(x\bin a \land P(x))}$.  Although the body $(x\bin a \land P(x))$ is $\UU$-small since $P(x)$ is so by the inductive hypothesis, the quantification over $V$ need not stay inside $\UU$.  However, in the present case we can replace this with a quantification over the type $[a]\mono V$ of members of $a$, and easily show that
+我们考虑 $\brck {\sm{x:V}(x\bin a \land P(x))}$。尽管主体 $(x\bin a \land P(x))$ 是 $\UU$-小的，因为根据归纳假设，$P(x)$ 也是如此，但是对 $V$ 的量化不一定保持在 $\UU$ 内。然而，在当前情况下，我们可以用对 $a$ 的成员类型 $[a]\mono V$ 的量化替代它，并且很容易证明
 \begin{equation*}
-  \sm{x:V}(x\bin a \land P(x)) = \sm{x:[a]} P(x).
+\sm{x:V}(x\bin a \land P(x)) = \sm{x:[a]} P(x)。
 \end{equation*}
-The right-hand side does remain in $\UU$, since both $[a]$ and $P(x)$ are in $\UU$.  The case of $\prd{x:V}(x\bin a \to P(x))$ is analogous, using $\prd{x:V}(x\bin a \to P(x)) = \prd{x:[a]}P(x)$.
+右侧确实保持在 $\UU$ 内，因为 $[a]$ 和 $P(x)$ 都在 $\UU$ 内。$\prd{x:V}(x\bin a \to P(x))$ 的情况类似，使用 $\prd{x:V}(x\bin a \to P(x)) = \prd{x:[a]}P(x)$。
 \end{proof}
 
-We have shown that in type theory with a universe $\UU$, the cumulative hierarchy $V$ is a model of a ``constructive set theory''
-\index{constructive!set theory}%
-with many of the standard axioms.
-However, as far as we know, it lacks the \emph{strong collection}
-\index{axiom!strong collection}%
-\index{collection!strong}%
-\index{strong!collection}%
-and \emph{subset collection}
-\index{axiom!subset collection}%
-\index{collection!subset}%
-\index{subset!collection}%
-axioms which are included in \CZF{}~\cite{AczelCZF}.
-In the usual interpretation of this set theory into type theory, these two axioms are consequences of the setoid-like definition of equality; while in other constructed models of set theory, strong collection may hold for other reasons.
-We do not know whether either of these axioms holds in our model $(V,\in)$, but it seems unlikely.
-Since $V$ is a higher inductive type \emph{inside} the system, rather than being an \emph{external} construction, it is not surprising that it differs in some ways from prior interpretations.
+我们已经证明在具有一个宇宙 $\UU$ 的类型论中，累积层次 $V$ 是“构造性集合论”\index{constructive!set theory}的一个模型，具有许多标准公理。
+然而，据我们所知，它缺少 \emph{强收集 (strong collection)}\index{axiom!strong collection}和 \emph{子集收集 (subset collection)}\index{axiom!subset collection}公理，这些公理包含在 \CZF{}~\cite{AczelCZF} 中。
+在类型论中，强收集可能由于其他原因而成立。
+我们不知道这些公理是否在我们的模型 $(V,\in)$ 中成立，但这似乎不太可能。
+由于 $V$ 是系统内部的一个更高阶归纳类型，而不是一个外部构造，这在某些方面与先前的解释有所不同。
 
-Finally, consider the result of adding the axiom of choice for sets to our type theory, in the form  $\choice{}$ from \cref{subsec:emacinsets} above.  This has the consequence that $\LEM{}$ then also holds, by \cref{thm:1surj_to_surj_to_pem}, and so $\set$ is a topos\index{topos} with subobject classifier $\bool$, by \cref{thm:settopos}.  In this case, we have $\prop = \bool:\UU$, and so \emph{all classes are separable}.
-Thus we have shown:
+最后，考虑在我们的类型论中添加集合的选择公理，即 \cref{subsec:emacinsets} 中的 $\choice{}$。这会导致 $\LEM{}$ 成立，由 \cref{thm:1surj_to_surj_to_pem} 可知，因此 $\set$ 是一个带有子对象分类器 $\bool$ 的拓扑\index{topos}，由 \cref{thm:settopos} 得出。在这种情况下，我们有 $\prop = \bool:\UU$，因此\emph{所有类都是可分离的}。
+因此我们得出：
 
 \begin{lem}\label{lem:fullsep}
-  In type theory with $\choice{}$, the law of \define{(full) separation}
-  \indexdef{separation!full}%
-  holds for $V$: given \emph{any} class $C : V \to \prop$ and $a : V$, the class $a \cap C$ is a $V$-set.
+在具有 $\choice{}$ 的类型论中，\define{完全分离 (full separation)}\indexdef{separation!full}对于 $V$ 成立：给定\emph{任何}类 $C : V \to \prop$ 和 $a : V$，类 $a \cap C$ 是一个 $V$-集合。
 \end{lem}
 
 \begin{thm}\label{thm:zfc}
-In type theory with $\choice{}$ and a universe $\UU$, the cumulative hierarchy $V$ is a model of Zermelo--Fraenkel\index{set theory!Zermelo--Fraenkel} set theory with choice, ZFC.
+在具有 $\choice{}$ 和一个宇宙 $\UU$ 的类型论中，累积层次 $V$ 是带选择的 Zermelo--Fraenkel 集合论 (ZFC) 的一个模型。
 \end{thm}
 
 \begin{proof}
-We have all the axioms listed in \cref{thm:VisCST}, plus full separation, so we just need to show that there are power sets\index{power set} $\power a:V$ for all $a:V$.  But since we have $\LEM{}$ these are simply function types $\power a = (a\to\bool)$.  Thus $V$ is a model of Zermelo--Fraenkel set theory ZF. We leave the verification of the set-theoretic axiom of choice from $\choice{}$ as an easy exercise.
+我们已经有 \cref{thm:VisCST} 中列出的所有公理，加上完全分离，因此我们只需要证明对于所有 $a:V$，存在幂集 $\power a:V$。但是由于我们有 $\LEM{}$，这些仅仅是函数类型 $\power a = (a\to\bool)$。因此 $V$ 是 Zermelo--Fraenkel 集合论 ZF 的一个模型。我们将选择公理的验证作为一个简单的练习留给读者。
 \end{proof}
 
 \index{bargaining|)}%
@@ -1609,26 +1586,24 @@ We have all the axioms listed in \cref{thm:VisCST}, plus full separation, so we 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \sectionNotes
 
-The basic properties one expects of the category of sets date back to the early days of elementary topos theory.
-The \emph{Elementary theory of the category of sets} referred to in \cref{subsec:emacinsets} was introduced by Lawvere\index{Lawvere} in
-\cite{lawvere:etcs-long}, as a category-theoretic axiomatization of set theory.
+关于集合范畴的基本性质可以追溯到早期的初等拓扑论的日子。
+\cref{subsec:emacinsets} 中提到的 \emph{集合范畴的初等理论 (Elementary theory of the category of sets)} 是由 Lawvere\index{Lawvere} 在 \cite{lawvere:etcs-long} 中引入的，作为集合论的范畴论公理化。
 \index{Elementary Theory of the Category of Sets}%
-The notion of $\Pi W$-pretopos, regarded as a predicative version of an elementary topos, was introduced in~\cite{MoerdijkPalmgren2002}; see also~\cite{palmgren:cetcs}.
+\cite{MoerdijkPalmgren2002} 中介绍了 $\Pi W$-预拓扑的概念，作为初等拓扑的一个预判版本；另请参阅~\cite{palmgren:cetcs}。
 
-The treatment of the category of sets in \cref{sec:piw-pretopos} roughly follows that in~\cite{RijkeSpitters}.
-The fact that epimorphisms are surjective (\cref{epis-surj}) is well known in classical mathematics, but is not as trivial as it may seem to prove \emph{predicatively}.
+\cref{sec:piw-pretopos} 中关于集合范畴的处理大致遵循了~\cite{RijkeSpitters} 中的处理方式。
+\cref{epis-surj} 中的结果，即上同态是满射在经典数学中是众所周知的，但作为一个\emph{预判性的}证明，它并不像看起来那样简单。
 \index{mathematics!predicative}%
-The proof in~\cite{Mines/R/R:1988} uses the power set operation (which is impredicative), although it can also be seen as a predicative proof of the weaker statement that a map in a universe $\UU_i$ is surjective if it is an epimorphism in the next universe $\UU_{i+1}$.
-A predicative proof for setoids was given by Wilander~\cite{Wilander2010}.
-Our proof is similar to Wilander's, but avoids setoids by using pushouts and univalence.
+\cite{Mines/R/R:1988} 中的证明使用了幂集操作（这是不可判定的），尽管它也可以被视为一个在更高宇宙 $\UU_{i+1}$ 中的映射是满射的预判性证明。
+Wilander~\cite{Wilander2010} 给出了集合论的一个预判性证明。
+我们的证明类似于 Wilander 的证明，但通过使用推出和同一性避免了集合论。
 
-The implication in \cref{thm:1surj_to_surj_to_pem} from $\choice{}$ to $\LEM{}$ is an adaptation to homotopy type
-theory of a theorem from topos theory due to Diaconescu~\cite{Diaconescu}; it was posed as a problem already by Bishop~\cite[Problem~2]{Bishop1967}.
+\cref{thm:1surj_to_surj_to_pem} 中从 $\choice{}$ 到 $\LEM{}$ 的推导是 Diaconescu~\cite{Diaconescu} 在拓扑论中的一个定理在同伦类型论中的改编，Bishop~\cite[Problem~2]{Bishop1967} 早在其问题中就提出了这一问题。
 
-For the intuitionistic theory of ordinal numbers, see~\cite{taylor:ordinals,Taylor99} and also \cite{JoyalMoerdijk1995}.
-Definitions of well-foundedness in type theory by an induction principle, including the inductive predicate of accessibility\index{accessibility}, were studied in~\cite{Huet80,Paulson86,Nordstrom88}, although the idea dates back to Gentzen's proof of the consistency\index{consistency!of arithmetic} of arithmetic~\cite{Gentzen36}.
+关于序数的直觉主义理论，请参见~\cite{taylor:ordinals,Taylor99} 以及 \cite{JoyalMoerdijk1995}。
+在类型论中，通过归纳原理定义良基性，包括可达性\index{accessibility}的归纳谓词，已经在~\cite{Huet80,Paulson86,Nordstrom88} 中进行了研究，尽管这一想法可以追溯到 Gentzen 关于算术一致性\index{consistency!of arithmetic}的证明~\cite{Gentzen36}。
 
-The idea of algebraic set theory, which informs our development in \cref{sec:cumulative-hierarchy} of the cumulative hierarchy, is due to~\cite{JoyalMoerdijk1995}, but it derives from earlier work by~\cite{AczelCZF}.
+代数集合论的思想启发了我们在 \cref{sec:cumulative-hierarchy} 中对累积层次的展开，这一思想源于~\cite{JoyalMoerdijk1995}，但其起源于早期的~\cite{AczelCZF} 的工作。
 \index{algebraic set theory}%
 \index{set theory!algebraic}%
 
@@ -1637,178 +1612,177 @@ The idea of algebraic set theory, which informs our development in \cref{sec:cum
 \sectionExercises
 
 \begin{ex}\label{ex:utype-ct}
-  Following the pattern of $\uset$, we would like to make a category $\utype$ of all types and maps between them (in a given universe $\UU$).  In order for this to be a category in the sense of \cref{sec:cats}, however, we must first declare $\hom(X,Y) \defeq \pizero{X\to Y}$, with composition defined by induction on truncation from ordinary composition $(Y\to Z) \to (X\to Y) \to (X\to Z)$.  This was defined as the \emph{homotopy precategory of types} in \cref{ct:hoprecat}.  It is still not a category, however, but only a precategory (its type of objects $\UU$ is not even a $0$-type).  It becomes a category by Rezk completion
-  \index{completion!Rezk}%
-  (see \cref{ct:hocat}), and its type of objects can be identified with $\trunc1\type$ by \cref{ct:ex:hocat}.  Show that the resulting category $\utype$, unlike $\uset$, is not a pretopos.
+按照 $\uset$ 的模式，我们想要构造一个所有类型和它们之间的映射的范畴 $\utype$（在给定的宇宙 $\UU$ 中）。然而，为了使其成为 \cref{sec:cats} 中意义上的范畴，我们必须首先定义 $\hom(X,Y) \defeq \pizero{X\to Y}$，其组合通过从普通组合 $(Y\to Z) \to (X\to Y) \to (X\to Z)$ 的截断归纳来定义。这在 \cref{ct:hoprecat} 中定义为\emph{类型的同伦前范畴}。然而，它仍然不是一个范畴，而只是一个前范畴（它的对象类型 $\UU$ 甚至不是一个 $0$-类型）。通过 Rezk 完全性（见 \cref{ct:hocat}），其类型可以与 $\trunc1\type$ 识别。证明所得的范畴 $\utype$，不像 $\uset$，不是一个预拓扑。
 \end{ex}
 
 \begin{ex}\label{ex:surjections-have-sections-impl-ac}
-  Show that if every surjection has a section in the category $\uset$, then the axiom of choice holds.
+证明，如果在 $\uset$ 范畴中每个满射都有一个截面，那么选择公理成立。
 \end{ex}
 
 \begin{ex}\label{ex:well-pointed}
-  Show that with $\LEM{}$, the category $\uset$ is well-pointed,
-  \indexdef{category!well-pointed}%
-  in the sense that the following statement holds: for any $f, g : A\to B$, if $f \neq g$ then there is a function $a : 1\to A$ such that $f(a) \neq g(a)$.
-  Show that the slice category
-  \index{category!slice}%
-  $\uset/\bool$ consisting of functions $A\to \bool$ and commutative triangles does not have this property.
-  (Hint: the terminal object in $\uset/\bool$ is the identity function $\bool \to \bool$, so in this category, there are objects $X$ that have no elements $1\to X$.)
+证明：在 $\LEM{}$ 成立的情况下，范畴 $\uset$ 是良定点的，
+\indexdef{category!well-pointed}%
+这意味着以下陈述成立：对于任何 $f, g : A\to B$，如果 $f \neq g$，则存在一个函数 $a : 1\to A$ 使得 $f(a) \neq g(a)$。
+证明切片范畴
+\index{category!slice}%
+$\uset/\bool$ 由 $A\to \bool$ 的函数和交换三角形组成，不具有此属性。
+（提示：$\uset/\bool$ 中的终对象是恒等函数 $\bool \to \bool$，因此在这个范畴中，可能存在没有元素 $1\to X$ 的对象 $X$。）
 \end{ex}
 
 \begin{ex}\label{ex:add-ordinals}
-  \index{addition!of ordinal numbers}%
-  Prove that if $(A,<_A)$ and $(B,<_B)$ are well-founded, extensional, or ordinals, then so is $A+B$, with $<$ defined by
-  \begin{align*}
-    (a<a') &\defeq (a<_A a') & \text{for }& a,a':A\\
-    (b<b') &\defeq (b<_B b') & \text{for }& b,b':B\\
-    (a<b) &\defeq \unit      & \text{for }& (a:A),(b:B)\\
-    (b<a) &\defeq \emptyt    & \text{for }& (a:A),(b:B).
-  \end{align*}
+\index{addition!of ordinal numbers}%
+证明：如果 $(A,<_A)$ 和 $(B,<_B)$ 是良基的，外延的，或序数，那么 $A+B$ 也是良基的，外延的，或序数，其中 $<$ 定义为
+\begin{align*}
+(a<a') &\defeq (a<_A a') & \text{对于 }& a,a':A\\
+(b<b') &\defeq (b<_B b') & \text{对于 }& b,b':B\\
+(a<b) &\defeq \unit      & \text{对于 }& (a:A),(b:B)\\
+(b<a) &\defeq \emptyt    & \text{对于 }& (a:A),(b:B)。
+\end{align*}
 \end{ex}
 % \begin{proof}
-%   We first prove by induction on $<_A$ that every element of $A$ is accessible in $A+B$.
-%   This is easy since the only elements less than $a:A$ in $A+B$ are also in $A$.
-%   We then prove by induction on $<_B$ that every element of $B$ is accessible in $A+B$.
-%   This is easy since we have already proven that every element of $A$ is accessible.
+%   我们首先通过对 $<_A$ 的归纳证明 $A$ 中的每个元素在 $A+B$ 中是可达的。
+%   这很容易，因为 $A+B$ 中小于 $a:A$ 的唯一元素也在 $A$ 中。
+%   然后我们通过对 $<_B$ 的归纳证明 $B$ 中的每个元素在 $A+B$ 中是可达的。
+%   这很容易，因为我们已经证明 $A$ 中的每个元素是可达的。
 % \end{proof}
 
 \begin{ex}\label{ex:multiply-ordinals}
-  \index{multiplication!of ordinal numbers}%
-  Prove that if $(A,<_A)$ and $(B,<_B)$ are well-founded, extensional, or ordinals, then so is $A\times B$, with $<$ defined by
-  \[ ((a,b) <(a',b')) \defeq (a<_A a') \vee ((a=a') \wedge (b<_B b')). \]
+\index{multiplication!of ordinal numbers}%
+证明：如果 $(A,<_A)$ 和 $(B,<_B)$ 是良基的，外延的，或序数，那么 $A\times B$ 也是良基的，外延的，或序数，其中 $<$ 定义为
+\[ ((a,b) <(a',b')) \defeq (a<_A a') \vee ((a=a') \wedge (b<_B b'))。 \]
 \end{ex}
 % \begin{proof}
-%   We prove by induction on $<_A$ that for every $a:A$, every element of the form $(a,b)$ is accessible in $A\times B$.
-%   The inductive hypothesis is that for all $a'<_A a$, every pair $(a',b)$ is accessible.
-%   Inside this induction, we prove by induction on $<_B$ that for every $b:B$, the element $(a,b)$ is accessible.
-%   The nested inductive hypothesis is that for every $b'<_B b$, the element $(a,b')$ is accessible.
-%   But now, if $(a',b')< (a,b)$, then either $a<_A a'$ in which case $(a',b')$ is accessible by the first inductive hypothesis, or $a=a'$ and $b'<_B b$, in which case $(a,b')$ is accessible by the second inductive hypothesis.
-%   Thus, by definition of accessibility, $(a,b)$ is accessible.
-%   This completes both inductions.
+%   我们通过对 $<_A$ 的归纳证明，对于每个 $a:A$，形式为 $(a,b)$ 的每个元素在 $A\times B$ 中是可达的。
+%   归纳假设是，对于所有 $a'<_A a$，形式为 $(a',b)$ 的对是可达的。
+%   在这个归纳过程中，我们通过对 $<_B$ 的归纳证明 $B$ 中的每个元素在 $A+B$ 中是可达的。
+%   内嵌的归纳假设是，对于每个 $b'<_B b$，$(a,b')$ 是可达的。
+%   但是现在，如果 $(a',b')< (a,b)$，那么要么 $a<_A a'$，在这种情况下，$(a',b')$ 根据第一个归纳假设是可达的，要么 $a=a'$ 并且 $b'<_B b$，在这种情况下，$(a,b')$ 根据第二个归纳假设是可达的。
+%   因此，根据可达性的定义，$(a,b)$ 是可达的。
+%   这完成了两个归纳。
 % \end{proof}
 
 \begin{ex}\label{ex:algebraic-ordinals}
-  Define the usual algebraic operations on ordinals, and prove that they satisfy the usual properties.
+定义序数的通常代数运算，并证明它们满足通常的性质。
 \end{ex}
 
 \begin{ex}\label{ex:prop-ord}
-  Note that $\bool$ is an ordinal, under the obvious relation $<$ such that $\bfalse<\btrue$ only.
-  \begin{enumerate}
-  \item Define a relation $<$ on $\prop$ which makes it into an ordinal.
-  \item Show that $\id[\ord]\bool\prop$ if and only if \LEM{} holds.
-  \end{enumerate}
+请注意 $\bool$ 是一个序数，在显然的关系 $<$ 下，只有 $\bfalse<\btrue$ 成立。
+\begin{enumerate}
+\item 定义 $\prop$ 上的一个关系 $<$，使其成为一个序数。
+\item 证明 $\id[\ord]\bool\prop$ 当且仅当 \LEM{} 成立。
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:ninf-ord}
-  Recall that we denote \nat by $\omega$ when regarding it as an ordinal; thus we have also the ordinal $\omega+1$.
-  On the other hand, let us define
-  \[ \nat_\infty \defeq \setof{a:\nat\to\bool | \fall{n:\nat} (a_n \le a_{\suc(n)}) } \]
-  where $\le$ denotes the obvious partial order on $\bool$, with $\bfalse\le\btrue$.
-  \begin{enumerate}
-  \item Define a relation $<$ on $\nat_\infty$ which makes it into an ordinal.
-  \item Show that $\id[\ord]{\omega+1}{\nat_\infty}$ if and only if the limited principle of omniscience~\eqref{eq:lpo} holds.%
-    \index{limited principle of omniscience}%
-  \end{enumerate}
+回想一下，当我们将 $\nat$ 视为序数时，我们将其记为 $\omega$；因此我们也有序数 $\omega+1$。
+另一方面，定义
+\[ \nat_\infty \defeq \setof{a:\nat\to\bool | \fall{n:\nat} (a_n \le a_{\suc(n)}) } \]
+其中 $\le$ 表示 $\bool$ 上的显然部分顺序，其中 $\bfalse\le\btrue$。
+\begin{enumerate}
+\item 定义 $\nat_\infty$ 上的一个关系 $<$，使其成为一个序数。
+\item 证明 $\id[\ord]{\omega+1}{\nat_\infty}$ 当且仅当有限全知原理~\eqref{eq:lpo} 成立。%
+\index{limited principle of omniscience}%
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:well-founded-extensional-simulation}
-  Show that if $(A,<)$ is well-founded and extensional and $A:\UU$, then there is a simulation $A\to V$, where $(V,\in)$ is the cumulative hierarchy from \cref{sec:cumulative-hierarchy} built from the universe~\UU.
+证明：如果 $(A,<)$ 是良基的且外延的，并且 $A:\UU$，那么存在一个仿真 $A\to V$，其中 $(V,\in)$ 是根据宇宙 $\UU$ 构建的累积层次 \cref{sec:cumulative-hierarchy}。
 \end{ex}
 
 \begin{ex}\label{ex:choice-function}
-  Show that \cref{thm:wop}\ref{item:wop1} is equivalent to the axiom of choice~\eqref{eq:ac}.
+证明 \cref{thm:wop}\ref{item:wop1} 与选择公理~\eqref{eq:ac} 等价。
 \end{ex}
 
 \begin{ex}\label{ex:cumhierhit}
-  Given types $A$ and $B$, define a \define{bitotal relation}
-  \indexsee{bitotal relation}{relation, bitotal}%
-  \indexdef{relation!bitotal}%
-  to be $R:A\to B\to \prop$ such that
-  \[ \Big(\fall{a:A}\exis{b:B} R(a,b) \Big) \land \Big(\fall{b:B}\exis{a:A} R(a,b) \Big). \]
-  For such $A,B,R$, let $A\sqcup^R B$ be the higher inductive type generated by
-  \begin{itemize}
-  \item $i:A\to A\sqcup^R B$
-  \item $j:B\to A\sqcup^R B$
-  \item For each $a:A$ and $b:B$ such that $R(a,b)$, a path $i(a)=j(b)$.
-  \end{itemize}
-  Show that the cumulative hierarchy $V$ can be defined by the following more straightforward list of constructors, and that the resulting induction principle is the one given in \cref{sec:cumulative-hierarchy}.
-  \begin{itemize}
-  \item For every $A : \UU$ and $f : A \to V$, there is an element $\vset(A, f) : V$.
-  \item For any $A,B:\UU$ and bitotal relation
-    \index{relation!bitotal}%
-    $R:A\to B\to \prop$, and any map $h:A\sqcup^R B \to V$, there is a path $\id{\vset(A,h\circ i)}{\vset(B,h\circ j)}$.
-  \item The 0-truncation constructor.
-  \end{itemize}
+给定类型 $A$ 和 $B$，定义\define{双全关系 (bitotal relation)}%
+\indexsee{bitotal relation}{relation, bitotal}%
+\indexdef{relation!bitotal}%
+为 $R:A\to B\to \prop$，使得
+\[ \Big(\fall{a:A}\exis{b:B} R(a,b) \Big) \land \Big(\fall{b:B}\exis{a:A} R(a,b) \Big)。 \]
+对于这样的 $A,B,R$，令 $A\sqcup^R B$ 为以下更高阶归纳类型生成的类型：
+\begin{itemize}
+\item $i:A\to A\sqcup^R B$
+\item $j:B\to A\sqcup^R B$
+\item 对于每个 $a:A$ 和 $b:B$，如果 $R(a,b)$ 成立，则存在路径 $i(a)=j(b)$。
+\end{itemize}
+证明：累积层次 $V$ 可以通过以下更直接的构造生成，并且所得的归纳原理就是在 \cref{sec:cumulative-hierarchy} 中给出的原理。
+\begin{itemize}
+\item 对于每个 $A : \UU$ 和 $f : A \to V$，存在一个元素 $\vset(A, f) : V$。
+\item 对于任何 $A,B:\UU$ 和双全关系
+\index{relation!bitotal}%
+$R:A\to B\to \prop$，以及任何映射 $h:A\sqcup^R B \to V$，存在路径 $\id{\vset(A,h\circ i)}{\vset(B,h\circ j)}$。
+\item 0-截断构造子。
+\end{itemitemize}
 \end{ex}
 
 \begin{ex}\label{ex:strong-collection}
-  In \CZF, the \define{axiom of strong collection}
-  \indexdef{axiom!strong collection}%
-  \indexdef{collection!strong}%
-  \indexdef{strong!collection}%
-  has the form:
-   \begin{multline*}
-   \Parens{\fall{x\in v}\exis{y} R(x,y)} \Rightarrow \\
-   \exis{w}\big[\big(\fall{x\in v}\exis{y\in w}R(x,y)\big)\land \big(\fall{y\in w}\exis{x\in v}R(x,y) \big)\big]
-   \end{multline*}
-   Does it hold in the cumulative hierarchy $V$?  (We do not know the answer to this.)
+在 \CZF 中，\define{强收集公理 (axiom of strong collection)}%
+\indexdef{axiom!strong collection}%
+\indexdef{collection!strong}%
+\indexdef{strong!collection}%
+的形式如下：
+\begin{multline*}
+\Parens{\fall{x\in v}\exis{y} R(x,y)} \Rightarrow \\
+\exis{w}\big[\big(\fall{x\in v}\exis{y\in w}R(x,y)\big)\land \big(\fall{y\in w}\exis{x\in v}R(x,y) \big)\big]
+\end{multline*}
+它在累积层次 $V$ 中成立吗？（我们不知道答案。）
 \end{ex}
 
 \begin{ex}\label{ex:choice-cumulative-hierarchy-choice}
-Verify that, if we assume $\choice{}$, then the cumulative hierarchy $V$ satisfies the usual set-theoretic axiom of choice, which may be stated in the form:
-  \[
-   \fall{x:V} \Parens{(\fall{y\in x}\exis{z:V} z\in y) \Rightarrow  \exis{c\in(\cup x)^x}\fall{y\in x} c(y)\in y}
-   \]
+验证：如果我们假设 $\choice{}$，那么累积层次 $V$ 满足通常的集合论选择公理，其形式如下：
+\[
+\fall{x:V} \Parens{(\fall{y\in x}\exis{z:V} z\in y) \Rightarrow  \exis{c\in(\cup x)^x}\fall{y\in x} c(y)\in y}
+\]
 \end{ex}
 
 \begin{ex}\label{ex:plump-ordinals}
-  Assuming propositional resizing, show that there is a mere predicate $\mathsf{isPlump}:\ord\to\prop$ such that for any $A:\ord$ we have
-  \begin{multline*}\label{eq:plump}
-    \mathsf{isPlump}(A) = \Parens{\fall{B<A} \mathsf{isPlump}(B)} \wedge\narrowbreak
-    \Parens{\fall{C,B:\ord} C\le B < A \wedge \mathsf{isPlump}(C) \Rightarrow C < A}.
-  \end{multline*}
-  Note that $\mathsf{isPlump}$ cannot be defined by a simple well-founded induction over \ord; you must use a different well-founded relation.
-  We say that an ordinal $A$ is \define{plump}~\cite{taylor:ordinals,Taylor99} if $\mathsf{isPlump}(A)$.
-  \index{plump!ordinal}\index{ordinal!plump}%
+假设命题重设，证明存在一个单纯谓词 $\mathsf{isPlump}:\ord\to\prop$，使得对于任何 $A:\ord$，我们有
+\begin{multline*}\label{eq:plump}
+\mathsf{isPlump}(A) = \Parens{\fall{B<A} \mathsf{isPlump}(B)} \wedge\narrowbreak
+\Parens{\fall{C,B:\ord} C\le B < A \wedge \mathsf{isPlump}(C) \Rightarrow C < A}。
+\end{multline*}
+请注意，$\mathsf{isPlump}$ 不能通过对 \ord 的简单良基归纳来定义；你必须使用不同的良基关系。
+我们说一个序数 $A$ 是 \define{丰满的 (plump)}~\cite{taylor:ordinals,Taylor99} 如果 $\mathsf{isPlump}(A)$ 成立。
+\index{plump!ordinal}\index{ordinal!plump}%
 \end{ex}
 
 \begin{ex}\label{ex:not-plump}
-  Show that \LEM{} is equivalent to the statement ``all ordinals are plump''.
+证明：\LEM{} 与“所有序数都是丰满的”这一陈述等价。
 \end{ex}
 
 \begin{ex}\label{ex:plump-successor}
-  Define the \define{plump successor}\index{plump!successor}\indexdef{successor!plump} of an ordinal $A$ to be
-  \[ t(A) \defeq \setof{ B:\ord | (B\le A) \wedge \mathsf{isPlump}(B) } \]
-  \begin{enumerate}
-  \item By definition, $t(A)$ belongs to the next higher universe.
-    Show that assuming propositional resizing, it is equal to an ordinal in the same universe as $A$.
-  \item Again assuming propositional resizing, show that if $A$ is plump (\cref{ex:plump-ordinals}) then so is $t(A)$.
-  \end{enumerate}
+定义序数 $A$ 的\define{丰满后继 (plump successor)}\index{plump!successor}\indexdef{successor!plump}为
+\[ t(A) \defeq \setof{ B:\ord | (B\le A) \wedge \mathsf{isPlump}(B) } \]
+\begin{enumerate}
+\item 根据定义，$t(A)$ 属于更高的宇宙。
+证明：假设命题重设，它等于与 $A$ 在同一宇宙中的一个序数。
+\item 再次假设命题重设，证明如果 $A$ 是丰满的（见 \cref{ex:plump-ordinals}），那么 $t(A)$ 也是丰满的。
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:ZF-algebras}
-  A \define{ZF-algebra}~\cite{JoyalMoerdijk1995}
-  \index{ZF-algebra}%
-  relative to a universe $\UU_i$ is a poset (see \cref{ct:orders}) $V:\UU_{i+1}$, which has all suprema indexed by types in $\UU_i$, and is equipped with a ``successor'' function $s:V\to V$ (not necessarily respecting $\le$ in any way).
-  \begin{enumerate}
-  \item Show that the cumulative hierarchy $(V_{\UU_i},\subseteq,s)$ is the initial ZF-algebra, where $s(x)$ is the singleton $\setof{x}$.
-  \item Show that $(\ord_{\UU_i},\le,s)$ is the initial ZF-algebra with the property that $x\le s(x)$ for all $x$, where $s(A)=A+\unit$ is the successor\index{successor!of an ordinal} from \cref{thm:ordsucc}.
-  \item Assuming propositional resizing, show that $\Parens{\setof{A:\ord_{\UU_i} | \mathsf{isPlump}(A) },\le,t}$ is the initial ZF-algebra with the property that $(x\le y) \Rightarrow (t(x)\le t(y))$ for all $x,y$, where $t$ is the plump successor from \cref{ex:plump-successor}.
-  \end{enumerate}
+相对于一个宇宙 $\UU_i$，一个 \define{ZF-代数 (ZF-algebra)}~\cite{JoyalMoerdijk1995}%
+\index{ZF-algebra}%
+是一个偏序集（见 \cref{ct:orders}）$V:\UU_{i+1}$，它具有所有由类型 $\UU_i$ 索引的上确界，并且配备了一个“后继”函数 $s:V\to V$（不一定以任何方式尊重 $\le$）。
+\begin{enumerate}
+\item 证明：累积层次 $(V_{\UU_i},\subseteq,s)$ 是初始 ZF-代数，其中 $s(x)$ 是单元集 $\setof{x}$。
+\item 证明：$(\ord_{\UU_i},\le,s)$ 是具有 $x\le s(x)$ 对于所有 $x$ 成立的初始 ZF-代数，其中 $s(A)=A+\unit$ 是 \cref{thm:ordsucc} 中的后继\index{successor!of an ordinal}。
+\item 假设命题重设，证明 $\Parens{\setof{A:\ord_{\UU_i} | \mathsf{isPlump}(A) },\le,t}$ 是具有 $(x\le y) \Rightarrow (t(x)\le t(y))$ 对于所有 $x,y$ 成立的初始 ZF-代数，其中 $t$ 是 \cref{ex:plump-successor} 中的丰满后继。
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:monos-are-split-monos-iff-LEM-holds}
-  For a category $A$, a morphism $f: \hom_A(a,b)$ is said to be a \define{split monomorphism} if there exists a morphism $g: \hom_A(b,a)$ such that $\id{g \circ f}{1_a}$. (Such $g$ is called a \define{retraction} of $f$.)
-  Prove that the following are logically equivalent.
-  \begin{enumerate}
-  \item $\LEM{}$.
-  \item For every sets $A$ and $B$, if $A$ is inhabited then for every monomorphism $f: A \to B$ in $\uset$, $f$ is also a split monomorphism in $\uset$.
-  \end{enumerate}
+对于一个范畴 $A$，如果存在一个态射 $g: \hom_A(b,a)$ 使得 $\id{g \circ f}{1_a}$，则态射 $f: \hom_A(a,b)$ 称为\define{分裂单态射 (split monomorphism)}。 (这样的 $g$ 称为 $f$ 的\define{重traction}。)
+证明以下陈述逻辑等价。
+\begin{enumerate}
+\item $\LEM{}$。
+\item 对于范畴 $\uset$ 中的每对集合 $A$ 和 $B$，如果 $A$ 是非空的，那么对于 $\uset$ 中的每个单态射 $f: A \to B$，$f$ 也是 $\uset$ 中的分裂单态射。
+\endenumerate}
 \end{ex}
 
 \index{set|)}%
 
-% Local Variables:
-% TeX-master: "hott-online"
-% End:
+% 本地变量:
+% TeX-主模式: "hott-online"
+% 结束:
+
