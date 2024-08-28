@@ -491,76 +491,75 @@ Rezk 完成还进一步阐明了范畴等价的概念。
 
 在 \cref{sec:yoneda} 中我们将给出 \cref{ct:adjprop} 的另一个证明。
 
-
-\section{Equivalences}
+\section{等价 (Equivalences)}
 \label{sec:equivalences}
 
-It is usual in category theory to define an \emph{equivalence of categories} to be a functor $F:A\to B$ such that there exists a functor $G:B\to A$ and natural isomorphisms $F G \cong 1_B$ and $G F \cong 1_A$.
-Unlike the property of being an adjunction, however, this would not be a mere proposition without truncating it, for the same reasons that the type of quasi-inverses is ill-behaved (see \cref{sec:quasi-inverses}).
-And as in \cref{sec:hae}, we can avoid this by using the usual notion of \emph{adjoint} equivalence.
-\indexdef{adjoint!equivalence!of (pre)categories}
+在范畴论 (category theory) 中，通常将\emph{范畴的等价 (equivalence of categories)}定义为一个函子 $F:A\to B$，使得存在一个函子 $G:B\to A$ 以及自然同构 $F G \cong 1_B$ 和 $G F \cong 1_A$。
+然而，与作为伴随 (adjunction) 的性质不同，如果不进行截断，这将不是一个纯命题，原因与拟逆元 (quasi-inverses) 的类型行为不良相同（参见 \cref{sec:quasi-inverses}）。
+如同在 \cref{sec:hae} 中那样，我们可以通过使用通常的\emph{伴随等价 (adjoint equivalence)}的概念来避免这个问题。
+\indexdef{伴随!等价 (adjoint equivalence)!范畴 (precategories)}
 
 \begin{defn}\label{ct:equiv}
-  A functor $F:A\to B$ is an \define{equivalence of (pre)categories}
-  \indexdef{equivalence!of (pre)categories}%
-  \indexdef{category!equivalence of}%
-  \indexdef{precategory!equivalence of}%
-  \index{functor!equivalence}%
-  if it is a left adjoint for which $\eta$ and $\epsilon$ are isomorphisms.
-  We write $\cteqv A B$ for the type of equivalences of (pre)categories from $A$ to $B$.
+一个函子 $F:A\to B$ 是一个\define{范畴的等价 (equivalence of (pre)categories)}，
+\indexdef{等价!范畴的 (equivalence of (pre)categories)}%
+\indexdef{范畴!等价 (category equivalence)}%
+\indexdef{前范畴!等价 (precategory equivalence)}%
+\index{函子!等价 (functor equivalence)}%
+如果它是一个左伴随，并且其 $\eta$ 和 $\epsilon$ 是同构。
+我们记 $\cteqv A B$ 为从 $A$ 到 $B$ 的范畴等价的类型。
 \end{defn}
 
-By \cref{ct:adjprop,ct:isoprop}, if $A$ is a category, then the type ``$F$ is an equivalence of precategories'' is a mere proposition.
+根据 \cref{ct:adjprop,ct:isoprop}，如果 $A$ 是一个范畴，那么“$F$ 是前范畴的等价”这个类型是一个纯命题。
 
 \begin{lem}\label{ct:adjointification}
-  If for $F:A\to B$ there exists $G:B\to A$ and isomorphisms $GF\cong 1_A$ and $FG\cong 1_B$, then $F$ is an equivalence of precategories.
+如果对于 $F:A\to B$ 存在 $G:B\to A$ 和同构 $GF\cong 1_A$ 和 $FG\cong 1_B$，那么 $F$ 是前范畴的等价。
 \end{lem}
 \begin{proof}
-  Just like the proof of \cref{thm:equiv-iso-adj} for equivalences of types.
+  类似于 \cref{thm:equiv-iso-adj} 中关于类型等价的证明。
 \end{proof}
 
 \begin{defn}\label{ct:full-faithful}
-  We say a functor $F:A\to B$ is \define{faithful}
-  \indexdef{functor!faithful}%
-  \index{faithful functor}%a
-  if for all $a,b:A$, the function
-  \[F_{a,b}:\hom_A(a,b) \to \hom_B(Fa,Fb)\]
-  is injective, and \define{full}
-  \indexdef{functor!full}%
-  \indexdef{full functor}%
-  if for all $a,b:A$ this function is surjective.
-  If it is both (hence each $F_{a,b}$ is an equivalence) we say $F$ is \define{fully faithful}.
-  \indexdef{functor!fully faithful}%
-  \indexdef{fully faithful functor}%
+我们说一个函子 $F:A\to B$ 是\define{忠实的 (faithful)}，
+\indexdef{函子!忠实 (faithful)}%
+\index{忠实函子 (faithful functor)}%
+如果对于所有 $a,b:A$，函数
+\[F_{a,b}:\hom_A(a,b) \to \hom_B(Fa,Fb)\]
+是单射 (injective) 的，并且\define{满的 (full)}，
+\indexdef{函子!满 (full)}%
+\indexdef{满函子 (full functor)}%
+如果对于所有 $a,b:A$ 这个函数是满射 (surjective) 的。
+如果它同时是两者（因此每个 $F_{a,b}$ 是一个等价），我们说 $F$ 是\define{完全忠实的 (fully faithful)}。
+\indexdef{函子!完全忠实 (fully faithful)}%
+\indexdef{完全忠实函子 (fully faithful functor)}%
 \end{defn}
 
 \begin{defn}\label{ct:split-essentially-surjective}
-  We say a functor $F:A\to B$ is \define{split essentially surjective}
-  \indexdef{functor!split essentially surjective}%
-  \indexdef{split!essentially surjective functor}%
-  if for all $b:B$ there exists an $a:A$ such that $Fa\cong b$.
+我们说一个函子 $F:A\to B$ 是\define{分裂本质满射的 (split essentially surjective)}，
+\indexdef{函子!分裂本质满射 (split essentially surjective)}%
+\indexdef{分裂!本质满射函子 (split essentially surjective functor)}%
+如果对于所有 $b:B$，存在一个 $a:A$，使得 $Fa\cong b$。
 \end{defn}
 
 \begin{lem}\label{ct:ffeso}
-  For any precategories $A$ and $B$ and functor $F:A\to B$, the following types are equivalent.
-  \begin{enumerate}
-  \item $F$ is an equivalence of precategories.\label{item:ct:ffeso1}
-  \item $F$ is fully faithful and split essentially surjective.\label{item:ct:ffeso2}
-  \end{enumerate}
+对于任意前范畴 $A$ 和 $B$ 以及函子 $F:A\to B$，以下类型是等价的。
+\begin{enumerate}
+  \item $F$ 是前范畴的等价。\label{item:ct:ffeso1}
+  \item $F$ 是完全忠实并且分裂本质满射的。\label{item:ct:ffeso2}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  Suppose $F$ is an equivalence of precategories, with $G,\eta,\epsilon$ specified.
-  Then we have the function
+  假设 $F$ 是前范畴的等价，并指定了 $G,\eta,\epsilon$。
+  那么我们有函数
   \begin{align*}
-      \hom_B(Fa,Fb) &\to \hom_A(a,b),\\
-      g &\mapsto \inv{\eta_b}\circ G(g)\circ \eta_a.
+    \hom_B(Fa,Fb) &\to \hom_A(a,b),\\
+    g &\mapsto \inv{\eta_b}\circ G(g)\circ \eta_a。
   \end{align*}
-  For $f:\hom_A(a,b)$, we have
+  对于 $f:\hom_A(a,b)$，我们有
   \[ \inv{\eta_{b}}\circ G(F(f))\circ \eta_{a}  =
   \inv{\eta_{b}} \circ \eta_{b} \circ f=
   f
   \]
-  while for $g:\hom_B(Fa,Fb)$ we have
+  而对于 $g:\hom_B(Fa,Fb)$，我们有
   \begin{align*}
     F(\inv{\eta_b} \circ G(g)\circ\eta_a)
     &= F(\inv{\eta_b})\circ F(G(g))\circ F(\eta_a)\\
@@ -568,156 +567,157 @@ By \cref{ct:adjprop,ct:isoprop}, if $A$ is a category, then the type ``$F$ is an
     &= g\circ\epsilon_{Fa}\circ F(\eta_a)\\
     &= g
   \end{align*}
-  using naturality of $\epsilon$, and the triangle identities twice.
-  Thus, $F_{a,b}$ is an equivalence, so $F$ is fully faithful.
-  Finally, for any $b:B$, we have $Gb:A$ and $\epsilon_b:FGb\cong b$.
+  使用 $\epsilon$ 的自然性 (naturality)，以及三角等式两次。
+  因此，$F_{a,b}$ 是一个等价，因此 $F$ 是完全忠实的。
+  最后，对于任意 $b:B$，我们有 $Gb:A$ 和 $\epsilon_b:FGb\cong b$。
 
-  On the other hand, suppose $F$ is fully faithful and split essentially surjective.
-  Define $G_0:B_0\to A_0$ by sending $b:B$ to the $a:A$ given by the specified essential splitting, and write $\epsilon_b$ for the likewise specified isomorphism $FGb\cong b$.
+  另一方面，假设 $F$ 是完全忠实并且分裂本质满射的。
+  定义 $G_0:B_0\to A_0$ 通过将 $b:B$ 发送到指定的本质分裂给出的 $a:A$，并写 $\epsilon_b$ 为同样指定的同构 $FGb\cong b$。
 
-  Now for any $g:\hom_B(b,b')$, define $G(g):\hom_A(Gb,Gb')$ to be the unique morphism such that $\id{F(G(g))}{\inv{(\epsilon_{b'})}\circ g \circ \epsilon_b }$ (which exists since $F$ is fully faithful).
-  Finally, for $a:A$ define $\eta_a:\hom_A(a,GFa)$ to be the unique morphism such that $\id{F\eta_a}{\inv{\epsilon_{Fa}}}$.
-  It is easy to verify that $G$ is a functor and that $(G,\eta,\epsilon)$ exhibit $F$ as an equivalence of precategories.
+  现在对于任意 $g:\hom_B(b,b')$，定义 $G(g):\hom_A(Gb,Gb')$ 为唯一的态射，使得 $\id{F(G(g))}{\inv{(\epsilon_{b'})}\circ g \circ \epsilon_b }$（由于 $F$ 是完全忠实的，该态射存在）。
+  最后，对于 $a:A$ 定义 $\eta_a:\hom_A(a,GFa)$ 为唯一的态射，使得 $\id{F\eta_a}{\inv{\epsilon_{Fa}}}$。
+  很容易验证 $G$ 是一个函子，并且 $(G,\eta,\epsilon)$ 展示了 $F$ 作为一个前范畴的等价。
 
-  Now consider the composite~\ref{item:ct:ffeso1}$\to$\ref{item:ct:ffeso2}$\to$\ref{item:ct:ffeso1}.
-  We clearly recover the same function $G_0:B_0 \to A_0$.
-  For the action of $G$ on hom-sets, we must show that for $g:\hom_B(b,b')$, $G(g)$ is the (necessarily unique) morphism such that $F(G(g)) = \inv{(\epsilon_{b'})}\circ g \circ \epsilon_b$.
-  But this equation holds by the assumed naturality of $\epsilon$.
-  We also clearly recover $\epsilon$, while $\eta$ is uniquely characterized by $\id{F\eta_a}{\inv{\epsilon_{Fa}}}$ (which is one of the triangle identities assumed to hold in the structure of an equivalence of precategories).
-  Thus, this composite is equal to the identity.
+  现在考虑复合~\ref{item:ct:ffeso1}$\to$\ref{item:ct:ffeso2}$\to$\ref{item:ct:ffeso1}。
+  我们显然恢复了相同的函数 $G_0:B_0 \to A_0$。
+  对于同态集上的 $G$ 的作用，我们必须证明对于 $g:\hom_B(b,b')$，$G(g)$ 是（必然唯一的）态射，使得 $F(G(g)) = \inv{(\epsilon_{b'})}\circ g \circ \epsilon_b$。
+  但这个方程通过假设的 $\epsilon$ 的自然性成立。
+  我们同样显然恢复了 $\epsilon$，而 $\eta$ 是通过 $\id{F\eta_a}{\inv{\epsilon_{Fa}}}$（这是伴随等价结构中假定的三角等式之一）唯一确定的。
+  因此，这个复合等于恒等式。
 
-  Finally, consider the other composite~\ref{item:ct:ffeso2}$\to$\ref{item:ct:ffeso1}$\to$\ref{item:ct:ffeso2}.
-  Since being fully faithful is a mere proposition, it suffices to observe that we recover, for each $b:B$, the same $a:A$ and isomorphism $F a \cong b$.
-  But this is clear, since we used this function and isomorphism to define $G_0$ and $\epsilon$ in~\ref{item:ct:ffeso1}, which in turn are precisely what we used to recover~\ref{item:ct:ffeso2} again.
-  Thus, the composites in both directions are equal to identities, hence we have an equivalence \eqv{\text{\ref{item:ct:ffeso1}}}{\text{\ref{item:ct:ffeso2}}}.
+  最后，考虑另一个复合~\ref{item:ct:ffeso2}$\to$\ref{item:ct:ffeso1}$\to$\ref{item:ct:ffeso2}。
+  由于完全忠实是一个纯命题，足以观察到我们为每个 $b:B$ 恢复了相同的 $a:A$ 和同构 $F a \cong b$。
+  但这是显然的，因为我们使用了这个函数和同构来定义 $G_0$ 和 $\epsilon$ 在~\ref{item:ct:ffeso1} 中，这反过来又正是我们用来再次恢复~\ref{item:ct:ffeso2} 的内容。
+  因此，两个方向上的复合都等于恒等式，因此我们有一个等价 $\eqv{\text{\ref{item:ct:ffeso1}}}{\text{\ref{item:ct:ffeso2}}}$。
 \end{proof}
 
-However, if $A$ is not a category, then neither type in \cref{ct:ffeso} may necessarily be a mere proposition.
-This suggests considering as well the following notions.
+然而，如果 $A$ 不是一个范畴，那么 \cref{ct:ffeso} 中的任意类型可能不一定是一个纯命题。
+这提示我们也考虑以下概念。
 
 \begin{defn}\label{ct:essentially-surjective}
-  A functor $F:A\to B$ is \define{essentially surjective}
-  \indexdef{functor!essentially surjective}%
-  \indexdef{essentially surjective functor}%
-  if for all $b:B$, there \emph{merely} exists an $a:A$ such that $Fa\cong b$.
-  We say $F$ is a \define{weak equivalence}
-  \indexsee{equivalence!of (pre)categories!weak}{weak equivalence}%
-  \indexdef{weak equivalence!of precategories}%
-  \indexsee{functor!weak equivalence}{weak equivalence}%
-  if it is fully faithful and essentially surjective.
+一个函子 $F:A\to B$ 是\define{本质满射 (essentially surjective)}的，
+\indexdef{函子!本质满射 (essentially surjective)}%
+\indexdef{本质满射函子 (essentially surjective functor)}%
+如果对于所有 $b:B$，\emph{仅仅}存在一个 $a:A$ 使得 $Fa\cong b$。
+我们说 $F$ 是一个\define{弱等价 (weak equivalence)}，
+\indexsee{等价!弱等价 (weak equivalence)的 (equivalence of (pre)categories)}{weak equivalence}%
+\indexdef{弱等价!前范畴 (weak equivalence of precategories)}%
+\indexsee{函子!弱等价 (weak equivalence)的 (functor weak equivalence)}{weak equivalence}%
+如果它是完全忠实并且本质满射的。
 \end{defn}
 
-Being a weak equivalence is \emph{always} a mere proposition.
-For categories, however, there is no difference between equivalences and weak ones.
+作为一个弱等价始终是一个纯命题。
+然而，对于范畴之间的函子，等价与弱等价没有区别。
 
-\index{acceptance}
+\index{接受度 (acceptance)}
 \begin{lem}\label{ct:catweq}
-  If $F:A\to B$ is fully faithful and $A$ is a category, then for any $b:B$ the type $\sm{a:A} (Fa\cong b)$ is a mere proposition.
-  Hence a functor between categories is an equivalence if and only if it is a weak equivalence.
+如果 $F:A\to B$ 是完全忠实的并且 $A$ 是一个范畴，那么对于任何 $b:B$ 类型 $\sm{a:A} (Fa\cong b)$ 是一个纯命题。
+因此，一个范畴之间的函子如果且仅如果它是一个弱等价，则是一个等价。
 \end{lem}
 \begin{proof}
-  Suppose given $(a,f)$ and $(a',f')$ in $\sm{a:A} (Fa\cong b)$.
-  Then $\inv{f'}\circ f$ is an isomorphism $Fa \cong Fa'$.
-  Since $F$ is fully faithful, we have $g:a\cong a'$ with $Fg = \inv{f'}\circ f$.
-  And since $A$ is a category, we have $p:a=a'$ with $\idtoiso(p)=g$.
-  Now $Fg = \inv{f'}\circ f$ implies $\trans{(\map{(F_0)}{p})}{f} = f'$, hence (by the characterization of equalities in dependent pair types) $(a,f)=(a',f')$.
+  假设给定 $(a,f)$ 和 $(a',f')$ 在 $\sm{a:A} (Fa\cong b)$ 中。
+  然后 $\inv{f'}\circ f$ 是一个同构 $Fa \cong Fa'$。
+  由于 $F$ 是完全忠实的，我们有 $g:a\cong a'$，其中 $Fg = \inv{f'}\circ f$。
+  由于 $A$ 是一个范畴，我们有 $p:a=a'$，其中 $\idtoiso(p)=g$。
+  现在 $Fg = \inv{f'}\circ f$ 意味着 $\trans{(\map{(F_0)}{p})}{f} = f'$，因此（根据依赖对类型中相等性的特征）$(a,f)=(a',f')$。
 
-  Thus, for fully faithful functors whose domain is a category, essential surjectivity is equivalent to split essential surjectivity, and so being a weak equivalence is equivalent to being an equivalence.
+  因此，对于域为范畴的完全忠实函子，本质满射等价于分裂本质满射，因此，弱等价等价于等价。
 \end{proof}
 
-This is an important advantage of our category theory over set-based approaches.
-With a purely set-based definition of category, the statement ``every fully faithful and essentially surjective functor is an equivalence of categories'' is equivalent to the axiom of choice \choice{}.
-Here we have it for free, as a category-theoretic version of the principle of unique choice (\cref{sec:unique-choice}).
-(In fact, this property characterizes categories among precategories; see \cref{sec:rezk}.)
+这是我们范畴论相对于基于集合的方法的一个重要优势。
+在一个纯集合论定义的范畴中，“每个完全忠实并且本质满射的函子都是一个范畴等价”这一命题等价于选择公理 \choice{}。
+在这里，我们免费获得了它，作为选择唯一性原则 (principle of unique choice) 的范畴论版本 (\cref{sec:unique-choice})。
+（实际上，这个性质刻画了前范畴中的范畴；参见 \cref{sec:rezk}。）
 
-On the other hand, the following characterization of equivalences of categories is perhaps even more useful.
+另一方面，以下对范畴等价的刻画可能更有用。
 
 \begin{defn}\label{ct:isocat}
-  A functor $F:A\to B$ is an \define{isomorphism of (pre)cat\-ego\-ries}
-  \indexdef{isomorphism!of (pre)categories}%
-  \indexdef{category!isomorphism of}%
-  \indexdef{precategory!isomorphism of}%
-  if $F$ is fully faithful and $F_0:A_0\to B_0$ is an equivalence of types.
+一个函子 $F:A\to B$ 是一个\define{范畴的同构 (isomorphism of (pre)categories)}，
+\indexdef{同构!范畴的 (isomorphism of (pre)categories)}%
+\indexdef{范畴!同构 (category isomorphism)}%
+\indexdef{前范畴!同构 (precategory isomorphism)}%
+如果 $F$ 是完全忠实的并且 $F_0:A_0\to B_0$ 是一个类型等价。
 \end{defn}
 
-This definition is an exception to our general rule (see \cref{sec:basics-equivalences}) of only using the word ``isomorphism'' for sets and set-like objects.
-However, it does carry an appropriate connotation here, because for general precategories, isomorphism is stronger than equivalence.
+这个定义是我们的一般规则的一个例外（参见 \cref{sec:basics-equivalences}），即只在集合和类集合样的对象上使用“同构”一词。
+然而，在这里它确实带有适当的含义，因为对于一般的前范畴，同构比等价更强。
 
-Note that being an isomorphism of precategories is always a mere property.
-Let $A\cong B$ denote the type of isomorphisms of (pre)categories from $A$ to $B$.
+注意，作为前范畴的同构始终是一个纯命题。
+我们记 $A\cong B$ 为从 $A$ 到 $B$ 的前范畴同构的类型。
 
 \begin{lem}\label{ct:isoprecat}
-  For precategories $A$ and $B$ and $F:A\to B$, the following are equivalent.
-  \begin{enumerate}
-  \item $F$ is an isomorphism of precategories.\label{item:ct:ipc1}
-  \item There exist $G:B\to A$ and $\eta:1_A = GF$ and $\epsilon:FG=1_B$ such that\label{item:ct:ipc2}
-    \begin{equation}
-      \apfunc{(\lam{H} F H)}({\eta}) = \apfunc{(\lam{K} K F)}({\opp\epsilon}).\label{eq:ct:isoprecattri}
-    \end{equation}
-  \item There merely exist $G:B\to A$ and $\eta:1_A = GF$ and $\epsilon:FG=1_B$.\label{item:ct:ipc3}
-  \end{enumerate}
+对于前范畴 $A$ 和 $B$ 以及函子 $F:A\to B$，以下命题是等价的。
+\begin{enumerate}
+  \item $F$ 是前范畴的同构。\label{item:ct:ipc1}
+  \item 存在 $G:B\to A$ 和 $\eta:1_A = GF$ 以及 $\epsilon:FG=1_B$，使得\label{item:ct:ipc2}
+  \begin{equation}
+    \apfunc{(\lam{H} F H)}({\eta}) = \apfunc{(\lam{K} K F)}({\opp\epsilon})。\label{eq:ct:isoprecattri}
+  \end{equation}
+  \item 仅仅存在 $G:B\to A$ 和 $\eta:1_A = GF$ 以及 $\epsilon:FG=1_B$。\label{item:ct:ipc3}
+\end{enumerate}
 \end{lem}
 
-Note that if $B_0$ is not a 1-type, then~\eqref{eq:ct:isoprecattri} may not be a mere proposition.
+注意，如果 $B_0$ 不是一个 1-类型，那么~\eqref{eq:ct:isoprecattri} 可能不是一个纯命题。
 
 \begin{proof}
-  First note that since hom-sets are sets, equalities between equalities of functors are uniquely determined by their object-parts.
-  Thus, by function extensionality,~\eqref{eq:ct:isoprecattri} is equivalent to
+  首先注意，由于同源集是集合，函子之间相等性的相等由其对象部分唯一确定。
+  因此，根据函数外延性 (function extensionality)，~\eqref{eq:ct:isoprecattri} 等价于
   \begin{equation}
-    \map{(F_0)}{\eta_0}_a = \opp{(\epsilon_0)}_{F_0 a}.\label{eq:ct:ipctri}
+    \map{(F_0)}{\eta_0}_a = \opp{(\epsilon_0)}_{F_0 a}。\label{eq:ct:ipctri}
   \end{equation}
-  for all $a:A_0$.
-  Note that this is precisely the triangle identity for $G_0$, $\eta_0$, and $\epsilon_0$ to be a proof that $F_0$ is a half adjoint equivalence of types.
+  对于所有 $a:A_0$。
+  注意这正是 $G_0$，$\eta_0$ 和 $\epsilon_0$ 作为证明 $F_0$ 是一个半伴随等价 (half adjoint equivalence) 的三角等式。
 
-  Now suppose~\ref{item:ct:ipc1}.
-  Let $G_0:B_0 \to A_0$ be the inverse of $F_0$, with $\eta_0: \idfunc[A_0] = G_0 F_0$ and $\epsilon_0:F_0G_0 = \idfunc[B_0]$ satisfying the triangle identity, which is precisely~\eqref{eq:ct:ipctri}.
-  Now define $G_{b,b'}:\hom_B(b,b') \to \hom_A(G_0b,G_0b')$ by
+  现在假设~\ref{item:ct:ipc1}。
+  令 $G_0:B_0 \to A_0$ 为 $F_0$ 的逆元，具有 $\eta_0: \idfunc[A_0] = G_0 F_0$ 和 $\epsilon_0:F_0G_0 = \idfunc[B_0]$ 满足三角等式，这正是~\eqref{eq:ct:ipctri}。
+  现在定义 $G_{b,b'}:\hom_B(b,b') \to \hom_A(G_0b,G_0b')$ 为
   \[ G_{b,b'}(g) \defeq
   \inv{(F_{G_0b,G_0b'})}\Big(\idtoiso(\opp{(\epsilon_0)}_{b'}) \circ g \circ \idtoiso((\epsilon_0)_b)\Big)
   \]
-  (using the assumption that $F$ is fully faithful).
-  Since \idtoiso takes inverses to inverses and concatenation to composition, and $F$ is a functor, it follows that $G$ is a functor.
+  （使用假设 $F$ 是完全忠实的）。
+  由于 \idtoiso 取逆元到逆元，且复合到组合，并且 $F$ 是一个函子，因此 $G$ 是一个函子。
 
-  By definition, we have $(GF)_0 \jdeq G_0 F_0$, which is equal to $\idfunc[A_0]$ by $\eta_0$.
-  To obtain $1_A = GF$, we need to show that when transported along $\eta_0$, the identity function of $\hom_A(a,a')$ becomes equal to the composite $G_{Fa,Fa'} \circ F_{a,a'}$.
-  In other words, for any $f:\hom_A(a,a')$ we must have
+  按定义，我们有 $(GF)_0 \jdeq G_0 F_0$，通过 $\eta_0$ 等于 $\idfunc[A_0]$。
+  为了获得 $1_A = GF$，我们需要证明当沿着 $\eta_0$ 运输时，同源集的恒等函数变得等于复合 $G_{Fa,Fa'} \circ F_{a,a'}$。
+  换句话说，对于任意 $f:\hom_A(a,a')$，我们必须有
   \begin{multline*}
     \idtoiso((\eta_0)_{a'}) \circ f \circ \idtoiso(\opp{(\eta_0)}_a)\\
     = \inv{(F_{GFa,GFa'})}\Big(\idtoiso(\opp{(\epsilon_0)}_{Fa'})
-    \circ F_{a,a'}(f) \circ \idtoiso((\epsilon_0)_{Fa})\Big).
+    \circ F_{a,a'}(f) \circ \idtoiso((\epsilon_0)_{Fa})\Big)。
   \end{multline*}
-  But this is equivalent to
+  但这等价于
   \begin{multline*}
-    (F_{GFa,GFa'})\Big(\idtoiso((\eta_0)_{a'}) \circ f \circ \idtoiso(\opp{(\eta_0)}_a)\Big)\\
-    = \idtoiso(\opp{(\epsilon_0)}_{Fa'})
-    \circ F_{a,a'}(f) \circ \idtoiso((\epsilon_0)_{Fa}).
+  (F_{GFa,GFa'})\Big(\idtoiso((\eta_0)_{a'}) \circ f \circ \idtoiso(\opp{(\eta_0)}_a)\Big)\\
+  = \idtoiso(\opp{(\epsilon_0)}_{Fa'})
+  \circ F_{a,a'}(f)
+  \circ \idtoiso((\epsilon_0)_{Fa})。
   \end{multline*}
-  which follows from functoriality of $F$, the fact that $F$ preserves \idtoiso, and~\eqref{eq:ct:ipctri}.
-  Thus we have $\eta:1_A = GF$.
+  这跟随于 $F$ 的函子性，$F$ 保持 \idtoiso 的事实，以及~\eqref{eq:ct:ipctri}。
+  因此我们有 $\eta:1_A = GF$。
 
-  On the other side, we have $(FG)_0\jdeq F_0 G_0$, which is equal to $\idfunc[B_0]$ by $\epsilon_0$.
-  To obtain $FG=1_B$, we need to show that when transported along $\epsilon_0$, the identity function of $\hom_B(b,b')$ becomes equal to the composite $F_{Gb,Gb'} \circ G_{b,b'}$.
-  That is, for any $g:\hom_B(b,b')$ we must have
+  另一方面，我们有 $(FG)_0\jdeq F_0 G_0$，通过 $\epsilon_0$ 等于 $\idfunc[B_0]$。
+  为了获得 $FG=1_B$，我们需要证明当沿着 $\epsilon_0$ 运输时，同源集的恒等函数变得等于复合 $F_{Gb,Gb'} \circ G_{b,b'}$。
+  也就是说，对于任意 $g:\hom_B(b,b')$，我们必须有
   \begin{multline*}
     F_{Gb,Gb'}\Big(\inv{(F_{Gb,Gb'})}\Big(\idtoiso(\opp{(\epsilon_0)}_{b'}) \circ g \circ \idtoiso((\epsilon_0)_b)\Big)\Big)\\
-    = \idtoiso((\opp{\epsilon_0})_{b'}) \circ g \circ \idtoiso((\epsilon_0)_b).
+    = \idtoiso((\opp{\epsilon_0})_{b'}) \circ g \circ \idtoiso((\epsilon_0)_b)。
   \end{multline*}
-  But this is just the fact that $\inv{(F_{Gb,Gb'})}$ is the inverse of $F_{Gb,Gb'}$.
-  And we have remarked that~\eqref{eq:ct:isoprecattri} is equivalent to~\eqref{eq:ct:ipctri}, so~\ref{item:ct:ipc2} holds.
+  但这仅仅是 $\inv{(F_{Gb,Gb'})}$ 是 $F_{Gb,Gb'}$ 的逆元的事实。
+  我们已经提到~\eqref{eq:ct:isoprecattri} 等价于~\eqref{eq:ct:ipctri}，所以~\ref{item:ct:ipc2} 成立。
 
-  Conversely, suppose given~\ref{item:ct:ipc2}; then the object-parts of $G$, $\eta$, and $\epsilon$ together with~\eqref{eq:ct:ipctri} show that $F_0$ is an equivalence of types.
-  And for $a,a':A_0$, we define $\overline{G}_{a,a'}: \hom_B(Fa,Fa') \to \hom_A(a,a')$ by
+  反过来，假设~\ref{item:ct:ipc2}；那么 $G$ 的对象部分，$\eta$ 和 $\epsilon$ 以及~\eqref{eq:ct:ipctri} 的对象部分表明 $F_0$ 是一个类型等价。
+  而对于 $a,a':A_0$，我们定义 $\overline{G}_{a,a'}: \hom_B(Fa,Fa') \to \hom_A(a,a')$ 为
   \begin{equation}
-    \overline{G}_{a,a'}(g) \defeq \idtoiso(\opp{\eta})_{a'} \circ G(g) \circ \idtoiso(\eta)_a.\label{eq:ct:gbar}
+    \overline{G}_{a,a'}(g) \defeq \idtoiso(\opp{\eta})_{a'} \circ G(g) \circ \idtoiso(\eta)_a。\label{eq:ct:gbar}
   \end{equation}
-  By naturality of $\idtoiso(\eta)$, for any $f:\hom_A(a,a')$ we have
+  根据 $\idtoiso(\eta)$ 的自然性，对于任意 $f:\hom_A(a,a')$，我们有
   \begin{align*}
     \overline{G}_{a,a'}(F_{a,a'}(f))
     &= \idtoiso(\opp{\eta})_{a'} \circ G(F(f)) \circ \idtoiso(\eta)_a\\
     &= \idtoiso(\opp{\eta})_{a'} \circ \idtoiso(\eta)_{a'} \circ f \\
-    &= f.
+    &= f。
   \end{align*}
-  On the other hand, for $g:\hom_B(Fa,Fa')$ we have
+  另一方面，对于 $g:\hom_B(Fa,Fa')$，我们有
   \begin{align*}
     F_{a,a'}(\overline{G}_{a,a'}(g))
     &= F(\idtoiso(\opp{\eta})_{a'}) \circ F(G(g)) \circ F(\idtoiso(\eta)_a)\\
@@ -727,103 +727,102 @@ Note that if $B_0$ is not a 1-type, then~\eqref{eq:ct:isoprecattri} may not be a
     &= \idtoiso(\epsilon)_{Fa'}
     \circ \idtoiso(\opp{\epsilon})_{Fa'}
     \circ g\\
-    &= g.
+    &= g。
   \end{align*}
-  (There are lemmas needed here regarding the compatibility of \idtoiso and whiskering, which we leave it to the reader to state and prove.)
-  Thus, $F_{a,a'}$ is an equivalence, so $F$ is fully faithful; i.e.~\ref{item:ct:ipc1} holds.
+  （这里需要一些关于 \idtoiso 和 whiskering 兼容性的引理，我们留给读者去陈述和证明。）
+  因此，$F_{a,a'}$ 是一个等价，所以 $F$ 是完全忠实的；即~\ref{item:ct:ipc1} 成立。
 
-  Now the composite~\ref{item:ct:ipc1}$\to$\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc1} is equal to the identity since~\ref{item:ct:ipc1} is a mere proposition.
-  On the other side, tracing through the above constructions we see that the composite~\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc1}$\to$\ref{item:ct:ipc2} essentially preserves the object-parts $G_0$, $\eta_0$, $\epsilon_0$, and the object-part of~\eqref{eq:ct:isoprecattri}.
-  And in the latter three cases, the object-part is all there is, since hom-sets are sets.
+  现在复合~\ref{item:ct:ipc1}$\to$\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc1} 等于恒等式，因为~\ref{item:ct:ipc1} 是一个纯命题。
+  另一方面，跟踪以上构造，我们看到复合~\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc1}$\to$\ref{item:ct:ipc2} 本质上保留了 $G_0$，$\eta_0$，$\epsilon_0$ 的对象部分以及~\eqref{eq:ct:isoprecattri} 的对象部分。
+  而在后面三种情况下，对象部分就是全部，因为同源集是集合。
 
-  Thus, it suffices to show that we recover the action of $G$ on hom-sets.
-  In other words, we must show that if $g:\hom_B(b,b')$, then
+  因此，足以证明我们恢复了 $G$ 在同源集上的作用。
+  换句话说，我们必须证明如果 $g:\hom_B(b,b')$，那么
   \[ G_{b,b'}(g) =
   \overline{G}_{G_0b,G_0b'}\Big(\idtoiso(\opp{(\epsilon_0)}_{b'}) \circ g \circ \idtoiso((\epsilon_0)_b)\Big)
   \]
-  where $\overline{G}$ is defined by~\eqref{eq:ct:gbar}.
-  However, this follows from functoriality of $G$ and the \emph{other} triangle identity, which we have seen in \cref{cha:equivalences} is equivalent to~\eqref{eq:ct:ipctri}.
+  其中 $\overline{G}$ 定义为~\eqref{eq:ct:gbar}。
+  然而，这跟随于 $G$ 的函子性和\emph{另一}三角等式，我们在 \cref{cha:equivalences} 中看到这等价于~\eqref{eq:ct:ipctri}。
 
-  Now since~\ref{item:ct:ipc1} is a mere proposition, so is~\ref{item:ct:ipc2}, so it suffices to show they are logically equivalent to~\ref{item:ct:ipc3}.
-  Of course,~\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc3}, so let us assume~\ref{item:ct:ipc3}.
-  Since~\ref{item:ct:ipc1} is a mere proposition, we may assume given $G$, $\eta$, and $\epsilon$.
-  Then $G_0$ along with $\eta$ and $\epsilon$ imply that $F_0$ is an equivalence.
-  Moreover, we also have natural isomorphisms $\idtoiso(\eta):1_A\cong GF$ and $\idtoiso(\epsilon):FG\cong 1_B$, so by \cref{ct:adjointification}, $F$ is an equivalence of precategories, and in particular fully faithful.
+  现在，由于~\ref{item:ct:ipc1} 是一个纯命题，~\ref{item:ct:ipc2} 也是如此，所以足以证明它们逻辑上等价于~\ref{item:ct:ipc3}。
+  当然，~\ref{item:ct:ipc2}$\to$\ref{item:ct:ipc3}，所以让我们假设~\ref{item:ct:ipc3}。
+  由于~\ref{item:ct:ipc1} 是一个纯命题，我们可以假设给定 $G$，$\eta$ 和 $\epsilon$。
+  然后 $G_0$ 连同 $\eta$ 和 $\epsilon$ 表明 $F_0$ 是一个等价。
+  此外，我们还有自然同构 $\idtoiso(\eta):1_A\cong GF$ 和 $\idtoiso(\epsilon):FG\cong 1_B$，因此根据 \cref{ct:adjointification}，$F$ 是一个前范畴的等价，特别是完全忠实的。
 \end{proof}
 
-From \cref{ct:isoprecat}\ref{item:ct:ipc2} and $\idtoiso$ in functor categories, we conclude immediately that any isomorphism of precategories is an equivalence.
-For precategories, the converse can fail.
+从 \cref{ct:isoprecat}\ref{item:ct:ipc2} 和函子范畴中的 $\idtoiso$，我们可以立即得出任何前范畴的同构都是等价的。
+对于前范畴，反过来可能会失败。
 
 \begin{eg}\label{ct:chaotic}
-  Let $X$ be a type and $x_0:X$ an element, and let $X_{\mathrm{ch}}$ denote the \emph{chaotic}\indexdef{chaotic precategory} or \emph{indiscrete}\indexdef{indiscrete precategory} precategory on $X$.
-  By definition, we have $(X_{\mathrm{ch}})_0\defeq X$, and $\hom_{X_{\mathrm{ch}}}(x,x') \defeq \unit$ for all $x,x'$.
-  Then the unique functor $X_{\mathrm{ch}}\to \unit$ is an equivalence of precategories, but not an isomorphism unless $X$ is contractible.
+设 $X$ 是一个类型且 $x_0:X$ 是一个元素，并令 $X_{\mathrm{ch}}$ 表示 $X$ 上的\emph{混乱 (chaotic)}\indexdef{混乱前范畴 (chaotic precategory)}或\emph{不分离 (indiscrete)}\indexdef{不分离前范畴 (indiscrete precategory)}前范畴。
+按照定义，我们有 $(X_{\mathrm{ch}})_0\defeq X$，并且对于所有 $x,x'$，$\hom_{X_{\mathrm{ch}}}(x,x') \defeq \unit$。
+然后唯一的函子 $X_{\mathrm{ch}}\to \unit$ 是一个前范畴的等价，但除非 $X$ 是收缩的 (contractible)，否则它不是同构。
 
-  This example also shows that a precategory can be equivalent to a category without itself being a category.
-  Of course, if a precategory is \emph{isomorphic} to a category, then it must itself be a category.
+这个例子也表明，一个前范畴可以等价于一个范畴而不自身是一个范畴。
+当然，如果一个前范畴\emph{是同构的}到一个范畴，那么它自身必须是一个范畴。
 \end{eg}
 
-However, for categories, the two notions coincide.
+然而，对于范畴，这两个概念是一致的。
 
 \begin{lem}\label{ct:eqv-levelwise}
-  For categories $A$ and $B$, a functor $F:A\to B$ is an equivalence of categories if and only if it is an isomorphism of categories.
+对于范畴 $A$ 和 $B$，一个函子 $F:A\to B$ 如果且仅如果它是范畴的同构，则是范畴的等价。
 \end{lem}
 \begin{proof}
-  Since both are mere properties, it suffices to show they are logically equivalent.
-  So first suppose $F$ is an equivalence of categories, with $(G,\eta,\epsilon)$ given.
-  We have already seen that $F$ is fully faithful.
-  By \cref{ct:functor-cat}, the natural isomorphisms $\eta$ and $\epsilon$ yield identities $\id{1_A}{GF}$ and $\id{FG}{1_B}$, hence in particular identities $\id{\idfunc[A]}{G_0\circ F_0}$ and $\id{F_0\circ G_0}{\idfunc[B]}$.
-Thus, $F_0$ is an equivalence of types.
+  由于两者都是纯命题，所以足以证明它们逻辑上等价。
+  因此，首先假设 $F$ 是范畴的等价，并给定了 $(G,\eta,\epsilon)$。
+  我们已经看到 $F$ 是完全忠实的。
+  根据 \cref{ct:functor-cat}，自然同构 $\eta$ 和 $\epsilon$ 产生了恒等式 $\id{1_A}{GF}$ 和 $\id{FG}{1_B}$，因此特别是 $\id{\idfunc[A]}{G_0\circ F_0}$ 和 $\id{F_0\circ G_0}{\idfunc[B]}$ 的恒等式。
+  因此，$F_0$ 是一个类型等价。
 
-  Conversely, suppose $F$ is fully faithful and $F_0$ is an equivalence of types, with inverse $G_0$, say.
-  Then for each $b:B$ we have $G_0 b:A$ and an identity $\id{FGb}{b}$, hence an isomorphism $FGb\cong b$.
-  Thus, by \cref{ct:ffeso}, $F$ is an equivalence of categories.
+  反过来，假设 $F$ 是完全忠实的并且 $F_0$ 是一个类型等价，假设其逆元是 $G_0$。
+  那么对于每个 $b:B$，我们有 $G_0 b:A$ 并且有一个恒等式 $\id{FGb}{b}$，因此有一个同构 $FGb\cong b$。
+  因此，根据 \cref{ct:ffeso}，$F$ 是一个范畴的等价。
 \end{proof}
 
-Of course, there is yet a third notion of sameness for (pre)categories: equality.
-However, the univalence axiom implies that it coincides with isomorphism.
+当然，还有第三个相似的概念用于（前）范畴：相等性。
+然而，一致性公理 (univalence axiom) 表明它与同构一致。
 
 \begin{lem}\label{ct:cat-eq-iso}
-  If $A$ and $B$ are precategories, then the function
-  \[(\id A B) \to (A\cong B)\]
-  (defined by induction from the identity functor) is an equivalence of types.
+如果 $A$ 和 $B$ 是前范畴，那么函数
+\[(\id A B) \to (A\cong B)\]
+（通过从恒等函子归纳定义）是一个类型等价。
 \end{lem}
 \begin{proof}
-  As usual for dependent sum types, to give an element of $\id A B$ is equivalent to giving
+  正如通常对于依赖和类型，给出一个 $\id A B$ 的元素等价于给出
   \begin{itemize}
-  \item an identity $P_0:\id{A_0}{B_0}$,
-  \item for each $a,b:A_0$, an identity
+    \item 一个恒等式 $P_0:\id{A_0}{B_0}$，
+    \item 对于每个 $a,b:A_0$，一个恒等式
     \[P_{a,b}:\id{\hom_A(a,b)}{\hom_B(\trans {P_0} a,\trans {P_0} b)},\]
-  \item identities $\id{\trans {(P_{a,a})} {1_a}}{1_{\trans {P_0} a}}$ and
-    \narrowequation{\id{\trans {(P_{a,c})} {gf}}{\trans {(P_{b,c})} g \circ \trans {(P_{a,b})} f}.}
+    \item 恒等式 $\id{\trans {(P_{a,a})} {1_a}}{1_{\trans {P_0} a}}$ 和
+    \narrowequation{\id{\trans {(P_{a,c})} {gf}}{\trans {(P_{b,c})} g \circ \trans {(P_{a,b})} f}。}
   \end{itemize}
-  (Again, we use the fact that the identity types of hom-sets are mere propositions.)
-  However, by univalence, this is equivalent to giving
+  （再次使用同源集的身份类型是纯命题的事实。）
+  然而，根据一致性，这等价于给出
   \begin{itemize}
-  \item an equivalence of types $F_0:\eqv{A_0}{B_0}$,
-  \item for each $a,b:A_0$, an equivalence of types
+    \item 一个类型的等价 $F_0:\eqv{A_0}{B_0}$，
+    \item 对于每个 $a,b:A_0$，一个类型的等价
     \[F_{a,b}:\eqv{\hom_A(a,b)}{\hom_B(F_0 (a),F_0 (b))},\]
-  \item and identities $\id{F_{a,a}(1_a)}{1_{F_0 (a)}}$ and $\id{F_{a,c}(gf)}{F_{b,c} (g)\circ F_{a,b} (f)}$.
+    \item 和恒等式 $\id{F_{a,a}(1_a)}{1_{F_0 (a)}}$ 和 $\id{F_{a,c}(gf)}{F_{b,c} (g)\circ F_{a,b} (f)}$。
   \end{itemize}
-  But this consists exactly of a functor $F:A\to B$ that is an isomorphism of categories.
-  And by induction on identity, this equivalence $\eqv{(\id A B)}{(A\cong B)}$ is equal to the one obtained by induction.
+  但这正是一个函子 $F:A\to B$，它是一个范畴的同构。
+  并且通过对恒等式的归纳，这个等价 $\eqv{(\id A B)}{(A\cong B)}$ 等于通过归纳获得的那个。
 \end{proof}
 
-Thus, for categories, equality also coincides with equivalence.
-We can interpret this as saying that categories, functors, and natural transformations form, not just a pre-2-category, but a 2-category (see \cref{ct:pre2cat}).
+因此，对于范畴，相等性也等同于等价。
+我们可以将此解释为，范畴、函子和自然变换不仅形成了一个前 2-范畴 (pre-2-category)，还形成了一个 2-范畴（参见 \cref{ct:pre2cat}）。
 
 \begin{thm}\label{ct:cat-2cat}
-  If $A$ and $B$ are categories, then the function
-  \[(\id A B) \to (\cteqv A B)\]
-  (defined by induction from the identity functor) is an equivalence of types.
+如果 $A$ 和 $B$ 是范畴，那么函数
+\[(\id A B) \to (\cteqv A B)\]
+（通过从恒等函子归纳定义）是一个类型等价。
 \end{thm}
 \begin{proof}
-  By \cref{ct:cat-eq-iso,ct:eqv-levelwise}.
+  根据 \cref{ct:cat-eq-iso,ct:eqv-levelwise}。
 \end{proof}
 
-As a consequence, the type of categories is a 2-type.
-For since $\cteqv A B$ is a subtype of the type of functors from $A$ to $B$, which are the objects of a category, it is a 1-type; hence the identity types $\id A B$ are also 1-types.
-
+因此，范畴的类型是一个 2-类型。
+因为 $\cteqv A B$ 是函子类型的一个子类型，而函子是范畴的对象，所以它是一个 1-类型；因此 $\id A B$ 的恒等类型也是 1-类型。
 
 \section{The Yoneda lemma}
 \label{sec:yoneda}
