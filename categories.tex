@@ -1609,143 +1609,114 @@ Rezk 完备还允许我们表明，“范畴”的概念是由“预范畴的弱
 
 
 \newpage
-
 \sectionNotes
 
-The original definition of categories, of course, was in set-theoretic foundations, so that the collection of objects of a category formed a set (or, for large categories, a class).
-Over time, it became clear that all ``category-theoretic'' properties of objects were invariant under isomorphism, and that equality of objects in a category was not usually a very useful notion.
-Numerous authors~\cite{blanc:eqv-log,freyd:invar-eqv,makkai:folds,makkai:comparing} discovered that a dependently typed logic enabled formulating the definition of category without invoking any notion of equality for objects, and that the statements provable in this logic are precisely the ``category-theoretic'' ones that are invariant under isomorphism.
+范畴的最初定义当然是在集合论基础上的，因此一个范畴的对象集形成一个集合（对于大范畴，则是一个类）。随着时间的推移，人们逐渐认识到，所有“范畴论”中的对象性质在同构下都是不变的，并且范畴中对象的等同性通常不是一个非常有用的概念。许多作者~\cite{blanc:eqv-log,freyd:invar-eqv,makkai:folds,makkai:comparing} 发现，依赖类型逻辑能够在不引入对象等同性概念的情况下，形式化范畴的定义，并且在这种逻辑中可以证明的陈述恰恰是那些在同构下不变的“范畴论”陈述。
 \index{evil}%
 
-Although most of category theory appears to be invariant under isomorphism of objects and under equivalence of categories, there are some interesting exceptions, which have led to philosophical discussions about what it means to be ``category-theoretic''.
-For instance, \cref{ct:galois} was brought up by Peter May on the categories mailing list in May 2010, as a case where it matters that two categories (defined as usual in set theory) are isomorphic rather than only equivalent.
-The case of $\dagger$-categories was also somewhat confounding to those advocating an isomorphism-invariant version of category theory, since the ``correct'' notion of sameness between objects of a $\dagger$-category is not ordinary isomorphism but \emph{unitary} isomorphism.
+尽管大多数范畴论似乎在对象的同构和范畴的等价下不变，但也有一些有趣的例外，这引发了关于“范畴论”意味着什么的哲学讨论。例如，\cref{ct:galois} 被彼得·梅 (Peter May) 于2010年5月在范畴邮件列表上提出，作为一个在两个范畴（按照集合论中的通常定义）是同构而不仅仅是等价时显得重要的案例。$\dagger$-范畴的情况也对那些倡导同构不变版本的范畴论的人来说有些困惑，因为$\dagger$-范畴中对象之间的“正确”相同性概念并不是普通的同构，而是\emph{酉同构 (unitary isomorphism)}。
 \index{isomorphism!invariance under}%
 
-Categories satisfying the ``saturation'' or ``univalence'' principle as in \cref{ct:category} were first considered by Hofmann and Streicher~\cite{hs:gpd-typethy}.
-The condition then occurred independently to Voevodsky, Shulman, and perhaps others around the same time several years later, and was formalized by Ahrens and Kapulkin~\cite{aks:rezk}.
-This framework puts all the above examples in a unified context: some precategories are categories, others are strict categories, and so on.
-A general theorem that ``isomorphism implies equality'' for a large class of algebraic structures (assuming the univalence axiom) was proven by Coquand and Danielsson; the formulation of the structure identity principle in \cref{sec:sip} is due to Aczel.
+满足“饱和”或“单值性”原则的范畴，如\cref{ct:category}所述，最早由 Hofmann 和 Streicher~\cite{hs:gpd-typethy} 考虑。这一条件随后在几年后几乎同时由 Voevodsky、Shulman 和其他人独立提出，并由 Ahrens 和 Kapulkin~\cite{aks:rezk} 形式化。该框架将所有上述例子置于统一的背景中：一些预范畴是范畴，另一些是严格范畴，等等。一个关于“同构蕴含等同”的一般定理（假设单值性公理）由 Coquand 和 Danielsson 证明；\cref{sec:sip} 中结构等同性原则的表述归功于 Aczel。
 
-Independently of philosophical considerations about category theory, Rezk~\cite{rezk01css} discovered that when defining a notion of $(\infty,1)$-cat\-e\-go\-ry,
+独立于关于范畴论的哲学考虑，Rezk~\cite{rezk01css} 发现，在定义 $(\infty,1)$-范畴的概念时，
 \index{.infinity1-category@$(\infty,1)$-category}%
-it was very convenient to use not merely a \emph{set} of objects with spaces of morphisms between them, but a \emph{space} of objects incorporating all the equivalences and homotopies between them.
-This yields a very well-behaved sort of model for $(\infty,1)$-categories as particular simplicial spaces, which Rezk called \emph{complete Segal spaces}.
+使用一个不仅包含态射空间的对象集，而且包含所有等价和同伦的对象空间，是非常方便的。这种方式产生了一种非常良好表现的$(\infty,1)$-范畴模型，称为\emph{完备 Segal 空间 (complete Segal spaces)}。
 \index{complete!Segal space}%
 \index{Segal!space}%
-One especially good aspect of this model is the analogue of \cref{ct:eqv-levelwise}: a map of complete Segal spaces is an equivalence just when it is a levelwise equivalence of simplicial spaces.
+这种模型的一个特别好的方面是与\cref{ct:eqv-levelwise}的类似性：一个完备 Segal 空间的映射当且仅当它是一个逐层等价的 Simplicial 空间时，才是等价的。
 
-When interpreted in Voevodsky's simplicial\index{simplicial!sets} set model of univalent foundations, our precategories are similar to a truncated analogue of Rezk's ``Segal spaces'', while our categories correspond to his ``complete Segal spaces''.
+在 Voevodsky 的单值基础的 Simplicial 集模型中，我们的预范畴类似于 Rezk 的“Segal 空间”的截断类比，而我们的范畴则对应于他的“完备 Segal 空间”。
 \index{Segal!category}%
-Strict categories correspond instead to (a weakened and truncated version of) what are called ``Segal categories''.
-It is known that Segal categories and complete Segal spaces are equivalent models for $(\infty,1)$-categories (see e.g.~\cite{bergner:infty-one}), so that in the simplicial set model, categories and strict categories yield ``equivalent'' category theories---although as we have seen, the former still have many advantages.
-However, in the more general categorical semantics of a higher topos,
+严格范畴则对应于（弱化和截断版本的）所谓的“Segal 范畴”。已知 Segal 范畴和完备 Segal 空间是 $(\infty,1)$-范畴的等价模型（见例如~\cite{bergner:infty-one}），因此在 Simplicial 集模型中，范畴和严格范畴产生了“等价”的范畴理论——尽管如我们所见，前者仍然有许多优势。然而，在更一般的高阶拓扑语义学中，
 \index{.infinity1-topos@$(\infty,1)$-topos}%
-a strict category corresponds to an internal category (in the traditional sense) in the corresponding 1-topos\index{topos} of sheaves, while a category corresponds to a \emph{stack}.
+一个严格范畴对应于相应的 1-拓扑中（传统意义上的）内部范畴，而一个范畴对应于\emph{堆栈 (stack)}。
 \index{stack}%
-The latter are generally a more appropriate sort of ``category'' relative to a topos.
+后者通常是相对于拓扑的更合适的“范畴”形式。
 
-In Rezk's context, what we have called the ``Rezk completion'' corresponds to fibrant replacement
+在 Rezk 的上下文中，我们称之为“Rezk 完备”的东西对应于完备 Segal 空间模型范畴中的纤维化替代。
 \index{fibrant replacement}
-in the model category for complete Segal spaces.
-Since this is built using a transfinite induction argument, it most closely matches our second construction as a higher inductive type.
-However, in higher topos models of homotopy type theory, the Rezk completion corresponds to \emph{stack completion},\index{completion!stack}\index{stack!completion} which can be constructed either with a transfinite induction~\cite{jt:strong-stacks} or using a Yoneda embedding \cite{bunge:stacks-morita-internal}.
+由于这是通过一个超限归纳论证建立的，它最接近我们的第二个构造作为一个高阶归纳类型。然而，在同伦类型论的高阶拓扑模型中，Rezk 完备对应于\emph{堆栈完备 (stack completion)}，\index{completion!stack}\index{stack!completion} 它可以通过超限归纳~\cite{jt:strong-stacks} 或使用 Yoneda 嵌入~\cite{bunge:stacks-morita-internal} 构造。
 
 
 \sectionExercises
 
 \begin{ex}\label{ex:slice-precategory}
-  For a precategory $A$ and $a:A$, define the \define{slice precategory} $A/a$.
-  \indexsee{precategory!slice}{category, slice}%
-  \indexsee{slice (pre)category}{category, slice}%
-  Show that if $A$ is a category, so is $A/a$.
-  \indexdef{category!slice}%
+对于一个预范畴 $A$ 和 $a:A$，定义\define{切片预范畴 (slice precategory)} $A/a$。
+\indexsee{precategory!slice}{category, slice}%
+\indexsee{slice (pre)category}{category, slice}%
+证明如果 $A$ 是一个范畴，那么 $A/a$ 也是一个范畴。
+\indexdef{category!slice}%
 \end{ex}
 
 \begin{ex}\label{ex:set-slice-over-equiv-functor-category}
-  For any set $X$, prove that the slice category $\uset/X$ is equivalent to the functor category $\uset^X$, where in the latter case we regard $X$ as a discrete category.
+对于任意集合 $X$，证明切片范畴 $\uset/X$ 等价于函子范畴 $\uset^X$，其中在后者情况下，我们将 $X$ 视为一个离散范畴。
 \end{ex}
 
 \begin{ex}\label{ex:functor-equiv-right-adjoint}
-  \index{adjoint!functor}%
-  \index{adjoint!equivalence}%
-  Prove that a functor is an equivalence of categories if and only if it is a \emph{right} adjoint whose unit and counit are isomorphisms.
+\index{adjoint!functor}%
+\index{adjoint!equivalence}%
+证明一个函子是范畴的等价，当且仅当它是\emph{右伴随 (right adjoint)}，且其单位和余单位是同构。
 \end{ex}
 
 \begin{ex}\label{ct:pre2cat}
-  Define the notion of \define{pre-2-category}.
-  \indexdef{pre-2-category}%
-  Show that precategories, functors, and natural transformations as defined in \cref{sec:transfors} form a pre-2-category.
-  Similarly, define a \define{pre-bicategory}
-  \indexdef{pre-bicategory}%
-  by replacing the equalities (such as those in \cref{ct:functor-assoc,ct:units}) with natural isomorphisms satisfying analogous coherence conditions.
-  Define a function from pre-2-categories to pre-bicategories, and show that it becomes an equivalence when restricted and corestricted to those whose hom-pre\-cat\-egories are categories.
+定义\define{预 2-范畴 (pre-2-category)}的概念。
+\indexdef{pre-2-category}%
+证明如 \cref{sec:transfors} 中定义的预范畴、函子和自然变换构成一个预 2-范畴。同样，通过用满足类似一致性条件的自然同构替换 \cref{ct:functor-assoc,ct:units} 中的等式，定义\define{预双范畴 (pre-bicategory)}。
+定义一个从预 2-范畴到预双范畴的函数，并证明当其同态预范畴是范畴时，它的限制和共限制成为一个等价。
 \end{ex}
 
 \begin{ex}\label{ct:2cat}
-  Define a \define{2-category}
-  \indexdef{2-category}%
-  to be a pre-2-category satisfying a condition analogous to that of \cref{ct:category}.
-  Verify that the pre-2-category of categories \ucat is a 2-category.
-  How much of this chapter can be done internally to an arbitrary 2-category?
+定义\define{2-范畴 (2-category)}为一个满足类似于\cref{ct:category}的条件的预 2-范畴。验证范畴的预 2-范畴 \ucat 是一个 2-范畴。本章的内容在多大程度上可以在一个任意的 2-范畴中进行内部处理？
 \end{ex}
 
 \begin{ex}\label{ct:groupoids}
-  Define a 2-category whose objects are 1-types, whose morphisms are functions, and whose 2-morphisms are homotopies.
-  Prove that it is equivalent, in an appropriate sense, to the full sub-2-category of \ucat spanned by the \emph{groupoids} (categories in which every arrow is an isomorphism).
+定义一个 2-范畴，其对象是 1-类型，其态射是函数，其 2-态射是同伦。证明它在适当的意义下等价于由\emph{群范畴 (groupoids)}（每个箭头都是同构的范畴）构成的 \ucat 的全子 2-范畴。
 \end{ex}
 
 \begin{ex}\label{ex:2strict-cat}
-  \index{strict!category}%
-  Recall that a \emph{strict category} is a precategory whose type of objects is a set.
-  Prove that the pre-2-category of strict categories is equivalent to the following pre-2-category.
-  \begin{itemize}
-  \item Its objects are categories $A$ equipped with a surjection
-    % \footnote{Recall that a function $f:X\to Y$ is a \emph{surjection} if for every $y:Y$, there \emph{merely exists} an $x:X$ such that $f(x)=y$.  This is to be distinguished from a \emph{split surjection}, which has the property that for every $y:Y$ there \emph{exists} an $x:X$ such that $f(x)=y$.}
-    $p_A:A_0'\to A_0$, where $A_0'$ is a set.
-  \item Its morphisms are functors $F:A\to B$ equipped with a function $F_0':A_0' \to B_0'$ such that $p_B \circ F_0' = F_0 \circ p_A$.
-  \item Its 2-morphisms are simply natural transformations.
-  \end{itemize}
+\index{strict!category}%
+回想一个\emph{严格范畴 (strict category)}是一个对象类型为集合的预范畴。证明严格范畴的预 2-范畴等价于以下预 2-范畴。
+\begin{itemize}
+  \item 其对象是范畴 $A$，并配备一个满射
+  % \footnote{Recall that a function $f:X\to Y$ is a \emph{surjection} if for every $y:Y$, there \emph{merely exists} an $x:X$ such that $f(x)=y$.  This is to be distinguished from a \emph{split surjection}, which has the property that for every $y:Y$ there \emph{exists} an $x:X$ such that $f(x)=y$.}
+  $p_A:A_0'\to A_0$，其中 $A_0'$ 是一个集合。
+  \item 其态射是函子 $F:A\to B$，并配备一个函数 $F_0':A_0' \to B_0'$ 使得 $p_B \circ F_0' = F_0 \circ p_A$。
+  \item 其 2-态射只是自然变换。
+\end{itemize}
 \end{ex}
 
 \begin{ex}\label{ex:pre2dagger-cat}
-  Define the pre-2-category of $\dagger$-categories, which has $\dagger$-struc\-tures on its hom-pre\-cat\-egories.
-  Show that two $\dagger$-categories are equal precisely when they are ``unitarily equivalent'' in a suitable sense.
+定义$\dagger$-范畴的预 2-范畴，其中其同态预范畴上具有$\dagger$结构。证明两个$\dagger$-范畴在适当的意义下当且仅当它们是“酉等价”的，才是相等的。
 \end{ex}
 
 \begin{ex}\label{ct:ex:hocat}
-  Prove that a function $X\to Y$ is an equivalence if and only if its image in the homotopy category of \cref{ct:hocat} is an isomorphism.
-  Show that the type of objects of this category is $\trunc1\type$.
+证明一个函数 $X\to Y$ 是等价的当且仅当其在 \cref{ct:hocat} 的同伦范畴中的像是一个同构。证明这个范畴的对象类型是 $\trunc1\type$。
 \end{ex}
 
 \begin{ex}\label{ex:dagger-rezk}
-  Construct the $\dagger$-Rezk completion of a $\dagger$-precategory into a $\dagger$-category, and give it an appropriate universal property.
+构造一个$\dagger$-预范畴的$\dagger$-Rezk 完备，使其成为一个$\dagger$-范畴，并赋予其一个适当的泛性质。
 \end{ex}
 
 \begin{ex}\label{ex:rezk-vankampen}
-  \index{van Kampen theorem}%
-  \index{theorem!van Kampen}%
-  \index{fundamental!groupoid}%
-  \index{fundamental!pregroupoid}%
-  Using fundamental (pre)groupoids from \cref{ct:fundgpd,ct:rezk-fundgpd-trunc1} and the Rezk completion from \cref{sec:rezk}, give a different proof of van Kampen's theorem (\cref{sec:van-kampen}).
+\index{van Kampen theorem}%
+\index{theorem!van Kampen}%
+\index{fundamental!groupoid}%
+\index{fundamental!pregroupoid}%
+使用 \cref{ct:fundgpd,ct:rezk-fundgpd-trunc1} 中的基本（预）群范畴和 \cref{sec:rezk} 中的 Rezk 完备，给出范坎彭定理 (\cref{sec:van-kampen}) 的另一种证明。
 \end{ex}
 
 \begin{ex}\label{ex:stack}
-  Let $X$ and $Y$ be sets and $p:Y\to X$ a surjection.
-  \begin{enumerate}
-  \item Define, for any precategory $A$, the category $\mathrm{Desc}(A,p)$ of \define{descent data}
-    \indexdef{descent data}%
-    in $A$ relative to $p$.
-  \item Show that any precategory $A$ is a \define{prestack}
-    \indexdef{prestack}%
-    for $p$, i.e.\ the canonical functor $A^X \to \mathrm{Desc}(A,p)$ is fully faithful.
-  \item Show that if $A$ is a category, then it is a \define{stack}
-    \indexdef{stack}%
-    for $p$, i.e.\ $A^X \to \mathrm{Desc}(A,p)$ is an equivalence.
-  \item Show that the statement ``every strict category is a stack for every surjection of sets'' is equivalent to the axiom of choice.
-    \index{axiom!of choice}%
-    \index{strict!category}%
-  \end{enumerate}
+设 $X$ 和 $Y$ 是集合，$p:Y\to X$ 是一个满射。
+\begin{enumerate}
+  \item 对于任意预范畴 $A$，定义相对于 $p$ 的 \define{下降数据 (descent data)} 范畴 $\mathrm{Desc}(A,p)$。
+  \indexdef{descent data}%
+  \item 证明任意预范畴 $A$ 对于 $p$ 都是一个\define{预堆栈 (prestack)}，即典范函子 $A^X \to \mathrm{Desc}(A,p)$ 是完全忠实的。
+  \item 证明如果 $A$ 是一个范畴，则对于 $p$，它是一个\define{堆栈 (stack)}，即 $A^X \to \mathrm{Desc}(A,p)$ 是一个等价。
+  \item 证明命题“每个严格范畴对于每个集合满射都是堆栈”与选择公理等价。
+  \index{axiom!of choice}%
+  \index{strict!category}%
+\end{enumerate}
 \end{ex}
 
 % Local Variables:
