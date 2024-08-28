@@ -1,151 +1,125 @@
-\chapter{Equivalences}
+\chapter{等价性 (Equivalences)}
 \label{cha:equivalences}
 
-We now study in more detail the notion of \emph{equivalence of types} that was introduced briefly in \cref{sec:basics-equivalences}.
-Specifically, we will give several different ways to define a type $\isequiv(f)$ having the properties mentioned there.
-Recall that we wanted $\isequiv(f)$ to have the following properties, which we restate here:
+我们现在详细研究在\cref{sec:basics-equivalences}中简要介绍的\emph{类型的等价性 (equivalence of types)}概念。具体来说，我们将给出几种不同的方式来定义具有前述特性的一种类型 $\isequiv(f)$。回想一下，我们希望 $\isequiv(f)$ 具有以下性质，在此处我们再次陈述这些性质：
 \begin{enumerate}
-\item $\qinv(f) \to \isequiv (f)$.\label{item:beb1}
-\item $\isequiv (f) \to \qinv(f)$.\label{item:beb2}
-\item $\isequiv(f)$ is a mere proposition.\label{item:beb3}
+  \item $\qinv(f) \to \isequiv (f)$。\label{item:beb1}
+  \item $\isequiv (f) \to \qinv(f)$。\label{item:beb2}
+  \item $\isequiv(f)$ 是一个纯命题 (mere proposition)。\label{item:beb3}
 \end{enumerate}
-Here $\qinv(f)$ denotes the type of quasi-inverses to $f$:
+这里 $\qinv(f)$ 表示 $f$ 的准逆 (quasi-inverse) 类型：
 \begin{equation*}
-  \sm{g:B\to A} \big((f \circ g \htpy \idfunc[B]) \times (g\circ f \htpy \idfunc[A])\big).
+  \sm{g:B\to A} \big((f \circ g \htpy \idfunc[B]) \times (g\circ f \htpy \idfunc[A])\big)。
 \end{equation*}
-By function extensionality, it follows that $\qinv(f)$ is equivalent to the type
+根据函数外延性 (function extensionality)，这意味着 $\qinv(f)$ 等价于类型
 \begin{equation*}
-  \sm{g:B\to A} \big((f \circ g = \idfunc[B]) \times (g\circ f = \idfunc[A])\big).
+  \sm{g:B\to A} \big((f \circ g = \idfunc[B]) \times (g\circ f = \idfunc[A])\big)。
 \end{equation*}
-We will define three different types having properties~\ref{item:beb1}--\ref{item:beb3}, which we call
+我们将定义三种具有性质~\ref{item:beb1}--\ref{item:beb3} 的类型，分别称为：
 \begin{itemize}
-\item half adjoint equivalences,
-\item bi-invertible maps,
+  \item 半伴随等价 (half adjoint equivalences)，
+  \item 双可逆映射 (bi-invertible maps)，
   \index{function!bi-invertible}
-  and
-\item contractible functions.
+  和
+  \item 可缩函数 (contractible functions)。
 \end{itemize}
-We will also show that all these types are equivalent.
-These names are intentionally somewhat cumbersome, because after we know that they are all equivalent and have properties~\ref{item:beb1}--\ref{item:beb3}, we will revert to saying simply ``equivalence'' without needing to specify which particular definition we choose.
-But for purposes of the comparisons in this chapter, we need different names for each definition.
+我们还将证明这些类型是等价的。这些名称特意显得有些繁琐，因为在我们知道它们都是等价的并具有性质~\ref{item:beb1}--\ref{item:beb3}之后，我们会简单地使用“等价性 (equivalence)”这个词，而不需要指定我们选择了哪种特定定义。但为了本章中的比较目的，我们需要为每个定义提供不同的名称。
 
-Before we examine the different notions of equivalence, however, we give a little more explanation of why a different concept than quasi-invertibility is needed.
+在我们研究等价性的不同概念之前，我们先稍微解释一下为什么需要一个不同于准可逆性的概念。
 
-\section{Quasi-inverses}
+\section{准逆 (Quasi-inverses)}
 \label{sec:quasi-inverses}
 
 \index{quasi-inverse|(}%
-We have said that $\qinv(f)$ is unsatisfactory because it is not a mere proposition, whereas we would rather that a given function could ``be an equivalence'' in at most one way.
-However, we have given no evidence that $\qinv(f)$ is not a mere proposition.
-In this section we exhibit a specific counterexample.
+我们已经提到 $\qinv(f)$ 是不令人满意的，因为它不是一个纯命题，而我们希望一个给定的函数最多以一种方式“成为等价的”。然而，我们还没有证明 $\qinv(f)$ 不是一个纯命题。在本节中，我们展示一个具体的反例。
 
 \begin{lem}\label{lem:qinv-autohtpy}
-  If $f:A\to B$ is such that $\qinv (f)$ is inhabited, then
-  \[\eqv{\qinv(f)}{\Parens{\prd{x:A}(x=x)}}.\]
+如果 $f:A\to B$ 是使得 $\qinv (f)$ 可居住的 (inhabited)，那么
+\[\eqv{\qinv(f)}{\Parens{\prd{x:A}(x=x)}}。\]
 \end{lem}
 \begin{proof}
-  By assumption, $f$ is an equivalence; that is, we have $e:\isequiv(f)$ and so $(f,e):\eqv A B$.
-  By univalence, $\idtoeqv:(A=B) \to (\eqv A B)$ is an equivalence, so we may assume that $(f,e)$ is of the form $\idtoeqv(p)$ for some $p:A=B$.
-  Then by path induction, we may assume $p$ is $\refl{A}$, in which case $f$ is $\idfunc[A]$.
-  Thus we are reduced to proving $\eqv{\qinv(\idfunc[A])}{(\prd{x:A}(x=x))}$.
-  Now by definition we have
+  根据假设，$f$ 是一个等价性，也就是说我们有 $e:\isequiv(f)$，因此 $(f,e):\eqv A B$。根据单值性 (univalence)，$\idtoeqv:(A=B) \to (\eqv A B)$ 是一个等价性，因此我们可以假设 $(f,e)$ 的形式为 $\idtoeqv(p)$，其中 $p:A=B$。然后根据路径归纳 (path induction)，我们可以假设 $p$ 是 $\refl{A}$，在这种情况下，$f$ 是 $\idfunc[A]$。因此，我们简化为证明 $\eqv{\qinv(\idfunc[A])}{(\prd{x:A}(x=x))}$。现在，根据定义，我们有
   \[ \qinv(\idfunc[A]) \jdeq
-  \sm{g:A\to A} \big((g \htpy \idfunc[A]) \times (g \htpy \idfunc[A])\big).
+  \sm{g:A\to A} \big((g \htpy \idfunc[A]) \times (g \htpy \idfunc[A])\big)。
   \]
-  By function extensionality, this is equivalent to
-  \[ \sm{g:A\to A} \big((g = \idfunc[A]) \times (g = \idfunc[A])\big).
+  根据函数外延性，这等价于
+  \[ \sm{g:A\to A} \big((g = \idfunc[A]) \times (g = \idfunc[A])\big)。
   \]
-  And by \cref{ex:sigma-assoc}, this is equivalent to
-  \[ \sm{h:\sm{g:A\to A} (g = \idfunc[A])} (\proj1(h) = \idfunc[A])
+  根据 \cref{ex:sigma-assoc}，这等价于
+  \[ \sm{h:\sm{g:A\to A} (g = \idfunc[A])} (\proj1(h) = \idfunc[A])。
   \]
-  However, by \cref{thm:contr-paths}, $\sm{g:A\to A} (g = \idfunc[A])$ is contractible with center $(\idfunc[A],\refl{\idfunc[A]})$; therefore by \cref{thm:omit-contr} this type is equivalent to $\idfunc[A] = \idfunc[A]$.
-  And by function extensionality, $\idfunc[A] = \idfunc[A]$ is equivalent to $\prd{x:A} x=x$.
+  然而，根据 \cref{thm:contr-paths}，$\sm{g:A\to A} (g = \idfunc[A])$ 是以 $(\idfunc[A],\refl{\idfunc[A]})$ 为中心的可缩 (contractible) 类型；因此根据 \cref{thm:omit-contr}，这个类型等价于 $\idfunc[A] = \idfunc[A]$。根据函数外延性，$\idfunc[A] = \idfunc[A]$ 等价于 $\prd{x:A} x=x$。
 \end{proof}
 
 \noindent
-We remark that \cref{ex:qinv-autohtpy-no-univalence} asks for a proof of the above lemma which avoids univalence.
+我们注意到 \cref{ex:qinv-autohtpy-no-univalence} 要求在避免单值性的情况下证明上述引理。
 
-Thus, what we need is some $A$ which admits a nontrivial element of $\prd{x:A}(x=x)$.
-Thinking of $A$ as a higher groupoid, an inhabitant of $\prd{x:A}(x=x)$ is a natural transformation\index{natural!transformation} from the identity functor of $A$ to itself.
-Such transformations are said to form the \define{center of a category},
-\index{center!of a category}%
+因此，我们需要一些 $A$，它允许 $\prd{x:A}(x=x)$ 的非平凡 (nontrivial) 元素。将 $A$ 视为一个更高阶的群胚 (higher groupoid)，$\prd{x:A}(x=x)$ 的一个居留元素 (inhabitant) 是从 $A$ 的恒等函子 (identity functor) 到其自身的自然变换 (natural transformation)。这样的变换被称为一个范畴的\define{中心 (center of a category)}，\index{center!of a category}%
 \index{category!center of}%
-since the naturality axiom requires that they commute with all morphisms.
-Classically, if $A$ is simply a group regarded as a one-object groupoid, then this yields precisely its center in the usual group-theoretic sense.
-This provides some motivation for the following.
+因为自然性公理要求它们与所有态射 (morphisms) 交换。传统上，如果 $A$ 只是一个被视为单对象群胚 (one-object groupoid) 的群体，那么这将恰好得出通常群论意义上的中心。这为以下内容提供了一些动机。
 
 \begin{lem}\label{lem:autohtpy}
-  Suppose we have a type $A$ with $a:A$ and $q:a=a$ such that
-  \begin{enumerate}
-  \item The type $a=a$ is a set.\label{item:autohtpy1}
-  \item For all $x:A$ we have $\brck{a=x}$.\label{item:autohtpy2}
-  \item For all $p:a=a$ we have $p\ct q = q \ct p$.\label{item:autohtpy3}
-  \end{enumerate}
-  Then there exists $f:\prd{x:A} (x=x)$ with $f(a)=q$.
+假设我们有一个类型 $A$ 和 $a:A$ 以及 $q:a=a$，使得
+\begin{enumerate}
+  \item 类型 $a=a$ 是一个集合 (set)。\label{item:autohtpy1}
+  \item 对于所有 $x:A$，我们有 $\brck{a=x}$。\label{item:autohtpy2}
+  \item 对于所有 $p:a=a$，我们有 $p\ct q = q \ct p$。\label{item:autohtpy3}
+\end{enumerate}
+那么存在 $f:\prd{x:A} (x=x)$，且有 $f(a)=q$。
 \end{lem}
 \begin{proof}
-  Let $g:\prd{x:A} \brck{a=x}$ be as given by~\ref{item:autohtpy2}.  First we
-  observe that each type $\id[A]xy$ is a set.  For since being a set is a mere
-  proposition, we may apply the induction principle of propositional truncation, and assume that $g(x)=\bproj
-  p$ and $g(y)=\bproj{p'}$ for $p:a=x$ and $p':a=y$.  In this case, composing with
-  $p$ and $\opp{p'}$ yields an equivalence $\eqv{(x=y)}{(a=a)}$.  But $(a=a)$ is
-  a set by~\ref{item:autohtpy1}, so $(x=y)$ is also a set.
+  令 $g:\prd{x:A} \brck{a=x}$ 为~\ref{item:autohtpy2}给出的值。首先我们
+  观察到每个类型 $\id[A]xy$ 是一个集合。因为作为一个集合是一个纯命题，我们可以应用命题截断 (propositional truncation) 的归纳原则，假设 $g(x)=\bproj
+  p$ 且 $g(y)=\bproj{p'}$，其中 $p:a=x$ 和 $p':a=y$。在这种情况下，与
+  $p$ 和 $\opp{p'}$ 组成的映射等价于 $\eqv{(x=y)}{(a=a)}$。但由于~\ref{item:autohtpy1} 中 $(a=a)$ 是一个集合，因此 $(x=y)$ 也是一个集合。
 
-  Now, we would like to define $f$ by assigning to each $x$ the path $\opp{g(x)}
-  \ct q \ct g(x)$, but this does not work because $g(x)$ does not inhabit $a=x$
-  but rather $\brck{a=x}$, and the type $(x=x)$ may not be a mere proposition,
-  so we cannot use induction on propositional truncation.  Instead we can apply
-  the technique mentioned in \cref{sec:unique-choice}: we characterize
-  uniquely the object we wish to construct.  Let us define, for each $x:A$, the
-  type
-  \[ B(x) \defeq \sm{r:x=x} \prd{s:a=x} (r = \opp s \ct q\ct s).\]
-  We claim that $B(x)$ is a mere proposition for each $x:A$.
-  Since this claim is itself a mere proposition, we may again apply induction on
-  truncation and assume that $g(x) = \bproj p$ for some $p:a=x$.
-  Now suppose given $(r,h)$ and $(r',h')$ in $B(x)$; then we have
-  \[ h(p) \ct \opp{h'(p)} : r = r'. \]
-  It remains to show that $h$ is identified with $h'$ when transported along this equality, which by transport in identity types and function types (\cref{sec:compute-paths,sec:compute-pi}), reduces to showing
+  现在，我们希望通过为每个 $x$ 分配路径 $\opp{g(x)}
+  \ct q \ct g(x)$ 来定义 $f$，但这不奏效，因为 $g(x)$ 不属于 $a=x$，而是 $\brck{a=x}$，并且类型 $(x=x)$ 可能不是一个纯命题，因此我们不能使用命题截断的归纳法。相反，我们可以应用 \cref{sec:unique-choice} 中提到的技巧：我们唯一地刻画我们希望构造的对象。让我们定义，对于每个 $x:A$，类型
+  \[ B(x) \defeq \sm{r:x=x} \prd{s:a=x} (r = \opp s \ct q\ct s)。\]
+  我们声称每个 $B(x)$ 是一个纯命题。
+  由于这个声明本身是一个纯命题，我们可以再次应用命题截断的归纳法，并假设 $g(x) = \bproj p$，其中 $p:a=x$。
+  现在假设给定 $(r,h)$ 和 $(r',h')$ 在 $B(x)$ 中；然后我们有
+  \[ h(p) \ct \opp{h'(p)} : r = r'。\]
+  剩下的是展示，当沿着这个等式传递时，$h$ 与 $h'$ 相同，这通过在恒等类型和函数类型中传输 (\cref{sec:compute-paths,sec:compute-pi})，减少为展示
   \[ h(s) = h(p) \ct \opp{h'(p)} \ct h'(s) \]
-  for any $s:a=x$.
-  But each side of this is an equality between elements of $(x=x)$, so it follows from our above observation that $(x=x)$ is a set.
+  对于任何 $s:a=x$。
+  但这两侧都是 $(x=x)$ 的元素之间的等式，因此它遵循我们之前的观察，即 $(x=x)$ 是一个集合。
 
-  Thus, each $B(x)$ is a mere proposition; we claim that $\prd{x:A} B(x)$.
-  Given $x:A$, we may now invoke the induction principle of propositional truncation to assume that $g(x) = \bproj p$ for $p:a=x$.
-  We define $r \defeq \opp p \ct q \ct p$; to inhabit $B(x)$ it remains to show that for any $s:a=x$ we have
-  $r = \opp s \ct q \ct s$.
-  Manipulating paths, this reduces to showing that $q\ct (p\ct \opp s) = (p\ct \opp s) \ct q$.
-  But this is just an instance of~\ref{item:autohtpy3}.
+  因此，每个 $B(x)$ 是一个纯命题；我们声称 $\prd{x:A} B(x)$。
+  给定 $x:A$，我们现在可以调用命题截断的归纳法，假设 $g(x) = \bproj p$，其中 $p:a=x$。
+  我们定义 $r \defeq \opp p \ct q \ct p$；为了填充 $B(x)$，剩下的是展示对于任何 $s:a=x$ 我们有
+  $r = \opp s \ct q \ct s$。
+  操作路径，这减少为展示 $q\ct (p\ct \opp s) = (p\ct \opp s) \ct q$。
+  但这只是~\ref{item:autohtpy3} 的一个实例。
 \end{proof}
 
 \begin{thm}\label{thm:qinv-notprop}
-  There exist types $A$ and $B$ and a function $f:A\to B$ such that $\qinv(f)$ is not a mere proposition.
+存在类型 $A$ 和 $B$ 以及一个函数 $f:A\to B$ 使得 $\qinv(f)$ 不是一个纯命题。
 \end{thm}
 \begin{proof}
-  It suffices to exhibit a type $X$ such that $\prd{x:X} (x=x)$ is not a mere proposition.
-  Define $X\defeq \sm{A:\type} \brck{\bool=A}$, as in the proof of \cref{thm:no-higher-ac}.
-  It will suffice to exhibit an $f:\prd{x:X} (x=x)$ which is unequal to $\lam{x} \refl{x}$.
+  这足以展示一个类型 $X$，使得 $\prd{x:X} (x=x)$ 不是一个纯命题。
+  定义 $X\defeq \sm{A:\type} \brck{\bool=A}$，如在 \cref{thm:no-higher-ac} 的证明中所述。
+  展示一个 $f:\prd{x:X} (x=x)$，它不同于 $\lam{x} \refl{x}$ 即可。
 
-  Let $a \defeq (\bool,\bproj{\refl{\bool}}) : X$, and let $q:a=a$ be the path corresponding to the nonidentity equivalence $e:\eqv\bool\bool$ defined by $e(\bfalse)\defeq\btrue$ and $e(\btrue)\defeq\bfalse$.
-  We would like to apply \cref{lem:autohtpy} to build an $f$.
-  By definition of $X$, equalities in subset types (\cref{subsec:prop-subsets}), and univalence, we have $\eqv{(a=a)}{(\eqv{\bool}{\bool})}$, which is a set, so~\ref{item:autohtpy1} holds.
-  Similarly, by definition of $X$ and equalities in subset types we have~\ref{item:autohtpy2}.
-  Finally, \cref{ex:eqvboolbool} implies that every equivalence $\eqv\bool\bool$ is equal to either $\idfunc[\bool]$ or $e$, so we can show~\ref{item:autohtpy3} by a four-way case analysis.
+  令 $a \defeq (\bool,\bproj{\refl{\bool}}) : X$，并令 $q:a=a$ 是对应于非恒等的等价性 $e:\eqv\bool\bool$ 的路径，其定义为 $e(\bfalse)\defeq\btrue$ 和 $e(\btrue)\defeq\bfalse$。
+  我们希望应用 \cref{lem:autohtpy} 来构建一个 $f$。
+  根据 $X$ 的定义，子集类型中的等式 (\cref{subsec:prop-subsets}) 和单值性，我们有 $\eqv{(a=a)}{(\eqv{\bool}{\bool})}$，这是一个集合，因此~\ref{item:autohtpy1} 成立。
+  类似地，根据 $X$ 的定义和子集类型中的等式，我们有~\ref{item:autohtpy2}。
+  最后，\cref{ex:eqvboolbool} 表明每个等价性 $\eqv\bool\bool$ 都等于 $\idfunc[\bool]$ 或 $e$，因此我们可以通过四种情况分析展示~\ref{item:autohtpy3}。
 
-  Thus, we have $f:\prd{x:X} (x=x)$ such that $f(a) = q$.
-  Since $e$ is not equal to $\idfunc[\bool]$, $q$ is not equal to $\refl{a}$, and thus $f$ is not equal to $\lam{x} \refl{x}$.
-  Therefore, $\prd{x:X} (x=x)$ is not a mere proposition.
+  因此，我们有 $f:\prd{x:X} (x=x)$，且有 $f(a) = q$。
+  由于 $e$ 不等于 $\idfunc[\bool]$，$q$ 不等于 $\refl{a}$，因此 $f$ 不等于 $\lam{x} \refl{x}$。
+  因此，$\prd{x:X} (x=x)$ 不是一个纯命题。
 \end{proof}
 
-More generally, \cref{lem:autohtpy} implies that any ``Eilenberg--Mac Lane space'' $K(G,1)$, where $G$ is a nontrivial abelian\index{group!abelian} group, will provide a counterexample; see \cref{cha:homotopy}.
-The type $X$ we used turns out to be equivalent to $K(\mathbb{Z}_2,1)$.
-In \cref{cha:hits} we will see that the circle $\Sn^1 = K(\mathbb{Z},1)$ is another easy-to-describe example.
+更普遍地，\cref{lem:autohtpy} 表明任何“Eilenberg--Mac Lane 空间 (Eilenberg--Mac Lane space)” $K(G,1)$，其中 $G$ 是一个非平凡的阿贝尔 (abelian) 群体，将提供一个反例；参见 \cref{cha:homotopy}。我们使用的类型 $X$ 结果是等价于 $K(\mathbb{Z}_2,1)$。在 \cref{cha:hits} 中，我们将看到圆 $S^1 = K(\mathbb{Z},1)$ 是另一个易于描述的例子。
 
-We now move on to describing better notions of equivalence.
+我们现在继续描述更好的等价性概念。
 
 \index{quasi-inverse|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Half adjoint equivalences}
+\section{半伴随等价 (Half adjoint equivalences)}
 \label{sec:hae}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -153,221 +127,200 @@ We now move on to describing better notions of equivalence.
 \index{half adjoint equivalence|(defstyle}%
 \index{adjoint!equivalence!of types, half|(defstyle}%
 
-In \cref{sec:quasi-inverses} we concluded that $\qinv(f)$ is equivalent to $\prd{x:A} (x=x)$ by discarding a contractible type.
-Roughly, the type $\qinv(f)$ contains three data $g$, $\eta$, and $\epsilon$, of which two ($g$ and $\eta$) could together be seen to be contractible when $f$ is an equivalence.
-The problem is that removing these data left one remaining ($\epsilon$).
-In order to solve this problem, the idea is to add one \emph{additional} datum which, together with $\epsilon$, forms a contractible type.
+在 \cref{sec:quasi-inverses} 中，我们得出结论认为 $\qinv(f)$ 通过丢弃一个可缩类型等价于 $\prd{x:A} (x=x)$。粗略地说，类型 $\qinv(f)$ 包含三个数据 $g$、$\eta$ 和 $\epsilon$，其中两个 ($g$ 和 $\eta$) 可以一起在 $f$ 是等价性时被视为可缩的。问题在于去掉这些数据后还剩下一个 ($\epsilon$)。为了解决这个问题，想法是增加一个\emph{额外的}数据，这样 $\epsilon$ 和它一起构成一个可缩类型。
 
 \begin{defn}\label{defn:ishae}
-  A function $f:A\to B$ is a \define{half adjoint equivalence}
-  if there are $g:B\to A$ and homotopies $\eta: g \circ f \htpy \idfunc[A]$ and $\epsilon:f \circ g \htpy \idfunc[B]$ such that there exists a homotopy
-  \[\tau : \prd{x:A} \map{f}{\eta x} = \epsilon(fx).\]
+一个函数 $f:A\to B$ 是一个\define{半伴随等价 (half adjoint equivalence)}，
+如果存在 $g:B\to A$ 和同伦 $\eta: g \circ f \htpy \idfunc[A]$ 和 $\epsilon:f \circ g \htpy \idfunc[B]$，使得存在一个同伦
+\[\tau : \prd{x:A} \map{f}{\eta x} = \epsilon(fx)。\]
 \end{defn}
 
-Thus we have a type $\ishae(f)$, defined to be
+因此我们定义类型 $\ishae(f)$ 为
 \begin{equation*}
-  \sm{g:B\to A}{\eta: g \circ f \htpy \idfunc[A]}{\epsilon:f \circ g \htpy \idfunc[B]} \prd{x:A} \map{f}{\eta x} = \epsilon(fx).
+  \sm{g:B\to A}{\eta: g \circ f \htpy \idfunc[A]}{\epsilon:f \circ g \htpy \idfunc[B]} \prd{x:A} \map{f}{\eta x} = \epsilon(fx)。
 \end{equation*}
-Note that in the above definition, the coherence\index{coherence} condition relating $\eta$ and $\epsilon$ only involves $f$.
-We might consider instead an analogous coherence condition involving $g$:
+注意在上述定义中，$\eta$ 和 $\epsilon$ 的一致性条件 (coherence condition) 仅涉及 $f$。我们可以考虑一个涉及 $g$ 的类似一致性条件：
 \[\upsilon : \prd{y:B} \map{g}{\epsilon y} = \eta(gy)\]
-and a resulting analogous definition $\ishae'(f)$.
+并得到一个类似的定义 $\ishae'(f)$。
 
-Fortunately, it turns out each of the conditions implies the other one:
+幸运的是，事实证明这些条件中的每一个都意味着另一个：
 
 \begin{lem}\label{lem:coh-equiv}
-For functions $f : A \to B$ and $g:B\to A$ and homotopies $\eta: g \circ f \htpy \idfunc[A]$ and $\epsilon:f \circ g \htpy \idfunc[B]$, the following conditions are logically equivalent:
+对于函数 $f : A \to B$ 和 $g:B\to A$ 以及同伦 $\eta: g \circ f \htpy \idfunc[A]$ 和 $\epsilon:f \circ g \htpy \idfunc[B]$，以下条件是逻辑等价的：
 \begin{itemize}
-\item $\prd{x:A} \map{f}{\eta x} = \epsilon(fx)$
-\item $\prd{y:B} \map{g}{\epsilon y} = \eta(gy)$
+  \item $\prd{x:A} \map{f}{\eta x} = \epsilon(fx)$
+  \item $\prd{y:B} \map{g}{\epsilon y} = \eta(gy)$
 \end{itemize}
 \end{lem}
 \begin{proof}
-  It suffices to show one direction; the other one is obtained by replacing $A$, $f$, and $\eta$ by $B$, $g$, and $\epsilon$ respectively.
-  Let $\tau : \prd{x:A}\;\map{f}{\eta x} = \epsilon(fx)$.
-  Fix $y : B$.
-  Using naturality of $\epsilon$ and applying $g$, we get the following commuting diagram of paths:
-\[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
+  证明一个方向就足够了；另一个方向通过替换 $A$、$f$ 和 $\eta$ 为 $B$、$g$ 和 $\epsilon$ 分别得到。
+  设 $\tau : \prd{x:A}\;\map{f}{\eta x} = \epsilon(fx)$。
+  固定 $y : B$。
+  使用 $\epsilon$ 的自然性 (naturality) 并应用 $g$，我们得到以下路径的交换图：
+  \[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
   \xymatrix@C=3pc{gfgfgy \ar@{=}^-{gfg(\epsilon y)}[r] \ar@{=}_{g(\epsilon (fgy))}[d] & gfgy \ar@{=}^{g(\epsilon y)}[d] \\ gfgy \ar@{=}_{g(\epsilon y)}[r] & gy
   }\]
-Using $\tau(gy)$ on the left side of the diagram gives us
-\[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
+  在图的左侧使用 $\tau(gy)$ 得到
+  \[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
   \xymatrix@C=3pc{gfgfgy \ar@{=}^-{gfg(\epsilon y)}[r] \ar@{=}_{gf(\eta (gy))}[d] & gfgy \ar@{=}^{g(\epsilon y)}[d] \\ gfgy \ar@{=}_{g(\epsilon y)}[r] & gy
   }\]
-Using the commutativity of $\eta$ with $g \circ f$ (\cref{cor:hom-fg}), we have
-\[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
+  使用 $\eta$ 与 $g \circ f$ 的交换 (\cref{cor:hom-fg})，我们有
+  \[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
   \xymatrix@C=3pc{gfgfgy \ar@{=}^-{gfg(\epsilon y)}[r] \ar@{=}_{\eta (gfgy)}[d] & gfgy \ar@{=}^{g(\epsilon y)}[d] \\ gfgy \ar@{=}_{g(\epsilon y)}[r] & gy
   }\]
-However, by naturality of $\eta$ we also have
-\[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
+  然而，根据 $\eta$ 的自然性，我们也有
+  \[\uppercurveobject{{ }}\lowercurveobject{{ }}\twocellhead{{ }}
   \xymatrix@C=3pc{gfgfgy \ar@{=}^-{gfg(\epsilon y)}[r] \ar@{=}_{\eta (gfgy)}[d] & gfgy \ar@{=}^{\eta(gy)}[d] \\ gfgy \ar@{=}_{g(\epsilon y)}[r] & gy
   }\]
-Thus, canceling all but the right-hand homotopy, we have $g(\epsilon y) = \eta(g y)$ as desired.
+  因此，取消所有但右侧的同伦，我们得到 $g(\epsilon y) = \eta(g y)$ 如所期望的。
 \end{proof}
 
-However, it is important that we do not include \emph{both} $\tau$ and $\upsilon$ in the definition of $\ishae (f)$ (whence the name ``\emph{half} adjoint equivalence'').
-If we did, then after canceling contractible types we would still have one remaining datum --- unless we added another higher coherence condition.
-In general, we expect to get a well-behaved type if we cut off after an odd number of coherences.
+然而，重要的是我们不要在 $\ishae (f)$ 的定义中包含\emph{两者} $\tau$ 和 $\upsilon$（因此称之为“\emph{半}伴随等价 (half adjoint equivalence)”）。如果我们这么做，那么在取消可缩类型后，我们仍然会剩下一个数据——除非我们添加另一个更高的一致性条件。一般来说，如果我们在一个奇数个一致性条件之后切断，我们预期会得到一个良好行为的类型。
 
-Of course, it is obvious that $\ishae(f) \to\qinv(f)$: simply forget the coherence datum.
-The other direction is a version of a standard argument from homotopy theory and category theory.
+当然，很明显 $\ishae(f) \to\qinv(f)$：只需忘记一致性数据。另一个方向是同伦理论 (homotopy theory) 和范畴论 (category theory) 中的标准论点的一种版本。
 
 \begin{thm}\label{thm:equiv-iso-adj}
-  For any $f:A\to B$ we have $\qinv(f)\to\ishae(f)$.
+对于任何 $f:A\to B$，我们有 $\qinv(f)\to\ishae(f)$。
 \end{thm}
 \begin{proof}
-Suppose that $(g,\eta,\epsilon)$ is a quasi-inverse for $f$. We have to provide
-a quadruple $(g',\eta',\epsilon',\tau)$ witnessing that $f$ is a half adjoint equivalence. To
-define $g'$ and $\eta'$, we can just make the obvious choice by setting $g'
-\defeq g$ and $\eta'\defeq \eta$. However, in the definition of $\epsilon'$ we
-need start worrying about the construction of $\tau$, so we cannot just follow our nose
-and take $\epsilon'$ to be $\epsilon$. Instead, we take
-\begin{equation*}
-\epsilon'(b) \defeq \opp{\epsilon(f(g(b)))}\ct (\ap{f}{\eta(g(b))}\ct \epsilon(b)).
-\end{equation*}
-Now we need to find
-\begin{equation*}
-\tau(a): \ap{f}{\eta(a)}=\opp{\epsilon(f(g(f(a))))}\ct (\ap{f}{\eta(g(f(a)))}\ct \epsilon(f(a))).
-\end{equation*}
-Note first that by \cref{cor:hom-fg}, we have
-%$\eta(g(f(a)))\ct\eta(a)=\ap{g}{\ap{f}{\eta(a)}}\ct\eta(a)$ and hence it follows that
-$\eta(g(f(a)))=\ap{g}{\ap{f}{\eta(a)}}$. Therefore, we can apply
-\cref{lem:htpy-natural} to compute
-\begin{align*}
-\ap{f}{\eta(g(f(a)))}\ct \epsilon(f(a))
-& = \ap{f}{\ap{g}{\ap{f}{\eta(a)}}}\ct \epsilon(f(a))\\
-& = \epsilon(f(g(f(a))))\ct \ap{f}{\eta(a)}
-\end{align*}
-from which we get the desired path $\tau(a)$.
+  假设 $(g,\eta,\epsilon)$ 是 $f$ 的准逆 (quasi-inverse)。我们必须提供一个四元组 $(g',\eta',\epsilon',\tau)$ 来证明 $f$ 是一个半伴随等价 (half adjoint equivalence)。为了定义 $g'$ 和 $\eta'$，我们可以选择显而易见的选择，将 $g'
+  定义为 $g$，将 $\eta'定义为 $\eta$。然而，在 $\epsilon'$ 的定义中，我们需要开始考虑 $\tau$ 的构造，因此不能直接按照常规选择 $\epsilon'$ 为 $\epsilon$。相反，我们选择
+  \begin{equation*}
+    \epsilon'(b) \defeq \opp{\epsilon(f(g(b)))}\ct (\ap{f}{\eta(g(b))}\ct \epsilon(b))。
+  \end{equation*}
+  现在我们需要找到
+  \begin{equation*}
+    \tau(a): \ap{f}{\eta(a)}=\opp{\epsilon(f(g(f(a))))}\ct (\ap{f}{\eta(g(f(a)))}\ct \epsilon(f(a)))。
+  \end{equation*}
+  首先注意到，根据 \cref{cor:hom-fg}，我们有
+%$\eta(g(f(a)))\ct\eta(a)=\ap{g}{\ap{f}{\eta(a)}}\ct\eta(a)$ 并因此它遵循 $\eta(g(f(a)))=\ap{g}{\ap{f}{\eta(a)}}$。因此，我们可以应用
+  \cref{lem:htpy-natural} 计算
+  \begin{align*}
+    \ap{f}{\eta(g(f(a)))}\ct \epsilon(f(a))
+    & = \ap{f}{\ap{g}{\ap{f}{\eta(a)}}}\ct \epsilon(f(a))\\
+    & = \epsilon(f(g(f(a))))\ct \ap{f}{\eta(a)}
+  \end{align*}
+  从而得到所需的路径 $\tau(a)$。
 \end{proof}
 
-Combining this with \cref{lem:coh-equiv} (or symmetrizing the proof), we also have $\qinv(f)\to\ishae'(f)$.
+结合 \cref{lem:coh-equiv}（或对称化的证明），我们也有 $\qinv(f)\to\ishae'(f)$。
 
-It remains to show that $\ishae(f)$ is a mere proposition.
-For this, we will need to know that the fibers of an equivalence are contractible.
+剩下的是展示 $\ishae(f)$ 是一个纯命题。
+为此，我们需要知道等价性的纤维 (fiber) 是可缩的。
 
 \begin{defn}\label{defn:homotopy-fiber}
-  The \define{fiber}
-  \indexdef{fiber}%
-  \indexsee{function!fiber of}{fiber}%
-  of a map $f:A\to B$ over a point $y:B$ is
-  \[ \hfib f y \defeq \sm{x:A} (f(x) = y).\]
+函数 $f:A\to B$ 在点 $y:B$ 上的\define{纤维 (fiber)}
+\indexdef{fiber}%
+\indexsee{function!fiber of}{fiber}%
+定义为
+\[ \hfib f y \defeq \sm{x:A} (f(x) = y)。\]
 \end{defn}
 
-In homotopy theory, this is what would be called the \emph{homotopy fiber} of $f$.
-The path lemmas in \cref{sec:computational} yield the following characterization of paths in fibers:
+在同伦理论中，这被称为 $f$ 的\emph{同伦纤维 (homotopy fiber)}。
+\cref{sec:computational} 中的路径引理得出以下关于纤维中路径的刻画：
 
 \begin{lem}\label{lem:hfib}
-  For any $f : A \to B$, $y : B$, and $(x,p),(x',p') : \hfib{f}{y}$, we have
-  \[ \big((x,p) = (x',p')\big) \eqvsym \Parens{\sm{\gamma : x = x'} f(\gamma) \ct p' = p} \qedhere\]
+对于任何 $f : A \to B$、$y : B$ 以及 $(x,p),(x',p') : \hfib{f}{y}$，我们有
+\[ \big((x,p) = (x',p')\big) \eqvsym \Parens{\sm{\gamma : x = x'} f(\gamma) \ct p' = p} \qedhere\]
 \end{lem}
 
 \begin{thm}\label{thm:contr-hae}
-  If $f:A\to B$ is a half adjoint equivalence, then for any $y:B$ the fiber $\hfib f y$ is contractible.
+如果 $f:A\to B$ 是一个半伴随等价，那么对于任何 $y:B$，纤维 $\hfib f y$ 是可缩的。
 \end{thm}
 \begin{proof}
-  Let $(g,\eta,\epsilon,\tau) : \ishae(f)$, and fix $y : B$.
-  As our center of contraction for $\hfib{f}{y}$ we choose $(gy, \epsilon y)$.
-  Now take any $(x,p) : \hfib{f}{y}$; we want to construct a path from $(gy, \epsilon y)$ to $(x,p)$.
-  By \cref{lem:hfib}, it suffices to give a path $\gamma : \id{gy}{x}$ such that $\ap f\gamma \ct p = \epsilon y$.
-  We put $\gamma \defeq \opp{g(p)} \ct \eta x$.
-  Then we have
+  令 $(g,\eta,\epsilon,\tau) : \ishae(f)$，并固定 $y : B$。
+  作为 $\hfib{f}{y}$ 的缩并中心 (center of contraction)，我们选择 $(gy, \epsilon y)$。
+  现在取任何 $(x,p) : \hfib{f}{y}$；我们要构造从 $(gy, \epsilon y)$ 到 $(x,p)$ 的路径。
+  根据 \cref{lem:hfib}，足以给出一个路径 $\gamma : \id{gy}{x}$，使得 $\ap f\gamma \ct p = \epsilon y$。
+  我们取 $\gamma \defeq \opp{g(p)} \ct \eta x$。
+  然后我们有
   \begin{align*}
     f(\gamma) \ct p & = \opp{fg(p)} \ct f (\eta x) \ct p \\
     & = \opp{fg(p)} \ct \epsilon(fx) \ct p \\
     & = \epsilon y
   \end{align*}
-  where the second equality follows by $\tau x$ and the third equality is naturality of $\epsilon$.
+  其中第二个等式由 $\tau x$ 得到，第三个等式是 $\epsilon$ 的自然性。
 \end{proof}
 
-We now define the types which encapsulate contractible pairs of data.
-The following types put together the quasi-inverse $g$ with one of the homotopies.
+我们现在定义封装可缩数据对的类型。
+以下类型将准逆 $g$ 与其中一个同伦结合起来。
 
 \begin{defn}\label{defn:linv-rinv}
-  Given a function $f:A\to B$, we define the types
-    \begin{align*}
-      \linv(f) &\defeq \sm{g:B\to A} (g\circ f\htpy \idfunc[A])\\
-      \rinv(f) &\defeq \sm{g:B\to A} (f\circ g\htpy \idfunc[B])
-    \end{align*}
-  of \define{left inverses}
-  \indexdef{left!inverse}%
-  \indexdef{inverse!left}%
-  and \define{right inverses}
-  \indexdef{right!inverse}%
-  \indexdef{inverse!right}%
-  to $f$, respectively.
-  We call $f$ \define{left invertible}
-  \indexdef{function!left invertible}%
-  \indexdef{function!right invertible}%
-  if $\linv(f)$ is inhabited, and similarly \define{right invertible}
-  \indexdef{left!invertible function}%
-  \indexdef{right!invertible function}%
-  if $\rinv(f)$ is inhabited.
+给定一个函数 $f:A\to B$，我们定义类型
+\begin{align*}
+  \linv(f) &\defeq \sm{g:B\to A} (g\circ f\htpy \idfunc[A])\\
+  \rinv(f) &\defeq \sm{g:B\to A} (f\circ g\htpy \idfunc[B])
+\end{align*}
+分别为 $f$ 的\define{左逆 (left inverses)}
+\indexdef{left!inverse}%
+\indexdef{inverse!left}%
+和\define{右逆 (right inverses)}。
+如果 $\linv(f)$ 可居住，我们称 $f$ 是\define{左可逆 (left invertible)}的，如果 $\rinv(f)$ 可居住，我们称 $f$ 是\define{右可逆 (right invertible)}的。
 \end{defn}
 
 \begin{lem}\label{thm:equiv-compose-equiv}
-  If $f:A\to B$ has a quasi-inverse, then so do
-  \begin{align*}
-    (f\circ \blank) &: (C\to A) \to (C\to B)\\
-    (\blank\circ f) &: (B\to C) \to (A\to C).
-  \end{align*}
+如果 $f:A\to B$ 有一个准逆，那么以下映射也有准逆：
+\begin{align*}
+(f\circ \blank) &: (C\to A) \to (C\to B)\\
+(\blank\circ f) &: (B\to C) \to (A\to C)。
+\end{align*}
 \end{lem}
 \begin{proof}
-  If $g$ is a quasi-inverse of $f$, then $(g\circ \blank)$ and $(\blank\circ g)$ are quasi-inverses of $(f\circ \blank)$ and $(\blank\circ f)$ respectively.
+  如果 $g$ 是 $f$ 的准逆，那么 $(g\circ \blank)$ 和 $(\blank\circ g)$ 分别是 $(f\circ \blank)$ 和 $(\blank\circ f)$ 的准逆。
 \end{proof}
 
 \begin{lem}\label{lem:inv-hprop}
-  If $f : A \to B$ has a quasi-inverse, then the types $\rinv(f)$ and $\linv(f)$ are contractible.
+如果 $f : A \to B$ 有一个准逆，那么类型 $\rinv(f)$ 和 $\linv(f)$ 是可缩的。
 \end{lem}
 \begin{proof}
-  By function extensionality, we have
-  \[\eqv{\linv(f)}{\sm{g:B\to A} (g\circ f = \idfunc[A])}.\]
-  But this is the fiber of $(\blank\circ f)$ over $\idfunc[A]$, and so
-  by \cref{thm:equiv-compose-equiv,thm:equiv-iso-adj,thm:contr-hae}, it is contractible.
-  Similarly, $\rinv(f)$ is equivalent to the fiber of $(f\circ \blank)$ over $\idfunc[B]$ and hence contractible.
+  根据函数外延性，我们有
+  \[\eqv{\linv(f)}{\sm{g:B\to A} (g\circ f = \idfunc[A])}。\]
+  但这是 $\Sigma$ 的纤维 (fiber) (\cref{subsec:prop-subsets})，因此
+  根据 \cref{thm:equiv-compose-equiv,thm:equiv-iso-adj,thm:contr-hae}，它是可缩的。
+  类似地，$\rinv(f)$ 等价于 $\Sigma$ 上的 $\idfunc[B]$ 的纤维 (fiber)，因此也是可缩的。
 \end{proof}
 
-Next we define the types which put together the other homotopy with the additional coherence datum.\index{coherence}%
+接下来，我们定义将另一个同伦与额外的一致性数据结合起来的类型。\index{coherence}%
 
 \begin{defn}\label{defn:lcoh-rcoh}
-For $f : A \to B$, a left inverse $(g,\eta) : \linv(f)$, and a right inverse $(g,\epsilon) : \rinv(f)$, we denote
+对于 $f : A \to B$，一个左逆 $(g,\eta) : \linv(f)$ 和一个右逆 $(g,\epsilon) : \rinv(f)$，我们表示
 \begin{align*}
-\lcoh{f}{g}{\eta} & \defeq \sm{\epsilon : f\circ g \htpy \idfunc[B]} \prd{y:B} g(\epsilon y) = \eta (gy), \\
-\rcoh{f}{g}{\epsilon} & \defeq \sm{\eta : g\circ f \htpy \idfunc[A]} \prd{x:A} f(\eta x) = \epsilon (fx).
+  \lcoh{f}{g}{\eta} & \defeq \sm{\epsilon : f\circ g \htpy \idfunc[B]} \prd{y:B} g(\epsilon y) = \eta (gy)， \\
+  \rcoh{f}{g}{\epsilon} & \defeq \sm{\eta : g\circ f \htpy \idfunc[A]} \prd{x:A} f(\eta x) = \epsilon (fx)。
 \end{align*}
 \end{defn}
 
 \begin{lem}\label{lem:coh-hfib}
-For any $f,g,\epsilon,\eta$, we have
+对于任何 $f,g,\epsilon,\eta$，我们有
 \begin{align*}
-\lcoh{f}{g}{\eta} & \eqvsym {\prd{y:B} \id[\hfib{g}{gy}]{(fgy,\eta(gy))}{(y,\refl{gy})}}, \\
-\rcoh{f}{g}{\epsilon} & \eqvsym {\prd{x:A} \id[\hfib{f}{fx}]{(gfx,\epsilon(fx))}{(x,\refl{fx})}}.
+  \lcoh{f}{g}{\eta} & \eqvsym {\prd{y:B} \id[\hfib{g}{gy}]{(fgy,\eta(gy))}{(y,\refl{gy})}}， \\
+  \rcoh{f}{g}{\epsilon} & \eqvsym {\prd{x:A} \id[\hfib{f}{fx}]{(gfx,\epsilon(fx))}{(x,\refl{fx})}}。
 \end{align*}
 \end{lem}
 \begin{proof}
-Using \cref{lem:hfib}.
+  使用 \cref{lem:hfib}。
 \end{proof}
 
 \begin{lem}\label{lem:coh-hprop}
-  If $f$ is a half adjoint equivalence, then for any $(g,\epsilon) : \rinv(f)$, the type $\rcoh{f}{g}{\epsilon}$ is contractible.
+如果 $f$ 是一个半伴随等价，那么对于任何 $(g,\epsilon) : \rinv(f)$，类型 $\rcoh{f}{g}{\epsilon}$ 是可缩的。
 \end{lem}
 \begin{proof}
-  By \cref{lem:coh-hfib} and the fact that dependent function types preserve contractible spaces, it suffices to show that for each $x:A$, the type $\id[\hfib{f}{fx}]{(gfx,\epsilon(fx))}{(x,\refl{fx})}$ is contractible.
-  But by \cref{thm:contr-hae}, $\hfib{f}{fx}$ is contractible, and any path space of a contractible space is itself contractible.
+  根据 \cref{lem:coh-hfib} 和从属函数类型保持可缩空间的事实，足以展示对于每个 $x:A$，类型 $\id[\hfib{f}{fx}]{(gfx,\epsilon(fx))}{(x,\refl{fx})}$ 是可缩的。
+  但根据 \cref{thm:contr-hae}，$\hfib{f}{fx}$ 是可缩的，并且任何可缩空间的路径空间本身就是可缩的。
 \end{proof}
 
 \begin{thm}\label{thm:hae-hprop}
-  For any $f : A \to B$, the type $\ishae(f)$ is a mere proposition.
+对于任何 $f : A \to B$，类型 $\ishae(f)$ 是一个纯命题。
 \end{thm}
 \begin{proof}
-  By \cref{ex:prop-inhabcontr} it suffices to assume $f$ to be a half adjoint equivalence and show that $\ishae(f)$ is contractible.
-  Now by associativity of $\Sigma$ (\cref{ex:sigma-assoc}), the type $\ishae(f)$ is equivalent to
-  \[\sm{u : \rinv(f)} \rcoh{f}{\proj{1}(u)}{\proj{2}(u)}.\]
-  But by \cref{lem:inv-hprop,lem:coh-hprop} and the fact that $\Sigma$ preserves contractibility, the latter type is also contractible.
+  根据 \cref{ex:prop-inhabcontr}，假设 $f$ 是一个半伴随等价，并展示 $\ishae(f)$ 是可缩的就足够了。
+  现在根据 $\Sigma$ 的结合律 (\cref{ex:sigma-assoc})，类型 $\ishae(f)$ 等价于
+  \[\sm{u : \rinv(f)} \rcoh{f}{\proj{1}(u)}{\proj{2}(u)}。\]
+  但根据 \cref{lem:inv-hprop,lem:coh-hprop} 和 $\Sigma$ 保持可缩性的事实，后者类型也是可缩的。
 \end{proof}
 
-Thus, we have shown that $\ishae(f)$ has all three desiderata for the type $\isequiv(f)$.
-In the next two sections we consider a couple of other possibilities.
+因此，我们已经证明 $\ishae(f)$ 具有作为类型 $\isequiv(f)$ 的所有三种特性。
+在接下来的两节中，我们将讨论一些其他可能性。
 
 \index{equivalence!half adjoint|)}%
 \index{half adjoint equivalence|)}%
