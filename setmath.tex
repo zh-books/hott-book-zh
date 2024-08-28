@@ -755,397 +755,377 @@ P(\north, \north) \eqvsym P(\north, \south) \eqvsym P(\south, \north) \eqvsym P(
 另一方面，如果 $2^\alpha \le \alpha$，那么我们将有一个单射 $(A\to\bool)\to A$。
 根据 \cref{thm:injsurj}，由于我们有 $(\lam{x} \bfalse):A\to \bool$ 和排中律，那么就会有一个从 $A$ 到 $(A\to \bool)$ 的满射，这与康托尔定理相矛盾。
 \end{proof}
-
-\section{Ordinal numbers}
+\section{序数 (Ordinal numbers)}
 \label{sec:ordinals}
 
 \index{ordinal|(}%
 
 \begin{defn}\label{defn:accessibility}
-  Let $A$ be a set and
-  \[(\blank<\blank):A\to A\to \prop\]
-  a binary relation on $A$.
-  We define by induction what it means for an element $a:A$ to be \define{accessible}
-  \indexdef{accessibility}%
-  \indexsee{accessible}{accessibility}%
-  by $<$:
-  \begin{itemize}
-  \item If $b$ is accessible for every $b<a$, then $a$ is accessible.
-  \end{itemize}
-  We write $\acc(a)$ to mean that $a$ is accessible.
+设 $A$ 为一个集合，且
+\[(\blank<\blank):A\to A\to \prop\]
+是 $A$ 上的一个二元关系。
+我们通过归纳定义 $a:A$ 的元素对 $<$ 是 \define{可达 (accessible)} 的：
+\indexdef{accessibility}%
+\indexsee{accessible}{accessibility}%
+\begin{itemize}
+\item 如果对所有 $b<a$ 的 $b$ 都是可达的，则 $a$ 是可达的。
+\end{itemize}
+我们写作 $\acc(a)$ 表示 $a$ 是可达的。
 \end{defn}
 
-It may seem that such an inductive definition can never get off the ground, but of course if $a$ has the property that there are \emph{no} $b$ such that $b<a$, then $a$ is vacuously accessible.
+乍一看，这样的归纳定义似乎无法成立，但如果 $a$ 具有这样一个性质，即不存在 $b$ 使得 $b<a$，那么 $a$ 是可达的，这实际上是成立的。
 
-Note that this is an inductive definition of a family of types, like the type of vectors considered in \cref{sec:generalizations}.
-More precisely, it has one constructor, say $\acc_<$, with type
+注意，这是一个类型族的归纳定义，类似于在 \cref{sec:generalizations} 中考虑的向量类型。
+更确切地说，它只有一个构造器，记为 $\acc_<$，其类型为
 \[ \acc_< : \prd{a:A} \Parens{\prd{b:A} (b<a) \to \acc(b)} \to \acc(a). \]
 \index{induction principle!for accessibility}%
-The induction principle for $\acc$ says that for any $P:\prd{a:A} \acc(a) \to \type$, if we have
+$\acc$ 的归纳原理表明，对于任意 $P:\prd{a:A} \acc(a) \to \type$，如果我们有
 \[f:\prd{a:A}{h:\prd{b:A} (b<a) \to \acc(b)}
 \Parens{\prd{b:A}{l:b<a} P(b,h(b,l))} \to
 P(a,\acc_<(a,h)),
 \]
-then we have $g:\prd{a:A}{c:\acc(a)} P(a,c)$ defined by induction, with
+那么我们就有通过归纳定义的 $g:\prd{a:A}{c:\acc(a)} P(a,c)$，其中
 \[g(a,\acc_<(a,h)) \jdeq f(a,\,h,\,\lam{b}{l} g(b,h(b,l))).\]
-This is a mouthful, but generally we apply it only in the simpler case where $P:A\to\type$ depends only on $A$.
-In this case the second and third arguments of $f$ may be combined, so that what we have to prove is
+这个公式很繁琐，但通常我们只在 $P:A\to\type$ 只依赖于 $A$ 时使用它的简化形式。
+在这种情况下，$f$ 的第二和第三个参数可以合并，因此我们要证明的是
 \[f:\prd{a:A} \Parens{\prd{b:A} (b<a) \to \acc(b) \times P(b)}
 \to P(a).
 \]
-That is, we assume every $b<a$ is accessible and $g(b):P(b)$ is defined, and from these define $g(a):P(a)$.
+也就是说，我们假设每个 $b<a$ 都是可达的，且 $g(b):P(b)$ 已定义，然后从这些定义 $g(a):P(a)$。
 
-The omission of the second argument of $P$ is justified by the following lemma, whose proof is the only place where we use the more general form of the induction principle.
+省略 $P$ 的第二个参数是通过以下引理来证明的，这也是我们唯一一次使用归纳原理的更一般形式。
 
 \begin{lem}
-  Accessibility\index{accessibility} is a mere property.
+可达性 (Accessibility)\index{accessibility} 是一个纯属性。
 \end{lem}
 \begin{proof}
-  We must show that for any $a:A$ and $s_1,s_2:\acc(a)$ we have $s_1=s_2$.
-  We prove this by induction on $s_1$, with
-  \[P_1(a,s_1) \defeq \prd{s_2:\acc(a)} (s_1=s_2). \]
-  Thus, we must show that for any $a:A$ and ${h_1:\prd{b:A} (b<a) \to \acc(b)}$ and
-  \[ k_1:{\prd{b:A}{l:b<a}{t:\acc(b)} h_1(b,l) = t},\]
-  we have $\acc_<(a,h) = s_2$ for any $s_2:\acc(a)$.
-  We regard this statement as $\prd{a:A}{s_2:\acc(a)} P_2(a,s_2)$, where
-  \[P_2(a,s_2) \defeq
-  \prd{h_1 : \cdots } %{h_1:\prd{b:A} (b<a) \to \acc(b)}
-  {k_1 : \cdots} % \Parens{\prd{b:A}{l:b<a}{t:\acc(b)} h_1(b,l) = t} \to
-  (\acc_<(a,h_1) = s_2);
-  \]
-  thus we may prove it by induction on $s_2$.
-  Therefore, we assume $h_2 : \prd{b:A} (b<a) \to \acc(b)$, and $k_2$ with a monstrous but irrelevant type,
-  % \begin{narrowmultline*}
-  %   k_2:\prd{b:A}{l:b<a}
-  %   \prd{h_1:\prd{b':A} (b'<b) \to \acc(b')}
-  %   \narrowbreak
-  %   \Parens{\prd{b':A}{l':b'<b}{t':\acc(b')} h_1(b',l') = t'} \to
-  %   (\acc_<(b,h_1) = h_2(b,l)).
-  % \end{narrowmultline*}
-  and must show that for any $h_1$ and $k_1$ with types as above,
-  we have $\acc_<(a,h_1) = \acc_<(a,h_2)$.
-  By function extensionality, it suffices to show $h_1(b,l) = h_2(b,l)$ for all $b:A$ and $l:b<a$.
-  This follows from $k_1$.
+我们必须证明，对于任意 $a:A$ 和 $s_1,s_2:\acc(a)$，有 $s_1=s_2$。
+我们通过 $s_1$ 的归纳来证明这一点，其归纳假设为
+\[P_1(a,s_1) \defeq \prd{s_2:\acc(a)} (s_1=s_2)。 \]
+因此，我们必须证明，对于任意 $a:A$ 和 ${h_1:\prd{b:A} (b<a) \to \acc(b)}$ 以及
+\[ k_1:{\prd{b:A}{l:b<a}{t:\acc(b)} h_1(b,l) = t},\]
+我们有 $\acc_<(a,h) = s_2$ 对于任意 $s_2:\acc(a)$。
+我们将这个陈述视为 $\prd{a:A}{s_2:\acc(a)} P_2(a,s_2)$，其中
+\[P_2(a,s_2) \defeq
+\prd{h_1 : \cdots } %{h_1:\prd{b:A} (b<a) \to \acc(b)}
+{k_1 : \cdots} % \Parens{\prd{b:A}{l:b<a}{t:\acc(b)} h_1(b,l) = t} \to
+(\acc_<(a,h_1) = s_2);
+\]
+因此，我们可以通过 $s_2$ 的归纳来证明它。
+因此，我们假设 $h_2 : \prd{b:A} (b<a) \to \acc(b)$，并且 $k_2$ 具有一个复杂但无关紧要的类型，
+% \begin{narrowmultline*}
+%   k_2:\prd{b:A}{l:b<a}
+%   \prd{h_1:\prd{b':A} (b'<b) \to \acc(b')}
+%   \narrowbreak
+%   \Parens{\prd{b':A}{l':b'<b}{t':\acc(b')} h_1(b',l') = t'} \to
+%   (\acc_<(b,h_1) = h_2(b,l)).
+% \end{narrowmultline*}
+并且必须证明，对于任意类型为上述类型的 $h_1$ 和 $k_1$，
+我们有 $\acc_<(a,h_1) = \acc_<(a,h_2)$。
+根据函数外延性 (function extensionality)，只需证明 $h_1(b,l) = h_2(b,l)$ 对于所有 $b:A$ 和 $l:b<a$。
+这是由 $k_1$ 推出的。
 \end{proof}
 
 \begin{defn}
-  A binary relation $<$ on a set $A$ is \define{well-founded}
-  \indexdef{relation!well-founded}%
-  \indexdef{well-founded!relation}%
-  if every element of $A$ is accessible.
+集合 $A$ 上的二元关系 $<$ 是 \define{良基 (well-founded)} 的
+\indexdef{relation!well-founded}%
+\indexdef{well-founded!relation}%
+如果 $A$ 的每个元素都是可达的。
 \end{defn}
 
-The point of well-foundedness is that for $P:A\to \type$, we can use the induction principle of $\acc$ to conclude $\prd{a:A} \acc(a) \to P(a)$, and then apply well-foundedness to conclude $\prd{a:A} P(a)$.
-In other words, if from $\fall{b:A} (b<a) \to P(b)$ we can prove $P(a)$, then $\fall{a:A} P(a)$.
-This is called \define{well-founded induction}\indexdef{well-founded!induction}.
+良基性的意义在于，对于 $P:A\to \type$，我们可以使用 $\acc$ 的归纳原理得出 $\prd{a:A} \acc(a) \to P(a)$，然后应用良基性得出 $\prd{a:A} P(a)$。
+换句话说，如果从 $\fall{b:A} (b<a) \to P(b)$ 我们可以证明 $P(a)$，那么 $\fall{a:A} P(a)$ 成立。
+这称为 \define{良基归纳 (well-founded induction)}\indexdef{well-founded!induction}。
 
 \begin{lem}
-  Well-foundedness is a mere property.
+良基性是一个纯属性。
 \end{lem}
 \begin{proof}
-  Well-foundedness of $<$ is the type $\prd{a:A} \acc(a)$, which is a mere proposition since each $\acc(a)$ is.
+$<$ 的良基性是类型 $\prd{a:A} \acc(a)$，它是一个纯命题，因为每个 $\acc(a)$ 是一个纯命题。
 \end{proof}
 
 \begin{eg}\label{thm:nat-wf}
-  Perhaps the most familiar well-founded relation is the usual strict ordering on \nat.
-  To show that this is well-founded, we must show that $n$ is accessible for each $n:\nat$.
-  \index{strong!induction}%
-  This is just the usual proof of ``strong induction'' from ordinary induction on \nat.
+也许最为熟悉的良基关系是自然数 \nat 上的通常的严格排序。
+要证明这是良基的，我们必须证明对于每个 $n:\nat$，$n$ 是可达的。
+\index{strong!induction}%
+这只是从 \nat 上的普通归纳得出的“强归纳” (strong induction) 的常规证明。
 
-  Specifically, we prove by induction on $n:\nat$ that $k$ is accessible for all $k\le n$.
-  The base case is just that $0$ is accessible, which is vacuously true since nothing is strictly less than $0$.
-  For the inductive step, we assume that $k$ is accessible for all $k\le n$, which is to say for all $k<n+1$; hence by definition $n+1$ is also accessible.
+具体来说，我们通过对 $n:\nat$ 的归纳证明 $k\le n$ 的所有 $k$ 都是可达的。
+基本情况只是 $0$ 是可达的，这在逻辑上成立，因为没有任何元素严格小于 $0$。
+对于归纳步骤，我们假设 $k\le n$ 的所有 $k$ 都是可达的，这就是说，对于所有 $k<n+1$，因此根据定义 $n+1$ 也是可达的。
 
-  A different relation on \nat which is also well-founded is obtained by setting only $n < \suc(n)$ for all $n:\nat$.
-  Well-foundedness of this relation is almost exactly the ordinary induction principle of \nat.
+\nat 上的一个不同关系也可以是良基的，即设定仅 $n < \suc(n)$ 对于所有 $n:\nat$。
+这个关系的良基性几乎正是 \nat 的普通归纳原理。
 \end{eg}
 
 \begin{eg}\label{thm:wtype-wf}
-  Let $A:\set$ and $B : A \to \set$ be a family of sets.
-  Recall from \cref{sec:w-types} that the $W$-type $\wtype{a:A} B(a)$ is inductively generated by the single constructor
-  \begin{itemize}
-  \item $\supp : \prd{a:A} (B(a) \to \wtype{x:A} B(x)) \to \wtype{x:A} B(x)$
-  \end{itemize}
-  We define the relation $<$ on $\wtype{x:A} B(x)$ by recursion on its second argument:
-  \begin{itemize}
-  \item For any $a:A$ and $f:B(a) \to \wtype{x:A} B(x)$, we define $w<\supp(a,f)$ to mean that there merely exists a $b:B(a)$ such that $w = f(b)$.
-  \end{itemize}
-  Now we prove that every $w:\wtype{x:A} B(x)$ is accessible for this relation, using the usual induction principle for $\wtype{x:A}B(x)$.
-  This means we assume given $a:A$ and $f:B(a) \to \wtype{x:A} B(x)$, and also a lifting $f' : \prd{b:B(a)} \acc(f(b))$.
-  But then by definition of $<$, we have $\acc(w)$ for all $w<\supp(a,f)$; hence $\supp(a,f)$ is accessible.
+设 $A:\set$ 且 $B : A \to \set$ 是集合的一个族。
+回忆 \cref{sec:w-types} 中的 $W$-类型 $\wtype{a:A} B(a)$ 是由单个构造器归纳生成的
+\begin{itemize}
+\item $\supp : \prd{a:A} (B(a) \to \wtype{x:A} B(x)) \to \wtype{x:A} B(x)$
+\end{itemize}
+我们通过其第二个参数递归地定义 $\wtype{x:A} B(x)$ 上的关系 $<$：
+\begin{itemize}
+\item 对于任意 $a:A$ 和 $f:B(a) \to \wtype{x:A} B(x)$，我们定义 $w<\supp(a,f)$ 表示仅存在一个 $b:B(a)$ 使得 $w = f(b)$。
+\end{itemize}
+现在我们使用 $\wtype{x:A}B(x)$ 的通常归纳原理证明对该关系的每个 $w:\wtype{x:A} B(x)$ 是可达的。
+这意味着我们假设给定了 $a:A$ 和 $f:B(a) \to \wtype{x:A} B(x)$，以及一个提升 $f' : \prd{b:B(a)} \acc(f(b))$。
+但根据 $<$ 的定义，对于所有 $w<\supp(a,f)$，我们有 $\acc(w)$；因此 $\supp(a,f)$ 是可达的。
 \end{eg}
 
-Well-foundedness allows us to define functions by recursion and prove statements by induction, such as for instance the following.
-Recall from \cref{subsec:prop-subsets} that $\power B$ denotes the \emph{power set}\index{power set} $\power B \defeq (B\to\prop)$.
+良基性允许我们通过递归定义函数，并通过归纳证明陈述，例如以下内容。
+回忆 \cref{subsec:prop-subsets} 中 $\power B$ 表示幂集 $\power B \defeq (B\to\prop)$。
 
 \begin{lem}\label{thm:wfrec}
-  Suppose $B$ is a set and we have a function
-  \[ g : \power B \to B \]
-  Then if $<$ is a well-founded relation on $A$, there is a function $f:A\to B$ such that for all $a:A$ we have
-  \begin{equation*}
-    f(a) = g\Big(\setof{ f(a') | a'<a }\Big).
-  \end{equation*}
+假设 $B$ 是一个集合，并且我们有一个函数
+\[ g : \power B \to B \]
+那么，如果 $<$ 是 $A$ 上的一个良基关系，那么存在一个函数 $f:A\to B$，使得对所有 $a:A$ 我们有
+\begin{equation*}
+f(a) = g\Big(\setof{ f(a') | a'<a }\Big)。
+\end{equation*}
 \end{lem}
 \noindent
-(We are using the notation for images of subsets from \cref{sec:image}.)
+（我们使用了 \cref{sec:image} 中关于子集的像的记法。）
 \begin{proof}
-  We first define, for every $a:A$ and $s:\acc(a)$, an element $\bar f(a,s):B$.
-  By induction, it suffices to assume that $s$ is a function assigning to each $a'<a$ a witness $s(a'):\acc(a')$, and that moreover for each such $a'$ we have an element $\bar f(a',s(a')):B$.
-  In this case, we define
-  \begin{equation*}
-    \bar f(a,s) \defeq g\Big(\setof{ \bar f(a',s(a')) | a'<a }\Big).
-  \end{equation*}
+我们首先定义，对于每个 $a:A$ 和 $s:\acc(a)$，一个元素 $\bar f(a,s):B$。
+根据归纳假设，我们假设 $s$ 是一个函数，将每个 $a'<a$ 分配给一个证据 $s(a'):\acc(a')$，并且对每个这样的 $a'$，我们有一个元素 $\bar f(a',s(a')):B$。
+在这种情况下，我们定义
+\begin{equation*}
+\bar f(a,s) \defeq g\Big(\setof{ \bar f(a',s(a')) | a'<a }\Big)。
+\end{equation*}
 
-  Now since $<$ is well-founded, we have a function $w:\prd{a:A} \acc(a)$.
-  Thus, we can define $f(a)\defeq \bar f (a,w(a))$.
+现在，由于 $<$ 是良基的，我们有一个函数 $w:\prd{a:A} \acc(a)$。
+因此，我们可以定义 $f(a)\defeq \bar f (a,w(a))$。
 \end{proof}
-
-In classical\index{mathematics!classical} logic, well-foundedness has a more well-known reformulation.
-In the following, we say that a subset $B: \power A$ is \define{nonempty}
-\indexdef{nonempty subset}
-if it is unequal to the empty subset $(\lam{x}\bot) : \power X$.
-We leave it to the reader to verify that assuming excluded middle, this is equivalent to mere inhabitation, i.e.\ to the condition $\exis{x:A} x\in B$.
+在经典逻辑中，良基性有一个更为人所熟知的重新表述。在以下内容中，我们说一个子集 $B: \power A$ 是\define{非空的 (nonempty)} \indexdef{nonempty subset}，如果它不等于空子集 $(\lam{x}\bot) : \power X$。我们留给读者验证，在假设排中律的前提下，这与单纯的可居住性是等价的，即满足条件 $\exis{x:A} x\in B$。
 
 \begin{lem}\label{thm:wfmin}
-  \index{excluded middle}%
-  Assuming excluded middle, $<$ is well-founded if and only if every nonempty subset $B: \power A$ merely has a minimal element.
+\index{excluded middle}%
+假设排中律，$<$ 是良基的当且仅当每个非空子集 $B: \power A$ 都仅有一个最小元素。
 \end{lem}
 \begin{proof}
-  Suppose first $<$ is well-founded, and suppose $B\subseteq A$ is a subset with no minimal element.
-  That is, for any $a:A$ with $a\in B$, there merely exists a $b:A$ with $b<a$ and $b\in B$.
+首先假设 $<$ 是良基的，并假设 $B\subseteq A$ 是一个没有最小元素的子集。
+也就是说，对于任何 $a:A$ 使得 $a\in B$，仅存在一个 $b:A$ 使得 $b<a$ 且 $b\in B$。
 
-  We claim that for any $a:A$ and $s:\acc(a)$, we have $a\notin B$.
-  By induction, we may assume $s$ is a function assigning to each $a'<a$ a proof $s(a'):\acc(a')$, and that moreover for each such $a'$ we have $a'\notin B$.
-  If $a\in B$, then by assumption, there would merely exist a $b<a$ with $b\in B$, which contradicts this assumption.
-  Thus, $a\notin B$; this completes the induction.
-  Since $<$ is well-founded, we have $a\notin B$ for all $a:A$, i.e. $B$ is empty.
+我们断言，对于任意 $a:A$ 和 $s:\acc(a)$，我们有 $a\notin B$。
+通过归纳，我们可以假设 $s$ 是一个函数，将每个 $a'<a$ 分配给一个证明 $s(a'):\acc(a')$，并且对每个这样的 $a'$，我们有 $a'\notin B$。
+如果 $a\in B$，那么根据假设，必然存在一个 $b<a$ 且 $b\in B$，这与假设矛盾。
+因此，$a\notin B$；这完成了归纳。
+由于 $<$ 是良基的，我们有 $a\notin B$ 对所有 $a:A$ 成立，即 $B$ 是空的。
 
-  Now suppose each nonempty subset merely has a minimal element.
-  Let $B = \setof{ a:A | \neg \acc(a) }$.
-  Then if $B$ is nonempty, it merely has a minimal element.
-  Thus there merely exists an $a:A$ with $a\in B$ such that for all $b<a$, we have $\acc(b)$.
-  But then by definition (and induction on truncation), $a$ is merely accessible, and hence accessible, contradicting $a\in B$.
-  Thus, $B$ is empty, so $<$ is well-founded.
+现在假设每个非空子集都仅有一个最小元素。
+设 $B = \setof{ a:A | \neg \acc(a) }$。
+那么，如果 $B$ 是非空的，它仅有一个最小元素。
+因此，仅存在一个 $a:A$ 使得 $a\in B$，并且对所有 $b<a$，我们有 $\acc(b)$。
+但是根据定义（以及对截断的归纳），$a$ 是仅可达的，因此是可达的，这与 $a\in B$ 矛盾。
+因此，$B$ 是空的，所以 $<$ 是良基的。
 \end{proof}
 
 \begin{defn}
-  A well-founded relation $<$ on a set $A$ is \define{extensional}
-  \indexdef{relation!extensional}%
-  \indexdef{extensional!relation}%
-  if for any $a,b:A$, we have
-  \[ \Parens{\fall{c:A} (c<a) \Leftrightarrow (c<b)} \to (a=b). \]
+集合 $A$ 上的良基关系 $<$ 是\define{外延 (extensional)} 的
+\indexdef{relation!extensional}%
+\indexdef{extensional!relation}%
+如果对于任意 $a,b:A$，我们有
+\[ \Parens{\fall{c:A} (c<a) \Leftrightarrow (c<b)} \to (a=b)。 \]
 \end{defn}
 
-Note that since $A$ is a set, extensionality is a mere proposition.
-This notion of ``extensionality'' is unrelated to function extensionality, and also unrelated to the extensionality of identity types.
+注意，由于 $A$ 是一个集合，外延性是一个纯属性。
+这种“外延性”的概念与函数外延性 (function extensionality) 无关，也与等式类型的外延性无关。
 \index{axiom!of extensionality}%
-Rather, it is a ``local'' counterpart of the axiom of extensionality in classical set theory.
+相反，它是经典集合论中外延公理的“局部”对应。
 
 \begin{thm}
-  The type of extensional well-founded relations is a set.
+外延良基关系的类型是一个集合。
 \end{thm}
 \begin{proof}
-  By the univalence axiom, it suffices to show that if $(A,<)$ is extensional and well-founded and $f:(A,<) \cong (A,<)$, then $f=\idfunc[A]$.
-  \index{automorphism!of extensional well-founded relations}%
-  We prove by induction on $<$ that $f(a)=a$ for all $a:A$.
-  The inductive hypothesis is that for all $a'<a$, we have $f(a')=a'$.
+根据公理 (univalence axiom)，如果 $(A,<)$ 是外延和良基的，并且 $f:(A,<) \cong (A,<)$，那么我们必须证明 $f=\idfunc[A]$。
+\index{automorphism!of extensional well-founded relations}%
+我们通过对 $<$ 进行归纳来证明对于所有 $a:A$，$f(a)=a$。
+归纳假设是，对于所有 $a'<a$，我们有 $f(a')=a'$。
 
-  Now since $A$ is extensional, to conclude $f(a)=a$ it is sufficient to show
-  \[\fall{c:A}(c<f(a)) \Leftrightarrow (c<a).\]
-  However, since $f$ is an automorphism, we have $(c<a) \Leftrightarrow (f(c)<f(a))$.
-  But $c<a$ implies $f(c)=c$ by the inductive hypothesis, so $(c<a) \to (c<f(a))$.
-  On the other hand, if $c<f(a)$, then $f^{-1}(c)<a$, and so $c = f(f^{-1}(c)) = f^{-1}(c)$ by the inductive hypothesis again; thus $c<a$.
-  Therefore, we have $(c<a) \Leftrightarrow (c<f(a))$ for any $c:A$, so $f(a)=a$.
+现在，由于 $A$ 是外延的，为了得出 $f(a)=a$，我们只需证明
+\[\fall{c:A}(c<f(a)) \Leftrightarrow (c<a)。\]
+但是，由于 $f$ 是一个自同构，我们有 $(c<a) \Leftrightarrow (f(c)<f(a))$。
+但 $c<a$ 意味着根据归纳假设 $f(c)=c$，因此 $(c<a) \to (c<f(a))$。
+另一方面，如果 $c<f(a)$，那么 $f^{-1}(c)<a$，因此 $c = f(f^{-1}(c)) = f^{-1}(c)$ 再次根据归纳假设；因此 $c<a$。
+因此，我们有 $(c<a) \Leftrightorrow (c<f(a))$ 对于任意 $c:A$，所以 $f(a)=a$。
 \end{proof}
 
 \begin{defn}\label{def:simulation}
-  If $(A,<)$ and $(B,<)$ are extensional and well-founded, a \define{simulation}
-  \indexdef{simulation}%
-  \indexsee{function!simulation}{simulation}%
-  is a function $f:A\to B$ such that
-  \begin{enumerate}
-  \item if $a<a'$, then $f(a)<f(a')$, and\label{item:sim1}
-  \item for all $a:A$ and $b:B$, if $b<f(a)$, then there merely exists an $a'<a$ with $f(a')=b$.\label{item:sim2}
-  \end{enumerate}
+如果 $(A,<)$ 和 $(B,<)$ 是外延良基的关系，$f:A\to B$ 是一个\define{模拟 (simulation)}
+\indexdef{simulation}%
+\indexsee{function!simulation}{simulation}%
+如果满足以下条件：
+\begin{enumerate}
+\item 如果 $a<a'$，那么 $f(a)<f(a')$，并且\label{item:sim1}
+\item 对于所有 $a:A$ 和 $b:B$，如果 $b<f(a)$，那么仅存在一个 $a'<a$ 使得 $f(a')=b$。\label{item:sim2}
+\end{enumerate}
 \end{defn}
 
 \begin{lem}
-  Any simulation is injective.
+任何模拟都是单射的。
 \end{lem}
 \begin{proof}
-  We prove by double well-founded induction that for any $a,b:A$, if $f(a)=f(b)$ then $a=b$.
-  The inductive hypothesis for $a:A$ says that for any $a'<a$, and any $b:B$, if $f(a')=f(b)$ then $a=b$.
-  The inner inductive hypothesis for $b:A$ says that for any $b'<b$, if $f(a)=f(b')$ then $a=b'$.
+我们通过双重良基归纳证明，对于任意 $a,b:A$，如果 $f(a)=f(b)$，那么 $a=b$。
+归纳假设对于 $a:A$ 表示，对于任意 $a'<a$ 和任意 $b:B$，如果 $f(a')=f(b)$，那么 $a=b$。
+内部归纳假设对于 $b:A$ 表示，对于任意 $b'<b$，如果 $f(a)=f(b')$，那么 $a=b'$。
 
-  Suppose $f(a)=f(b)$; we must show $a=b$.
-  By extensionality, it suffices to show that for any $c:A$ we have $(c<a)\Leftrightarrow (c<b)$.
-  If $c<a$, then $f(c)<f(a)$ by \cref{def:simulation}\ref{item:sim1}.
-  Hence $f(c)<f(b)$, so by \cref{def:simulation}\ref{item:sim2} there merely exists $c':A$ with $c'<b$ and $f(c)=f(c')$.
-  By the inductive hypothesis for $a$, we have $c=c'$, hence $c<b$.
-  The dual argument is symmetrical.
+假设 $f(a)=f(b)$；我们必须证明 $a=b$。
+根据外延性，为了证明 $f(a)=b$，我们只需证明 $\fall{c:A}(c<a) \Leftrightarrow (c<b)$。
+
+但是，由于 $f$ 是一个模拟，如果 $c<a$，那么我们有 $f(c)<f(a)$ 根据 \cref{def:simulation}\ref{item:sim1}。
+因此 $f(c)<f(b)$，所以根据 \cref{def:simulation}\ref{item:sim2}，仅存在一个 $c':A$ 使得 $c'<b$ 且 $f(c)=f(c')$。
+根据归纳假设 $a$，我们有 $c=c'$，因此 $c<b$。
+对称的论证也是对称的。
 \end{proof}
 
-In particular, this implies that in \cref{def:simulation}\ref{item:sim2} the word ``merely'' could be omitted without change of sense.
+特别地，这意味着在 \cref{def:simulation}\ref{item:sim2} 中可以去掉“仅”一词而不改变意义。
 
 \begin{cor}
-  If $f:A\to B$ is a simulation, then for all $a:A$ and $b:B$, if $b<f(a)$, there \emph{purely} exists an $a'<a$ with $f(a')=b$.
+如果 $f:A\to B$ 是一个模拟，那么对于所有 $a:A$ 和 $b:B$，如果 $b<f(a)$，那么\emph{必然}存在一个 $a'<a$ 使得 $f(a')=b$。
 \end{cor}
 \begin{proof}
-  Since $f$ is injective, $\sm{a:A} (f(a)=b)$ is a mere proposition.
+由于 $f$ 是单射的，$\sm{a:A} (f(a)=b)$ 是一个纯命题。
 \end{proof}
 
-We say that a subset $C :\power B$ is an \define{initial segment}
-\indexdef{initial!segment}%
-\indexsee{segment, initial}{initial segment}%
-if $c\in C$ and $b<c$ imply $b\in C$.
-The image of a simulation must be an initial segment, while the inclusion of any initial segment is a simulation.
-Thus, by univalence, every simulation $A\to B$ is \emph{equal} to the inclusion of some initial segment of $B$.
+我们说一个子集 $C :\power B$ 是\define{初始段 (initial segment)} \indexdef{initial!segment} \indexsee{segment, initial}{initial segment}，如果 $c\in C$ 并且 $b<c$，那么 $b\in C$。模拟的像必须是一个初始段，而任何初始段的包含是一个模拟。因此，根据公理 (univalence axiom)，每个 $A\to B$ 的模拟\emph{等同于} $B$ 的某个初始段的包含。
 
 \begin{thm}
-  For a set $A$, let $P(A)$ be the type of extensional well-founded relations on $A$.
-  If $\mathord{<_A} : P(A)$ and $\mathord{<_B} : P(B)$ and $f:A\to B$, let $H_{\mathord{<_A}\mathord{<_B}}(f)$ be the mere proposition that $f$ is a simulation.
-  Then $(P,H)$ is a standard notion of structure over \uset in the sense of \cref{sec:sip}.
+对于一个集合 $A$，设 $P(A)$ 为 $A$ 上的外延良基关系的类型。
+如果 $\mathord{<_A} : P(A)$ 和 $\mathord{<_B} : P(B)$ 并且 $f:A\to B$，令 $H_{\mathord{<_A}\mathord{<_B}}(f)$ 是 $f$ 是一个模拟的纯命题。
+那么 $(P,H)$ 是一个标准的结构概念，属于 \uset 中的结构，见 \cref{sec:sip}。
 \end{thm}
 \begin{proof}
-  We leave it to the reader to verify that identities are simulations, and that composites of simulations are simulations.
-  Thus, we have a notion of structure.
-  For standardness, we must show that if $<$ and $\prec$ are two extensional well-founded relations on $A$, and $\idfunc[A]$ is a simulation in both directions, then $<$ and $\prec$ are equal.
-  Since extensionality and well-foundedness are mere propositions, for this it suffices to have $\fall{a,b:A} (a<b) \Leftrightarrow (a\prec b)$.
-  But this follows from \cref{def:simulation}\ref{item:sim1} for $\idfunc[A]$.
+我们留给读者验证，恒等是模拟，并且模拟的复合也是模拟。
+因此，我们有了一个结构的概念。
+对于标准性，我们必须证明如果 $<$ 和 $\prec$ 是两个集合 $A$ 上的外延良基关系，并且 $\idfunc[A]$ 是双向模拟，那么 $<$ 和 $\prec$ 是相等的。
+由于外延性和良基性是纯命题，对于这一点我们仅需有 $\fall{a,b:A} (a<b) \Leftrightarrow (a\prec b)$。
+但这由 \cref{def:simulation}\ref{item:sim1} 对于 $\idfunc[A]$ 来证明。
 \end{proof}
 
 \begin{cor}\label{thm:wfcat}
-  There is a category whose objects are sets equipped with extensional well-founded relations, and whose morphisms are simulations.
+有一个范畴，其对象是带有外延良基关系的集合，其态射是模拟。
 \end{cor}
 
-In fact, this category is a poset.
+实际上，这个范畴是一个偏序集。
 
 \begin{lem}
-  For extensional and well-founded $(A,<)$ and $(B,<)$, there is at most one simulation $f:A\to B$.
+对于外延和良基的 $(A,<)$ 和 $(B,<)$，至多存在一个从 $A$ 到 $B$ 的模拟。
 \end{lem}
 \begin{proof}
-  Suppose $f,g:A\to B$ are simulations.
-  Since being a simulation is a mere property, it suffices to show $\fall{a:A}(f(a)=g(a))$.
-  By induction on $<$, we may suppose $f(a')=g(a')$ for all $a'<a$.
-  And by extensionality of $B$, to have $f(a)=g(a)$ it suffices to have $\fall{b:B}(b<f(a)) \Leftrightarrow (b<g(a))$.
+假设 $f,g:A\to B$ 是模拟。
+由于是模拟是一个纯命题，我们只需证明 $\fall{a:A}(f(a)=g(a))$。
+通过对 $<$ 进行归纳，我们可以假设对于所有 $a'<a$，$f(a')=g(a')$。
+由于 $B$ 的外延性，为了证明 $f(a)=g(a)$，我们只需有 $\fall{b:B}(b<f(a)) \Leftrightarrow (b<g(a))$。
 
-  But since $f$ is a simulation, if $b<f(a)$, then we have $a'<a$ with $f(a')=b$.
-  By the inductive hypothesis, we have also $g(a')=b$, hence $b<g(a)$.
-  The dual argument is symmetrical.
+但由于 $f$ 是一个模拟，如果 $b<f(a)$，那么我们有 $a'<a$ 使得 $f(a')=b$。
+根据归纳假设，我们也有 $g(a')=b$，因此 $b<g(a)$。
+对称的论证也是对称的。
 \end{proof}
 
-Thus, if $A$ and $B$ are equipped with extensional and well-founded relations, we may write $A\le B$ to mean there exists a simulation $f:A\to B$.
-\cref{thm:wfcat} implies that if $A\le B$ and $B\le A$, then $A=B$.
+因此，如果 $A$ 和 $B$ 都装备有外延和良基的关系，我们可以写作 $A\le B$ 表示存在一个从 $A$ 到 $B$ 的模拟。
+\cref{thm:wfcat} 意味着如果 $A\le B$ 并且 $B\le A$，那么 $A=B$。
 
 \begin{defn}
-  An \define{ordinal}
-  \indexdef{ordinal}%
-  \indexsee{number!ordinal}{ordinal}%
-  is a set $A$ with an extensional well-founded relation which is \emph{transitive}, i.e.\ satisfies $\fall{a,b,c:A}(a<b)\to (b<c) \to (a<c)$.
+一个\define{序数 (ordinal)} \indexdef{ordinal} \indexsee{number!ordinal}{ordinal} 是一个集合 $A$，具有一个外延良基关系，并且该关系是\emph{传递的}，即满足 $\fall{a,b,c:A}(a<b)\to (b<c) \to (a<c)$。
 \end{defn}
 
 \begin{eg}
-  Of course, the usual strict order on \nat is transitive.
-  It is easily seen to be extensional as well; thus it is an ordinal.
-  As usual, we denote this ordinal by $\omega$.
+当然，\nat 上的通常严格序是传递的。
+它也容易看出是外延的；因此它是一个序数。
+如常所示，我们用 $\omega$ 来表示这个序数。
 \end{eg}
 
 \symlabel{ord}
-Let \ord denote the type of ordinals.
-By the previous results, \ord is a set and has a natural partial order.
-We now show that \ord also admits a well-founded relation.
+令 \ord 表示序数的类型。
+根据之前的结果，\ord 是一个集合，并且具有一个自然的偏序关系。
+我们现在证明 \ord 还承认一个良基关系。
 
 \symlabel{initial-segment}
-If $A$ is an ordinal and $a:A$, let $\ordsl A a \defeq \setof{ b:A | b<a}$ denote the initial segment.
+如果 $A$ 是一个序数，并且 $a:A$，令 $\ordsl A a \defeq \setof{ b:A | b<a}$ 表示初始段。
 \index{initial!segment}%
-Note that if $\ordsl A a = \ordsl A b$ as ordinals, then that isomorphism must respect their inclusions into $A$ (since simulations form a poset), and hence they are equal as subsets of $A$.
-Therefore, since $A$ is extensional, $a=b$.
-Thus the function $a\mapsto \ordsl A a$ is an injection $A\to \ord$.
+注意，如果 $\ordsl A a = \ordsl A b$ 作为序数，那么该同构必然尊重它们在 $A$ 中的包含（因为模拟构成一个偏序集），因此它们作为 $A$ 的子集是相等的。
+因此，由于 $A$ 是外延的，$a=b$。
+因此函数 $a\mapsto \ordsl A a$ 是一个从 $A$ 到 \ord 的单射。
 
 \begin{defn}
-  For ordinals $A$ and $B$, a simulation $f:A\to B$ is said to be \define{bounded}
-  \indexdef{simulation!bounded}%
-  \indexdef{bounded!simulation}%
-  if there exists $b:B$ such that $A = \ordsl B b$.
+对于序数 $A$ 和 $B$，一个模拟 $f:A\to B$ 称为\define{有界的 (bounded)} \indexdef{simulation!bounded} \indexdef{bounded!simulation} 如果存在 $b:B$ 使得 $A = \ordsl B b$。
 \end{defn}
 
-The remarks above imply that such a $b$ is unique when it exists, so that boundedness is a mere property.
+上述评论意味着当它存在时，这样的 $b$ 是唯一的，因此有界性是一个纯命题。
 
-We write $A<B$ if there exists a bounded simulation from $A$ to $B$.
-Since simulations are unique, $A<B$ is also a mere proposition.
+我们写作 $A<B$ 表示存在一个从 $A$ 到 $B$ 的有界模拟。
+由于模拟是唯一的，$A<B$ 也是一个纯命题。
 
 \begin{thm}\label{thm:ordord}
-  $(\ord,<)$ is an ordinal.
+$(\ord,<)$ 是一个序数。
 \end{thm}
 
 \noindent
-More precisely, this theorem says that the type $\ord_{\UU_i}$ of ordinals in one universe\index{universe level} is itself an ordinal in the next higher universe, i.e.\ $(\ord_{\UU_i},<):\ord_{\UU_{i+1}}$.
+更精确地说，这个定理表明，序数类型 \ord_{\UU_i} 在一个宇宙中本身也是下一个更高宇宙中的一个序数，即 $(\ord_{\UU_i},<):\ord_{\UU_{i+1}}$。
 
 \begin{proof}
-  Let $A$ be an ordinal; we first show that $\ordsl A a$ is accessible (in \ord) for all $a:A$.
-  By well-founded induction on $A$, suppose $\ordsl A b$ is accessible for all $b<a$.
-  By definition of accessibility, we must show that $B$ is accessible in \ord for all $B<\ordsl A a$.
-  However, if $B<\ordsl A a$ then there is some $b<a$ such that $B = \ordsl{(\ordsl A a)}{b} = \ordsl A b$, which is accessible by the inductive hypothesis.
-  Thus, $\ordsl A a$ is accessible for all $a:A$.
+设 $A$ 是一个序数；我们首先证明对于所有 $a:A$，$\ordsl A a$ 是可达的（在 \ord 中）。
+通过对 $A$ 进行良基归纳，假设对于所有 $b<a$，$\ordsl A b$ 是可达的。
+根据可达性的定义，我们必须证明对于所有 $B<\ordsl A a$，$B$ 是可达的。
+但是，如果 $B<\ordsl A a$，那么存在一些 $b<a$ 使得 $B = \ordsl{(\ordsl A a)}{b} = \ordsl A b$，这是通过归纳假设可达的。
+因此，$\ordsl A a$ 对所有 $a:A$ 是可达的。
 
-  Now to show that $A$ is accessible in \ord, by definition we must show $B$ is accessible for all $B<A$.
-  But as before, $B<A$ means $B=\ordsl A a$ for some $a:A$, which is accessible as we just proved.
-  Thus, \ord is well-founded.
+现在为了证明 $A$ 在 \ord 中是可达的，根据定义，我们必须证明对于所有 $B<A$，$B$ 是可达的。
+但如前所述，$B<A$ 意味着 $B=\ordsl A a$ 对于某个 $a:A$，它是我们刚刚证明的可达的。
+因此，\ord 是良基的。
 
-  For extensionality, suppose $A$ and $B$ are ordinals such that
-  \narrowequation{\prd{C:\ord} (C<A) \Leftrightarrow (C<B).}
-  Then for every $a:A$, since $\ordsl A a<A$, we have $\ordsl A a<B$, hence there is $b:B$ with $\ordsl A a = \ordsl B b$.
-  Define $f:A\to B$ to take each $a$ to the corresponding $b$; it is straightforward to verify that $f$ is an isomorphism.
-  Thus $A\cong B$, hence $A=B$ by univalence.
+对于外延性，假设 $A$ 和 $B$ 是序数，并且
+\narrowequation{\prd{C:\ord} (C<A) \Leftrightarrow (C<B).}
+那么对于每个 $a:A$，由于 $\ordsl A a<A$，我们有 $\ordsl A a<B$，因此存在 $b:B$ 使得 $\ordsl A a = \ordsl B b$。
+定义 $f:A\to B$ 将每个 $a$ 映射到相应的 $b$；很容易验证 $f$ 是一个同构。
+因此 $A\cong B$，因此根据公理 $A=B$。
 
-  Finally, it is easy to see that $<$ is transitive.
+最后，很容易看出 $<$ 是传递的。
 \end{proof}
 
-Treating \ord as an ordinal is often very convenient, but it has its pitfalls as well.
-For instance, consider the following lemma, where we pay attention to how universes are used.
+将 \ord 视为一个序数通常非常方便，但它也有一些陷阱。
+例如，考虑下面的引理，我们注意到如何使用宇宙。
 
 \begin{lem}\label{thm:ordsucc}
-  Let \bbU be a universe.
-  For any $A:\ord_\bbU$, there is a $B:\ord_\bbU$ such that $A<B$.
+令 \bbU 为一个宇宙。
+对于任何 $A:\ord_\bbU$，存在一个 $B:\ord_\bbU$ 使得 $A<B$。
 \end{lem}
 \begin{proof}
-  Let $B=A+\unit$, with the element $\ttt:\unit$ being greater than all elements of $A$.
-  Then $B$ is an ordinal and it is easy to see that $A\cong \ordsl B \ttt$.
+令 $B=A+\unit$，其中元素 $\ttt:\unit$ 大于 $A$ 的所有元素。
+那么 $B$ 是一个序数，并且很容易看出 $A\cong \ordsl B \ttt$。
 \end{proof}
 
-The ordinal $B$ constructed in the proof of \cref{thm:ordsucc} is called the \define{successor}\indexdef{successor!of an ordinal} of $A$.
+在 \cref{thm:ordsucc} 的证明中构造的序数 $B$ 被称为 $A$ 的\define{后继 (successor)}\indexdef{successor!of an ordinal}。
 
-This lemma illustrates a potential pitfall of the ``typically ambiguous''\index{typical ambiguity} style of using \UU to denote an arbitrary, unspecified universe.
-Consider the following alternative proof of it.
+这个引理说明了在使用“典型含糊 (typically ambiguous)”\index{typical ambiguity} 的风格来使用 \UU 表示一个任意、未指定的宇宙时可能出现的陷阱。
+考虑下面的另一种证明方法。
 
-\begin{proof}[Another putative proof of \cref{thm:ordsucc}]
-  Note that $C<A$ if and only if $C=\ordsl A a$ for some $a:A$.
-  This gives an isomorphism $A \cong \ordsl \ord A$, so that $A<\ord$.
-  Thus we may take $B\defeq\ord$.
+\begin{proof}[另一个 \cref{thm:ordsucc} 的证明]
+注意 $C<A$ 当且仅当 $C=\ordsl A a$ 对于某个 $a:A$。
+这给出了一个同构 $A \cong \ordsl \ord A$，因此 $A<\ord$。
+因此我们可以取 $B\defeq\ord$。
 \end{proof}
 
-The second proof would be valid if we had stated \cref{thm:ordsucc} in a typically ambiguous style.
-But the resulting lemma would be less useful, because the second proof would constrain the second ``\ord'' in the lemma statement to refer to a higher universe level than the first one.
-The first proof allows both universes to be the same.
+第二种证明方法在我们以典型含糊的风格陈述 \cref{thm:ordsucc} 时是有效的。
+但是得到的引理将不那么有用，因为第二个证明将限制引理陈述中的第二个“\ord”与第一个相比指的是更高的宇宙级别。
+第一个证明允许两个宇宙是相同的。
 
-Similar remarks apply to the next lemma, which could be proved in a less useful way by observing that $A\le \ord$ for any $A:\ord$.
-
+类似的评论适用于下一个引理，它可以通过观察到对于任何 $A:\ord$，$A\le \ord$ 来证明。
 \begin{lem}\label{thm:ordunion}
-  Let \bbU be a universe.
-  For any $X:\type$ and $F:X\to \ord_\bbU$, there exists $B:\ord_\bbU$ such that $Fx\le B$ for all $x:X$.
+  令 \bbU 为一个宇宙。
+  对于任何 $X:\type$ 和 $F:X\to \ord_\bbU$，存在一个 $B:\ord_\bbU$ 使得 $Fx\le B$ 对于所有 $x:X$。
 \end{lem}
 \begin{proof}
-  Let $B$ be the set-quotient (see \cref{rmk:quotient-of-non-set}) of the equivalence relation $\eqr$ on $\sm{x:X} Fx$ defined as follows:
+  令 $B$ 为等价关系 $\eqr$ 在 $\sm{x:X} Fx$ 上的商集（见 \cref{rmk:quotient-of-non-set}）定义如下：
   \[ (x,y) \eqr (x',y')
   \;\defeq\;
   \Big(\ordsl{(Fx)}{y} \cong \ordsl{(Fx')}{y'}\Big).
   \]
-  Define $(x,y)<(x',y')$ if $\ordsl{(Fx)}{y} < \ordsl{(Fx')}{y'}$.
-  This clearly descends to the quotient, and can be seen to make $B$ into an ordinal.
-  Moreover, for each $x:X$ the induced map $Fx\to B$ is a simulation.
+  定义 $(x,y)<(x',y')$ 如果 $\ordsl{(Fx)}{y} < \ordsl{(Fx')}{y'}$。
+  这显然传递到商集，并且可以看出使得 $B$ 成为一个序数。
+  此外，对于每个 $x:X$，诱导的映射 $Fx\to B$ 是一个模拟。
 \end{proof}
-
-
 
 \section{Classical well-orderings}
 \label{sec:wellorderings}
