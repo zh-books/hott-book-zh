@@ -576,242 +576,209 @@ $\id{\pi_1(\Sn ^1)} {\Z}$，而 $\id{\pi_n(\Sn ^1)}0$ 对于 $n>1$。
   实际上，$\pi_1(\Sn^1)$ 的（非）平凡性正好检测所有类型是否为集合：\cref{thm:loop-nontrivial} 的证明反过来表明，如果 $\lloop=\refl{\base}$，则所有类型都是集合。
 \end{rmk}
 
-\section{Connectedness of suspensions}
+\section{悬挂的连通性 (Connectedness of suspensions)}
 \label{sec:conn-susp}
 
-Recall from \cref{sec:connectivity} that a type $A$ is called \define{$n$-connected} if $\trunc nA$ is contractible.
-The aim of this section is to prove that the operation of suspension from \cref{sec:suspension} increases connectedness.
+回顾在 \cref{sec:connectivity} 中提到的，如果一个类型 $A$ 被称为 \define{$n$-连通的 ($n$-connected)}，则 $\trunc nA$ 是可收缩的 (contractible)。
+本节的目的是证明悬挂操作 (suspension operation) 会增加连通性，如 \cref{sec:suspension} 中所述。
 
 \begin{thm} \label{thm:suspension-increases-connectedness}
-  If $A$ is $n$-connected then the suspension of $A$ is $(n+1)$-connected.
+如果 $A$ 是 $n$-连通的，那么 $A$ 的悬挂 (suspension) 是 $(n+1)$-连通的。
 \end{thm}
 
 \begin{proof}
-  We remarked in \cref{sec:colimits} that the suspension of $A$ is the pushout $\unit\sqcup^A\unit$, so we need to
-  prove that the following type is contractible:
+  我们在 \cref{sec:colimits} 中提到，$A$ 的悬挂是推挤 (pushout) $\unit\sqcup^A\unit$，因此我们需要证明以下类型是可收缩的：
   %
-  \[\trunc{n+1}{\unit\sqcup^A\unit}.\]
+  \[\trunc{n+1}{\unit\sqcup^A\unit}。\]
   %
-  By \cref{reflectcommutespushout} we know that
-  $\trunc{n+1}{\unit\sqcup^A\unit}$ is a pushout in $\typelep{n+1}$ of the diagram
+  根据 \cref{reflectcommutespushout}，我们知道 $\trunc{n+1}{\unit\sqcup^A\unit}$ 是 $\typelep{n+1}$ 中以下图表的推挤：
   \[\xymatrix{\trunc{n+1}A \ar[d] \ar[r] & \trunc{n+1}{\unit} \\
-    \trunc{n+1}{\unit} & }.\]
+  \trunc{n+1}{\unit} & }。\]
   %
-  Given that $\trunc{n+1}{\unit}=\unit$, the type
-  $\trunc{n+1}{\unit\sqcup^A\unit}$ is also a pushout of the following diagram in
-  $\typelep{n+1}$ (because both diagrams are equal)
+  鉴于 $\trunc{n+1}{\unit}=\unit$，$\trunc{n+1}{\unit\sqcup^A\unit}$ 的类型在 $\typelep{n+1}$ 中也是以下图表的推挤（因为两个图表是相等的）：
   %
   \[\Ddiag=\vcenter{\xymatrix{\trunc{n+1}A \ar[d] \ar[r] & \unit \\
-    \unit & }}.\]
+  \unit & }}。\]
   %
-  We will now prove that $\unit$ is also a pushout of $\Ddiag$ in
-  $\typelep{n+1}$.
+  我们现在将证明在 $\typelep{n+1}$ 中 $\unit$ 也是 $\Ddiag$ 的推挤。
   %
-  Let $E$ be an $(n+1)$-truncated type; we need to prove that the following map
-  is an equivalence
+  设 $E$ 是一个 $(n+1)$-截断的类型；我们需要证明以下映射是一个等价 (equivalence)：
   %
   \[\function{(\unit \to E)}{\cocone{\Ddiag}{E}}{y}
-  {(y,y,\lamu{u:{\trunc{n+1}A}} \refl{y(\ttt)})}.\]
+  {(y,y,\lamu{u:{\trunc{n+1}A}} \refl{y(\ttt)})}。\]
   %
-  where we recall that $\cocone{\Ddiag}{E}$ is the type
+  我们回顾一下，$\cocone{\Ddiag}{E}$ 是以下类型：
   \[\sm{f:\unit \to E}{g:\unit \to E}(\trunc{n+1}A\to
-  (f(\ttt)=_E{}g(\ttt))).\]
+  (f(\ttt)=_E{}g(\ttt)))。\]
   %
-  The map $\function{(\unit\to E)}{E}{f}{f(\ttt)}$ is an equivalence, hence
-  we also have
-  \[\cocone{\Ddiag}{E}=\sm{x:E}{y:E}(\trunc{n+1}A\to(x=_Ey)).\]
+  映射 $\function{(\unit\to E)}{E}{f}{f(\ttt)}$ 是一个等价映射，因此我们也有
+  \[\cocone{\Ddiag}{E}=\sm{x:E}{y:E}(\trunc{n+1}A\to(x=_Ey))。\]
   %
-  Now $A$ is $n$-connected hence so is $\trunc{n+1}A$ because
-  $\trunc n{\trunc{n+1}A}=\trunc nA=\unit$, and $(x=_Ey)$ is $n$-truncated because
-  $E$ is $(n+1)$-truncated. Hence by \cref{connectedtotruncated} the
-  following map is an equivalence
+  现在 $A$ 是 $n$-连通的，因此 $\trunc{n+1}A$ 也是 $n$-连通的，因为 $\trunc n{\trunc{n+1}A}=\trunc nA=\unit$，而 $(x=_Ey)$ 是 $n$-截断的，因为 $E$ 是 $(n+1)$-截断的。因此，根据 \cref{connectedtotruncated}，以下映射是一个等价映射：
   %
   \[\function{(x=_Ey)}{(\trunc{n+1}A\to(x=_Ey))}{p}{\lam{z} p}\]
   %
-  Hence we have
+  因此我们有
   %
-  \[\cocone{\Ddiag}{E}=\sm{x:E}{y:E}(x=_Ey).\]
+  \[\cocone{\Ddiag}{E}=\sm{x:E}{y:E}(x=_Ey)。\]
   %
-  But the following map is an equivalence
+  但是以下映射是一个等价映射：
   %
-  \[\function{E}{\sm{x:E}{y:E}(x=_Ey)}{x}{(x,x,\refl{x})}.\]
+  \[\function{E}{\sm{x:E}{y:E}(x=_Ey)}{x}{(x,x,\refl{x})}。\]
   %
-  Hence
+  因此
   %
-  \[\cocone{\Ddiag}{E}=E.\]
+  \[\cocone{\Ddiag}{E}=E。\]
   %
-  Finally we get an equivalence
+  最后我们得到一个等价映射
   %
   \[(\unit \to E)\eqvsym\cocone{\Ddiag}{E}\]
   %
-  We can now unfold the definitions in order to get the explicit expression of
-  this map, and we see easily that this is exactly the map we had at the
-  beginning.
+  我们现在可以展开定义以得到此映射的明确表达式，并且我们可以轻松地看到，这正是我们在开始时所得到的映射。
 
-  Hence we proved that $\unit$ is a pushout of $\Ddiag$ in $\typelep{n+1}$. Using
-  uniqueness of pushouts we get that $\trunc{n+1}{\unit\sqcup^A\unit}=\unit$
-  which proves that the suspension of $A$ is $(n+1)$-connected.
+  因此我们证明了 $\unit$ 是 $\typelep{n+1}$ 中 $\Ddiag$ 的推挤。使用推挤的唯一性，我们得到 $\trunc{n+1}{\unit\sqcup^A\unit}=\unit$，这证明了 $A$ 的悬挂是 $(n+1)$-连通的。
 \end{proof}
 
 \begin{cor} \label{cor:sn-connected}
-  For all $n:\N$, the sphere $\Sn^n$ is $(n-1)$-connected.
+对于所有 $n:\N$，球体 $\Sn^n$ 是 $(n-1)$-连通的。
 \end{cor}
 
 \begin{proof}
-  We prove this by induction on $n$.
+  我们通过归纳法证明这一点。
   %
-  For $n=0$ we have to prove that $\Sn^0$ is merely inhabited, which is clear.
+  对于 $n=0$，我们必须证明 $\Sn^0$ 仅仅是居住的 (inhabited)，这是显然的。
   %
-  Let $n:\N$ be such that $\Sn^n$ is $(n-1)$-connected. By definition $\Sn^{n+1}$
-  is the suspension of $\Sn^n$, hence by the previous lemma $\Sn^{n+1}$ is
-  $n$-connected.
+  设 $n:\N$ 使得 $\Sn^n$ 是 $(n-1)$-连通的。根据定义，$\Sn^{n+1}$ 是 $\Sn^n$ 的悬挂，因此根据前面的引理，$\Sn^{n+1}$ 是 $n$-连通的。
 \end{proof}
 
-\section{\texorpdfstring{$\pi_{k \le n}$}{π\_(k≤n)} of an \texorpdfstring{$n$}{n}-connected space and \texorpdfstring{$\pi_{k < n}(\Sn ^n)$}{π\_(k<n)(Sⁿ)}}
+\section{\texorpdfstring{$n$-连通空间和 \texorpdfstring{$\pi_{k < n}(\Sn ^n)$}{π\_(k<n)(Sⁿ)} 的 \texorpdfstring{$\pi_{k \le n}$}{π\_(k≤n)}}
 \label{sec:pik-le-n}
 
-Let $(A,a)$ be a pointed type and $n:\N$.  Recall from
-\cref{thm:homotopy-groups} that if $n>0$ the set $\pi_n(A,a)$ has a group
-structure, and if $n>1$ the group is abelian\index{group!abelian}.
+设 $(A,a)$ 是一个有基点的类型 (pointed type)，$n:\N$。回顾在 \cref{thm:homotopy-groups} 中提到的，如果 $n>0$，则集合 $\pi_n(A,a)$ 具有群结构 (group structure)，如果 $n>1$，则该群是阿贝尔群 (abelian group)\index{group!abelian}。
 
-We can now say something about homotopy groups of $n$-truncated and
-$n$-connected types.
+我们现在可以讨论 $n$-截断类型 (n-truncated type) 和 $n$-连通类型的同伦群 (homotopy groups)。
 
 \begin{lem}
-  If $A$ is $n$-truncated and $a:A$, then $\pi_k(A,a)=\unit$ for all $k>n$.
+  如果 $A$ 是 $n$-截断的并且 $a:A$，那么对于所有 $k>n$，$\pi_k(A,a)=\unit$。
 \end{lem}
 
 \begin{proof}
-  The loop space of an $n$-type  is an
-  $(n-1)$-type, hence $\Omega^k(A,a)$ is an $(n-k)$-type, and we have
-  $(n-k)\le-1$ so $\Omega^k(A,a)$ is a mere proposition. But $\Omega^k(A,a)$ is inhabited,
-  so it is actually contractible and
-  $\pi_k(A,a)=\trunc0{\Omega^k(A,a)}=\trunc0{\unit}=\unit$.
+  $n$-类型的环空间 (loop space) 是一个 $(n-1)$-类型，因此 $\Omega^k(A,a)$ 是一个 $(n-k)$-类型，并且我们有 $(n-k)\le-1$，所以 $\Omega^k(A,a)$ 是一个单纯命题 (mere proposition)。但是 $\Omega^k(A,a)$ 是居住的，因此它实际上是可收缩的，$\pi_k(A,a)=\trunc0{\Omega^k(A,a)}=\trunc0{\unit}=\unit$。
 \end{proof}
 
 \begin{lem} \label{lem:pik-nconnected}
-  If $A$ is $n$-connected and $a:A$, then $\pi_k(A,a)=\unit$ for all $k\le{}n$.
+如果 $A$ 是 $n$-连通的并且 $a:A$，那么对于所有 $k\le{}n$，$\pi_k(A,a)=\unit$。
 \end{lem}
 
 \begin{proof}
-  We have the following sequence of equalities:
+  我们有以下等式序列：
   %
   \begin{narrowmultline*}
     \pi_k(A,a) = \trunc0{\Omega^k(A,a)}
     = \Omega^k(\trunc k{(A,a)})
     = \Omega^k(\trunc k{\trunc n{(A,a)}})
     = \narrowbreak
-      \Omega^k(\trunc k{\unit})
+    \Omega^k(\trunc k{\unit})
     = \Omega^k(\unit)
-    = \unit.
+    = \unit。
   \end{narrowmultline*}
   %
-  The third equality uses the fact that $k\le{}n$ in order to use that
-  $\truncf k\circ\truncf n=\truncf k$ and the fourth equality uses the fact that $A$ is
-  $n$-connected.
+  第三个等式使用了 $k\le{}n$ 的事实，以便使用 $\truncf k\circ\truncf n=\truncf k$，第四个等式使用了 $A$ 是 $n$-连通的事实。
 \end{proof}
 
 \begin{cor}
-  $\pi_k(\Sn ^n) = \unit$ for $k < n$.
+  对于 $k < n$，$\pi_k(\Sn ^n) = \unit$。
 \end{cor}
 \begin{proof}
-  The sphere $\Sn^n$ is $(n-1)$-connected by \cref{cor:sn-connected}, so
-  we can apply \cref{lem:pik-nconnected}.
+  根据 \cref{cor:sn-connected}，球体 $\Sn^n$ 是 $(n-1)$-连通的，因此我们可以应用 \cref{lem:pik-nconnected}。
 \end{proof}
 
-\section{Fiber sequences and the long exact sequence}
+\section{纤维序列和长确界序列 (Fiber sequences and the long exact sequence)}
 \label{sec:long-exact-sequence-homotopy-groups}
 
 \index{fiber sequence|(}%
 \index{sequence!fiber|(}%
 
-If the codomain of a function $f:X\to Y$ is equipped with a basepoint $y_0:Y$, then we refer to the fiber $F\defeq \hfib f {y_0}$ of $f$ over $y_0$ as \define{the fiber of $f$}\index{fiber}.
-(If $Y$ is connected, then $F$ is determined up to mere equivalence; see \cref{ex:unique-fiber}.)
-We now show that if $X$ is also pointed and $f$ preserves basepoints, then there is a relation between the homotopy groups of $F$, $X$, and $Y$ in the form of a \emph{long exact sequence}.
-We derive this by way of the \emph{fiber sequence} associated to such an $f$.
+如果一个函数 $f:X\to Y$ 的余域 (codomain) 装备了一个基点 $y_0:Y$，那么我们称 $f$ 在 $y_0$ 上的纤维 $F\defeq \hfib f {y_0}$ 为 \define{函数 $f$ 的纤维 (the fiber of $f$)}\index{fiber}。
+（如果 $Y$ 是连通的，那么 $F$ 是仅凭等价确定的 (determined up to mere equivalence)；参见 \cref{ex:unique-fiber}。）
+我们现在表明，如果 $X$ 也是有基点的，并且 $f$ 保持基点，那么 $F$、$X$ 和 $Y$ 的同伦群之间存在一个长确界序列 (long exact sequence) 的关系。
+我们通过与这样的 $f$ 相关联的纤维序列 (fiber sequence) 来推导这一点。
 
 \begin{defn}\label{def:pointedmap}
-  A \define{pointed map}
-  \indexdef{pointed!map}%
-  \indexsee{function!pointed}{pointed map}%
-  between pointed types $(X,x_0)$ and $(Y,y_0)$ is a
-  map $f:X\to Y$ together with a path $f_0:f(x_0)=y_0$.
+有基点类型 $(X,x_0)$ 和 $(Y,y_0)$ 之间的一个 \define{有基点映射 (pointed map)}\index{pointed!map}%
+\indexsee{function!pointed}{pointed map} 是一个映射 $f:X\to Y$ 以及一个路径 $f_0:f(x_0)=y_0$。
 \end{defn}
 
-For any pointed types $(X,x_0)$ and $(Y,y_0)$, there is a pointed map $(\lam{x} y_0) : X\to Y$ which is constant at the basepoint.
-We call this the \define{zero map}\indexdef{zero!map}\indexdef{function!zero} and sometimes write it as $0:X\to Y$.
+对于任何有基点类型 $(X,x_0)$ 和 $(Y,y_0)$，存在一个有基点映射 $(\lam{x} y_0) : X\to Y$，它在基点处是常值的 (constant)。
+我们将此称为 \define{零映射 (zero map)}\index{zero!map}\index{function!zero} 并有时将其记作 $0:X\to Y$。
 
-Recall that every pointed type $(X,x_0)$ has a loop space\index{loop space} $\Omega (X,x_0)$.
-We now note that this operation is functorial on pointed maps.\index{loop space!functoriality of}\index{functor!loop space}
+回顾一下，每个有基点类型 $(X,x_0)$ 都有一个环空间 (loop space)\index{loop space} $\Omega (X,x_0)$。
+我们现在注意到，该操作在有基点映射上是函子性的 (functorial)。\index{loop space!functoriality of}\index{functor!loop space}
 
 \begin{defn}\label{def:loopfunctor}
-  Given a pointed map between pointed types $f:X \to Y$, we define a pointed
-  map $\Omega f:\Omega X
-  \to \Omega Y$ by
-  \[(\Omega f)(p) \defeq \rev{f_0}\ct\ap{f}{p}\ct f_0.\]
-  The path $(\Omega f)_0 : (\Omega f) (\refl{x_0}) = \refl{y_0}$, which exhibits $\Omega f$ as a pointed map, is the obvious path of type
-  \[\rev{f_0}\ct\ap{f}{\refl{x_0}}\ct f_0=\refl{y_0}.\]
+给定有基点类型之间的一个有基点映射 $f:X \to Y$，我们定义有基点映射 $\Omega f:\Omega X
+\to \Omega Y$ 如下：
+\[(\Omega f)(p) \defeq \rev{f_0}\ct\ap{f}{p}\ct f_0。\]
+路径 $(\Omega f)_0 : (\Omega f) (\refl{x_0}) = \refl{y_0}$，它展示了 $\Omega f$ 作为有基点映射，是以下类型的显然路径：
+\[\rev{f_0}\ct\ap{f}{\refl{x_0}}\ct f_0=\refl{y_0}。\]
 \end{defn}
 
-There is another functor on pointed maps, which takes $f:X\to Y$ to $\proj1 : \hfib f {y_0} \to X$.
-When $f$ is pointed, we always consider $\hfib f {y_0}$ to be pointed with basepoint $(x_0,f_0)$, in which case $\proj1$ is also a pointed map, with witness $(\proj1)_0 \defeq \refl{x_0}$.
-Thus, this operation can be iterated.
+在有基点映射上还有另一个函子，它将 $f:X\to Y$ 映射到 $\proj1 : \hfib f {y_0} \to X$。
+当 $f$ 是有基点映射时，我们总是认为 $\hfib f {y_0}$ 是有基点的，其基点是 $(x_0,f_0)$，在这种情况下，$\proj1$ 也是一个有基点映射，其见证 (witness) 是 $(\proj1)_0 \defeq \refl{x_0}$。
+因此，此操作可以迭代。
 
 \begin{defn}
-  The \define{fiber sequence}
-  \indexdef{fiber sequence}%
-  \indexdef{sequence!fiber}%
-  of a pointed map $f:X\to Y$ is the infinite sequence of pointed types and pointed maps
+  一个有基点映射 $f:X\to Y$ 的 \define{纤维序列 (fiber sequence)}\index{fiber sequence}%
+  \index{sequence!fiber} 是以下无限序列的有基点类型和有基点映射：
   \[\xymatrix{\dots \ar[r]^{f^{(n+1)}} & X^{(n+1)} \ar[r]^{f^{(n)}} & X^{(n)} \ar^-{f^{(n-1)}}[r] & \dots \ar[r] & X^{(2)} \ar^-{f^{(1)}}[r] & X^{(1)} \ar[r]^{f^{(0)}} & X^{(0)}}\]
-  defined recursively by
+  该序列递归地定义为
   \[ X^{(0)} \defeq Y\qquad
-    X^{(1)} \defeq X\qquad
-    f^{(0)} \defeq f\qquad
-    \]
-  and
+  X^{(1)} \defeq X\qquad
+  f^{(0)} \defeq f\qquad
+  \]
+  以及
   \begin{alignat*}{2}
     X^{(n+1)} &\defeq \hfib {f^{(n-1)}}{x^{(n-1)}_0}\\
-    f^{(n)} &\defeq \proj1 &: X^{(n+1)} \to X^{(n)}.
+    f^{(n)} &\defeq \proj1 &: X^{(n+1)} \to X^{(n)}。
   \end{alignat*}
-  where $x^{(n)}_0$ denotes the basepoint of $X^{(n)}$, chosen recursively as above.
+  其中 $x^{(n)}_0$ 表示 $X^{(n)}$ 的基点，如上所述递归选择。
 \end{defn}
 
-Thus, any adjacent pair of maps in this fiber sequence is of the form
-\[ \xymatrix{ X^{(n+1)} \jdeq \hfib{f^{(n-1)}}{x^{(n-1)}_0} \ar[rr]^-{f^{(n)}\jdeq \proj1} && X^{(n)} \ar[r]^{f^{(n-1)}} & X^{(n-1)}. } \]
-In particular, we have $f^{(n-1)} \circ f^{(n)} = 0$.
-We now observe that the types occurring in this sequence are the iterated loop spaces\index{loop space!iterated} of the base
-space $Y$, the total space\index{total!space} $X$, and the fiber $F\defeq \hfib f {y_0}$, and similarly for the maps.
+因此，此纤维序列中的任何相邻的映射对都具有以下形式：
+\[ \xymatrix{ X^{(n+1)} \jdeq \hfib{f^{(n-1)}}{x^{(n-1)}_0} \ar[rr]^-{f^{(n)}\jdeq \proj1} && X^{(n)} \ar[r]^{f^{(n-1)}} & X^{(n-1)}。} \]
+特别是，我们有 $f^{(n-1)} \circ f^{(n)} = 0$。
+我们现在注意到，在此序列中出现的类型是基空间 $Y$ 的迭代环空间\index{loop space!iterated}、总空间\index{total!space} $X$ 和纤维 $F\defeq \hfib f {y_0}$，映射也是如此。
 
 \begin{lem}\label{thm:fiber-of-the-fiber}
-  Let $f:X\to Y$ be a pointed map of pointed spaces.  Then:
-  \begin{enumerate}
-  \item The fiber of $f^{(1)}\defeq \proj1 : \hfib f {y_0} \to X$ is equivalent to $\Omega Y$.\label{item:fibseq1}
-  \item Similarly, the fiber of $f^{(2)} : \Omega Y \to \hfib f {y_0}$ is equivalent to $\Omega X$.\label{item:fibseq2}
-  \item Under these equivalences, the pointed map $f^{(3)} : \Omega X\to \Omega Y$ is identified with the pointed map $\Omega f\circ\rev{(\blank)}$.\label{item:fibseq3}
-  \end{enumerate}
+设 $f:X\to Y$ 是有基点空间的有基点映射。那么：
+\begin{enumerate}
+  \item $f^{(1)}\defeq \proj1 : \hfib f {y_0} \to X$ 的纤维是与 $\Omega Y$ 等价的。\label{item:fibseq1}
+  \item 类似地，$f^{(2)} : \Omega Y \to \hfib f {y_0}$ 的纤维是与 $\Omega X$ 等价的。\label{item:fibseq2}
+  \item 在这些等价的情况下，有基点映射 $f^{(3)} : \Omega X\to \Omega Y$ 与有基点映射 $\Omega f\circ\rev{(\blank)}$ 是一致的。\label{item:fibseq3}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  For~\ref{item:fibseq1}, we have
+  对于~\ref{item:fibseq1}，我们有
   \begin{align*}
     \hfib{f^{(1)}}{x_0}
     &\defeq \sm{z:\hfib{f}{y_0}} (\proj{1}(z) = x_0)\\
-    &\eqvsym \sm{x:X}{p:f(x)=y_0} (x = x_0) &\text{(by \cref{ex:sigma-assoc})}\\
-    &\eqvsym (f(x_0) = y_0) &\text{(as $\tsm{x:X} (x=x_0)$ is contractible)}\\
-    &\eqvsym (y_0 = y_0) &\text{(by $(f_0 \ct \blank)$)}\\
-    &\jdeq \Omega Y.
+    &\eqvsym \sm{x:X}{p:f(x)=y_0} (x = x_0) &\text{(根据 \cref{ex:sigma-assoc})}\\
+    &\eqvsym (f(x_0) = y_0) &\text{(因为 $\tsm{x:X} (x=x_0)$ 是可收缩的)}\\
+    &\eqvsym (y_0 = y_0) &\text{(根据 $(f_0 \ct \blank)$)}\\
+    &\jdeq \Omega Y。
   \end{align*}
-  Tracing through, we see that this equivalence sends $((x,p),q)$ to $\opp{f_0} \ct \ap{f}{\opp q} \ct p$, while its inverse sends $r:y_0=y_0$ to $((x_0, f_0 \ct r), \refl{x_0})$.
-  In particular, the basepoint $((x_0,f_0),\refl{x_0})$ of $\hfib{f^{(1)}}{x_0}$ is sent to $\opp{f_0} \ct \ap{f}{\opp {\refl{x_0}}} \ct f_0$, which equals $\refl{y_0}$.
-  Hence this equivalence is a pointed map (see \cref{ex:pointed-equivalences}).
-  Moreover, under this equivalence, $f^{(2)}$ is identified with $\lam{r} (x_0, f_0 \ct r): \Omega Y \to \hfib f {y_0}$.
+  追溯下去，我们看到这个等价映射将 $((x,p),q)$ 映射到 $\opp{f_0} \ct \ap{f}{\opp q} \ct p$，而它的逆映射将 $r:y_0=y_0$ 映射到 $((x_0, f_0 \ct r), \refl{x_0})$。
+  特别是，$\hfib{f^{(1)}}{x_0}$ 的基点 $((x_0,f_0),\refl{x_0})$ 被映射到 $\opp{f_0} \ct \ap{f}{\opp {\refl{x_0}}} \ct f_0$，这等于 $\refl{y_0}$。
+  因此此等价映射是一个有基点映射 (参见 \cref{ex:pointed-equivalences})。
+  此外，在此等价映射下，$f^{(2)}$ 被识别为映射 $\lam{r} (x_0, f_0 \ct r): \Omega Y \to \hfib f {y_0}$。
 
-  \cref{item:fibseq2} follows immediately by applying~\ref{item:fibseq1} to $f^{(1)}$ in place of $f$.
-  % The resulting equivalence sends $(((x,p),p'),q') : \hfib{f^{(2)}}{(x_0,f_0)}$ to $\ap{f}{\opp {q'}} \ct p'$, while its inverse sends $s:x_0=x_0$ to $(((x_0,f_0), s), \refl{(x_0,f_0)})$.
-  Since $(f^{(1)})_0 \defeq \refl{x_0}$, under this equivalence $f^{(3)}$ is identified with the map $\Omega X \to \hfib {f^{(1)}}{x_0}$ defined by $s \mapsto ((x_0,f_0),s)$.
-  Thus, when we compose with the previous equivalence $\hfib {f^{(1)}}{x_0} \eqvsym \Omega Y$, we see that $s$ maps to $\opp{f_0} \ct \ap{f}{\opp s} \ct f_0$, which is by definition $(\Omega f)(\opp s)$. We omit the proof that this is an equality of pointed maps rather than just of functions.
+  \cref{item:fibseq2} 立即通过将~\ref{item:fibseq1} 应用于 $f^{(1)}$ 代替 $f$ 来得出。
+  % 结果等价映射将 $(((x,p),p'),q') : \hfib{f^{(2)}}{(x_0,f_0)}$ 映射到 $\ap{f}{\opp {q'}} \ct p'$，而它的逆映射将 $s:x_0=x_0$ 映射到 $(((x_0,f_0), s), \refl{(x_0,f_0)})$。
+  由于 $(f^{(1)})_0 \defeq \refl{x_0}$，在此等价映射下 $f^{(3)}$ 被识别为映射 $\Omega X \to \hfib {f^{(1)}}{x_0}$，该映射由 $s \mapsto ((x_0,f_0),s)$ 定义。
+  因此，当我们与先前的等价映射 $\hfib {f^{(1)}}{x_0} \eqvsym \Omega Y$ 组合时，我们看到 $s$ 被映射到 $\opp{f_0} \ct \ap{f}{\opp s} \ct f_0$，这根据定义是 $(\Omega f)(\opp s)$。我们省略了证明这是一个有基点映射的证明，而不仅仅是函数的等价性。
 \end{proof}
 
-Thus, the fiber sequence of $f:X\to Y$ can be pictured as:
+因此，$f:X\to Y$ 的纤维序列可以表示为：
 \[\xymatrix@C=1.5pc{
   \dots \ar[r] &
   \Omega^2 X \ar[r]^-{\Omega^2 f} &
@@ -820,52 +787,49 @@ Thus, the fiber sequence of $f:X\to Y$ can be pictured as:
   \Omega X \ar[r]^-{-\Omega f} &
   \Omega Y \ar[r]^-{\partial} &
   F \ar[r]^-{i} &
-  X \ar[r]^{f} & Y.}\]
-where the minus signs denote composition with path inversion $\rev{(\blank)}$.
-Note that by \cref{ex:ap-path-inversion}, we have
+  X \ar[r]^{f} & Y。}\]
+其中负号表示与路径逆序 (path inversion) $\rev{(\blank)}$ 的组合。
+请注意，根据 \cref{ex:ap-path-inversion}，我们有
 \[ \Omega\left(\Omega f\circ \opp{(\blank)}\right) \circ \opp{(\blank)}
 = \Omega^2 f \circ \opp{(\blank)} \circ \opp{(\blank)}
-= \Omega^2 f.
+= \Omega^2 f。
 \]
-Thus, there are minus signs on the $k$-fold loop maps whenever $k$ is odd.
+因此，当 $k$ 为奇数时，$k$ 次环映射上的符号是负号。
 
-From this fiber sequence we will deduce an \emph{exact sequence of pointed sets}.
+从这个纤维序列中，我们将推导出一个 \emph{有基点集的确界序列 (exact sequence of pointed sets)}。
 \index{image}%
-Let $A$ and $B$ be sets and $f:A\to B$ a function, and recall from \cref{defn:modal-image} the definition of the \emph{image} $\im(f)$, which can be regarded as a subset of $B$:
-\[\im(f) \defeq \setof{b:B | \exis{a:A} f(a)=b}. \]
-If $A$ and $B$ are moreover pointed with basepoints $a_0$ and $b_0$, and $f$ is a pointed map, we define the \define{kernel}
-\indexdef{kernel}%
-\indexdef{pointed!map!kernel of}%
-of $f$ to be the following subset of $A$:
+设 $A$ 和 $B$ 是集合，并且 $f:A\to B$ 是一个函数，并且回顾在 \cref{defn:modal-image} 中图像 $\im(f)$ 的定义，它可以视为 $B$ 的子集：
+\[\im(f) \defeq \setof{b:B | \exis{a:A} f(a)=b}。 \]
+如果 $A$ 和 $B$ 另外是有基点的，基点分别为 $a_0$ 和 $b_0$，并且 $f$ 是一个有基点映射，我们定义 $f$ 的 \define{核 (kernel)}\index{kernel}%
+\index{pointed!map!kernel of}%
+作为 $A$ 的以下子集：
 \symlabel{kernel}
-\[\ker(f) \defeq \setof{x:A | f(x) = b_0}. \]
-Of course, this is just the fiber of $f$ over the basepoint $b_0$; it is a subset of $A$ because $B$ is a set.
+\[\ker(f) \defeq \setof{x:A | f(x) = b_0}。 \]
+当然，这只是 $f$ 在基点 $b_0$ 上的纤维；它是 $A$ 的一个子集，因为 $B$ 是一个集合。
 
-Note that any group is a pointed set, with its unit element as basepoint, and any group homomorphism is a pointed map.
-In this case, the kernel and image agree with the usual notions from group theory.
+请注意，任何群都是一个有基点的集合，其单位元素作为基点，并且任何群同态 (group homomorphism) 都是一个有基点映射。
+在这种情况下，核和图像与群论中的通常概念是一致的。
 
 \begin{defn}
-  An \define{exact sequence of pointed sets}
-  \indexdef{exact sequence}%
-  \indexdef{sequence!exact}%
-  is a (possibly bounded) sequence of pointed sets and pointed maps:
+  一个 \define{有基点集的确界序列 (exact sequence of pointed sets)}\index{exact sequence}%
+  \index{sequence!exact} 是一个（可能有界的）有基点集和有基点映射的序列：
   \[\xymatrix{\dots \ar[r] & A^{(n+1)} \ar[r]^-{f^{(n)}} & A^{(n)} \ar[r]^{f^{(n-1)}} & A^{(n-1)} \ar[r] &
-    \dots}\]
-  such that for every $n$, the image of $f^{(n)}$ is equal, as a subset of $A^{(n)}$, to the kernel of $f^{(n-1)}$.
-  In other words, for all $a:A^{(n)}$ we have
-  \[ (f^{(n-1)}(a) = a^{(n-1)}_0) \iff \exis{b:A^{(n+1)}} (f^{(n)}(b)=a). \]
-  where $a^{(n)}_0$ denotes the basepoint of $A^{(n)}$.
+  \dots}\]
+  对于每个 $n$，$f^{(n)}$ 的图像作为 $A^{(n)}$ 的一个子集，等于 $f^{(n-1)}$ 的核。
+  换句话说，对于所有 $a:A^{(n)}$，我们有
+  \[ (f^{(n-1)}(a) = a^{(n-1)}_0) \iff \exis{b:A^{(n+1)}} (f^{(n)}(b)=a)。 \]
+  其中 $a^{(n)}_0$ 表示 $A^{(n)}$ 的基点。
 \end{defn}
 
-Usually, most or all of the pointed sets in an exact sequence are groups, and often abelian groups.
-When we speak of an \define{exact sequence of groups}, it is assumed moreover that the maps are group homomorphisms and not just pointed maps.
+通常，确界序列中的大多数或全部有基点集是群，通常是阿贝尔群。
+当我们谈论一个 \define{群的确界序列 (exact sequence of groups)} 时，默认假设映射是群同态，而不仅仅是有基点映射。
 
 \index{exact sequence}
 \begin{thm}\label{thm:les}
-  Let $f:X \to Y$ be a pointed map between pointed spaces with fiber $F\defeq \hfib f {y_0}$.
-  Then we have the following long exact sequence, which consists of groups except for the last three terms, and abelian groups except for the last six.
+设 $f:X \to Y$ 是有基点空间之间的一个有基点映射，其纤维为 $F\defeq \hfib f {y_0}$。
+然后我们得到以下长确界序列，它由群组成，除了最后三个项，以及阿贝尔群，除了最后六个项。
 
-  \[
+\[
   \xymatrix@R=1.2pc@C=3pc{
     \vdots & \vdots & \vdots \ar[lld] \\
     \pi_k(F) \ar[r] & \pi_k(X) \ar[r] & \pi_k(Y) \ar[lld] \\
@@ -873,85 +837,81 @@ When we speak of an \define{exact sequence of groups}, it is assumed moreover th
     \pi_2(F) \ar[r] & \pi_2(X) \ar[r] & \pi_2(Y) \ar[lld] \\
     \pi_1(F) \ar[r] & \pi_1(X) \ar[r] & \pi_1(Y) \ar[lld]\\
     \pi_0(F) \ar[r] & \pi_0(X) \ar[r] & \pi_0(Y)}
-  \]
+\]
 \end{thm}
 
-% In US trade we might want a page break here, and extra stretch, otherwise the
-% whole page looks ugly.
 \vspace*{0pt plus 10ex}
 \goodbreak
 
 \begin{proof}
-  We begin by showing that the 0-truncation of a fiber sequence is an exact sequence of pointed sets.
-  Thus, we need to show that for any adjacent pair of maps in a fiber sequence:
+  我们首先证明一个纤维序列的 0-截断是有基点集的确界序列。
+  因此，我们需要证明，对于纤维序列中的任何相邻映射对：
   %
   \[\xymatrix{\hfib{f}{z_0} \ar^-g[r] & W \ar^-f[r] & Z}\]
   %
-  with $g\defeq \proj1$, the sequence
+  其中 $g\defeq \proj1$，序列
   %
   \[\xymatrix{\trunc{0}{\hfib{f}{z_0}} \ar^-{\trunc0g}[r] & \trunc0{W}
     \ar^-{\trunc0{f}}[r] & \trunc0{Z}}\]
   %
-  is exact, i.e.\ that $\im(\trunc0g)\subseteq\ker(\trunc0f)$ and $\ker(\trunc0f)\subseteq\im(\trunc0g)$.
+  是确界的，即 $\im(\trunc0g)\subseteq\ker(\trunc0f)$ 和 $\ker(\trunc0f)\subseteq\im(\trunc0g)$。
 
-  The first inclusion is equivalent to $\trunc0g\circ\trunc0f=0$, which holds by functoriality of $\truncf0$ and the fact that $g\circ f=0$.
-  For the second, we assume $w':\trunc0W$ and $p':\trunc0f(w')=\tproj0{z_0}$ and show there merely exists ${t:\hfib{f}{z_0}}$ such that $g(t)=w'$.
-  Since our goal is a mere proposition, we can assume that $w'$ is of the
-  form $\tproj0w$ for some $w:W$.
-  Now by \cref{thm:path-truncation}, $p' : \tproj0{f(w)}=\tproj0{z_0}$ yields $p'': \trunc{-1}{f(w)=z_0}$, so by a further truncation induction we may assume some $p:f(w)=z_0$.
-  But now we have $\tproj0{(w,p)}:\tproj0{\hfib{f}{z_0}}$ whose image under $\trunc0g$ is $\tproj0w\jdeq w'$, as desired.
+  第一个包含等价于 $\trunc0g\circ\trunc0f=0$，这通过 $\truncf0$ 的函子性和 $g\circ f=0$ 的事实得到证明。
+  对于第二个，我们假设 $w':\trunc0W$ 并且 $p':\trunc0f(w')=\tproj0{z_0}$ 并展示仅存在 $t:\hfib{f}{z_0}$ 使得 $g(t)=w'$。
+  由于我们的目标是一个简单命题，我们可以假设 $w'$ 的形式为 $\tproj0w$ 对于某些 $w:W$。
+  现在根据 \cref{thm:path-truncation}，$p' : \tproj0{f(w)}=\tproj0{z_0}$ 产生 $p'': \trunc{-1}{f(w)=z_0}$，因此通过进一步的截断归纳，我们可以假设存在一些 $p:f(w)=z_0$。
+  但是现在我们有 $\tproj0{(w,p)}:\tproj0{\hfib{f}{z_0}}$，其在 $\trunc0g$ 下的映像是 $\tproj0w\jdeq w'$，如所愿。
 
-  Thus, applying $\truncf0$ to the fiber sequence of $f$, we obtain a long exact sequence involving the pointed sets $\pi_k(F)$, $\pi_k(X)$, and $\pi_k(Y)$ in the desired order.
-  And of course, $\pi_k$ is a group for $k\ge1$, being the 0-truncation of a loop space, and an abelian group for $k\ge 2$ by the Eckmann--Hilton argument
-  \index{Eckmann--Hilton argument} (\cref{thm:EckmannHilton}).
-  Moreover, \cref{thm:fiber-of-the-fiber} allows us to identify the maps $\pi_k(F) \to \pi_k(X)$ and $\pi_k(X) \to \pi_k(Y)$ in this exact sequence as $(-1)^k \pi_k(i)$ and $(-1)^k \pi_k(f)$ respectively.
+  因此，将 $\truncf0$ 应用于 $f$ 的纤维序列，我们得到一个长确界序列，其中涉及到 $\pi_k(F)$、$\pi_k(X)$ 和 $\pi_k(Y)$ 的有基点集，并按所需顺序排列。
+  当然，$\pi_k$ 是 $k\ge1$ 时的群，是环空间的 0-截断，并且 $k\ge 2$ 时是阿贝尔群，根据 Eckmann--Hilton 论证
+  \index{Eckmann--Hilton argument} (\cref{thm:EckmannHilton})。
+  此外，\cref{thm:fiber-of-the-fiber} 允许我们将此确界序列中的映射 $\pi_k(F) \to \pi_k(X)$ 和 $\pi_k(X) \to \pi_k(Y)$ 识别为 $(-1)^k \pi_k(i)$ 和 $(-1)^k \pi_k(f)$。
 
-  More generally, every map in this long exact sequence except the last three is of the form $\trunc0{\Omega h}$ or $\trunc0{-\Omega h}$ for some $h$.
-  In the former case it is a group homomorphism, while in the latter case it is a homomorphism if the groups are abelian; otherwise it is an ``anti-homomorphism''.
-  However, the kernel and image of a group homomorphism are unchanged when we replace it by its negative, and hence so is the exactness of any sequence involving it.
-  Thus, we can modify our long exact sequence to obtain one involving $\pi_k(i)$ and $\pi_k(f)$ directly and in which all the maps are group homomorphisms (except the last three).
+  更一般地，除了最后三个之外，此长确界序列中的每个映射都是 $\trunc0{\Omega h}$ 或 $\trunc0{-\Omega h}$ 形式的映射。
+  在前一种情况下，它是群同态，而在后一种情况下，如果这些群是阿贝尔群，它是同态；否则它是“反同态”。
+  但是，群同态的核和图像在我们将其替换为其负值时保持不变，因此涉及到它的任何序列的确界性也是如此。
+  因此，我们可以修改我们的长确界序列，以获得一个涉及 $\pi_k(i)$ 和 $\pi_k(f)$ 的序列，并且所有映射都是群同态（除了最后三个）。
 \end{proof}
 
-The usual properties of exact sequences of abelian groups\index{group!abelian!exact sequence of} can be proved as
-usual. In particular we have:
+通常的阿贝尔群的确界序列\index{group!abelian!exact sequence of} 的性质可以按常规证明。特别是我们有：
 \begin{lem}\label{thm:ses}
-  Suppose given an exact sequence of abelian groups:
-  %
-  \[\xymatrix{K \ar[r]& G \ar^f[r] & H \ar[r] & Q.}\]
-  %
-  \begin{enumerate}
-  \item If $K=0$, then $f$ is injective.\label{item:sesinj}
-  \item If $Q=0$, then $f$ is surjective.\label{item:sessurj}
-  \item If $K=Q=0$, then $f$ is an isomorphism.\label{item:sesiso}
-  \end{enumerate}
+假设给定一个阿贝尔群的确界序列：
+%
+\[\xymatrix{K \ar[r]& G \ar^f[r] & H \ar[r] & Q。}\]
+%
+\begin{enumerate}
+  \item 如果 $K=0$，则 $f$ 是单射。\label{item:sesinj}
+  \item 如果 $Q=0$，则 $f$ 是满射。\label{item:sessurj}
+  \item 如果 $K=Q=0$，则 $f$ 是同构。\label{item:sesiso}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  Since the kernel of $f$ is the image of $K\to G$, if $K=0$ then the kernel of $f$ is $\{0\}$;
-  hence $f$ is injective because it's a group morphism.
-  Similarly, since the image of $f$ is the kernel of $H\to Q$, if $Q=0$ then the image of $f$ is all of $H$, so $f$ is surjective.
-  Finally,~\ref{item:sesiso} follows from~\ref{item:sesinj} and~\ref{item:sessurj} by \cref{thm:mono-surj-equiv}.
+  由于 $f$ 的核是 $K\to G$ 的图像，如果 $K=0$，则 $f$ 的核是 $\{0\}$；
+  因此 $f$ 是单射，因为它是群同态。
+  类似地，由于 $f$ 的图像是 $H\to Q$ 的核，如果 $Q=0$，则 $f$ 的图像是所有 $H$，因此 $f$ 是满射。
+  最后，~\ref{item:sesiso} 通过 \cref{thm:mono-surj-equiv} 从~\ref{item:sesinj} 和~\ref{item:sessurj} 得出。
 \end{proof}
 
-As an immediate application, we can now quantify in what way $n$-connectedness of a map is stronger than inducing an equivalence on $n$-truncations.
+作为一个直接的应用，我们现在可以量化 $n$-连通性的一个映射比在 $n$-截断上诱导一个等价关系要强。
 
 \begin{cor}\label{thm:conn-pik}
-  Let $f:A\to B$ be $n$-connected and $a:A$, and define $b\defeq f(a)$.  Then:
-  \begin{enumerate}
-  \item If $k\le n$, then $\pi_k(f):\pi_k(A,a) \to \pi_k(B,b)$ is an isomorphism.\label{item:conn-pik1}
-  \item If $k=n+1$, then $\pi_k(f):\pi_k(A,a) \to \pi_k(B,b)$ is surjective.\label{item:conn-pik2}
-  \end{enumerate}
+设 $f:A\to B$ 是 $n$-连通的并且 $a:A$，定义 $b\defeq f(a)$。那么：
+\begin{enumerate}
+  \item 如果 $k\le n$，则 $\pi_k(f):\pi_k(A,a) \to \pi_k(B,b)$ 是同构。\label{item:conn-pik1}
+  \item 如果 $k=n+1$，则 $\pi_k(f):\pi_k(A,a) \to \pi_k(B,b)$ 是满射。\label{item:conn-pik2}
+\end{enumerate}
 \end{cor}
 \begin{proof}
-  For $k=0$, part~\ref{item:conn-pik1} follows from \cref{lem:connected-map-equiv-truncation}, noticing that $\pi_0(f)\equiv\trunc 0f$.
-  For $k=0$ part~\ref{item:conn-pik2} follows from \cref{ex:is-conn-trunc-functor}, noticing that a function is surjective iff it's $(-1)$-connected, by \cref{thm:minusoneconn-surjective}.
-  For $k>0$ we have as part of the long exact sequence an exact sequence
-  \[\xymatrix{\pi_k(\hfib f b) \ar[r]& \pi_k(A,a) \ar^f[r] & \pi_k(B,b) \ar[r] & \pi_{k-1}(\hfib f b).}\]
-  Now since $f$ is $n$-connected, $\trunc n{\hfib f b}$ is contractible.
-  Therefore, if $k\le n$, then $\pi_k(\hfib f b) = \trunc0{\Omega^k(\hfib f b)} = \Omega^k(\trunc k{\hfib f b})$ is also contractible.
-  Thus, $\pi_k(f)$ is an isomorphism for $k\le n$ by \cref{thm:ses}\ref{item:sesiso}, while for $k=n+1$ it is surjective by \cref{thm:ses}\ref{item:sessurj}.
+  对于 $k=0$，部分~\ref{item:conn-pik1} 由 \cref{lem:connected-map-equiv-truncation} 得出，注意到 $\pi_0(f)\equiv\trunc 0f$。
+  对于 $k=0$，部分~\ref{item:conn-pik2} 由 \cref{ex:is-conn-trunc-functor} 得出，注意到一个函数是满射当且仅当它是 $(-1)$-连通的，通过 \cref{thm:minusoneconn-surjective}。
+  对于 $k>0$，我们在长确界序列中有一个确界序列
+  \[\xymatrix{\pi_k(\hfib f b) \ar[r]& \pi_k(A,a) \ar^f[r] & \pi_k(B,b) \ar[r] & \pi_{k-1}(\hfib f b)。}\]
+  现在由于 $f$ 是 $n$-连通的，$\trunc n{\hfib f b}$ 是可缩的。
+  因此，如果 $k\le n$，则 $\pi_k(\hfib f b) = \trunc0{\Omega^k(\hfib f b)} = \Omega^k(\trunc k{\hfib f b})$ 也是可缩的。
+  因此，根据 \cref{thm:ses}\ref{item:sesiso}，$k\le n$ 时 $\pi_k(f)$ 是同构，而对于 $k=n+1$，根据 \cref{thm:ses}\ref{item:sessurj} 它是满射。
 \end{proof}
 
-In \cref{sec:whitehead} we will see that the converse of \cref{thm:conn-pik} also holds.
+在 \cref{sec:whitehead} 中，我们将看到 \cref{thm:conn-pik} 的逆命题也是成立的。
 
 \index{fiber sequence|)}%
 \index{sequence!fiber|)}%
