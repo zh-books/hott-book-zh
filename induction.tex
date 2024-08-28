@@ -365,373 +365,295 @@ $\w$-类型是自然数、列表和二叉树等类型的推广，它们足够通
 \end{thm}
 
 
-\section{Inductive types are initial algebras}
+\section{归纳类型是初始代数 (Inductive types are initial algebras)}
 \label{sec:initial-alg}
 
 \indexsee{initial!algebra characterization of inductive types}{homotopy-initial}%
 
-As suggested earlier, inductive types also have a category-theoretic universal property.
-They are \emph{homotopy-initial algebras}: initial objects (up to coherent homotopy) in a category of ``algebras'' determined by the specified constructors.
-As a simple example, consider the natural numbers.
-The appropriate sort of ``algebra'' here is a type equipped with the same structure that the constructors of $\nat$ give to it.
+如前所述，归纳类型 (Inductive types) 也具有范畴论中的一种普遍性质。它们是\emph{同伦初始代数 (homotopy-initial algebras)}：在由特定构造子 (constructors) 决定的“代数 (algebras)”范畴中，同伦初始代数是初始对象（在一致同伦 (coherent homotopy) 范畴中）。举一个简单的例子，考虑自然数 (natural numbers)。这里适当的“代数”是一种类型，具有与 $\nat$ 的构造子所赋予的相同结构。
 
 \index{natural numbers!as homotopy-initial algebra}
 \begin{defn}\label{defn:nalg}
-  A \define{$\nat$-algebra}
-  \indexdef{N-algebra@$\nat$-algebra}%
-  \indexdef{algebra!N-@$\nat$-}%
-  is a type $C$ with two elements $c_0 : C$, $c_s : C \to C$. The type of such algebras is
+\define{$\nat$-代数 ($\nat$-algebra)}
+\indexdef{N-algebra@$\nat$-algebra}%
+\indexdef{algebra!N-@$\nat$-}%
+是一种类型 $C$，具有两个元素 $c_0 : C$ 和 $c_s : C \to C$。这种代数的类型为：
 \begin{equation*}
-\nalg \defeq \sm {C : \type} C \times (C \to C).
+    \nalg \defeq \sm {C : \type} C \times (C \to C).
 \end{equation*}
 \end{defn}
 
 \begin{defn}\label{defn:nhom}
-  A \define{$\nat$-homomorphism}
-  \indexdef{N-homomorphism@$\nat$-homomorphism}%
-  \indexdef{homomorphism!N-@$\nat$-}%
-  between $\nat$-algebras $(C,c_0,c_s)$ and $(D,d_0,d_s)$ is a function $h : C \to D$ such that $h(c_0) = d_0$ and $h(c_s(c)) = d_s(h(c))$ for all $c : C$. The type of such homomorphisms is
+\define{$\nat$-同态 ($\nat$-homomorphism)}
+\indexdef{N-homomorphism@$\nat$-homomorphism}%
+\indexdef{homomorphism!N-@$\nat$-}%
+在 $\nat$-代数 $(C,c_0,c_s)$ 和 $(D,d_0,d_s)$ 之间的同态是一个函数 $h : C \to D$，使得对所有 $c : C$，都有 $h(c_0) = d_0$ 且 $h(c_s(c)) = d_s(h(c))$。这些同态的类型为：
 \begin{narrowmultline*}
-\nhom((C,c_0,c_s),(D,d_0,d_s)) \defeq \narrowbreak
- \dsm {h : C \to D} (\id{h(c_0)}{d_0}) \times \tprd{c:C} (\id{h(c_s(c))}{d_s(h(c))}).
+    \nhom((C,c_0,c_s),(D,d_0,d_s)) \defeq \narrowbreak
+    \dsm {h : C \to D} (\id{h(c_0)}{d_0}) \times \tprd{c:C} (\id{h(c_s(c))}{d_s(h(c))}).
 \end{narrowmultline*}
 \end{defn}
 
-We thus have a category of $\nat$-algebras and $\nat$-homomorphisms, and the claim is that $\nat$ is the initial object of this category.
-A category theorist will immediately recognize this as the definition of a \emph{natural numbers object} in a category.
+因此，我们有一个 $\nat$-代数和 $\nat$-同态的范畴，$\nat$ 是这个范畴的初始对象。范畴论专家会立即认识到这就是范畴中自然数对象的定义。
 
-Of course, since our types behave like $\infty$-groupoids\index{.infinity-groupoid@$\infty$-groupoid}, we actually have an $(\infty,1)$-category\index{.infinity1-category@$(\infty,1)$-category} of $\nat$-algebras, and we should ask $\nat$ to be initial in the appropriate $(\infty,1)$-categorical sense.
-Fortunately, we can formulate this without needing to define $(\infty,1)$-categories.
+当然，由于我们的类型表现得像 $\infty$-群体 ($\infty$-groupoids)\index{.infinity-groupoid@$\infty$-groupoid}，我们实际上有一个 $\nat$-代数的 $(\infty,1)$-范畴\index{.infinity1-category@$(\infty,1)$-category}，我们应当要求 $\nat$ 在合适的 $(\infty,1)$-范畴意义上是初始的。幸运的是，我们可以在不需要定义 $(\infty,1)$-范畴的情况下表述这一点。
 
 \begin{defn}
-  \index{universal!property!of natural numbers}%
-  A $\nat$-algebra $I$ is called \define{homotopy-initial},
-  \indexdef{homotopy-initial!N-algebra@$\nat$-algebra}%
-  \indexdef{N-algebra@$\nat$-algebra!homotopy-initial (h-initial)}%
-  or \define{h-initial}
-  \indexsee{h-initial}{homotopy-initial}%
-  for short, if for any other $\nat$-algebra $C$, the type of $\nat$-homomorphisms from $I$ to $C$ is contractible. Thus,
-\begin{equation*}
-\ishinitn(I) \defeq \prd{C : \nalg} \iscontr(\nhom(I,C)).
-\end{equation*}
+    \index{universal!property!of natural numbers}%
+    称 $\nat$-代数 $I$ 为\define{同伦初始 (homotopy-initial)}\indexdef{homotopy-initial!N-algebra@$\nat$-algebra}\indexdef{N-algebra@$\nat$-algebra!homotopy-initial (h-initial)}，简称 \define{h-initial}\indexsee{h-initial}{homotopy-initial}，如果对于任意其他的 $\nat$-代数 $C$，从 $I$ 到 $C$ 的 $\nat$-同态类型是可收缩的。即：
+    \begin{equation*}
+        \ishinitn(I) \defeq \prd{C : \nalg} \iscontr(\nhom(I,C)).
+    \end{equation*}
 \end{defn}
 
-When they exist, h-initial algebras are unique --- not just up to isomorphism, as usual in category theory, but up to equality, by the univalence axiom.
+当它们存在时，同伦初始代数是唯一的——不仅仅是同构意义上的唯一，而是通过单值性公理 (univalence axiom) 来实现的等同。
 
 \begin{thm}
-  Any two h-initial $\nat$-algebras are equal.
-  Thus, the type of h-initial $\nat$-algebras is a mere proposition.
+    任何两个同伦初始的 $\nat$-代数是相等的。因此，同伦初始的 $\nat$-代数的类型是一个单命题 (mere proposition)。
 \end{thm}
 \begin{proof}
-  Suppose $I$ and $J$ are h-initial $\nat$-algebras.
-  Then $\nhom(I,J)$ is contractible, hence inhabited by some $\nat$-homomorphism $f:I\to J$, and likewise we have an $\nat$-homomorphism $g:J\to I$.
-  Now the composite $g\circ f$ is a $\nat$-homomorphism from $I$ to $I$, as is $\idfunc[I]$; but $\nhom(I,I)$ is contractible, so $g\circ f = \idfunc[I]$.
-  Similarly, $f\circ g = \idfunc[J]$.
-  Hence $\eqv IJ$, and so $I=J$. Since being contractible is a mere proposition and dependent products preserve mere propositions, it follows that being h-initial is itself a mere proposition. Thus any two proofs that $I$ (or $J$) is h-initial are necessarily equal, which finishes the proof.
+    假设 $I$ 和 $J$ 是同伦初始的 $\nat$-代数。那么 $\nhom(I,J)$ 是可收缩的，因此包含某个 $\nat$-同态 $f:I\to J$，同样我们有一个 $\nat$-同态 $g:J\to I$。现在，复合 $g\circ f$ 是从 $I$ 到 $I$ 的 $\nat$-同态，$\idfunc[I]$ 也是如此；但是 $\nhom(I,I)$ 是可收缩的，所以 $g\circ f = \idfunc[I]$。同样，$f\circ g = \idfunc[J]$。因此 $\eqv IJ$，也就是说 $I=J$。由于可收缩性是一个单命题，并且依赖乘积保留单命题，因此同伦初始也是一个单命题。因此，任何两个证明 $I$（或 $J$）是同伦初始的证明必然是相等的，从而完成了证明。
 \end{proof}
 
-We now have the following theorem.
+现在我们有了以下定理。
 
 \begin{thm}\label{thm:nat-hinitial}
-The $\nat$-algebra $(\nat, \emptyt, \suc)$ is homotopy initial.
+$\nat$-代数 $(\nat, \emptyt, \suc)$ 是同伦初始的。
 \end{thm}
-\begin{proof}[Sketch of proof]
-  Fix an arbitrary $\nat$-algebra $(C,c_0,c_s)$.
-  The recursion principle of $\nat$ yields a function $f:\nat\to C$ defined by
-  \begin{align*}
-    f(0) &\defeq c_0\\
-    f(\suc(n)) &\defeq c_s(f(n)).
-  \end{align*}
-  These two equalities make $f$ an $\nat$-homomorphism, which we can take as the center of contraction for $\nhom(\nat,C)$.
-  The uniqueness theorem (\cref{thm:nat-uniq}) then implies that any other $\nat$-homomorphism is equal to $f$.
+\begin{proof}[证明概述]
+    固定任意 $\nat$-代数 $(C,c_0,c_s)$。$\nat$ 的递归原理给出了一个函数 $f:\nat\to C$，定义如下：
+    \begin{align*}
+        f(0) &\defeq c_0\\
+        f(\suc(n)) &\defeq c_s(f(n))。
+    \end{align*}
+    这两个等式使得 $f$ 成为一个 $\nat$-同态，我们可以将其作为 $\nhom(\nat,C)$ 的收缩中心。唯一性定理（见 \cref{thm:nat-uniq}）然后表明，任何其他的 $\nat$-同态都等于 $f$。
 \end{proof}
 
-To place this in a more general context, it is useful to consider the notion of \emph{algebra for an endofunctor}. \index{algebra!for an endofunctor}
-Note that to make a type $C$ into a $\nat$-algebra is the same as to give a function $c:C+\unit\to C$, and a function $f:C\to D$ is a $\nat$-homomorphism just when $f \circ c \htpy d \circ (f+\unit)$.
-In categorical language, this means the \nat-algebras are the algebras for the endofunctor $F(X)\defeq X+1$ of the category of types.
+为了将其置于更一般的背景下，考虑\emph{自函子 (endofunctor) 的代数}的概念。\index{algebra!for an endofunctor}注意，使一种类型 $C$ 成为 $\nat$-代数与给出一个函数 $c:C+\unit\to C$ 是等价的，并且一个函数 $f:C\to D$ 是 $\nat$-同态，当且仅当 $f \circ c \htpy d \circ (f+\unit)$。在范畴语言中，这意味着 $\nat$-代数是类型范畴中自函子 $F(X)\defeq X+1$ 的代数。
 
 \indexsee{functor!polynomial}{endofunctor, polynomial}%
 \indexsee{polynomial functor}{endofunctor, polynomial}%
 \indexdef{endofunctor!polynomial}%
 \index{W-type@$\w$-type!as homotopy-initial algebra}
-For a more generic case, consider the $\w$-type associated to $A : \type$ and $B : A \to \type$.
-In this case we have an associated \define{polynomial functor}:
+对于更一般的情况，考虑与 $A : \type$ 和 $B : A \to \type$ 关联的 $\w$-类型 (W-types)。在这种情况下，我们有一个关联的\define{多项式函子 (polynomial functor)}：
 \begin{equation}
-\label{eq:polyfunc}
-P(X) = \sm{x : A} (B(x) \rightarrow X).
+    \label{eq:polyfunc}
+    P(X) = \sm{x : A} (B(x) \rightarrow X)。
 \end{equation}
-Actually, this assignment is functorial only up to homotopy, but this makes no difference in what follows.
-By definition, a \define{$P$-algebra}
-\indexdef{algebra!for a polynomial functor}%
-\indexdef{algebra!W-@$\w$-}%
-is then a type $C$ equipped with a function $s_C :  PC \rightarrow C$.
-By the universal property of $\Sigma$-types, this is equivalent to giving a function $\prd{a:A} (B(a) \to C) \to C$.
-We will also call such objects \define{$\w$-algebras}
-\indexdef{W-algebra@$\w$-algebra}%
-for $A$ and $B$, and we write
+实际上，这个赋值仅在同伦意义上是函子的，但这在接下来的讨论中没有影响。根据定义，\define{$P$-代数 ($P$-algebra)}\indexdef{algebra!for a polynomial functor}\indexdef{algebra!W-@$\w$-}是类型 $C$，配有一个函数 $s_C :  PC \rightarrow C$。根据 $\Sigma$-类型的通用性质，这相当于给出一个函数 $\prd{a:A} (B(a) \to C) \to C$。我们还将这种对象称为 \define{$\w$-代数 ($\w$-algebras)}\indexdef{W-algebra@$\w$-algebra}，我们记为
 \symlabel{walg}
 \begin{equation*}
-\walg(A,B) \defeq \sm {C : \type} \prd{a:A} (B(a) \to C) \to C.
+    \walg(A,B) \defeq \sm {C : \type} \prd{a:A} (B(a) \to C) \to C。
 \end{equation*}
 
-Similarly, for $P$-algebras $(C,s_C)$ and $(D,s_D)$, a \define{homomorphism}
-\indexdef{homomorphism!of algebras for a functor}%
-between them $(f, s_f) : (C, s_C) \rightarrow (D, s_D)$ consists of a function $f : C \rightarrow D$ and a homotopy between maps $PC \rightarrow D$
+类似地，对于 $P$-代数 $(C,s_C)$ 和 $(D,s_D)$，一个 \define{同态 (homomorphism)}\indexdef{homomorphism!of algebras for a functor}%
+在它们之间的同态 $(f, s_f) : (C, s_C) \rightarrow (D, s_D)$ 由一个函数 $f : C \rightarrow D$ 和一个在 $PC \rightarrow D$ 之间的同伦构成
 \[
-s_f :  f \circ s_C \, = s_{D} \circ Pf,
+    s_f :  f \circ s_C \, = s_{D} \circ Pf,
 \]
-where $Pf : PC\rightarrow PD$ is the result of the easily-definable action of $P$ on $f: C \rightarrow D$. Such an algebra homomorphism can be represented suggestively in the form:
+其中 $Pf : PC\rightarrow PD$ 是 $P$ 在 $f: C \rightarrow D$ 上的可轻易定义的作用结果。这样的代数同态可以表示为：
 \[
-\xymatrix{
- PC \ar[d]_{s_C} \ar[r]^{Pf}  \ar@{}[dr]|{s_f} &  PD \ar[d]^{s_D}\\
-C \ar[r]_{f}   & D }
+    \xymatrix{
+        PC \ar[d]_{s_C} \ar[r]^{Pf}  \ar@{}[dr]|{s_f} &  PD \ar[d]^{s_D}\\
+        C \ar[r]_{f}   & D }
 \]
-In terms of elements, $f$ is a $P$-homomorphism (or \define{$\w$-homomorphism}) if
-\indexdef{W-homomorphism@$\w$-homomorphism}%
-\indexdef{homomorphism!W-@$\w$-}%
-\[f(s_C(a,h)) = s_D(a,f \circ h).\]
-We have the type of $\w$-homomorphisms:
+在元素的层面上，$f$ 是一个 $P$-同态 (或 \define{$\w$-同态 ($\w$-homomorphism)})\indexdef{W-homomorphism@$\w$-homomorphism}\indexdef{homomorphism!W-@$\w$-}%
+若
+\[f(s_C(a,h)) = s_D(a,f \circ h)。\]
+我们有 $\w$-同态的类型：
 \symlabel{whom}
 \begin{equation*}
-  \whom_{A,B}((C, s_C),(D,s_D)) \defeq \sm{f : C \to D} \prd{a:A}{h:B(a)\to C} \id{f(s_C(a,h))}{s_D(a, f\circ h)}
+    \whom_{A,B}((C, s_C),(D,s_D)) \defeq \sm{f : C \to D} \prd{a:A}{h:B(a)\to C} \id{f(s_C(a,h))}{s_D(a, f\circ h)}
 \end{equation*}
 
 \index{universal!property!of $\w$-type}%
-Finally, a $P$-algebra $(C, s_C)$ is said to be \define{homotopy-initial}
-\indexdef{homotopy-initial!algebra for a functor}%
-\indexdef{homotopy-initial!W-algebra@$\w$-algebra}%
-if for every $P$-algebra $(D, s_D)$, the type of all algebra homomorphisms $(C, s_C) \rightarrow (D, s_D)$ is contractible.
-That is,
+最后，一个 $P$-代数 $(C, s_C)$ 被称为\define{同伦初始 (homotopy-initial)}\indexdef{homotopy-initial!algebra for a functor}\indexdef{homotopy-initial!W-algebra@$\w$-algebra}%
+如果对于每个 $P$-代数 $(D, s_D)$，从 $(C, s_C)$ 到 $(D, s_D)$ 的所有代数同态的类型是可收缩的。即：
 \begin{equation*}
-\ishinitw(A,B,I) \defeq \prd{C : \walg(A,B)} \iscontr(\whom_{A,B}(I,C)).
+    \ishinitw(A,B,I) \defeq \prd{C : \walg(A,B)} \iscontr(\whom_{A,B}(I,C))。
 \end{equation*}
-%
-Now the analogous theorem to \cref{thm:nat-hinitial} is:
+
+现在与 \cref{thm:nat-hinitial} 类似的定理是：
 
 \begin{thm}\label{thm:w-hinit}
-For any type $A : \type$ and type family $B : A \to \type$, the $\w$-algebra $(\wtype{x:A}B(x), \supp)$ is h-initial.
+对于任意类型 $A : \type$ 和类型族 $B : A \to \type$，$\w$-代数 $(\wtype{x:A}B(x), \supp)$ 是同伦初始的。
 \end{thm}
 
-\begin{proof}[Sketch of proof]
-Suppose we have $A : \type$ and $B : A \to \type$,
-and consider the associated polynomial functor $P(X)\defeq\sm{x:A}(B(x)\to X)$.
-Let $W \defeq \wtype{x:A}B(x)$.  Then using
-the $\w$-introduction rule from \cref{sec:w-types}, we have a structure map $s_W\defeq\supp: PW \rightarrow W$.
-We want to show that the algebra $(W, s_W)$ is
-h-initial. So, let us consider another algebra $(C,s_C)$ and show that the type $T\defeq \whom_{A,B}((W, s_W),(C,s_C)) $
-of  $\w$-homomorphisms from $(W, s_W)$ to $(C, s_C)$ is contractible. To do
-so, observe that the $\w$-elimination rule and the $\w$-computation
-rule allow us to define a $\w$-homomorphism $(f, s_f) : (W, s_W) \rightarrow (C, s_C)$,
-thus showing that $T$ is inhabited. It is furthermore necessary to show that for every $\w$-ho\-mo\-mor\-phism $(g, s_g) : (W, s_W) \rightarrow (C, s_C)$, there is an identity proof
-\begin{equation}
-\label{equ:prequired}
-p :  (f,s_f) = (g,s_g).
-\end{equation}
-This uses the fact that, in general, a type of the form $(f,s_f) = (g,s_g) $
-is  equivalent to the type of what we call \define{algebra $2$-cells}
-\indexdef{algebra!2-cell}%
-from $f$ to $g$, whose canonical
-elements are pairs of the form $(e, s_e)$, where $e : f=g$ and $s_e$ is a higher identity proof between the identity proofs represented by the following pasting diagrams:
-\[
-\xymatrix{
-PW \ar@/^1pc/[r]^{Pg}   \ar[d]_{s_W}   \ar@/_1pc/[r]_{Pf} \ar@{}[r]|{Pe}
-& PC \ar[d]^{s_C}  \\
-W  \ar@/_1pc/[r]_f  \ar@{}[r]^{s_f} & C } \qquad
-\xymatrix{
-PW \ar@/^1pc/[r]^{Pg}   \ar[d]_{s_W} \ar@{}[r]_(.52){s_g}  & PC \ar[d]^{s_C}  \\
-W \ar@/^1pc/[r]^g  \ar@/_1pc/[r]_f  \ar@{}[r]|{e} & C }
-\]
-In light of this fact, to prove that there exists an element as in~\eqref{equ:prequired}, it is
-sufficient to show that there is an algebra 2-cell $(e,s_e)$ from $f$ to $g$.
-The identity proof $e : f=g$ is now constructed by function extensionality and
-$\w$-elimination so as to guarantee the existence of the required identity
-proof $s_e$.
+\begin{proof}[证明概述]
+    假设我们有 $A : \type$ 和 $B : A \to \type$，并考虑关联的多项式函子 $P(X)\defeq\sm{x:A}(B(x)\to X)$。令 $W \defeq \wtype{x:A}B(x)$。然后使用 \cref{sec:w-types} 中的 $\w$-引入规则，我们有一个结构映射 $s_W\defeq\supp: PW \rightarrow W$。我们要证明代数 $(W, s_W)$ 是同伦初始的。因此，让我们考虑另一个代数 $(C,s_C)$ 并证明 $\w$-同态从 $(W, s_W)$ 到 $(C, s_C)$ 的类型 $T\defeq \whom_{A,B}((W, s_W),(C,s_C)) $ 是可收缩的。为此，观察到 $\w$-消去规则和 $\w$-计算规则允许我们定义一个 $\w$-同态 $(f, s_f) : (W, s_W) \rightarrow (C, s_C)$，从而表明 $T$ 是可居住的。此外，有必要表明，对于每个 $\w$-同态 $(g, s_g) : (W, s_W) \rightarrow (C, s_C)$，存在一个等式证明
+    \begin{equation}
+        \label{equ:prequired}
+        p :  (f,s_f) = (g,s_g)。
+    \end{equation}
+    这利用了一个事实，即一般来说，$(f,s_f) = (g,s_g) $ 形式的类型等价于我们所称的从 $f$ 到 $g$ 的 \define{代数 $2$-胞腔 (algebra $2$-cells)}\indexdef{algebra!2-cell}%
+    的类型，其标准元素是 $(e, s_e)$ 形式的对，其中 $e : f=g$ 并且 $s_e$ 是在以下粘贴图所代表的等式证明之间的更高等式证明：
+    \[
+        \xymatrix{
+            PW \ar@/^1pc/[r]^{Pg}   \ar[d]_{s_W}   \ar@/_1pc/[r]_{Pf} \ar@{}[r]|{Pe}
+            & PC \ar[d]^{s_C}  \\
+            W  \ar@/_1pc/[r]_f  \ar@{}[r]^{s_f} & C } \qquad
+        \xymatrix{
+            PW \ar@/^1pc/[r]^{Pg}   \ar[d]_{s_W} \ar@{}[r]_(.52){s_g}  & PC \ar[d]^{s_C}  \\
+            W \ar@/^1pc/[r]^g  \ar@/_1pc/[r]_f  \ar@{}[r]|{e} & C }
+    \]
+    鉴于此事实，为证明存在 \eqref{equ:prequired} 中的元素，足以证明存在从 $f$ 到 $g$ 的代数 $2$-胞腔 $(e,s_e)$。等式证明 $e : f=g$ 现在通过函数扩展性和 $\w$-消去法则构造，以保证所需的等式证明 $s_e$ 的存在。
 \end{proof}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Homotopy-inductive types}
+\section{同伦归纳类型 (Homotopy-inductive types)}
 \label{sec:htpy-inductive}
 
-In \cref{sec:w-types} we showed how to encode natural numbers as $\w$-types, with
+在 \cref{sec:w-types} 中，我们展示了如何将自然数 (natural numbers) 编码为 $\w$-类型 (W-types)，如下所示：
 \begin{align*}
-\natw & \defeq \wtype{b:\bool} \rec\bool(\bbU,\emptyt,\unit,b), \\
-\zerow & \defeq \supp(\bfalse, (\lamu{x:\emptyt} \rec\emptyt(\natw,x))), \\
-\sucw & \defeq \lamu{n:\natw} \supp(\btrue, (\lamu{x:\unit} n)).
+    \natw & \defeq \wtype{b:\bool} \rec\bool(\bbU,\emptyt,\unit,b), \\
+    \zerow & \defeq \supp(\bfalse, (\lamu{x:\emptyt} \rec\emptyt(\natw,x))), \\
+    \sucw & \defeq \lamu{n:\natw} \supp(\btrue, (\lamu{x:\unit} n))。
 \end{align*}
-We also showed how one can define a $\dbl$ function on $\natw$ using the recursion principle.
-When it comes to the induction principle, however, this encoding is no longer satisfactory: given $E : \natw \to \type$ and recurrences $e_z : E(\zerow)$ and $e_s : \prd{n : \natw}  E(n) \to E(\sucw(n))$, we can only construct a dependent function $r(E,e_z,e_s) : \prd{n : \natw} E(n)$ satisfying the given recurrences \emph{propositionally}, i.e.\ up to a path.
-This means that the computation rules for natural numbers, which give judgmental equalities, cannot be derived from the rules for $\w$-types in any obvious way.
+我们还展示了如何使用递归原理 (recursion principle) 在 $\natw$ 上定义 $\dbl$ 函数。然而，当涉及到归纳原理 (induction principle) 时，这种编码不再令人满意：给定 $E : \natw \to \type$ 和递归 $e_z : E(\zerow)$ 以及 $e_s : \prd{n : \natw}  E(n) \to E(\sucw(n))$，我们只能构造出一个依赖函数 $r(E,e_z,e_s) : \prd{n : \natw} E(n)$，它仅在命题意义上（即通过路径）满足给定的递归。这意味着无法从 $\w$-类型的规则中显然推导出自然数的计算规则 (computation rules)，这些规则给出的是判断相等性 (judgmental equalities)。
 
 \index{type!homotopy-inductive}%
 \index{homotopy-inductive type}%
-This problem goes away if instead of the conventional inductive types we consider \emph{homotopy-inductive types}, where all computation rules are stated up to a path, i.e.\ the symbol $\jdeq$ is replaced by $=$. For instance, the computation rule for the homotopy version of $\w$-types $\mathsf{W^h}$ becomes:
+当我们考虑\emph{同伦归纳类型 (homotopy-inductive types)} 时，这个问题消失了。在同伦归纳类型中，所有的计算规则都是在路径意义上陈述的，即符号 $\jdeq$ 被替换为 $=$。例如，同伦版 $\w$-类型 $\mathsf{W^h}$ 的计算规则变为：
 \index{computation rule!propositional}%
 \begin{itemize}
-\item For any $a : A$ and $f : B(a) \to \wtypeh{x:A} B(x)$ we have
-\begin{equation*}
-  \rec{\wtypeh{x:A} B(x)}(E,e,\supp(a,f)) = e\Big(a,f,\big(\lamu{b:B(a)} \rec{\wtypeh{x:A} B(x)}(E,f(b))\big)\Big)
-\end{equation*}
+    \item 对于任何 $a : A$ 和 $f : B(a) \to \wtypeh{x:A} B(x)$，我们有
+    \begin{equation*}
+        \rec{\wtypeh{x:A} B(x)}(E,e,\supp(a,f)) = e\Big(a,f,\big(\lamu{b:B(a)} \rec{\wtypeh{x:A} B(x)}(E,f(b))\big)\Big)
+    \end{equation*}
 \end{itemize}
 
-Homotopy-inductive types have an obvious disadvantage when it comes to computational properties --- the behavior of any function constructed using the induction principle can now only be characterized propositionally.
-But numerous other considerations drive us to consider homotopy-inductive types as well.
-For instance, while we showed in \cref{sec:initial-alg} that inductive types are homotopy-initial algebras, not every homotopy-initial algebra is an inductive type (i.e.\ satisfies the corresponding induction principle) --- but every homotopy-initial algebra \emph{is} a homotopy-inductive type.
-Similarly, we might want to apply the uniqueness argument from \cref{sec:appetizer-univalence} when one (or both) of the types involved is only a homotopy-inductive type --- for instance, to show that the $\w$-type encoding of $\nat$ is equivalent to the usual $\nat$.
+同伦归纳类型在计算性质方面有一个显而易见的缺点——通过归纳原理构造的任何函数的行为现在只能通过命题性方式描述。但是，其他许多考虑因素也驱使我们考虑同伦归纳类型。例如，尽管我们在 \cref{sec:initial-alg} 中证明了归纳类型是同伦初始代数，但并非每个同伦初始代数都是归纳类型（即满足相应的归纳原理）——但每个同伦初始代数\emph{确实}是同伦归纳类型。类似地，当其中一个（或两个）涉及的类型仅是同伦归纳类型时，我们可能希望应用来自 \cref{sec:appetizer-univalence} 的唯一性论证——例如，证明 $\w$-类型编码的 $\nat$ 等价于通常的 $\nat$。
 
-Additionally, the notion of a homotopy-inductive type is now internal to the type theory.
-For example, this means we can form a type of all natural numbers objects and make assertions about it.
-In the case of $\w$-types, we can characterize a homotopy $\w$-type $\wtype{x:A} B(x)$ as any type endowed with a supremum function and an induction principle satisfying the appropriate (propositional) computation rule:
+此外，同伦归纳类型的概念现在是类型论内部的。例如，这意味着我们可以形成所有自然数对象的类型并对其进行断言。在 $\w$-类型的情况下，我们可以将同伦 $\w$-类型 $\wtype{x:A} B(x)$ 表征为任何配有上确界 (supremum) 函数和满足适当（命题性）计算规则的归纳原理的类型：
 \begin{multline*}
-\w_d(A,B) \defeq \sm{W : \type}
-                 \sm{\supp : \prd {a} (B(a) \to W) \to W}
-                 \prd{E : W \to \type} \\
-                 \prd{e : \prd{a,f} (\prd{b : B(a)} E(f(b))) \to E(\supp(a,f))}
-                 \sm{\ind{} : \prd{w : W} E(w)}
-                 \prd{a,f} \\
-                 \ind{}(\supp(a,f)) = e(a,\lamu{b:B(a)} \ind{}(f(b))).
+    \w_d(A,B) \defeq \sm{W : \type}
+    \sm{\supp : \prd {a} (B(a) \to W) \to W}
+    \prd{E : W \to \type} \\
+    \prd{e : \prd{a,f} (\prd{b : B(a)} E(f(b))) \to E(\supp(a,f))}
+    \sm{\ind{} : \prd{w : W} E(w)}
+    \prd{a,f} \\
+    \ind{}(\supp(a,f)) = e(a,\lamu{b:B(a)} \ind{}(f(b)))。
 \end{multline*}
-In \cref{cha:hits} we will see some other reasons why propositional computation rules are worth considering.
+在 \cref{cha:hits} 中，我们将看到为什么命题性计算规则值得考虑的其他原因。
 
-In this section, we will state some basic facts about homotopy-inductive types.
-We omit most of the proofs, which are somewhat technical.
+在本节中，我们将陈述一些关于同伦归纳类型的基本事实。我们省略了大部分证明，因为它们有些技术性。
 
 \begin{thm}
-  For any $A : \type$ and $B : A \to \type$, the type $\w_d(A,B)$ is a mere proposition.
+    对于任何 $A : \type$ 和 $B : A \to \type$，类型 $\w_d(A,B)$ 是一个单命题。
 \end{thm}
 
-It turns out that there is an equivalent characterization of $\w$-types using a recursion principle, plus certain \emph{uniqueness} and \emph{coherence} laws. First we give the recursion principle:
+事实证明，存在 $\w$-类型的另一种等价表征，使用递归原理，加上某些\emph{唯一性 (uniqueness)}和\emph{一致性 (coherence)}法则。首先，我们给出递归原理：
 %
 \begin{itemize}
-\item When constructing a function from the $\w$-type $\wtypeh{x:A} B(x)$ into the type $C$, it suffices to give its value for $\supp(a,f)$, assuming we are given the values of all $f(b)$ with $b : B(a)$.
-In other words, it suffices to construct a function
-\begin{equation*}
-  c : \prd{a:A} (B(a) \to C) \to C.
-\end{equation*}
+    \item 当从 $\w$-类型 $\wtypeh{x:A} B(x)$ 构造一个到类型 $C$ 的函数时，只需给出它在 $\supp(a,f)$ 处的值，假设我们已经给出所有 $f(b)$ 的值，其中 $b : B(a)$。换句话说，只需构造一个函数
+    \begin{equation*}
+        c : \prd{a:A} (B(a) \to C) \to C。
+    \end{equation*}
 \end{itemize}
 \index{computation rule!propositional}%
-The associated computation rule for $\rec{\wtypeh{x:A} B(x)}(C,c) : (\wtype{x:A} B(x)) \to C$ is as follows:
+与 $\rec{\wtypeh{x:A} B(x)}(C,c) : (\wtype{x:A} B(x)) \to C$ 关联的计算规则如下：
 \begin{itemize}
-\item For any $a : A$ and $f : B(a) \to \wtypeh{x:A} B(x)$ we have
-a witness $\beta(C,c,a,f)$ for equality
-\begin{equation*}
-  \rec{\wtypeh{x:A} B(x)}(C,c,\supp(a,f)) =
-  c(a,\lamu{b:B(a)} \rec{\wtypeh{x:A} B(x)}(C,c,f(b))).
-\end{equation*}
+    \item 对于任何 $a : A$ 和 $f : B(a) \to \wtypeh{x:A} B(x)$，我们有一个等式见证 $\beta(C,c,a,f)$：
+    \begin{equation*}
+        \rec{\wtypeh{x:A} B(x)}(C,c,\supp(a,f)) =
+        c(a,\lamu{b:B(a)} \rec{\wtypeh{x:A} B(x)}(C,c,f(b)))。
+    \end{equation*}
 \end{itemize}
 
-Furthermore, we assert the following uniqueness principle, saying that any two functions defined by the same recurrence are equal:
+此外，我们断言以下唯一性原则，表明由相同递归定义的任何两个函数是相等的：
 \index{uniqueness!principle, propositional!for homotopy W-types@for homotopy $\w$-types}%
 \begin{itemize}
-\item Let $C : \type$ and $c : \prd{a:A} (B(a) \to C) \to C$ be given. Let $g,h : (\wtypeh{x:A} B(x)) \to C$ be two functions which satisfy the recurrence $c$ up to propositional equality, i.e., such that we have
-\begin{align*}
-  \beta_g &: \prd{a,f} \id{g(\supp(a,f))}{c(a,\lamu{b: B(a)} g(f(b)))}, \\
-  \beta_h &: \prd{a,f} \id{h(\supp(a,f))}{c(a,\lamu{b: B(a)} h(f(b)))}.
-\end{align*}
-Then $g$ and $h$ are equal, i.e.\ there is $\alpha(C,c,f,g,\beta_g,\beta_h)$ of type $g = h$.
+    \item 设 $C : \type$ 和 $c : \prd{a:A} (B(a) \to C) \to C$ 给定。设 $g,h : (\wtypeh{x:A} B(x)) \to C$ 是两个函数，它们在命题相等性上满足递归 $c$，即我们有
+    \begin{align*}
+        \beta_g &: \prd{a,f} \id{g(\supp(a,f))}{c(a,\lamu{b: B(a)} g(f(b)))}，\\
+        \beta_h &: \prd{a,f} \id{h(\supp(a,f))}{c(a,\lamu{b: B(a)} h(f(b)))}。
+    \end{align*}
+    那么 $g$ 和 $h$ 是相等的，即存在 $\alpha(C,c,f,g,\beta_g,\beta_h)$ 类型 $g = h$ 的元素。
 \end{itemize}
 
 \index{coherence}%
-Recall that when we have an induction principle rather than only a recursion principle, this propositional uniqueness principle is derivable (\cref{thm:w-uniq}).
-But with only recursion, the uniqueness principle is no longer derivable --- and in fact, the statement is not even true (exercise).  Hence, we postulate it as an axiom.
-We also postulate the following coherence\index{coherence} law, which tells us how the proof of uniqueness behaves on canonical elements:
+回想一下，当我们有一个归纳原理而不仅仅是递归原理时，这种命题唯一性原则是可导出的（见 \cref{thm:w-uniq}）。但仅有递归时，唯一性原则不再是可导出的——事实上，该陈述甚至不是真的（练习题）。因此，我们将其作为一个公理来假设。我们还假设以下一致性法则，告诉我们唯一性证明在典型元素上的行为：
 \begin{itemize}
-\item
-For any $a : A$ and $f : B(a) \to C$, the following diagram commutes propositionally:
-\[\xymatrix{
-  g(\supp(a,f)) \ar_{\alpha(\supp(a,f))}[d] \ar^-{\beta_g}[r] & c(a,\lamu{b:B(a)} g(f(b)))
-  \ar^{c(a,\blank)(\funext (\lam{b} \alpha(f(b))))}[d] \\
-  h(\supp(a,f)) \ar_-{\beta_h}[r] & c(a,\lamu{b: B(a)} h(f(b))) \\
-}\]
-where $\alpha$ abbreviates the path $\alpha(C,c,f,g,\beta_g,\beta_h) : g = h$.
+    \item
+    对于任何 $a : A$ 和 $f : B(a) \to C$，以下图命题性地交换：
+    \[\xymatrix{
+        g(\supp(a,f)) \ar_{\alpha(\supp(a,f))}[d] \ar^-{\beta_g}[r] & c(a,\lamu{b:B(a)} g(f(b)))
+        \ar^{c(a,\blank)(\funext (\lam{b} \alpha(f(b))))}[d] \\
+        h(\supp(a,f)) \ar_-{\beta_h}[r] & c(a,\lamu{b: B(a)} h(f(b))) \\
+    }\]
+    其中 $\alpha$ 是路径 $\alpha(C,c,f,g,\beta_g,\beta_h) : g = h$ 的缩写。
 \end{itemize}
 
-Putting all of this data together yields another characterization of $\wtype{x:A} B(x)$, as a type with a supremum function, satisfying simple elimination, computation, uniqueness, and coherence rules:
+将所有这些数据结合起来得出 $\wtype{x:A} B(x)$ 的另一种表征，即配有上确界函数、满足简单消去、计算、唯一性和一致性规则的类型：
 \begin{multline*}
-\w_s(A,B) \defeq \sm{W : \type}
-                       \sm{\supp : \prd {a} (B(a) \to W) \to W}
-                       \prd{C : \type}
-                       \prd{c : \prd{a} (B(a) \to C) \to C}\\
-                       \sm{\rec{} : W \to C}
-                       \sm{\beta : \prd{a,f} \rec{}(\supp(a,f)) = c(a,\lamu{b: B(a)} \rec{}(f(b)))} \narrowbreak
-                       \prd{g : W \to C}
-                       \prd{h : W \to C}
-                       \prd{\beta_g : \prd{a,f} g(\supp(a,f)) = c(a,\lamu{b: B(a)} g(f(b)))} \\
-                       \prd{\beta_h : \prd{a,f} h(\supp(a,f)) = c(a,\lamu{b: B(a)} h(f(b)))}
-                       \sm{\alpha : \prd {w : W} g(w) = h(w)}
-                       \prd{a,f} \\
-                       \alpha(\supp(a,f)) \ct \beta_h = \beta_g \ct c(a,-)(\funext \; \lam{b} \alpha(f(b)))
+    \w_s(A,B) \defeq \sm{W : \type}
+    \sm{\supp : \prd {a} (B(a) \to W) \to W}
+    \prd{C : \type}
+    \prd{c : \prd{a} (B(a) \to C) \to C}\\
+    \sm{\rec{} : W \to C}
+    \sm{\beta : \prd{a,f} \rec{}(\supp(a,f)) = c(a,\lamu{b: B(a)} \rec{}(f(b)))} \narrowbreak
+    \prd{g : W \to C}
+    \prd{h : W \to C}
+    \prd{\beta_g : \prd{a,f} g(\supp(a,f)) = c(a,\lamu{b: B(a)} g(f(b)))} \\
+    \prd{\beta_h : \prd{a,f} h(\supp(a,f)) = c(a,\lamu{b: B(a)} h(f(b)))}
+    \sm{\alpha : \prd {w : W} g(w) = h(w)}
+    \prd{a,f} \\
+    \alpha(\supp(a,f)) \ct \beta_h = \beta_g \ct c(a,-)(\funext \; \lam{b} \alpha(f(b)))
 \end{multline*}
 
 \begin{thm}
-For any $A : \type$ and $B : A \to \type$, the type $\w_s (A,B)$ is a mere proposition.
+    对于任意 $A : \type$ 和 $B : A \to \type$，类型 $\w_s (A,B)$ 是一个单命题。
 \end{thm}
 
-Finally, we have a third, very concise characterization of $\wtype{x:A} B(x)$ as an h-initial $\w$-algebra:
+最后，我们有一个第三个非常简洁的表征，将 $\wtype{x:A} B(x)$ 作为同伦初始的 $\w$-代数：
 \begin{equation*}
-\w_h(A,B) \defeq \sm{I : \walg(A,B)} \ishinitw(A,B,I).
+    \w_h(A,B) \defeq \sm{I : \walg(A,B)} \ishinitw(A,B,I)。
 \end{equation*}
 
 \begin{thm}
-For any $A : \type$ and $B : A \to \type$, the type $\w_h (A,B)$ is a mere proposition.
+    对于任意 $A : \type$ 和 $B : A \to \type$，类型 $\w_h (A,B)$ 是一个单命题。
 \end{thm}
 
-It turns out all three characterizations of $\w$-types are in fact equivalent:
+事实证明，所有三个 $\w$-类型的表征实际上是等价的：
 \begin{lem}\label{lem:homotopy-induction-times-3}
-For any $A : \type$ and $B : A \to \type$, we have
+对于任意 $A : \type$ 和 $B : A \to \type$，我们有
 \[ \w_d(A,B) \eqvsym \w_s(A,B) \eqvsym \w_h(A,B) \]
 \end{lem}
 
-Indeed, we have the following theorem, which is an improvement over \cref{thm:w-hinit}:
+实际上，我们有以下定理，这比 \cref{thm:w-hinit} 更进一步：
 
 \begin{thm}
-The types satisfying the formation, introduction, elimination, and propositional computation rules for $\w$-types are precisely the homotopy-initial $\w$-algebras.
+    满足 $\w$-类型的构造、引入、消去和命题计算规则的类型正是同伦初始的 $\w$-代数。
 \end{thm}
 
 %%%%%
-\begin{proof}[Sketch of proof]
+\begin{proof}[证明概述]
 %%%%%
-Inspecting the proof of \cref{thm:w-hinit}, we see that only the \emph{propositional} computation rule was required to establish the h-initiality of $\wtype{x:A}B(x)$.
-For the converse implication, let us assume that the polynomial functor associated
-to $A : \type$ and $B : A \to \UU$, has an h-initial algebra $(W,s_W)$; we show that $W$ satisfies the propositional rules of $\w$-types.
-The $\w$-introduction rule is simple; namely, for $a : A$ and $t : B(a) \rightarrow W$,  we define $\supp(a,t) : W$ to be the
-result of applying the structure map $s_W : PW \rightarrow W$ to $(a,t) : PW$.
-For the $\w$-elimination rule, let us assume its premisses and in particular that $C' : W \to \type$.
-Using the other premisses, one shows that the type $C \defeq \sm{ w : W} C'(w)$
-can be equipped with a structure map $s_C : PC \rightarrow C$. By the h-initiality of $W$,
-we obtain an algebra homomorphism $(f, s_f) : (W, s_W) \rightarrow (C, s_C)$. Furthermore,
-the first projection $\proj1 : C \rightarrow W$ can be equipped with the structure of a
-homomorphism, so that we obtain a diagram of the form
-\[
-\xymatrix{
-PW \ar[r]^{Pf} \ar[d]_{s_W}  & PC \ar[d]^{s_C}  \ar[r]^{P \proj1}  & PW  \ar[d]^{s_W}  \\
-W \ar[r]_f  & C \ar[r]_{\proj1}  & W.}
-\]
-But the identity function $1_W : W \rightarrow W$ has a canonical structure of an
-algebra homomorphism and so, by the contractibility of the type of homomorphisms
-from $(W,s_W)$ to itself, there must be an identity proof between the composite
-of $(f,s_f)$ with $(\proj1, s_{\proj1})$ and $(1_W, s_{1_W})$. This implies, in particular,
-that there is an identity proof $p :  \proj1 \circ f = 1_W$.
+    检查 \cref{thm:w-hinit} 的证明，我们发现只需要\emph{命题性}计算规则即可证明 $\wtype{x:A}B(x)$ 的同伦初始性。对于相反的推论，我们假设关联到 $A : \type$ 和 $B : A \to \UU$ 的多项式函子具有一个同伦初始代数 $(W,s_W)$；我们证明 $W$ 满足 $\w$-类型的命题性规则。$\w$-引入规则是简单的；即，对于 $a : A$ 和 $t : B(a) \rightarrow W$，我们定义 $\supp(a,t) : W$ 为将结构映射 $s_W : PW \rightarrow W$ 应用于 $(a,t) : PW$ 的结果。对于 $\w$-消去规则，假设其前提，特别是 $C' : W \to \type$。使用其他前提，可以证明类型 $C \defeq \sm{ w : W} C'(w)$ 可以配备一个结构映射 $s_C : PC \rightarrow C$。通过 $W$ 的同伦初始性，我们获得了一个代数同态 $(f, s_f) : (W, s_W) \rightarrow (C, s_C)$。此外，第一投影 $\proj1 : C \rightarrow W$ 可以配备一个同态的结构，因此我们得到如下形式的图
+    \[
+        \xymatrix{
+            PW \ar[r]^{Pf} \ar[d]_{s_W}  & PC \ar[d]^{s_C}  \ar[r]^{P \proj1}  & PW  \ar[d]^{s_W}  \\
+            W \ar[r]_f  & C \ar[r]_{\proj1}  & W.}
+    \]
+    但是，恒等函数 $1_W : W \rightarrow W$ 有一个代数同态的标准结构，因此，通过 $(W,s_W)$ 到自身的同态类型的可收缩性，复合 $(f,s_f)$ 和 $(\proj1, s_{\proj1})$ 必然存在一个等式证明，并且 $(1_W, s_{1_W})$。这特别意味着存在一个等式证明 $p :  \proj1 \circ f = 1_W$。
 
-Since $(\proj2 \circ f) w : C( (\proj1 \circ f) w)$, we can define
-\[
-\rec{}(w,c) \defeq
-p_{\, * \,}( ( \proj2 \circ  f)   w )   : C(w)
-\]
-where the transport $p_{\, * \,}$ is with respect to the family
-\[
-\lamu{u}C\circ u : (W\to W)\to W\to \UU.
-\]
-The verification of the propositional $\w$-computation rule is a calculation,
-involving the naturality properties of operations of the form $p_{\, * \,}$.
+    由于 $(\proj2 \circ f) w : C( (\proj1 \circ f) w)$，我们可以定义
+    \[
+        \rec{}(w,c) \defeq
+        p_{\, * \,}( ( \proj2 \circ  f)   w )   : C(w)
+    \]
+    其中传输 $p_{\, * \,}$ 是相对于家庭
+    \[
+        \lamu{u}C\circ u : (W\to W)\to W\to \UU。
+    \]
+    验证命题 $\w$-计算规则是一个计算，涉及形式 $p_{\, * \,}$ 的操作的自然性。
 \end{proof}
 %%%%%
 
 \index{natural numbers!encoded as a W-type@encoded as a $\w$-type}%
-Finally, as desired, we can encode homotopy-natural-numbers as homo\-topy-$\w$-types:
+最后，正如所愿，我们可以将同伦自然数编码为同伦 $\w$-类型：
 
 \begin{thm}
-The rules for natural numbers with propositional computation rules can be derived from the rules for $\w$-types with propositional computation rules.
+    可以从 $\w$-类型的命题计算规则中推导出带有命题计算规则的自然数规则。
 \end{thm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
