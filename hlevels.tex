@@ -1,447 +1,312 @@
-\chapter{Homotopy \texorpdfstring{$n$}{n}-types}
+\chapter{同伦 $n$-类型 (Homotopy \texorpdfstring{$n$}{n}-types)}
 \label{cha:hlevels}
 
 \index{n-type@$n$-type|(}%
 \indexsee{h-level}{$n$-type}
 
-One of the basic notions of homotopy theory is that of a \emph{homotopy $n$-type}: a space containing no interesting homotopy above dimension $n$.
-For instance, a homotopy $0$-type is essentially a set, containing no nontrivial paths, while a homotopy $1$-type may contain nontrivial paths, but no nontrivial paths between paths.
-Homotopy $n$-types are also called \emph{$n$-truncated spaces}.
-We have mentioned this notion already in \cref{sec:basics-sets}; our first goal in this chapter is to give it a precise definition in homotopy type theory.
+同伦理论 (Homotopy Theory) 中的一个基本概念是\emph{同伦 $n$-类型 (Homotopy $n$-type)}：它是一个在维度 $n$ 之上不包含有趣的同伦的空间。例如，一个同伦 $0$-类型 (Homotopy $0$-type) 本质上是一个集合，不包含非平凡路径 (Nontrivial Paths)，而同伦 $1$-类型 (Homotopy $1$-type) 可能包含非平凡路径，但不包含路径之间的非平凡路径。同伦 $n$-类型 (Homotopy $n$-types) 也被称为\emph{$n$-截断空间 ($n$-truncated spaces)}。我们已经在 \cref{sec:basics-sets} 提到了这个概念；我们本章的第一个目标是在同伦类型论 (Homotopy Type Theory) 中给出它的精确定义。
 
-A dual notion to truncatedness is connectedness: a space is \emph{$n$-connected} if it has no interesting homotopy in dimensions $n$ and \emph{below}.
-For instance, a space is $0$-connected (also called just ``connected'') if it has only one connected component, and $1$-connected (also called ``simply connected'') if it also has no nontrivial loops (though it may have nontrivial higher loops between loops\index{loop!n-@$n$-}).
+截断性 (Truncatedness) 的对偶概念是连通性 (Connectedness)：一个空间是\emph{$n$-连通 (n-connected)}的，如果它在维度 $n$ 及其以下没有有趣的同伦。例如，一个空间是 $0$-连通 (0-connected) 的（也称为``连通 (Connected)''），如果它只有一个连通分量，而 $1$-连通 (1-connected) 的（也称为``单连通 (Simply Connected)''），如果它也没有非平凡循环 (Nontrivial Loops)（尽管它可能有循环之间的非平凡高阶循环 (Higher Loops)）。
 
-The duality between truncatedness and connectedness is most easily seen by extending both notions to maps.
-We call a map \emph{$n$-truncated} or \emph{$n$-connected} if all its fibers are so.
-Then $n$-connected and $n$-truncated maps form the two classes of maps in an \emph{orthogonal factorization system},
-\index{orthogonal factorization system}
-\indexsee{factorization!system, orthogonal}{orthogonal factorization system}
-i.e.\ every map factors uniquely as an $n$-connected map followed by an $n$-truncated one.
+截断性 (Truncatedness) 和连通性 (Connectedness) 之间的对偶性最容易通过扩展这两种概念到映射 (Maps) 来看。我们称一个映射为\emph{$n$-截断 (n-truncated)}或\emph{$n$-连通 (n-connected)}的，如果它的所有纤维 (Fibers) 都是如此。那么 $n$-连通和 $n$-截断映射 (Maps) 形成一个\emph{正交分解系统 (Orthogonal Factorization System)}，即每个映射都唯一地分解为一个 $n$-连通映射和一个 $n$-截断映射。
 
-In the case $n={-1}$, the $n$-truncated maps are the embeddings and the $n$-connected maps are the surjections, as defined in \cref{sec:mono-surj}.
-Thus, the $n$-connected factorization system is a massive generalization of the standard image factorization of a function between sets into a surjection followed by an injection.
-At the end of this chapter, we sketch briefly an even more general theory: any type-theoretic \emph{modality} gives rise to an analogous factorization system.
+在 $n={-1}$ 的情况下，$n$-截断映射 (n-truncated maps) 是嵌入 (Embeddings)，而 $n$-连通映射 (n-connected maps) 是满射 (Surjections)，如 \cref{sec:mono-surj} 中所定义。因此，$n$-连通分解系统 (n-connected factorization system) 是函数之间标准的图像分解的一个重大推广，它将集合之间的函数分解为一个满射和一个单射。在本章的最后，我们将简要地概述一个更一般的理论：任何类型理论中的\emph{模态性 (Modality)} 都会产生一个类似的分解系统。
 
-
-\section{Definition of \texorpdfstring{$n$}{n}-types}
+\section{$n$-类型的定义 (Definition of \texorpdfstring{$n$}{n}-types)}
 \label{sec:n-types}
 
-As mentioned in \cref{sec:basics-sets,sec:contractibility}, it turns out to be convenient to define $n$-types starting two levels below zero, with the $(-1)$-types being the mere propositions and the $(-2)$-types the contractible ones.
+如 \cref{sec:basics-sets,sec:contractibility} 所述，从零以下两个级别开始定义 $n$-类型是方便的，其中 $(-1)$-类型是纯命题 (Mere Propositions)，$(-2)$-类型是可收缩的 (Contractible)。
 
 \begin{defn}\label{def:hlevel}
-  Define the predicate $\istype{n} : \type \to \type$ for $n \geq -2$ by recursion as follows:
-  \[ \istype{n}(X) \defeq
-  \begin{cases}
-    \iscontr(X) & \text{ if } n = -2, \\
-    \prd{x,y : X} \istype{n'}(\id[X]{x}{y}) & \text{ if } n = n'+1.
-  \end{cases}
-  \]
-  We say that $X$ is an \define{$n$-type}, or sometimes that it is \emph{$n$-truncated},
-  \indexdef{n-type@$n$-type}%
-  \indexsee{n-truncated@$n$-truncated!type}{$n$-type}%
-  \indexsee{type!n-type@$n$-type}{$n$-type}%
-  \indexsee{type!n-truncated@$n$-truncated}{$n$-type}%
- if $\istype{n}(X)$ is inhabited.
+定义谓词 (Predicate) $\istype{n} : \type \to \type$ 对于 $n \geq -2$，其递归定义如下：
+\[ \istype{n}(X) \defeq
+\begin{cases}
+    \iscontr(X) & \text{当 } n = -2 \text{ 时}, \\
+    \prd{x,y : X} \istype{n'}(\id[X]{x}{y}) & \text{当 } n = n'+1 \text{ 时}.
+\end{cases}
+\]
+我们称 $X$ 是一个\define{$n$-类型 (n-type)}，有时也称它是\emph{$n$-截断的 ($n$-truncated)}，
+\indexdef{n-type@$n$-type}%
+\indexsee{n-truncated@$n$-truncated!type}{$n$-type}%
+\indexsee{type!n-type@$n$-type}{$n$-type}%
+\indexsee{type!n-truncated@$n$-truncated}{$n$-type}%
+如果 $\istype{n}(X)$ 是居留的 (Inhabited)。
 \end{defn}
 
 \begin{rmk}
-  The number $n$ in \cref{def:hlevel} ranges over all integers greater than or equal to $-2$.
-  We could make sense of this formally by defining a type $\Z_{{\geq}-2}$ of such integers (a type whose induction principle is identical to that of $\nat$), or instead defining a predicate $\istype{(k-2)}$ for $k : \nat$.
-  Either way, we can prove theorems about $n$-types by induction on $n$, with $n = -2$ as the base case.
+    在 \cref{def:hlevel} 中，$n$ 的取值范围包括所有大于或等于 $-2$ 的整数。我们可以通过定义类型 $\Z_{{\geq}-2}$ 这样的整数类型来正式理解这一点（该类型的归纳原理与 $\nat$ 的归纳原理相同），或者定义谓词 $\istype{(k-2)}$ 对于 $k : \nat$。无论哪种方式，我们都可以通过对 $n$ 进行归纳来证明关于 $n$-类型的定理，其中 $n = -2$ 是基本情况。
 \end{rmk}
 
 \begin{eg}
-  \index{set}
-  We saw in \cref{thm:prop-minusonetype} that $X$ is a $(-1)$-type if and only if it is a mere proposition.
-  Therefore, $X$ is a $0$-type if and only if it is a set.
+    \index{set}
+    我们在 \cref{thm:prop-minusonetype} 中已经看到，$X$ 是一个 $(-1)$-类型当且仅当它是一个纯命题 (Mere Proposition)。因此，$X$ 是一个 $0$-类型当且仅当它是一个集合 (Set)。
 \end{eg}
 
-We have also seen that there are types which are not sets (\cref{thm:type-is-not-a-set}).
-So far, however, we have not shown for any $n>0$ that there exist types which are not $n$-types.
-In \cref{cha:homotopy}, however, we will show that the $(n+1)$-sphere $\Sn^{n+1}$ is not an $n$-type.
-(Kraus has also shown that the $n^{\mathrm{th}}$ nested univalent universe is also not an $n$-type, without using any higher inductive types.)
-Moreover, in \cref{sec:whitehead} will give an example of a type that is not an $n$-type for \emph{any} (finite) number $n$.
+我们还看到有些类型不是集合 (\cref{thm:type-is-not-a-set})。然而，到目前为止，我们还没有展示对于任何 $n>0$ 的类型，它们不是 $n$-类型。在 \cref{cha:homotopy} 中，我们将展示 $(n+1)$-球体 $\Sn^{n+1}$ 不是 $n$-类型。（Kraus 还展示了第 $n$ 层嵌套的单值宇宙 (Nested Univalent Universe) 也不是 $n$-类型，而没有使用任何高阶归纳类型 (Higher Inductive Types)）。此外，在 \cref{sec:whitehead} 中，我们将给出一个类型，它不是任何有限数 $n$ 的 $n$-类型。
 
-We begin the general theory of $n$-types by showing they are closed under certain operations and constructors.
+我们从展示 $n$-类型在某些操作和构造下是封闭的开始，来展开 $n$-类型的一般理论。
 
 \begin{thm}\label{thm:h-level-retracts}
-  \index{retract!of a type}%
-  \index{retraction}%
- Let $p : X \to Y$ be a retraction and suppose that $X$ is an $n$-type, for any $n\geq -2$.
- Then $Y$ is also an $n$-type.
+\index{retract!of a type}%
+\index{retraction}%
+令 $p : X \to Y$ 是一个缩回 (Retraction)，并且假设 $X$ 是一个 $n$-类型，对于任何 $n\geq -2$。那么 $Y$ 也是一个 $n$-类型。
 \end{thm}
 
 \begin{proof}
- We proceed by induction on $n$.
- The base case $n=-2$ is handled by \cref{thm:retract-contr}.
+    我们通过对 $n$ 进行归纳来证明。基本情况 $n=-2$ 由 \cref{thm:retract-contr} 处理。
 
- For the inductive step, assume that any retract of an $n$-type is an $n$-type, and that $X$ is an $\nplusone$-type.
- Let $y, y' : Y$; we must show that $\id{y}{y'}$ is an $n$-type.
- Let $s$ be a section of $p$, and let $\epsilon$ be a homotopy $\epsilon : p \circ s \htpy 1$.
- Since $X$ is an $\nplusone$-type, $\id[X]{s(y)}{s(y')}$ is an $n$-type.
- We claim that $\id{y}{y'}$ is a retract of $\id[X]{s(y)}{s(y')}$.
- For the section, we take
- \[ \apfunc s : (y=y') \to (s(y)=s(y')). \]
- For the retraction, we define $t:(s(y)=s(y'))\to(y=y')$ by
- \[ t(q) \defeq  \opp{\epsilon_y} \ct \ap p q \ct \epsilon_{y'}.\]
- To show that $t$ is a retraction of $\apfunc s$, we must show that
- \[ \opp{\epsilon_y} \ct \ap p {\ap sr} \ct \epsilon_{y'} = r \]
- for any $r:y=y'$.
- But this follows from \cref{lem:htpy-natural}.
+    对于归纳步骤，假设任何 $n$-类型的缩回也是 $n$-类型，并且 $X$ 是一个 $\nplusone$-类型。令 $y, y' : Y$；我们必须证明 $\id{y}{y'}$ 是一个 $n$-类型。令 $s$ 是 $p$ 的一个截面 (Section)，并令 $\epsilon$ 是一个同伦 $\epsilon : p \circ s \htpy 1$。由于 $X$ 是一个 $\nplusone$-类型，$\id[X]{s(y)}{s(y')}$ 是一个 $n$-类型。我们声称 $\id{y}{y'}$ 是 $\id[X]{s(y)}{s(y')}$ 的一个缩回。对于截面，我们取
+    \[ \apfunc s : (y=y') \to (s(y)=s(y')) \]
+    对于缩回，我们定义 $t:(s(y)=s(y'))\to(y=y')$ 为
+    \[ t(q) \defeq  \opp{\epsilon_y} \ct \ap p q \ct \epsilon_{y'} \]
+    为了证明 $t$ 是 $\apfunc s$ 的缩回，我们必须证明
+    \[ \opp{\epsilon_y} \ct \ap p {\ap sr} \ct \epsilon_{y'} = r \]
+    对于任意 $r:y=y'$。但这由 \cref{lem:htpy-natural} 推出。
 \end{proof}
 
-As an immediate corollary we obtain the stability of $n$-types under equivalence (which is also immediate from univalence):
+作为一个直接的推论，我们得到 $n$-类型在等价 (Equivalence) 下的稳定性（这也是由单值性 (Univalence) 直接得到的）：
 
 \begin{cor}\label{cor:preservation-hlevels-weq}
- If $\eqv{X}{Y}$ and $X$ is an $n$-type, then so is $Y$.
+如果 $\eqv{X}{Y}$ 且 $X$ 是一个 $n$-类型，那么 $Y$ 也是。
 \end{cor}
 
-Recall also the notion of embedding from \cref{sec:mono-surj}.
+还记得在 \cref{sec:mono-surj} 中的嵌入 (Embedding) 的概念。
 
 \begin{thm}\label{thm:isntype-mono}
-  \index{function!embedding}
-  If $f:X\to Y$ is an embedding and $Y$ is an $n$-type for some $n\ge -1$, then so is $X$.
+\index{function!embedding}
+如果 $f:X\to Y$ 是一个嵌入 (Embedding)，并且 $Y$ 是一个 $n$-类型，对于某个 $n\ge -1$，那么 $X$ 也是。
 \end{thm}
 \begin{proof}
-  Let $x,x':X$; we must show that $\id[X]{x}{x'}$ is an $\nminusone$-type.
-  But since $f$ is an embedding, we have $(\id[X]{x}{x'}) \eqvsym (\id[Y]{f(x)}{f(x')})$, and the latter is an $\nminusone$-type by assumption.
+    令 $x,x':X$；我们必须证明 $\id[X]{x}{x'}$ 是一个 $\nminusone$-类型。但是由于 $f$ 是一个嵌入，我们有 $(\id[X]{x}{x'}) \eqvsym (\id[Y]{f(x)}{f(x')})$，而后者根据假设是一个 $\nminusone$-类型。
 \end{proof}
 
-Note that this theorem fails when $n=-2$: the map $\emptyt \to \unit$ is an embedding, but $\unit$ is a $(-2)$-type while $\emptyt$ is not.
+注意，当 $n=-2$ 时，这个定理是不成立的：映射 $\emptyt \to \unit$ 是一个嵌入，但 $\unit$ 是一个 $(-2)$-类型，而 $\emptyt$ 不是。
 
 \begin{thm}\label{thm:hlevel-cumulative}
- The hierarchy of $n$-types is cumulative in the following sense:
-   given a number $n \geq -2$, if $X$ is an $n$-type, then it is also an $\nplusone$-type.
+$n$-类型的层次结构是累积的，在以下意义上：给定一个数 $n \geq -2$，如果 $X$ 是一个 $n$-类型，那么它也是一个 $\nplusone$-类型。
 \end{thm}
 
 \begin{proof}
- We proceed by induction on $n$.
+    我们通过对 $n$ 进行归纳来证明。
 
- For $n = -2$, we need to show that a contractible type, say, $A$, has contractible path spaces.
-       Let $a_0: A$ be the center of contraction of $A$, and let $x, y : A$. We show that $\id[A]{x}{y}$
-       is contractible.
-       By contractibility of $A$ we have a path $\contr_x \ct \opp{\contr_y} : x = y$, which we choose as
-       the center of contraction for $\id{x}{y}$.
-       Given any $p : x = y$, we need to show $p = \contr_x \ct \opp{\contr_y}$.
-           By path induction, it suffices to show that
-        $\refl{x} = \contr_x \ct \opp{\contr_x}$, which is trivial.
+    对于 $n = -2$，我们需要证明一个可收缩类型 (Contractible Type)，例如 $A$，具有可收缩的路径空间 (Path Spaces)。令 $a_0: A$ 为 $A$ 的收缩中心 (Center of Contraction)，并令 $x, y : A$。我们证明 $\id[A]{x}{y}$ 是可收缩的。由于 $A$ 的可收缩性，我们有一条路径 $\contr_x \ct \opp{\contr_y} : x = y$，我们选择它作为 $\id{x}{y}$ 的收缩中心。给定任何路径 $p : x = y$，我们需要证明 $p = \contr_x \ct \opp{\contr_y}$。通过路径归纳 (Path Induction)，只需证明 $\refl{x} = \contr_x \ct \opp{\contr_x}$，这是显然的。
 
- For the inductive step, we need to show that $\id[X]{x}{y}$ is an $\nplusone$-type, provided
-          that $X$ is an $\nplusone$-type. Applying the inductive hypothesis to $\id[X]{x}{y}$
-         yields the desired result.
+    对于归纳步骤，我们需要证明 $\id[X]{x}{y}$ 是一个 $\nplusone$-类型，前提是 $X$ 是一个 $\nplusone$-类型。将归纳假设应用于 $\id[X]{x}{y}$，即可得出所需结论。
 \end{proof}
 
 % \section{Preservation under constructors}
 % \label{sec:ntype-pres}
 
-We now show that  $n$-types are preserved by most of the type forming operations.
+现在我们展示 $n$-类型在大多数类型构造操作下的保留性。
 
 \begin{thm}\label{thm:ntypes-sigma}
- Let $n \geq -2$, and let $A : \type$ and $B : A \to \type$.
- If $A$ is an $n$-type and for all $a : A$, $B(a)$ is an $n$-type, then so is $\sm{x : A} B(x)$.
+设 $n \geq -2$，并令 $A : \type$ 和 $B : A \to \type$。如果 $A$ 是一个 $n$-类型，并且对于所有 $a : A$，$B(a)$ 是一个 $n$-类型，那么 $\sm{x : A} B(x)$ 也是一个 $n$-类型。
 \end{thm}
 
 \begin{proof}
- We proceed by induction on $n$.
+    我们通过对 $n$ 进行归纳来证明。
 
- For $n = -2$, we choose the center of contraction for $\sm{x : A} B(x)$ to be the pair
-       $(a_0, b_0)$, where $a_0 : A$ is the center of contraction of $A$ and $b_0 : B(a_0)$ is the center of contraction of $B(a_0)$.
-       Given any other element $(a,b)$ of $\sm{x : A} B(x)$, we provide a path $\id{(a, b)}{(a_0,b_0)}$
-       by contractibility of $A$ and $B(a_0)$, respectively.
+    对于 $n = -2$，我们选择 $\sm{x : A} B(x)$ 的收缩中心为 $(a_0, b_0)$，其中 $a_0 : A$ 是 $A$ 的收缩中心，$b_0 : B(a_0)$ 是 $B(a_0)$ 的收缩中心。给定 $\sm{x : A} B(x)$ 的任何其他元素 $(a,b)$，我们通过分别对 $A$ 和 $B(a_0)$ 的收缩性提供路径 $\id{(a, b)}{(a_0,b_0)}$。
 
- For the inductive step, suppose that $A$ is an $\nplusone$-type and
-         for any $a : A$, $B(a)$ is an $\nplusone$-type. We show that $\sm{x : A} B(x)$ is an $\nplusone$-type:
-      fix $(a_1, b_1)$ and $(a_2,b_2)$ in $\sm{x : A} B(x)$,
-     we show that $\id{(a_1, b_1)}{(a_2,b_2)}$ is an $n$-type.
-      By \cref{thm:path-sigma} we have
-      \[ \eqvspaced{(\id{(a_1, b_1)}{(a_2,b_2)})}{\sm{p : \id{a_1}{a_2}} (\id[B(a_2)]{\trans{p}{b_1}}{b_2})} \]
-   and by preservation of $n$-types under equivalences (\cref{cor:preservation-hlevels-weq})
-   it suffices to prove that the latter is an $n$-type. This follows from the
-   inductive hypothesis.
+    对于归纳步骤，假设 $A$ 是一个 $\nplusone$-类型，并且对于任意 $a : A$，$B(a)$ 是一个 $\nplusone$-类型。我们证明 $\sm{x : A} B(x)$ 是一个 $\nplusone$-类型：固定 $\sm{x : A} B(x)$ 中的 $(a_1, b_1)$ 和 $(a_2,b_2)$，我们需要证明 $\id{(a_1, b_1)}{(a_2,b_2)}$ 是一个 $n$-类型。根据 \cref{thm:path-sigma}，我们有
+    \[ \eqvspaced{(\id{(a_1, b_1)}{(a_2,b_2)})}{\sm{p : \id{a_1}{a_2}} (\id[B(a_2)]{\trans{p}{b_1}}{b_2})} \]
+    并且根据等价下 $n$-类型的保留性 (\cref{cor:preservation-hlevels-weq})，我们只需证明后者是一个 $n$-类型。这可以通过归纳假设得到。
 \end{proof}
 
-As a special case, if $A$ and $B$ are $n$-types, so is $A\times B$.
-Note also that \cref{thm:hlevel-cumulative} implies that if $A$ is an $n$-type, then so is $\id[A]xy$ for any $x,y:A$.
-Combining this with \cref{thm:ntypes-sigma}, we see that for any functions $f:A\to C$ and $g:B\to C$ between $n$-types, their pullback\index{pullback}
+作为一个特例，如果 $A$ 和 $B$ 是 $n$-类型，那么 $A\times B$ 也是。还要注意，\cref{thm:hlevel-cumulative} 意味着如果 $A$ 是一个 $n$-类型，那么对于任意 $x,y:A$，$\id[A]xy$ 也是一个 $n$-类型。将此与 \cref{thm:ntypes-sigma} 结合，我们可以看到，对于 $n$-类型的函数 $f:A\to C$ 和 $g:B\to C$，它们的纤维积 (Pullback)
 \[ A\times_C B \defeq \sm{x:A}{y:B} (f(x)=g(y)) \]
-(see \cref{ex:pullback}) is also an $n$-type.
-More generally, $n$-types are closed under all \emph{limits}.
+（参见 \cref{ex:pullback}）也是一个 $n$-类型。更一般地说，$n$-类型在所有\emph{极限 (Limits)}下是封闭的。
 
 \begin{thm}\label{thm:hlevel-prod}
- Let $n\geq -2$, and let $A : \type$ and $B : A \to \type$.
- If for all $a : A$, $B(a)$ is an $n$-type, then so is $\prd{x : A} B(x)$.
+令 $n\geq -2$，并令 $A : \type$ 和 $B : A \to \type$。如果对于所有 $a : A$，$B(a)$ 是一个 $n$-类型，那么 $\prd{x : A} B(x)$ 也是一个 $n$-类型。
 \end{thm}
 
 \begin{proof}
-  We proceed by induction on $n$.
-  For $n = -2$, the result is simply \cref{thm:contr-forall}.
+    我们通过对 $n$ 进行归纳来证明。对于 $n = -2$，结果就是 \cref{thm:contr-forall}。
 
-  For the inductive step, assume the result is true for $n$-types, and that each $B(a)$ is an $\nplusone$-type.
-  Let $f, g : \prd{a:A}B(a)$.
-  We need to show that $\id{f}{g}$ is an $n$-type.
-  By function extensionality and closure of $n$-types under equivalence, it suffices to show that $\prd{a : A} (\id[B(a)]{f(a)}{g(a)})$ is an $n$-type.
-  This follows from the inductive hypothesis.
+    对于归纳步骤，假设结果对于 $n$-类型成立，并且每个 $B(a)$ 都是一个 $\nplusone$-类型。令 $f, g : \prd{a:A}B(a)$。我们需要证明 $\id{f}{g}$ 是一个 $n$-类型。通过函数扩展性 (Function Extensionality) 和等价下 $n$-类型的封闭性，证明 $\prd{a : A} (\id[B(a)]{f(a)}{g(a)})$ 是一个 $n$-类型即可。这个结论可通过归纳假设得到。
 \end{proof}
 
-As a special case of the above theorem, the function space $A \to B$ is an $n$-type provided that $B$ is an $n$-type.
-We can now generalize our observations in \cref{cha:basics} that $\isset(A)$ and $\isprop(A)$ are mere propositions.
+作为上述定理的一个特例，函数空间 $A \to B$ 是一个 $n$-类型，前提是 $B$ 是一个 $n$-类型。我们现在可以推广在 \cref{cha:basics} 中关于 $\isset(A)$ 和 $\isprop(A)$ 是纯命题的观察。
 
 \begin{thm}\label{thm:isaprop-isofhlevel}
- For any $n \geq -2$ and any type $X$, the type $\istype{n}(X)$ is a mere proposition.
+对于任何 $n \geq -2$ 和任何类型 $X$，类型 $\istype{n}(X)$ 是一个纯命题。
 \end{thm}
 \begin{proof}
-  We proceed by induction with respect to $n$.
+    我们通过对 $n$ 进行归纳来证明。
 
- For the base case, we need to show that for any $X$, the type $\iscontr(X)$ is a mere proposition.
- This is \cref{thm:isprop-iscontr}.
+    对于基本情况，我们需要证明对于任何 $X$，类型 $\iscontr(X)$ 是一个纯命题。这是 \cref{thm:isprop-iscontr}。
 
-For the inductive step we need to show
-\[\prd{X : \type} \isprop (\istype{n}(X)) \to \prd{X : \type} \isprop (\istype{\nplusone}(X)). \]
-To show the conclusion of this implication, we need to show that for any type $X$, the type
-\[\prd{x, x' : X}\istype{n}(x = x')\]
-is a mere proposition. By \cref{thm:isprop-forall} or \cref{thm:hlevel-prod}, it suffices to show that for any $x, x' : X$, the type $\istype{n}(x =_X x')$ is a mere
-proposition.
-But this follows from the inductive hypothesis applied to the type $(x =_X x')$.
+    对于归纳步骤，我们需要证明
+    \[\prd{X : \type} \isprop (\istype{n}(X)) \to \prd{X : \type} \isprop (\istype{\nplusone}(X))。\]
+    要证明这个推论的结论，我们需要证明对于任何类型 $X$，类型
+    \[\prd{x, x' : X}\istype{n}(x = x')\]
+    是一个纯命题。根据 \cref{thm:isprop-forall} 或 \cref{thm:hlevel-prod}，只需证明对于任何 $x, x' : X$，类型 $\istype{n}(x =_X x')$ 是一个纯命题即可。这可由归纳假设应用于类型 $(x =_X x')$ 得到。
 \end{proof}
 
-Finally, we show that the type of $n$-types is itself an $\nplusone$-type.
-We define this to be:
+最后，我们展示 $n$-类型的类型本身是一个 $\nplusone$-类型。我们将其定义为：
 \symlabel{universe-of-ntypes}
-\[\ntype{n} \defeq \sm{X : \type} \istype{n}(X). \]
-If necessary, we may specify the universe $\UU$ by writing $\ntypeU{n}$.
-In particular, we have $\prop \defeq \ntype{(-1)}$ and $\set \defeq \ntype{0}$, as defined in \cref{cha:basics}.
-Note that just as for \prop and \set, because $\istype{n}(X)$ is a mere proposition, by \cref{thm:path-subset} for any $(X,p), (X',p'):\ntype{n}$ we have
+\[\ntype{n} \defeq \sm{X : \type} \istype{n}(X)。\]
+如有必要，我们可以通过写成 $\ntypeU{n}$ 来指定宇宙 $\UU$。特别地，我们有 $\prop \defeq \ntype{(-1)}$ 和 $\set \defeq \ntype{0}$，如 \cref{cha:basics} 中定义的。注意，由于 $\istype{n}(X)$ 是一个纯命题，根据 \cref{thm:path-subset} 对于任何 $(X,p), (X',p'):\ntype{n}$，我们有
 \begin{align*}
-  \Big(\id[\ntype{n}]{(X, p)}{(X', p')}\Big) &\eqvsym (\id[\type] X X')\\
-  &\eqvsym (\eqv{X}{X'}).
+    \Big(\id[\ntype{n}]{(X, p)}{(X', p')}\Big) &\eqvsym (\id[\type] X X')\\
+    &\eqvsym (\eqv{X}{X'})。
 \end{align*}
 
 \begin{thm}\label{thm:hleveln-of-hlevelSn}
- For any $n \geq -2$, the type $\ntype{n}$ is an $\nplusone$-type.
+对于任何 $n \geq -2$，类型 $\ntype{n}$ 是一个 $\nplusone$-类型。
 \end{thm}
 \begin{proof}%[Proof of \cref{thm:hleveln-of-hlevelSn}]
-  Let $(X, p), (X', p') : \ntype{n}$; we need to show that $\id{(X, p)}{(X', p')}$ is an $n$-type.
-  By the above observation, this type is equivalent to $\eqv{X}{X'}$.
-  Next, we observe that the projection
-  \[(\eqv{X}{X'}) \to (X \rightarrow X').\]
-  is an embedding, so that if $n\geq -1$, then by \cref{thm:isntype-mono} it suffices to show that $X \rightarrow X'$ is an $n$-type.
-  But since $n$-types are preserved under the arrow type, this reduces to an assumption that $X'$ is an $n$-type.
+    令 $(X, p), (X', p') : \ntype{n}$；我们需要证明 $\id{(X, p)}{(X', p')}$ 是一个 $n$-类型。根据上述观察，这个类型等价于 $\eqv{X}{X'}$。接下来，我们观察到投影
+    \[(\eqv{X}{X'}) \to (X \rightarrow X').\]
+    是一个嵌入，因此如果 $n\geq -1$，根据 \cref{thm:isntype-mono}，只需证明 $X \rightarrow X'$ 是一个 $n$-类型即可。但是，由于 $n$-类型在箭头类型下是封闭的，这归结为假设 $X'$ 是一个 $n$-类型。
 
-  In the case $n=-2$, this argument shows that $\eqv{X}{X'}$ is a $(-1)$-type --- but it is also inhabited, since any two contractible types
-are equivalent to \unit, and hence to each other.
-  Thus, $\eqv{X}{X'}$ is also a $(-2)$-type.
+    在 $n=-2$ 的情况下，这个论证表明 $\eqv{X}{X'}$ 是一个 $(-1)$-类型——但它也是居留的，因为任何两个可收缩类型都等价于 \unit，因此彼此等价。因此，$\eqv{X}{X'}$ 也是一个 $(-2)$-类型。
 \end{proof}
 
-\section{Uniqueness of identity proofs and Hedberg's theorem}
+\section{同一性证明的唯一性与 Hedberg 定理 (Uniqueness of identity proofs and Hedberg's theorem)}
 \label{sec:hedberg}
 
 \index{set|(}%
 
-In \cref{sec:basics-sets} we defined a type $X$ to be a \emph{set} if for all $x, y : X$ and $p, q : x =_X y$ we have $p = q$.
-In conventional type theory, this property goes by the name of \define{uniqueness of identity proofs (UIP)}.
+在 \cref{sec:basics-sets} 中，我们定义了一个类型 $X$ 是\emph{集合 (Set)}，如果对于所有 $x, y : X$ 和 $p, q : x =_X y$ 我们有 $p = q$。在传统类型论中，这个属性称为\define{同一性证明的唯一性 (Uniqueness of Identity Proofs, UIP)}。
 \indexdef{uniqueness!of identity proofs}%
-We have seen also that it is equivalent to being a $0$-type in the sense of the previous section.
-Here is another equivalent characterization, involving Streicher's ``Axiom K'' \cite{Streicher93}:
+我们还看到它等价于上一节中 $0$-类型的定义。这里是另一个等价的刻画，涉及到 Streicher 的``公理 K (Axiom K)'' \cite{Streicher93}：
 
 \begin{thm}\label{thm:h-set-uip-K}
- A type $X$ is a set if and only if it satisfies \define{Axiom K}:
- \indexdef{axiom!Streicher's Axiom K}%
- for all $x : X$ and $p : (x =_A x)$ we have $p = \refl{x}$.
+一个类型 $X$ 是集合 (Set)，当且仅当它满足\define{公理 K (Axiom K)}：对于所有 $x : X$ 和 $p : (x =_A x)$ 我们有 $p = \refl{x}$。
+\indexdef{axiom!Streicher's Axiom K}%
 \end{thm}
 
 \begin{proof}
-  Clearly Axiom K is a special case of UIP.
-  Conversely, if $X$ satisfies Axiom K, let $x, y : X$ and $p, q : (\id{x}{y})$; we want to show $p=q$.
-  But induction on $q$ reduces this goal precisely to Axiom K.
+    显然，公理 K 是 UIP 的特例。反之，如果 $X$ 满足公理 K，则令 $x, y : X$ 和 $p, q : (\id{x}{y})$；我们想要证明 $p=q$。但是对 $q$ 进行归纳 (Induction) 将这个目标精简为公理 K。
 \end{proof}
 
-We stress that \emph{we} are not assuming UIP or the K principle as axioms!
-They are simply properties which a particular type may or may not satisfy (which are equivalent to being a set).
-Recall from \cref{thm:type-is-not-a-set} that \emph{not} all types are sets.
+我们强调，\emph{我们}并不假设 UIP 或 K 原理作为公理！它们只是某一特定类型可能或可能不满足的属性（它们等价于集合）。回忆 \cref{thm:type-is-not-a-set}，并非所有类型都是集合。
 
-The following theorem is another useful way to show that types are sets.
+下面的定理是另一个证明类型为集合的有用方法。
 
 \begin{thm}\label{thm:h-set-refrel-in-paths-sets}
-  \index{relation!reflexive}%
-  Suppose $R$ is a reflexive\index{reflexivity!of a relation} mere relation on a type $X$ implying identity.
-  Then $X$ is a set, and $R(x,y)$ is equivalent to $\id[X]{x}{y}$ for all $x,y:X$.
+\index{relation!reflexive}%
+假设 $R$ 是一个在类型 $X$ 上的反身纯关系 (Reflexive Mere Relation)，它暗含了同一性 (Identity)。那么 $X$ 是集合，并且对于所有 $x,y:X$，$R(x,y)$ 等价于 $\id[X]{x}{y}$。
 \end{thm}
 
 \begin{proof}
-  Let $\rho : \prd{x:X} R(x,x)$ witness reflexivity of $R$, and let \narrowequation{f : \prd{x,y:X} R(x,y) \to (\id[X]{x}{y})} be a witness that $R$
-implies identity.
-  Note first that the two statements in the theorem are equivalent.
-  For on one hand, if $X$ is a set, then $\id[X]xy$ is a mere proposition, and since it is logically equivalent to the mere proposition
-$R(x,y)$ by hypothesis, it must also be equivalent to it.
-  On the other hand, if $\id[X]xy$ is equivalent to $R(x,y)$, then like the latter it is a mere proposition for all $x,y:X$, and hence $X$
-is a set.
+    令 $\rho : \prd{x:X} R(x,x)$ 证明 $R$ 的反身性，并令 \narrowequation{f : \prd{x,y:X} R(x,y) \to (\id[X]{x}{y})} 证明 $R$ 暗含同一性。首先，定理中的两个陈述是等价的。一方面，如果 $X$ 是一个集合，那么 $\id[X]xy$ 是一个纯命题，并且由于它在逻辑上等价于纯命题 $R(x,y)$，根据假设，它也必须等价于它。另一方面，如果 $\id[X]xy$ 等价于 $R(x,y)$，那么与后者一样，对于所有 $x,y:X$，它是一个纯命题，因此 $X$ 是一个集合。
 
-  We give two proofs of this theorem.
-  The first shows directly that $X$ is a set; the second shows directly that $R(x,y)\eqvsym (x=y)$.
+    我们给出两种证明这个定理的方法。第一种直接证明 $X$ 是一个集合；第二种直接证明 $R(x,y)\eqvsym (x=y)$。
 
-  \emph{First proof:} we show that $X$ is a set.
-  The idea is the same as that of \cref{thm:prop-set}: the function $f$ must be continuous in its arguments $x$ and $y$.
-  However, it is slightly more notationally complicated because we have to deal with the additional argument of type $R(x,y)$.
+    \emph{第一种证明：} 我们证明 $X$ 是一个集合。这个思路与 \cref{thm:prop-set} 相同：函数 $f$ 必须在其参数 $x$ 和 $y$ 中是连续的。然而，由于我们必须处理额外的 $R(x,y)$ 类型的参数，符号表达上稍微复杂一些。
 
-  Firstly, for any $x:X$ and $p:\id[X]xx$, consider $\apdfunc{f(x)}(p)$.
-  This is a dependent path from $f(x,x)$ to itself.
-  Since $f(x,x)$ is still a function $R(x,x) \to (\id[X]xx)$, by \cref{thm:dpath-arrow} this yields for any $r:R(x,x)$ a path
-  \[\trans{p}{f(x,x,r)} = f(x,x,\trans{p}r).
-  \]
-  On the left-hand side, we have transport in an identity type, which is concatenation.
-  And on the right-hand side, we have $\trans{p}r = r$, since both lie in the mere proposition $R(x,x)$.
-  Thus, substituting $r\defeq \rho(x)$, we obtain
-  \[ f(x,x,\rho(x)) \ct p = f(x,x,\rho(x)). \]
-  By cancellation, $p=\refl{x}$.
-  So $X$ satisfies Axiom K, and hence is a set.
+    首先，对于任何 $x:X$ 和 $p:\id[X]xx$，考虑 $\apdfunc{f(x)}(p)$。这是一个从 $f(x,x)$ 到它自身的依赖路径 (Dependent Path)。由于 $f(x,x)$ 仍然是一个函数 $R(x,x) \to (\id[X]xx)$，根据 \cref{thm:dpath-arrow}，这给出了对于任何 $r:R(x,x)$ 的路径
+    \[\trans{p}{f(x,x,r)} = f(x,x,\trans{p}r)。\]
+    在左侧，我们有同一类型中的传输 (Transport)，即连接。在右侧，我们有 $\trans{p}r = r$，因为它们都属于纯命题 $R(x,x)$。因此，替代 $r\defeq \rho(x)$，我们得到
+    \[ f(x,x,\rho(x)) \ct p = f(x,x,\rho(x))。\]
+    通过消去得到 $p=\refl{x}$。所以 $X$ 满足公理 K，因此是一个集合。
 
-  \emph{Second proof:} we show that each $f(x,y) : R(x,y) \to \id[X]{x}{y}$ is an equivalence.
-  By \cref{thm:total-fiber-equiv}, it suffices to show that $f$ induces an equivalence of total spaces:
-  \begin{equation*}
-    \eqv{\Parens{\sm{y:X}R(x,y)}}{\Parens{\sm{y:X}\id[X]{x}{y}}}.
-  \end{equation*}
-  By \cref{thm:contr-paths}, the type on the right is contractible, so it
-  suffices to show that the type on the left is contractible. As the center of
-  contraction we take the pair $\pairr{x,\rho(x)}$.  It remains to show, for
-  every ${y:X}$ and every ${H:R(x,y)}$ that
-  \begin{equation*}
-    \id{\pairr{x,\rho(x)}}{\pairr{y,H}}.
-  \end{equation*}
-  But since $R(x,y)$ is a mere proposition, by \cref{thm:path-sigma} it suffices to show that
-  $\id[X]{x}{y}$, which we get from $f(H)$.
+    \emph{第二种证明：} 我们证明每个 $f(x,y) : R(x,y) \to \id[X]{x}{y}$ 是一个等价 (Equivalence)。根据 \cref{thm:total-fiber-equiv}，我们只需证明 $f$ 在总空间 (Total Space) 上诱导了一个等价：
+    \begin{equation*}
+        \eqv{\Parens{\sm{y:X}R(x,y)}}{\Parens{\sm{y:X}\id[X]{x}{y}}}。
+    \end{equation*}
+    根据 \cref{thm:contr-paths}，右侧的类型是可收缩的，因此只需证明左侧的类型是可收缩的。我们选择对 $(x,\rho(x))$ 的对作为收缩中心。剩下的就是对每个 ${y:X}$ 和每个 ${H:R(x,y)}$ 证明
+    \begin{equation*}
+        \id{\pairr{x,\rho(x)}}{\pairr{y,H}}。
+    \end{equation*}
+    但由于 $R(x,y)$ 是一个纯命题，根据 \cref{thm:path-sigma}，我们只需证明 $\id[X]{x}{y}$，这是从 $f(H)$ 得到的。
 \end{proof}
 
 \begin{cor}\label{notnotstable-equality-to-set}
-  If a type $X$ has the property that $\neg\neg(x=y)\to(x=y)$ for any $x,y:X$, then $X$ is a set.
+如果一个类型 $X$ 具有属性 $\neg\neg(x=y)\to(x=y)$ 对于任何 $x,y:X$，那么 $X$ 是一个集合。
 \end{cor}
 
-Another convenient way to show that a type is a set is the following.
-Recall from \cref{sec:intuitionism} that a type $X$ is said to have \emph{decidable equality}
-\index{decidable!equality|(}%
-if for all $x, y : X$ we have
-\[(x =_X y) + \neg (x =_X y).\]
+另一种方便的方法来证明一个类型是集合如下。回忆 \cref{sec:intuitionism}，一个类型 $X$ 被认为具有\emph{可判定等同性 (Decidable Equality)}，如果对于所有 $x, y : X$ 我们有
+\[(x =_X y) + \neg (x =_X y)。\]
 \index{continuity of functions in type theory@``continuity'' of functions in type theory}%
 \index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-This is a very strong condition: it says that a path $x=y$ can be chosen, when it exists, continuously (or computably, or functorially) in $x$ and $y$.
-This turns out to imply that $X$ is a set, by way of \cref{thm:h-set-refrel-in-paths-sets} and the following lemma.
+这是一种非常强的条件：它意味着当路径存在时，$x=y$ 可以在 $x$ 和 $y$ 中连续（或可计算，或函子化）地选择出来。通过 \cref{thm:h-set-refrel-in-paths-sets} 和下面的引理，这最终会导致 $X$ 是一个集合。
 
 \begin{lem}\label{lem:hedberg-helper}
-For any type $A$ we have $(A+\neg A)\to(\neg\neg A\to A)$.
+对于任何类型 $A$，我们有 $(A+\neg A)\to(\neg\neg A\to A)$。
 \end{lem}
 
 \begin{proof}
-This was essentially already proven in \cref{thm:not-lem}, but we repeat the argument.
-Suppose $x:A+\neg A$. We have two cases to consider.
-If $x$ is $\inl(a)$ for some $a:A$, then we have the constant function $\neg\neg A
-\to A$ which maps everything to $a$. If $x$ is $\inr(t)$ for some $t:\neg A$,
-we have $g(t):\emptyt$ for every $g:\neg\neg A$. Hence we may use
-\emph{ex falso quodlibet}, that is $\rec{\emptyt}$, to obtain an element of $A$ for any $g:\neg\neg A$.
+    这在本质上已经在 \cref{thm:not-lem} 中证明过了，但我们重复这个论证。假设 $x:A+\neg A$。我们有两个情况需要考虑。如果 $x$ 是某个 $a:A$ 的 $\inl(a)$，那么我们有一个常函数 $\neg\neg A \to A$，它将所有内容映射到 $a$。如果 $x$ 是某个 $t:\neg A$ 的 $\inr(t)$，我们有 $g(t):\emptyt$ 对于每个 $g:\neg\neg A$。因此，我们可以使用\emph{从错误中推出任何结论}，即 $\rec{\emptyt}$，对任意 $g:\neg\neg A$ 得到一个 $A$ 的元素。
 \end{proof}
 
 \index{anger}
 \begin{thm}[Hedberg]\label{thm:hedberg}
-  \index{Hedberg's theorem}%
-  \index{theorem!Hedberg's}%
-  If $X$ has decidable equality, then $X$ is a set.
+\index{Hedberg's theorem}%
+\index{theorem!Hedberg's}%
+如果 $X$ 具有可判定等同性 (Decidable Equality)，那么 $X$ 是一个集合。
 \end{thm}
 
 \begin{proof}
-If $X$ has decidable equality, it follows that $\neg\neg(x=y)\to(x=y)$ for any
-$x,y:X$. Therefore, Hedberg's theorem follows from
-\cref{notnotstable-equality-to-set}.
+    如果 $X$ 具有可判定等同性，则对于任何 $x,y:X$，$\neg\neg(x=y)\to(x=y)$ 成立。因此，Hedberg 定理从 \cref{notnotstable-equality-to-set} 推出。
 \end{proof}
 
-There is, of course, a strong connection between this theorem and \cref{thm:not-lem}.
-The statement \LEM{\infty} that is denied by \cref{thm:not-lem} clearly implies that every type has decidable equality, and hence is a set, which we know is not the case.
+当然，这个定理与 \cref{thm:not-lem} 有很强的联系。被 \cref{thm:not-lem} 否定的 \LEM{\infty} 陈述显然意味着每个类型都有可判定等同性，因此是一个集合，这我们知道并非如此。
 \index{excluded middle}%
-Note that the consistent axiom \LEM{} from \cref{sec:intuitionism} implies only that every type has \emph{merely decidable equality}, i.e.\ that for any $A$ we have
+请注意，一致的公理 \LEM{} 从 \cref{sec:intuitionism} 推出仅意味着每个类型具有\emph{仅仅是可判定等同性 (Merely Decidable Equality)}，即对于任何 $A$ 我们有
 \indexdef{equality!merely decidable}%
 \indexdef{merely!decidable equality}%
-\[ \prd{a,b:A} (\brck{a=b} + \neg\brck{a=b}). \]
+\[ \prd{a,b:A} (\brck{a=b} + \neg\brck{a=b})。\]
 
 \index{decidable!equality|)}%
 
-As an example application of \cref{thm:hedberg}, recall that in \cref{thm:nat-set} we observed that $\nat$ is a set, using our characterization of its equality types in
-\cref{sec:compute-nat}.
-A more traditional proof of this theorem uses only~\eqref{eq:zero-not-succ} and~\eqref{eq:suc-injective}, rather than the full
-characterization of \cref{thm:path-nat}, with \cref{thm:hedberg} to fill in the blanks.
+作为 \cref{thm:hedberg} 的一个应用实例，回忆在 \cref{thm:nat-set} 中我们观察到 $\nat$ 是一个集合，通过 \cref{sec:compute-nat} 中我们对其等同性类型的刻画。
+更传统的证明这个定理的方法仅使用~\eqref{eq:zero-not-succ} 和~\eqref{eq:suc-injective}，而不是 \cref{thm:path-nat} 的完整刻画，使用 \cref{thm:hedberg} 来填补空白。
 
 \begin{thm}\label{prop:nat-is-set}
- The type $\nat$ of natural numbers has decidable equality, and hence is a set.
+自然数类型 $\nat$ 具有可判定等同性，因此是一个集合。
 \end{thm}
 
 \begin{proof}
-  Let $x, y : \nat$ be given; we proceed by induction on $x$ and case analysis on $y$ to prove $(x=y)+\neg(x=y)$.
-  If $x \jdeq 0$ and $y \jdeq 0$, we take $\inl(\refl0)$.
-  If $x \jdeq 0$ and $y \jdeq \suc(n)$, then by~\eqref{eq:zero-not-succ} we get $\neg (0 = \suc (n))$.
+    令 $x, y : \nat$ 被给定；我们通过对 $x$ 进行归纳和对 $y$ 进行情况分析来证明 $(x=y)+\neg(x=y)$。如果 $x \jdeq 0$ 且 $y \jdeq 0$，我们取 $\inl(\refl0)$。如果 $x \jdeq 0$ 且 $y \jdeq \suc(n)$，则根据~\eqref{eq:zero-not-succ} 我们得到 $\neg (0 = \suc (n))$。
 
-  For the inductive step, let $x \jdeq \suc (n)$.
-  If $y \jdeq 0$, we use~\eqref{eq:zero-not-succ} again.
-  Finally, if $y \jdeq \suc (m)$, the inductive hypothesis gives $(m = n)+\neg(m = n)$.
-  In the first case, if $p:m=n$, then $\ap \suc p:\suc(m)=\suc(n)$.
-  And in the second case,~\eqref{eq:suc-injective} yields $\neg(\suc(m)=\suc(n))$.
+    对于归纳步骤，令 $x \jdeq \suc (n)$。如果 $y \jdeq 0$，我们再次使用~\eqref{eq:zero-not-succ}。最后，如果 $y \jdeq \suc (m)$，归纳假设给出 $(m = n)+\neg(m = n)$。在第一种情况下，如果 $p:m=n$，那么 $\ap \suc p:\suc(m)=\suc(n)$。在第二种情况下，~\eqref{eq:suc-injective} 导致 $\neg(\suc(m)=\suc(n))$。
 \end{proof}
 
 \index{set|)}%
 
 \index{axiom!Streicher's Axiom K!generalization to n-types@generalization to $n$-types}%
-Although Hedberg's theorem appears rather special to sets ($0$-types), ``Axiom K'' generalizes naturally to $n$-types.
-Note that the ordinary Axiom K (as a property of a type $X$) states that for all $x:X$, the loop space\index{loop space} $\Omega(X,x)$ (see \cref{def:loopspace}) is contractible.
-Since $\Omega(X,x)$ is always inhabited (by $\refl{x}$), this is equivalent to its being a mere proposition (a $(-1)$-type).
-Since $0 = (-1)+1$, this suggests the following generalization.
+尽管 Hedberg 定理看起来对集合（$0$-类型）特别适用，``公理 K (Axiom K)'' 自然地推广到 $n$-类型。请注意，普通的公理 K（作为类型 $X$ 的属性）陈述为对于所有 $x:X$，环空间 (Loop Space) $\Omega(X,x)$（见 \cref{def:loopspace}）是可收缩的 (Contractible)。由于 $\Omega(X,x)$ 总是居留的（通过 $\refl{x}$），这等价于它是一个纯命题（一个 $(-1)$-类型）。由于 $0 = (-1)+1$，这提出了以下推广。
 
 \begin{thm}\label{thm:hlevel-loops}
-  For any $n\geq -1$, a type $X$ is an $\nplusone$-type if and only if for all $x : X$, the type $\Omega(X, x)$ is an $n$-type.
+对于任何 $n\geq -1$，类型 $X$ 是一个 $\nplusone$-类型，当且仅当对于所有 $x : X$，类型 $\Omega(X, x)$ 是一个 $n$-类型。
 \end{thm}
 
-Before proving this, we prove an auxiliary lemma:
+在证明此之前，我们先证明一个辅助引理：
 
 \begin{lem}\label{lem:hlevel-if-inhab-hlevel}
-  Given $n \geq -1$ and $X : \type$.
-  If, given any inhabitant of $X$ it follows that $X$ is an $n$-type, then $X$ is an $n$-type.
+给定 $n \geq -1$ 和 $X : \type$。如果给定 $X$ 的任何居留元素就能推出 $X$ 是一个 $n$-类型，那么 $X$ 是一个 $n$-类型。
 \end{lem}
 \begin{proof}
-  Let $f : X \to \istype{n}(X)$ be the given map.
-  We need to show that for any $x, x' : X$, the type $\id{x}{x'}$ is an $\nminusone$-type.
-  But then $f(x)$ shows that $X$ is an $n$-type, hence all its path spaces are $\nminusone$-types.
+    令 $f : X \to \istype{n}(X)$ 是给定的映射。我们需要证明对于任何 $x, x' : X$，类型 $\id{x}{x'}$ 是一个 $\nminusone$-类型。但是 $f(x)$ 表明 $X$ 是一个 $n$-类型，因此它的所有路径空间 (Path Spaces) 都是 $\nminusone$-类型。
 \end{proof}
 
 \begin{proof}[Proof of \cref{thm:hlevel-loops}]
-  The ``only if'' direction is obvious, since $\Omega(X,x)\defeq (\id[X]xx)$.
-  Conversely, in order to show that $X$ is an $\nplusone$-type, we need to show that for any $x, x' : X$, the type $\id{x}{x'}$ is an
-$n$-type.
-  Following \cref{lem:hlevel-if-inhab-hlevel} it suffices to give a map
-  \[ (\id{x}{x'}) \to \istype{n}(\id{x}{x'}). \]
-  By path induction, it suffices to do this when $x\jdeq x'$, in which case it follows from the assumption that $\Omega(X, x)$ is an
-$n$-type.
+    ``如果''的方向是显然的，因为 $\Omega(X,x)\defeq (\id[X]xx)$。反之，为了证明 $X$ 是一个 $\nplusone$-类型，我们需要证明对于任何 $x, x' : X$，类型 $\id{x}{x'}$ 是一个 $n$-类型。根据 \cref{lem:hlevel-if-inhab-hlevel}，只需给出一个映射
+    \[ (\id{x}{x'}) \to \istype{n}(\id{x}{x'})。\]
+    通过路径归纳 (Path Induction)，只需证明当 $x\jdeq x'$ 时，这来自于假设 $\Omega(X, x)$ 是一个 $n$-类型。
 \end{proof}
 
 \index{whiskering}
-By induction and some slightly clever whiskering, we can obtain a generalization of the K property to $n>0$.
+通过归纳和一些巧妙的刷操作 (Whiskering)，我们可以将 K 属性推广到 $n>0$。
 
 \begin{thm}\label{thm:ntype-nloop}
-  \index{loop space!iterated}%
-  For every $n\ge -1$, a type $A$ is an $n$-type if and only if $\Omega^{n+1}(A,a)$ is contractible for all $a:A$.
+\index{loop space!iterated}%
+对于每个 $n\ge -1$，一个类型 $A$ 是一个 $n$-类型，当且仅当对于所有 $a:A$，$\Omega^{n+1}(A,a)$ 是可收缩的。
 \end{thm}
 \begin{proof}
-  Recalling that $\Omega^0(A,a) = (A,a)$, the case $n=-1$ is \cref{ex:prop-inhabcontr}.
-  The case $n=0$ is \cref{thm:h-set-uip-K}.
-  Now we use induction; suppose the statement holds for $n:\N$.
-  By \cref{thm:hlevel-loops}, $A$ is an $(n+1)$-type iff $\Omega(A,a)$ is an $n$-type for all $a:A$.
-  By the inductive hypothesis, the latter is equivalent to saying that $\Omega^{n+1}(\Omega(A,a),p)$ is contractible for all $p:\Omega(A,a)$.
+    回忆 $\Omega^0(A,a) = (A,a)$，$n=-1$ 的情况是 \cref{ex:prop-inhabcontr}。$n=0$ 的情况是 \cref{thm:h-set-uip-K}。现在我们使用归纳法；假设该陈述对 $n:\N$ 成立。根据 \cref{thm:hlevel-loops}，$A$ 是一个 $(n+1)$-类型，当且仅当对于所有 $a:A$，$\Omega(A,a)$ 是一个 $n$-类型。根据归纳假设，后者等价于 $\Omega^{n+1}(\Omega(A,a),p)$ 对于所有 $p:\Omega(A,a)$ 是可收缩的。
 
-  Since $\Omega^{n+2}(A,a) \defeq \Omega^{n+1}(\Omega(A,a),\refl{a})$, and $\Omega^{n+1} = \Omega^n \circ \Omega$, it will suffice to show that $\Omega(\Omega(A,a),p)$ is equal to $\Omega(\Omega(A,a),\refl{a})$, in the type $\pointed\type$ of pointed types.
-  For this, it suffices to give an equivalence
-  \[ g : \Omega(\Omega(A,a),p) \eqvsym \Omega(\Omega(A,a),\refl{a}) \]
-  which carries the basepoint $\refl{p}$ to the basepoint $\refl{\refl{a}}$.
-  For $q:p=p$, define $g(q):\refl{a} = \refl{a}$ to be the following composite:
-  \[ \refl{a} = p\ct \opp p \overset{q}{=} p\ct\opp p = \refl{a}, \]
-  where the path labeled ``$q$'' is actually $\apfunc{\lam{r} r\ct\opp p} (q)$.
-  Then $g$ is an equivalence because it is a composite of equivalences
-  \[ (p=p) \xrightarrow{\apfunc{\lam{r} r\ct\opp p}} (p\ct \opp p = p\ct \opp p) \xrightarrow{i\ct - \ct \opp i} (\refl{a} = \refl{a}). \]
-  using \cref{eg:concatequiv,thm:paths-respects-equiv}, where $i:\refl{a} = p\ct \opp p$ is the canonical equality.
-  And it is evident that $g(\refl{p}) = \refl{\refl{a}}$.
+    由于 $\Omega^{n+2}(A,a) \defeq \Omega^{n+1}(\Omega(A,a),\refl{a})$，并且 $\Omega^{n+1} = \Omega^n \circ \Omega$，它将足以证明 $\Omega(\Omega(A,a),p)$ 等于 $\Omega(\Omega(A,a),\refl{a})$，在类型 $\pointed\type$ 中。为此，只需给出一个等价
+    \[ g : \Omega(\Omega(A,a),p) \eqvsym \Omega(\Omega(A,a),\refl{a}) \]
+    它将基点 (Basepoint) $\refl{p}$ 映射到基点 $\refl{\refl{a}}$。对于 $q:p=p$，定义 $g(q):\refl{a} = \refl{a}$ 为以下复合：
+    \[ \refl{a} = p\ct \opp p \overset{q}{=} p\ct\opp p = \refl{a}，\]
+    其中标有 ``$q$'' 的路径实际上是 $\apfunc{\lam{r} r\ct\opp p} (q)$。然后 $g$ 是一个等价，因为它是等价的复合
+    \[ (p=p) \xrightarrow{\apfunc{\lam{r} r\ct\opp p}} (p\ct \opp p = p\ct \opp p) \xrightarrow{i\ct - \ct \opp i} (\refl{a} = \refl{a})。\]
+    使用 \cref{eg:concatequiv,thm:paths-respects-equiv}，其中 $i:\refl{a} = p\ct \opp p$ 是规范等价。显然，$g(\refl{p}) = \refl{\refl{a}}$。
 \end{proof}
 
 \section{Truncations}
