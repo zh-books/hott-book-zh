@@ -1,648 +1,521 @@
-\chapter{Set theory}
+\chapter{集合论 (Set theory)}
 \label{cha:set-math}
 
-\index{set|(}%
+\index{集合|(set|(}%
 
-Our conception of sets as types with particularly simple homotopical character, cf.\
-\cref{sec:basics-sets}, is quite different from the sets of Zermelo--Fraenkel\index{set theory!Zermelo--Fraenkel} set theory, which form a
-cumulative hierarchy with an intricate nested membership structure.
-For many mathematical purposes, the homotopy-the\-o\-ret\-ic sets are just as good as
-the Zermelo--Fraenkel ones, but there are important differences.
+我们将集合理解为具有特别简单的同伦特征的类型，参见\cref{sec:basics-sets}。这种理解与Zermelo--Fraenkel\index{集合论!Zermelo--Fraenkel(set theory!Zermelo--Fraenkel)}集合论中的集合完全不同，后者形成了一个包含复杂嵌套隶属关系的累积层次结构。对于许多数学目的，同伦理论中的集合与Zermelo--Fraenkel集合一样好用，但它们之间存在重要差异。
 
-We begin this chapter in \cref{sec:piw-pretopos} by showing that the category $\uset$ has (most of) the usual properties of the category of sets.
-\index{mathematics!constructive}%
-\index{mathematics!predicative}%
-In constructive, predicative, univalent foundations, it is a ``$\Pi\mathsf{W}$-pretopos''; whereas if we assume propositional resizing
-\index{propositional!resizing}%
-(\cref{subsec:prop-subsets}) it is an elementary topos,\index{topos} and if we assume \LEM{} and \choice{} then it is a model of Lawvere's \emph{Elementary Theory of the Category of Sets}\index{Lawvere}.
-\index{Elementary Theory of the Category of Sets}%
-This is sufficient to ensure that the sets in homotopy type theory behave like sets as used by most mathematicians outside of set theory.
+我们在本章开始于\cref{sec:piw-pretopos}，展示了范畴$\uset$具有通常集合范畴的（大部分）性质。
+\index{数学!构造性(mathematics!constructive)}%
+\index{数学!预测性(mathematics!predicative)}%
+在构造性、预测性、单值性基础上，它是一个``$\Pi\mathsf{W}$-前拓扑（pretopos）''；而如果我们假设命题的缩放
+\index{命题!缩放(propositional!resizing)}%
+(\cref{subsec:prop-subsets})，它是一个初等拓扑（elementary topos）\index{拓扑(topos)}，如果我们假设\LEM{}和\choice{}，那么它是Lawvere的\emph{集合范畴的初等理论}的模型\index{Lawvere}。
+\index{集合范畴的初等理论(Elementary Theory of the Category of Sets)}%
+这足以确保在同伦类型论中的集合行为类似于大多数数学家在集合论之外使用的集合。
 
-In the rest of the chapter, we investigate some subjects that traditionally belong to ``set theory''.
-In \cref{sec:cardinals,sec:ordinals,sec:wellorderings} we study cardinal and ordinal numbers.
-These are traditionally defined in set theory using the global membership relation, but we will see that the univalence axiom enables an equally convenient, more ``structural'' approach.
+在本章的其余部分，我们研究了一些传统上属于“集合论”的主题。在\cref{sec:cardinals,sec:ordinals,sec:wellorderings}中，我们研究了基数和序数。这些通常在集合论中使用全局隶属关系来定义，但我们将看到，单值性公理使得一种同样方便、更具“结构性”的方法成为可能。
 
-Finally, in \cref{sec:cumulative-hierarchy} we consider the possibility of constructing \emph{inside} of homotopy type theory a cumulative hierarchy of sets, equipped with a binary membership relation akin to that of Zermelo--Fraenkel set theory.
-This combines higher inductive types with ideas from the field of algebraic set theory.
-\index{algebraic set theory}%
-\index{set theory!algebraic}%
+最后，在\cref{sec:cumulative-hierarchy}中，我们考虑在同伦类型论内部构建一个具有二元隶属关系的类似于Zermelo--Fraenkel集合论的累积层次结构的可能性。这结合了高阶归纳类型与代数集合论领域的思想。
+\index{代数集合论(algebraic set theory)}%
+\index{集合论!代数(algebraic)}%
 
-In this chapter we will often use the traditional logical notation described in \cref{subsec:prop-trunc}.
-In addition to the basic theory of \cref{cha:basics,cha:logic}, we use higher inductive types for colimits and quotients as in \cref{sec:colimits,sec:set-quotients}, as well as some of the theory of truncation from \cref{cha:hlevels}, particularly the factorization system of \cref{sec:image-factorization} in the case $n=-1$.
-In \cref{sec:ordinals} we use an inductive family (\cref{sec:generalizations}) to describe well-foundedness, and in \cref{sec:cumulative-hierarchy} we use a more complicated higher inductive type to present the cumulative hierarchy.
+在本章中，我们将经常使用\cref{subsec:prop-trunc}中描述的传统逻辑符号。除了\cref{cha:basics,cha:logic}的基本理论外，我们还使用了\cref{sec:colimits,sec:set-quotients}中关于余极限和商集的高阶归纳类型，以及\cref{cha:hlevels}中关于截断的某些理论，特别是在\cref{sec:image-factorization}中提到的因子分解系统在$n=-1$的情况。在\cref{sec:ordinals}中，我们使用了一个归纳族(\cref{sec:generalizations})来描述良序性，在\cref{sec:cumulative-hierarchy}中，我们使用了一个更复杂的高阶归纳类型来呈现累积层次结构。
 
 
-%\section{\texorpdfstring{$\set$}{Set} is a \texorpdfstring{$\Pi$}{Π}W-pretopos}
-\section{The category of sets}
+\section{集合范畴 (The category of sets)}
 \label{sec:piw-pretopos}
 
-Recall that in \cref{cha:category-theory} we defined the category \uset to consist of all $0$-types (in some universe \UU) and maps between them, and observed that it is a category (not just a precategory).
-We consider successively the levels of structure which \uset possesses.
+回顾在\cref{cha:category-theory}中，我们定义了范畴\uset由所有$0$-类型（在某个宇宙\UU中）及其之间的映射组成，并且观察到它是一个范畴（不仅仅是一个预范畴）。我们将依次考虑\uset所具有的结构层次。
 
-\subsection{Limits and colimits}
+\subsection{极限和余极限 (Limits and colimits)}
 \label{subsec:limits-sets}
 
-\index{limit!of sets}%
-\index{colimit!of sets}%
+\index{极限!集合的(limit!of sets)}%
+\index{余极限!集合的(colimit!of sets)}%
 
-Since sets are closed under products, the universal property of products in \cref{thm:prod-ump} shows immediately that \uset has finite products.
-In fact, infinite products follow just as easily from the equivalence
+由于集合在积下是封闭的，\cref{thm:prod-ump}中的积的泛性质立即表明\uset具有有限积。实际上，无穷积也同样容易从等价式中得出：
 \[ \Parens{X\to \prd{a:A} B(a)} \eqvsym \Parens{\prd{a:A} (X\to B(a))}.\]
-And we saw in \cref{ex:pullback}\index{pullback} that the pullback of $f:A\to C$ and $g:B\to C$ can be defined as $\sm{a:A}{b:B} f(a)=g(b)$; this is a set if $A,B,C$ are and inherits the correct universal property.
-Thus, \uset is a \emph{complete} category in the obvious sense.
-\index{category!complete}%
-\index{complete!category}%
+我们在\cref{ex:pullback}中看到，$f:A\to C$和$g:B\to C$的拉回可以定义为$\sm{a:A}{b:B} f(a)=g(b)$；如果$A,B,C$都是集合，则它是一个集合并继承了正确的泛性质。因此，\uset在显然的意义上是一个\emph{完备}范畴。
+\index{范畴!完备的(category!complete)}%
+\index{完备!范畴(complete!category)}%
 
-Since sets are closed under $+$ and contain \emptyt, \uset has finite coproducts.
-Similarly, since $\sm{a:A}B(a)$ is a set whenever $A$ and each $B(a)$ are, it yields a coproduct of the family $B$ in \uset.
-Finally, we showed in \cref{sec:pushouts} that pushouts exist in $n$-types, which includes \uset in particular.
-Thus, \uset is also \emph{cocomplete}.
-\index{category!cocomplete}%
-\index{cocomplete category}%
+由于集合在$+$下是封闭的并包含\emptyt，\uset具有有限余积。同样，由于$\sm{a:A}B(a)$是一个集合，当且仅当$A$和每个$B(a)$是集合时，它在\uset中产生了族$B$的余积。最后，我们在\cref{sec:pushouts}中证明了$n$-类型中的推出存在，这特别包括了\uset。因此，\uset也是\emph{余完备的}。
+\index{范畴!余完备的(category!cocomplete)}%
+\index{余完备范畴(cocomplete category)}%
 
-\subsection{Images}
+\subsection{像 (Images)}
 \label{sec:image}
 
-%We will show that $\uset$ is a $\Pi$W-pretopos.
-Next, we show that $\uset$ is a \define{regular category}, i.e.:
-\indexdef{category!regular}%
-\indexdef{regular!category}%
+接下来，我们展示\uset是一个\define{正则范畴 (regular category)}，即：
+\indexdef{范畴!正则的(category!regular)}%
+\indexdef{正则!范畴(regular!category)}%
 %
 \begin{enumerate}
-\item $\uset$ is finitely complete.\label{item:reg1}
-\item The kernel pair $\proj1,\proj2: (\sm{x,y:A} f(x)= f(y)) \to A$ of any
-  function $f : A \to B$ has a coequalizer.\label{item:reg2}
-  \indexdef{kernel!pair}
-\item Pullbacks of regular epimorphisms are again regular epimorphisms.\label{item:reg3}
+  \item \uset是有限完备的。\label{item:reg1}
+  \item 任何函数$f : A \to B$的核对偶$\proj1,\proj2: (\sm{x,y:A} f(x)= f(y)) \to A$具有余等化子。\label{item:reg2}
+  \indexdef{核!对偶(kernel!pair)}
+  \item 正则满态射的拉回再次是正则满态射。\label{item:reg3}
 \end{enumerate}
 %
-Recall that a \define{regular epimorphism}
-\indexdef{epimorphism!regular}%
-\indexdef{regular!epimorphism}%
-is a morphism that is the coequalizer of \emph{some} pair of maps.
-Thus in~\ref{item:reg3} the pullback of a coequalizer is required to again be a coequalizer, but not necessarily of the pulled-back pair.
+回想一个\define{正则满态射 (regular epimorphism)}
+\indexdef{满态射!正则的(epimorphism!regular)}%
+\indexdef{正则!满态射(regular!epimorphism)}%
+是某对映射的余等化子。因此在\ref{item:reg3}中，余等化子的拉回需要再次是余等化子，但不一定是被拉回对偶的。
 
-\index{set-coequalizer}%
-\index{image}
-The obvious candidate for the coequalizer of the kernel pair of $f:A\to B$ is the \emph{image} of $f$, as defined in \cref{sec:image-factorization}.
-Recall that we defined $\im(f)\defeq \sm{b:B} \brck{\hfib f b}$, with functions
-$\tilde{f}:A\to\im(f)$ and $i_f:\im(f)\to B$ defined by
+\index{集合余等化子(set-coequalizer)}%
+\index{像(image)}%
+$f:A\to B$的核对偶的余等化子的明显候选者是$f$的\emph{像}，如\cref{sec:image-factorization}中定义的那样。回想我们定义了$\im(f)\defeq \sm{b:B} \brck{\hfib f b}$，并且定义了$\tilde{f}:A\to\im(f)$和$i_f:\im(f)\to B$，如下所示：
 \begin{align*}
   \tilde{f} & \defeq \lam{a} \Pairr{f(a),\,\bproj{\pairr{a,\refl{f(a)}}}}\\
-i_f & \defeq \proj1
+  i_f & \defeq \proj1
 \end{align*}
-fitting into a diagram:
+它们构成了一个图：
 \begin{equation*}
   \xymatrix{
     **[l]{\sm{x,y:A} f(x)= f(y)}
     \ar@<0.25em>[r]^{\proj1}
     \ar@<-0.25em>[r]_{\proj2}
     &
-    {A}
+      {A}
     \ar[r]^(0.4){\tilde{f}}
     \ar[rd]_{f}
     &
-    {\im(f)}
+      {\im(f)}
     \ar@{..>}[d]^{i_f}
     \\ & &
     B
   }
 \end{equation*}
 
-Recall that a function $f:A\to B$ is called \emph{surjective} if
-\index{function!surjective}%
+回想一个函数$f:A\to B$称为\emph{满射 (surjective)}，如果
+\index{函数!满射(function!surjective)}%
 \narrowequation{\fall{b:B}\brck{\hfib f b},}
-or equivalently $\fall{b:B} \exis{a:A} f(a)=b$.
-We have also said that a function $f:A\to B$ between sets is called \emph{injective} if
-\index{function!injective}%
-$\fall{a,a':A} (f(a) = f(a')) \Rightarrow (a=a')$, or equivalently if each of its fibers is a mere proposition.
-Since these are the $(-1)$-connected and $(-1)$-truncated maps in the sense of \cref{cha:hlevels}, the general theory there implies that $\tilde f$ above is surjective and $i_f$ is injective, and that this factorization is stable under pullback.
+或者等价地$\fall{b:B} \exis{a:A} f(a)=b$。我们还说过，两个集合之间的函数$f:A\to B$称为\emph{单射 (injective)}，如果
+\index{函数!单射(function!injective)}%
+$\fall{a,a':A} (f(a) = f(a')) \Rightarrow (a=a')$，或者等价地，如果它的每个纤维是一个简单命题。由于这些是在\cref{cha:hlevels}意义上的$(-1)$-连通和$(-1)$-截断映射，一般理论表明，上述$\tilde f$是满射而$i_f$是单射，并且这种因子分解在拉回下是稳定的。
 
-We now identify surjectivity and injectivity with the appropriate cat\-e\-go\-ry-theoretic notions.
-First we observe that categorical monomorphisms and epimorphisms have a slightly stronger equivalent formulation.
+我们现在将单射性和满射性与适当的范畴理论概念进行比较。首先我们观察到范畴中的单态射和满态射有一个略微更强的等价公式。
 
 \begin{lem}\label{thm:mono}
-  For a morphism $f:\hom_A(a,b)$ in a category $A$, the following are equivalent.
-  \begin{enumerate}
-  \item $f$ is a \define{monomorphism}:
-    \indexdef{monomorphism}%
-    for all $x:A$ and ${g,h:\hom_A(x,a)}$, if $f\circ g = f\circ h$ then $g=h$.\label{item:mono1}
-  \item (If $A$ has pullbacks) the diagonal map $a\to a\times_b a$ is an isomorphism.\label{item:mono4}
-  \item For all $x:A$ and $k:\hom_A(x,b)$, the type $\sm{h:\hom_A(x,a)} (k = f\circ h)$ is a mere proposition.\label{item:mono2}
-  \item For all $x:A$ and ${g:\hom_A(x,a)}$, the type $\sm{h:\hom_A(x,a)} (f\circ g = f\circ h)$ is contractible.\label{item:mono3}
-  \end{enumerate}
+对于范畴$A$中的一个态射$f:\hom_A(a,b)$，以下条件是等价的。
+\begin{enumerate}
+  \item $f$是一个\define{单态射 (monomorphism)}：
+  \indexdef{单态射(monomorphism)}%
+  对于所有$x:A$和${g,h:\hom_A(x,a)}$，如果$f\circ g = f\circ h$，则$g=h$。\label{item:mono1}
+  \item （如果$A$有拉回）对角线映射$a\to a\times_b a$是一个同构。\label{item:mono4}
+  \item 对于所有$x:A$和$k:\hom_A(x,b)$，类型$\sm{h:\hom_A(x,a)} (k = f\circ h)$是一个简单命题。\label{item:mono2}
+  \item 对于所有$x:A$和${g:\hom_A(x,a)}$，类型$\sm{h:\hom_A(x,a)} (f\circ g = f\circ h)$是一个收缩的。\label{item:mono3}
+\end{enumerate}
 \end{lem}
 \begin{proof}
-  The equivalence of conditions~\ref{item:mono1} and~\ref{item:mono4} is standard category theory.
-  Now consider the function $(f\circ \blank ):\hom_A(x,a) \to \hom_A(x,b)$ between sets.
-  Condition~\ref{item:mono1} says that it is injective, while~\ref{item:mono2} says that its fibers are mere propositions; hence they are equivalent.
-  And~\ref{item:mono2} implies~\ref{item:mono3} by taking $k\defeq f\circ g$ and recalling that an inhabited mere proposition is contractible.
-  Finally,~\ref{item:mono3} implies~\ref{item:mono1} since if $p:f\circ g= f\circ h$, then $(g,\refl{})$ and $(h,p)$ both inhabit the type in~\ref{item:mono3}, hence are equal and so $g=h$.
+  条件~\ref{item:mono1}和~\ref{item:mono4}的等价性是标准范畴论。现在考虑$\hom_A(x,a)$和$\hom_A(x,b)$之间的函数$(f\circ \blank )$。条件~\ref{item:mono1}表示它是单射，而~\ref{item:mono2}表示它的纤维是简单命题；因此它们是等价的。~\ref{item:mono2}通过取$k\defeq f\circ g$并记住被占用的简单命题是收缩的来隐含~\ref{item:mono3}。最后，~\ref{item:mono3}隐含~\ref{item:mono1}，因为如果$p:f\circ g= f\circ h$，那么$(g,\refl{})$和$(h,p)$都包含在~\ref{item:mono3}中的类型中，因此是相等的，所以$g=h$。
 \end{proof}
 
 \begin{lem}\label{thm:inj-mono}
-  A function $f:A\to B$ between sets is injective if and only if it is a monomorphism\index{monomorphism} in \uset.
+集合之间的一个函数$f:A\to B$是单射的当且仅当它是\uset中的单态射\index{单态射(monomorphism)}。
 \end{lem}
 \begin{proof}
-  Left to the reader.
+  留给读者。
 \end{proof}
 
-Of course, an \define{epimorphism}
-\indexdef{epimorphism}%
-\indexsee{epi}{epimorphism}%
-is a monomorphism in the opposite category.
-We now show that in \uset, the epimorphisms are precisely the surjections, and also precisely the coequalizers (regular epimorphisms).
+当然，\define{满态射 (epimorphism)}
+\indexdef{满态射(epimorphism)}%
+\indexsee{满态射(epi)}{满态射(epimorphism)}%
+是在对偶范畴中的单态射。我们现在展示，在\uset中，满态射正是满射，同时也正是余等化子（正则满态射）。
 
-The coequalizer of a pair of maps $f,g:A\to B$ in $\uset$ is defined as the 0-truncation of a general (homotopy) coequalizer.
-For clarity, we may call this the \define{set-coequalizer}.
-\indexdef{set-coequalizer}%
-\indexsee{coequalizer!of sets}{set-coequalizer}%
-It is convenient to express its universal property as follows.
+两个集合$A$和$B$之间的$f,g:A\to B$的余等化子在$\uset$中定义为一般（同伦）余等化子的$0$-截断。为了清楚起见，我们可以将其称为\define{集合余等化子 (set-coequalizer)}。
+\indexdef{集合余等化子(set-coequalizer)}%
+\indexsee{集合余等化子(coequalizer!of sets)}{set-coequalizer}%
+它的泛性质方便地表达如下。
 
 \begin{lem}
-\index{universal!property!of set-coequalizer}%
-Let $f,g:A\to B$ be functions between sets $A$ and $B$. The
-{set-co}equalizer $c_{f,g}:B\to Q$ has the property that, for any set $C$ and any $h:B\to C$ with $h\circ f = h\circ g$, the type
-\begin{equation*}
-\sm{k:Q\to C} (k\circ c_{f,g} = h)
-\end{equation*}
-is contractible.
+  \index{集合余等化子的泛性质(universal!property!of set-coequalizer)}%
+  设$f,g:A\to B$为两个集合$A$和$B$之间的函数。{集合余}等化子$c_{f,g}:B\to Q$具有如下性质：对于任意集合$C$和任意$h:B\to C$，满足$h\circ f = h\circ g$，类型
+  \begin{equation*}
+    \sm{k:Q\to C} (k\circ c_{f,g} = h)
+  \end{equation*}
+  是收缩的。
 \end{lem}
 
 \begin{lem}\label{epis-surj}
-For any function $f:A\to B$ between sets, the following are equivalent:
+对于集合之间的任意函数$f:A\to B$，以下条件是等价的：
 \begin{enumerate}
-\item $f$ is an epimorphism.
-\item Consider the pushout diagram
-\begin{equation*}
-  \xymatrix{
-    {A}
-    \ar[r]^{f}
-    \ar[d]
-    &
-    {B}
-    \ar[d]^{\iota}
-    \\
-    {\unit}
-    \ar[r]_{t}
-    &
-    {C_f}
-  }
-\end{equation*}
-in $\uset$ defining the mapping cone\index{cone!of a function}. Then the type $C_f$ is contractible.
-\item $f$ is surjective.
+  \item $f$是一个满态射。
+  \item 考虑推出图
+  \begin{equation*}
+    \xymatrix{
+        {A}
+      \ar[r]^{f}
+      \ar[d]
+      &
+        {B}
+      \ar[d]^{\iota}
+      \\
+      {\unit}
+      \ar[r]_{t}
+      &
+        {C_f}
+    }
+  \end{equation*}
+  在$\uset$中定义了映射锥\index{映射锥(cone!of a function)}。那么类型$C_f$是收缩的。
+  \item $f$是满射。
 \end{enumerate}
 \end{lem}
 
 \begin{proof}
-Let $f:A\to B$ be a function between sets, and suppose it to be an epimorphism; we show $C_f$ is contractible.
-The constructor $\unit\to C_f$ of $C_f$ gives us an element $t:C_f$.
-We have to show that
-\begin{equation*}
-\prd{x:C_f} x= t.
-\end{equation*}
-Note that $x= t$ is a mere proposition, hence we can use induction on $C_f$.
-Of course when $x$ is $t$ we have $\refl{t}:t=t$, so it suffices to find
-\begin{align*}
-I_0 & : \prd{b:B} \iota(b)= t\\
-I_1 & : \prd{a:A} \opp{\alpha_1(a)} \ct I_0(f(a))=\refl{t}
-\end{align*}
-where $\iota:B\to C_f$ and $\alpha_1:\prd{a:A} \iota(f(a))= t$ are the other constructors
-of $C_f$. Note that $\alpha_1$ is a homotopy from $\iota\circ f$ to
-$\mathsf{const}_t\circ f$, so we find the elements
-\begin{equation*}
-\pairr{\iota,\refl{\iota\circ f}},\pairr{\mathsf{const}_t,\alpha_1}:
-\sm{h:B\to C_f} \iota\circ f \htpy h\circ f.
-\end{equation*}
-By the dual of \cref{thm:mono}\ref{item:mono3} (and function extensionality), there is a path
-\begin{equation*}
-\gamma:\pairr{\iota,\refl{\iota\circ f}}=\pairr{\mathsf{const}_t,\alpha_1}.
-\end{equation*}
-Hence, we may define $I_0(b)\defeq \happly(\projpath1(\gamma),b):\iota(b)=t$.
-We also have
-\[\projpath2(\gamma) : \trans{\projpath1(\gamma)}{\refl{\iota\circ f}} = \alpha_1. \]
-This transport involves precomposition with $f$, which commutes with $\happly$.
-Thus, from transport in path types we obtain $I_0(f(a)) = \alpha_1(a)$ for any $a:A$, which gives us $I_1$.
+  设$f:A\to B$为一个集合之间的函数，假设它是一个满态射；我们证明$C_f$是收缩的。$C_f$的构造器$\unit\to C_f$给了我们一个元素$t:C_f$。我们需要证明
+  \begin{equation*}
+    \prd{x:C_f} x= t.
+  \end{equation*}
+  请注意$x= t$是一个简单命题，因此我们可以对$C_f$进行归纳。当然，当$x$为$t$时，我们有$\refl{t}:t=t$，所以足以找到
+  \begin{align*}
+    I_0 & : \prd{b:B} \iota(b)= t\\
+    I_1 & : \prd{a:A} \opp{\alpha_1(a)} \ct I_0(f(a))=\refl{t}
+  \end{align*}
+  其中$\iota:B\to C_f$和$\alpha_1:\prd{a:A} \iota(f(a))= t$是$C_f$的其他构造器。请注意$\alpha_1$是$\iota\circ f$到$\mathsf{const}_t\circ f$的一个同伦，因此我们可以找到元素
+  \begin{equation*}
+    \pairr{\iota,\refl{\iota\circ f}},\pairr{\mathsf{const}_t,\alpha_1}:
+    \sm{h:B\to C_f} \iota\circ f \htpy h\circ f.
+  \end{equation*}
+  通过\cref{thm:mono}\ref{item:mono3}的对偶（以及函数扩展性），我们有一条路径
+  \begin{equation*}
+    \gamma:\pairr{\iota,\refl{\iota\circ f}}=\pairr{\mathsf{const}_t,\alpha_1}.
+  \end{equation*}
+  因此，我们可以定义$I_0(b)\defeq \happly(\projpath1(\gamma),b):\iota(b)=t$。
+  我们还有
+  \[\projpath2(\gamma) : \trans{\projpath1(\gamma)}{\refl{\iota\circ f}} = \alpha_1。 \]
+  此传输涉及$f$的前置，它与$\happly$一起工作。因此，从路径类型中的传输我们得到$I_0(f(a)) = \alpha_1(a)$，对于任何$a:A$，这给了我们$I_1$。
 
-Now suppose $C_f$ is contractible; we show $f$ is surjective.
-We first construct a type family $P:C_f\to\prop$ by recursion on $C_f$, which is valid since \prop is a set.
-On the point constructors, we define
-\begin{align*}
-P(t) & \defeq \unit\\
-P(\iota(b)) & \defeq \brck{\hfiber{f}b}.
-\end{align*}
-To complete the construction of $P$, it remains to give a path
-\narrowequation{\brck{\hfiber{f}{f(a)}} =_\prop \unit}
-for all $a:A$.
-However, $\brck{\hfiber{f}{f(a)}}$ is inhabited by $(f(a),\refl{f(a)})$.
-Since it is a mere proposition, this means it is contractible --- and thus equivalent, hence equal, to \unit.
-This completes the definition of $P$.
-Now, since $C_f$ is assumed to be contractible, it follows that $P(x)$ is equivalent to $P(t)$ for any $x:C_f$.
-In particular, $P(\iota(b))\jdeq \brck{\hfiber{f}b}$ is equivalent to $P(t)\jdeq \unit$ for each $b:B$, and hence contractible.
-Thus, $f$ is surjective.
+  现在假设$C_f$是收缩的；我们证明$f$是满射。我们首先通过$C_f$上的递归构造一个类型族$P:C_f\to\prop$，这是有效的，因为\prop是一个集合。在点构造器上，我们定义
+  \begin{align*}
+    P(t) & \defeq \unit\\
+    P(\iota(b)) & \defeq \brck{\hfiber{f}b}.
+  \end{align*}
+  为了完成$P$的构造，我们还需要为所有$a:A$给出一条路径
+  \narrowequation{\brck{\hfiber{f}{f(a)}} =_\prop \unit。}
+  然而，$\brck{\hfiber{f}{f(a)}}$是由$(f(a),\refl{f(a)})$居住的。由于它是一个简单命题，这意味着它是收缩的——因此是等价的，因此与\unit相等。这完成了$P$的定义。现在，由于$C_f$被假设为收缩的，因此$P(x)$对于任何$x:C_f$都是等价于$P(t)$的。特别是，$P(\iota(b))\jdeq \brck{\hfiber{f}b}$等价于$P(t)\jdeq \unit$，对于每个$b:B$，因此是收缩的。因此，$f$是满射。
 
-Finally, suppose $f:A\to B$ to be surjective, and consider a set $C$ and two functions
-$g,h:B\to C$ with the property that $g\circ f = h\circ f$. Since $f$
-is assumed to be surjective, for all $b:B$ the type $\brck{\hfib f b}$ is contractible.
-Thus we have the following equivalences:
-\begin{align*}
-\prd{b:B} (g(b)= h(b))
-& \eqvsym \prd{b:B} \Parens{\brck{\hfib f b} \to (g(b)= h(b))}\\
-& \eqvsym \prd{b:B} \Parens{\hfib f b \to (g(b)= h(b))}\\
-& \eqvsym \prd{b:B}{a:A}{p:f(a)= b} g(b)= h(b)\\
-& \eqvsym \prd{a:A} g(f(a))= h(f(a))
-\end{align*}
-using on the second line the fact that $g(b)=h(b)$ is a mere proposition, since $C$ is a set.
-But by assumption, there is an element of the latter type.
+  最后，假设$f:A\to B$是满射，并考虑一个集合$C$和两个函数$g,h:B\to C$，它们具有$g\circ f = h\circ f$的性质。由于$f$被假设为满射，因此对于所有$b:B$，类型$\brck{\hfib f b}$是收缩的。因此我们有以下等价：
+  \begin{align*}
+    \prd{b:B} (g(b)= h(b))
+    & \eqvsym \prd{b:B} \Parens{\brck{\hfib f b} \to (g(b)= h(b))}\\
+    & \eqvsym \prd{b:B} \Parens{\hfib f b \to (g(b)= h(b))}\\
+    & \eqvsym \prd{b:B}{a:A}{p:f(a)= b} g(b)= h(b)\\
+    & \eqvsym \prd{a:A} g(f(a))= h(f(a))。
+  \end{align*}
+  使用在第二行中的事实，即$g(b)=h(b)$是一个简单命题，因为$C$是一个集合。但根据假设，有该类型的一个元素。
 \end{proof}
 
-% \begin{rem}
-% The above theorem is not true when we replace $\set$ by $\type$
-% (replacing it also in the definition of $\mathsf{epi}$ and $\mathsf{epi}'$).
-% However, we do
-% get the implications $\textit{ii.}\Rightarrow\textit{iii.}\Rightarrow
-% \textit{iv.}$
-% \end{rem}
-
 \begin{thm}\label{thm:set_regular}\label{lem:images_are_coequalizers}
-The category $\uset$ is regular. Moreover, surjective functions between sets are regular epimorphisms.
+范畴$\uset$是正则的。此外，集合之间的满射是正则满态射。
 \end{thm}
 
 \begin{proof}
-It is a standard lemma in category theory that a category is regular as soon as it admits finite limits and a pullback-stable orthogonal
-factorization system\index{orthogonal factorization system} $(\mathcal{E},\mathcal{M})$ with $\mathcal{M}$ the monomorphisms, in which case $\mathcal{E}$ consists automatically of
-the regular epimorphisms.
-(See e.g.~\cite[A1.3.4]{elephant}.)
-The existence of the factorization system was proved in \cref{thm:orth-fact}.
+  这是范畴论中的一个标准引理，即范畴是正则的，只要它承认有限极限和稳定于拉回的正交因子分解系统\index{正交因子分解系统(orthogonal factorization system)} $(\mathcal{E},\mathcal{M})$，其中$\mathcal{M}$是单态射，在这种情况下，$\mathcal{E}$自动由正则满态射组成。
+  (参见例如\cite[A1.3.4]{elephant}）。
+  因子分解系统的存在性在\cref{thm:orth-fact}中得到证明。
 \end{proof}
 
 \begin{lem}\label{lem:pb_of_coeq_is_coeq}
-Pullbacks of regular epis in \uset are regular epis.
+在\uset中，正则满态射的拉回是正则满态射。
 \end{lem}
 \begin{proof}
-  We showed in \cref{thm:stable-images} that pullbacks of $n$-connected functions are $n$-connected.
-  By \cref{lem:images_are_coequalizers}, it suffices to apply this when $n=-1$.
+  我们在\cref{thm:stable-images}中展示了，$n$-连通函数的拉回是$n$-连通的。通过\cref{lem:images_are_coequalizers}，当$n=-1$时应用这一结论就足够了。
 \end{proof}
 
-\indexdef{image!of a subset}
-One of the consequences of \uset being a regular category is that we have an ``image'' operation on subsets.
-That is, given $f:A\to B$, any subset $P:\power A$ (i.e.\ a predicate $P:A\to \prop$) has an \define{image} which is a subset of $B$.
-This can be defined directly as $\setof{ y:B | \exis{x:A} f(x)=y \land P(x)}$, or indirectly as the image (in the previous sense) of the composite function
-\[ \setof{ x:A | P(x) } \to A \xrightarrow{f} B.\]
+\indexdef{子集的像(image!of a subset)}
+\uset作为正则范畴的一个后果是，我们有了“像”运算作用于子集。也就是说，给定$f:A\to B$，任何子集$P:\power A$（即谓词$P:A\to \prop$）都有一个\define{像 (image)}，它是$B$的一个子集。这可以直接定义为$\setof{ y:B | \exis{x:A} f(x)=y \land P(x)}$，或间接地定义为复合函数
+\[ \setof{ x:A | P(x) } \to A \xrightarrow{f} B的像。]
 \symlabel{subset-image}
-We will also sometimes use the common notation $\setof{f(x) | P(x)}$ for the image of $P$.
+我们有时也会使用常见的记号$\setof{f(x) | P(x)}$来表示$P$的像。
 
 
-\subsection{Quotients}\label{subsec:quotients}
+\subsection{商 (Quotients)}\label{subsec:quotients}
 
-\index{set-quotient|(}%
-Now that we know that $\uset$ is regular, to show that $\uset$ is exact, we need to show that every
-equivalence relation is effective.
-\index{effective!equivalence relation|(}%
-\index{relation!effective equivalence|(}%
-In other words, given an equivalence
-relation $R:A\to A\to\prop$, there is a coequalizer $c_R$ of the pair
-$\proj1,\proj2:\sm{x,y:A} R(x,y)\to A$ and, moreover, the $\proj1$ and $\proj2$
-form the kernel\index{kernel!pair} pair of $c_R$.
+\index{集合商(set-quotient|(}%
+现在我们知道$\uset$是正则的，要表明$\uset$是精确的，我们需要证明每个等价关系都是有效的。
+\index{有效!等价关系(effective!equivalence relation|(}%
+\index{关系!有效等价(effective equivalence|(}%
+换句话说，给定等价关系$R:A\to A\to\prop$，存在一个对偶的余等化子$c_R$，并且$\proj1$和$\proj2$形成$c_R$的核对偶。
 
-We have already seen, in \cref{sec:set-quotients}, two general ways to construct the quotient of a set by an equivalence relation $R:A\to A\to\prop$.
-The first can be described as the set-coequalizer of the two projections
-\[\proj1,\proj2:\Parens{\sm{x,y:A} R(x,y)} \to A.\]
-The important property of such a quotient is the following.
+我们已经在\cref{sec:set-quotients}中看到了两个构造集合按等价关系$R:A\to A\to\prop$的商的方法。第一个可以描述为
+\[ \proj1,\proj2:\Parens{\sm{x,y:A} R(x,y)} \to A的集合余}等化子。]
+其商的一个重要性质如下。
 
 \begin{defn}
-  A relation $R:A\to A\to\prop$ is said to be \define{effective}
-  \indexdef{effective!relation}
-  \indexdef{effective!equivalence relation}%
-  \indexdef{relation!effective equivalence}%
-  if the square
+一个关系$R:A\to A\to\prop$被称为\define{有效的 (effective)}，
+\indexdef{有效!关系(effective!relation)}
+\indexdef{有效!等价关系(effective!equivalence relation)}%
+\indexdef{关系!有效等价(effective equivalence)}%
+如果方框
 \begin{equation*}
-  \xymatrix{
-    {\sm{x,y:A} R (x,y)}
-    \ar[r]^(0.7){\proj1}
-    \ar[d]_{\proj2}
-    &
-    {A}
-    \ar[d]^{c_R}
-    \\
-    {A}
-    \ar[r]_{c_R}
-    &
-    {A/R}
-    }
+\xymatrix{
+{\sm{x,y:A} R (x,y)}
+\ar[r]^(0.7){\proj1}
+\ar[d]_{\proj2}
+&
+{A}
+\ar[d]^{c_R}
+\\
+{A}
+\ar[r]_{c_R}
+&
+{A/R}
+}
 \end{equation*}
-is a pullback.
+是一个拉回。
 \end{defn}
 
-Since the standard pullback of $c_R$ and itself is $\sm{x,y:A} (c_R(x)=c_R(y))$, by \cref{thm:total-fiber-equiv} this is equivalent to asking that the canonical transformation $\prd{x,y:A} R(x,y) \to (c_R(x)=c_R(y))$ be a fiberwise equivalence.
+由于$c_R$和它本身的标准拉回是$\sm{x,y:A} (c_R(x)=c_R(y))$，通过\cref{thm:total-fiber-equiv}，这相当于要求$c_R(x)=c_R(y)$的典型转换是一个纤维等价。
 
 \begin{lem}\label{lem:sets_exact}
-Suppose $\pairr{A,R}$ is an equivalence relation. Then there is an equivalence
+假设$\pairr{A,R}$是一个等价关系。那么对于任何$x,y:A$，有一个等价关系
 \begin{equation*}
-(c_R(x)= c_R(y))\eqvsym R(x,y)
+(c_R(x)= c_R(y))\eqvsym R(x,y)。
 \end{equation*}
-for any $x,y:A$. In other words, equivalence relations are effective.
+换句话说，等价关系是有效的。
 \end{lem}
 
 \begin{proof}
-We begin by extending $R$ to a relation $\widetilde{R}:A/R\to A/R\to\prop$, which we will then show is equivalent
-to the identity type on $A/R$. We define $\widetilde{R}$ by double induction on
-$A/R$ (note that $\prop$ is a set by univalence for mere propositions). We
-define $\widetilde{R}(c_R(x),c_R(y)) \defeq R(x,y)$. For $r:R(x,x')$ and $s:R(y,y')$,
-the transitivity and symmetry
-of $R$ gives an equivalence from $R(x,y)$ to $R(x',y')$. This completes the
-definition of $\widetilde{R}$.
+我们首先通过对$A/R$进行双重归纳将$R$扩展为一个关系$\widetilde{R}:A/R\to A/R\to\prop$，然后我们将证明它与$A/R$上的恒等类型等价。我们定义$\widetilde{R}(c_R(x),c_R(y)) \defeq R(x,y)$。对于$r:R(x,x')$和$s:R(y,y')$，$R$的传递性和对称性给出了$R(x,y)$到$R(x',y')$的一个等价关系。这完成了$\widetilde{R}$的定义。
 
-It remains to show that $\widetilde{R}(w,w')\eqvsym (w= w')$ for every $w,w':A/R$.
-The direction $(w=w')\to \widetilde{R}(w,w')$ follows by transport once we show that $\widetilde{R}$ is reflexive, which is an easy induction.
-The other direction $\widetilde{R}(w,w')\to (w= w')$ is a mere proposition, so since $c_R:A\to A/R$ is surjective, it suffices to assume that $w$ and $w'$ are of the form $c_R(x)$ and $c_R(y)$.
-But in this case, we have the canonical map $\widetilde{R}(c_R(x),c_R(y)) \defeq R(x,y) \to (c_R(x)=c_R(y))$.
-(Note again the appearance of the encode-decode method.\index{encode-decode method})
+现在要证明对于每个$w,w':A/R$，$\widetilde{R}(w,w')\eqvsym (w= w')$。
+方向$(w=w')\to \widetilde{R}(w,w')$通过传输一次我们证明了$\widetilde{R}$是反射的，这是一种简单的归纳。
+另一个方向$\widetilden{R}(w,w')\to (w= w')$是一个简单命题，因此由于$c_R:A\to A/R$是满射，只需要假设$w$和$w'$是$c_R(x)$和$c_R(y)$形式的。但在这种情况下，我们有典型映射$\widetilden{R}(c_R(x),c_R(y)) \defeq R(x,y) \to (c_R(x)=c_R(y))$。（再次注意到编码解码方法的出现。\index{编码解码方法(encode-decode method)}）
 \end{proof}
 
-The second construction of quotients is as the set of equivalence classes of $R$ (a subset
-of its power set\index{power set}):
-\[ A\sslash R \defeq \setof{ P:A\to\prop | P \text{ is an equivalence class of } R}. \]
-This requires propositional resizing\index{propositional resizing}\index{impredicative!quotient}\index{resizing} in order to remain in the same universe as $A$ and $R$.
+第二个商的构造是作为$R$的等价类的集合（它的幂集的子集）：
+\[ A\sslash R \defeq \setof{ P:A\to\prop | P \text{ is an equivalence class of } R}。]
+这需要命题缩放\index{命题缩放(propositional resizing)}\index{非预测性商(impredicative!quotient)}\index{缩放(resizing)}来保持在与$A$和$R$相同的宇宙中。
 
-Note that if we regard $R$ as a function from $A$ to $A\to \prop$, then $A\sslash R$ is equivalent to $\im(R)$, as constructed in \cref{sec:image}.
-Now in \cref{lem:images_are_coequalizers} we have shown that images are
-coequalizers. In particular, we immediately get the coequalizer diagram
+注意，如果我们将$R$视为$A$到$A\to \prop$的函数，那么$A\sslash R$等价于\cref{sec:image}中构造的$\im(R)$。现在在\cref{lem:images_are_coequalizers}中我们已经证明了图像是
+余等化子。特别是，我们立即得到余等化子图
 \begin{equation*}
-  \xymatrix{
-    **[l]{\sm{x,y:A} R (x)= R (y)}
-    \ar@<0.25em>[r]^{\proj1}
-    \ar@<-0.25em>[r]_{\proj2}
-    &
-    {A}
-    \ar[r]
-    &
-    {A \sslash R.}
-  }
+\xymatrix{
+**[l]{\sm{x,y:A} R (x)= R (y)}
+\ar@<0.25em>[r]^{\proj1}
+\ar@<-0.25em>[r]_{\proj2}
+&
+{A}
+\ar[r]
+&
+{A \sslash R。}
+}
 \end{equation*}
-We can use this to give an alternative proof that any equivalence relation is effective and that the two definitions of quotients agree.
+我们可以用这个来给出另一个证明，即任何等价关系是有效的，并且两个商的定义是一致的。
 
 \begin{thm}\label{prop:kernels_are_effective}
-For any function $f:A\to B$ between any two sets,
-the relation $\ker(f):A\to A\to\prop$ given by
-$\ker(f,x,y)\defeq (f(x)= f(y))$ is effective.
+对于任意两个集合之间的函数$f:A\to B$，
+关系$\ker(f):A\to A\to\prop$由
+$\ker(f,x,y)\defeq (f(x)= f(y))$给出是有效的。
 \end{thm}
-
 \begin{proof}
-We will use that $\im(f)$ is the coequalizer of $\proj1,\proj2:
-(\sm{x,y:A} f(x)= f(y))\to A$.
-%we get this equivalence from~\cref{prop:images_are_coequalizers}
-Note that the kernel pair of the function
+我们将使用$\proj1,\proj2: (\sm{x,y:A} f(x)= f(y))\to A$的余等化子$\im(f)$。
+注意，函数
 \[c_f\defeq\lam{a} \Parens{f(a),\brck{\pairr{a,\refl{f(a)}}}}
 : A \to \im(f)
 \]
-consists of the two projections
+的核对偶由两个投影
 \begin{equation*}
-\proj1,\proj2:\Parens{\sm{x,y:A} c_f(x)= c_f(y)}\to A.
+\proj1,\proj2:\Parens{\sm{x,y:A} c_f(x)= c_f(y)}\to A。
 \end{equation*}
-For any $x,y:A$, we have equivalences
+对于任何$x,y:A$，我们有等价
 \begin{align*}
-  (c_f(x)= c_f(y))
-  & \eqvsym \Parens{\sm{p:f(x)= f(y)} \trans{p}{\brck{\pairr{x,\refl{f(x)}}}} =\brck{\pairr{y,\refl{f(x)}}}}\\
-  & \eqvsym (f(x)= f(y)),
+(c_f(x)= c_f(y))
+& \eqvsym \Parens{\sm{p:f(x)= f(y)} \trans{p}{\brck{\pairr{x,\refl{f(x)}}}} =\brck{\pairr{y,\refl{f(y)}}}}\\
+& \eqvsym (f(x)= f(y))，
 \end{align*}
-where the last equivalence holds because
-$\brck{\hfiber{f}b}$ is a mere proposition for any $b:B$.
-Therefore, we get that
+其中最后一个等价关系成立，因为
+$\brck{\hfiber{f}b}$对于任何$b:B$来说是一个简单命题。
+因此，我们得到
 \begin{equation*}
 \Parens{\sm{x,y:A} c_f(x)= c_f(y)}\eqvsym \Parens{\sm{x,y:A} f(x)= f(y)}
 \end{equation*}
-and hence we may conclude that $\ker f$ is an effective relation
-for any function $f$.
+并且我们可以得出结论，对于任何函数$f$，$\ker f$是一个有效的关系。
 \end{proof}
 
 \begin{thm}
-Equivalence relations are effective and there is an equivalence $A/R \eqvsym A\sslash  R $.
+等价关系是有效的，并且$A/R \eqvsym A\sslash  R$。
 \end{thm}
 
 \begin{proof}
-We need to analyze the coequalizer diagram
+我们需要分析余等化子图
 \begin{equation*}
-  \xymatrix{
-    **[l]{\sm{x,y:A} R (x)= R (y)}
-    \ar@<0.25em>[r]^{\proj1}
-    \ar@<-0.25em>[r]_{\proj2}
-    &
-    {A}
-    \ar[r]
-    &
-    {A \sslash R}
-  }
+\xymatrix{
+**[l]{\sm{x,y:A} R (x)= R (y)}
+\ar@<0.25em>[r]^{\proj1}
+\ar@<-0.25em>[r]_{\proj2}
+&
+{A}
+\ar[r]
+&
+{A \sslash R}
+}
 \end{equation*}
-By the univalence axiom, the type $R(x) = R(y)$ is equivalent to the type of homotopies from $R(x)$ to $R(y)$, which is
-equivalent to
-\narrowequation{\prd{z:A} R (x,z)\eqvsym R (y,z).}
-Since $R$ is an equivalence relation, the latter space is equivalent to $R(x,y)$. To
-summarize, we get that $(R(x) = R(y)) \eqvsym R(x,y)$, so $R $ is effective since it is equivalent to an effective relation. Also,
-the diagram
+通过单值化公理，类型$R(x) = R(y)$等价于从$R(x)$到$R(y)$的同伦类型，并且进一步等价于
+\narrowequation{\prd{z:A} R (x,z)\eqvsym R (y,z)}。
+由于$R$是一个等价关系，后者空间等价于$R(x,y)$。总之，我们得到$(R(x) = R(y)) \eqvsym R(x,y)$，因此$R$是有效的，因为它等价于一个有效的关系。此外，图
 \begin{equation*}
-  \xymatrix{
-    **[l]{\sm{x,y:A} R(x, y)}
-    \ar@<0.25em>[r]^{\proj1}
-    \ar@<-0.25em>[r]_{\proj2}
-    &
-    {A}
-    \ar[r]
-    &
-    {A \sslash R.}
-  }
+\xymatrix{
+**[l]{\sm{x,y:A} R(x, y)}
+\ar@<0.25em>[r]^{\proj1}
+\ar@<-0.25em>[r]_{\proj2}
+&
+{A}
+\ar[r]
+&
+{A \sslash R。}
+}
 \end{equation*}
-is a coequalizer diagram. Since coequalizers are unique up to equivalence, it follows that $A/R \eqvsym A\sslash  R $.
+是一个余等化子图。由于余等化子是等价的，因此可以得出$A/R \eqvsym A\sslash  R$。
 \end{proof}
 
-We finish this section by mentioning a possible third construction of the quotient of a set $A$ by an equivalence relation $R$.
-Consider the precategory with objects $A$ and hom-sets $R$; the type of objects of the Rezk completion
-\index{completion!Rezk}%
-(see \cref{sec:rezk}) of this precategory will then be the
-quotient. The reader is invited to check the details.
+我们通过提到商的第三种可能的构造来结束本节。考虑一个以$A$为对象的预范畴，其同态集为$R$；此预范畴的Rezk完成\index{完成!Rezk}（参见\cref{sec:rezk}）的对象类型将是该等价关系的商。读者可以检查详细信息。
 
-\index{effective!equivalence relation|)}%
-\index{relation!effective equivalence|)}%
-\index{set-quotient|)}%
+\index{有效!等价关系|)}%
+\index{关系!有效等价|)}%
+\index{集合商|)}%
 
-\subsection{\texorpdfstring{$\uset$}{Set} is a \texorpdfstring{$\Pi\mathsf{W}$}{ΠW}-pretopos}
+\subsection{\texorpdfstring{$\uset$}{Set}是一个\texorpdfstring{$\Pi\mathsf{W}$}{ΠW}-前拓扑范畴}
 \label{subsec:piw}
 
-\index{structural!set theory|(}%
+\index{结构化!集合论|(}%
 
-The notion of a \emph{$\Pi\mathsf{W}$-pretopos}
-\index{PiW-pretopos@$\Pi\mathsf{W}$-pretopos}%
-\indexsee{pretopos}{$\Pi\mathsf{W}$-pretopos}
---- that is, a locally cartesian closed category
-\index{locally cartesian closed category}%
-\index{category!locally cartesian closed}%
-with disjoint finite coproducts, effective equivalence relations, and initial algebras for polynomial endofunctors --- is intended as a ``predicative''
-\index{mathematics!predicative}%
-notion of topos, i.e.\ a category of ``predicative sets'', which can serve the purpose for constructive mathematics
-\index{mathematics!constructive}%
-that the usual category of sets does for classical
-\index{mathematics!classical}%
-mathematics.
+所谓的\emph{$\Pi\mathsf{W}$-前拓扑范畴} \index{PiW-pretopos@$\Pi\mathsf{W}$-pretopos}%
+\indexsee{前拓扑范畴}{$\Pi\mathsf{W}$-pretopos}是一种局部笛卡尔闭范畴
+\index{局部笛卡尔闭范畴(locally cartesian closed category)}%
+\index{范畴!局部笛卡尔闭(locally cartesian closed)}%
+具有不相交的有限上积，有效等价关系，以及多项式自函子的初始代数的范畴——这被认为是一种“预测性”的拓扑概念，即“预测性集合”的范畴，可用于构造数学
+\index{数学!构造性}%
+就像通常的集合范畴对于经典数学
+\index{数学!经典}%
+的用途一样。
 
-Typically, in constructive type theory, one resorts to an external construction of ``setoids'' --- an exact completion --- to obtain a category with such closure properties.
-\index{setoid}\index{completion!exact}%
-  In particular, the well-behaved quotients are required for many constructions in mathematics that usually involve (non-constructive) power sets.  It is noteworthy that univalent foundations provides these constructions \emph{internally} (via higher inductive types), without requiring such external constructions.  This represents a powerful advantage of our approach, as we shall see in subsequent examples.
+通常，在构造性类型论中，求助于“集合体”——一种精确补全——的外部构造来获得具有此类闭包性质的范畴。
+\index{集合体}\index{补全!精确}%
+特别是，良好行为的商在数学中通常涉及（非构造性）幂集的许多构造中是必需的。值得注意的是，统一基础通过更高归纳类型（higher inductive types）提供了这些内部构造，而无需此类外部构造。这代表了我们方法的强大优势，我们将在后续示例中看到。
 
 \begin{thm}
-  \index{PiW-pretopos@$\Pi\mathsf{W}$-pretopos}
-  The category $\uset$ is a $\Pi\mathsf{W}$-pretopos.
+\index{PiW-pretopos@$\Pi\mathsf{W}$-pretopos}
+范畴$\uset$是一个$\Pi\mathsf{W}$-前拓扑范畴。
 \end{thm}
 \begin{proof}
-  We have an initial object
-  \index{initial!set}%
-  $\emptyt$ and finite, disjoint sums $A+B$.  These are stable under pullback, simply because pullback has a right adjoint\index{adjoint!functor}.  Indeed, $\uset$ is locally cartesian closed, since for any map $f:A\to B$ between sets, the ``fibrant replacement'' \index{fibrant replacement} $\sm{a:A}f(a)=b$ is equivalent to $A$ (over $B$), and we have dependent function types for the replacement.
-We've just shown that $\uset$ is regular (\cref{thm:set_regular}) and that quotients are effective (\cref{lem:sets_exact}). We thus have a locally cartesian closed pretopos. Finally, since the $n$-types are closed under the formation of $W$-types by \cref{ex:ntypes-closed-under-wtypes}, and by \cref{thm:w-hinit} $W$-types are initial algebras for polynomial endofunctors, we see that $\uset$ is a $\Pi\mathsf{W}$-pretopos.
+我们有一个初始对象
+\index{初始!集合}%
+$\emptyt$和有限、不相交的上积$A+B$。这些在拉回时保持稳定，原因很简单，因为拉回有一个右伴随\index{伴随!函子}。事实上，$\uset$是局部笛卡尔闭的，因为对于集合之间的任何映射$f:A\to B$，使用“纤维化替换”\index{纤维化替换(fibrant replacement)}$\sm{a:A}f(a)=b$等价于$A$（在$B$上），并且我们有该替换的依赖函数类型。
+我们刚刚展示了$\uset$是正则的（\cref{thm:set_regular}），并且商是有效的（\cref{lem:sets_exact}）。因此，我们有一个局部笛卡尔闭前拓扑范畴。最后，由于$n$-类型在\cref{ex:ntypes-closed-under-wtypes}中通过多项式自函子的初始代数（\cref{thm:w-hinit}）构成，我们看到$\uset$是一个$\Pi\mathsf{W}$-前拓扑范畴。
 \end{proof}
 
-
-\index{topos|(}
-One naturally wonders what, if anything, prevents $\uset$ from being an (elementary) topos?
-In addition to the structure already mentioned, a topos has a
-\emph{subobject classifier}:
-\indexdef{subobject classifier}%
-\index{classifier!subobject}%
-\index{power set}%
-a pointed object classifying (equivalence classes of) monomorphisms\index{monomorphism}.  (In fact, in the presence of a subobject
-classifier, things become somewhat simpler: one merely needs cartesian closure in order to get the colimits.)
-In homotopy type theory, univalence implies that the type $\prop \defeq \sm{X:\UU}\isprop(X)$ does classify monomorphisms (by an argument similar to \cref{sec:object-classification}), but in general it is as large as the ambient universe $\UU$.
-Thus, it is a ``set'' in the sense of being a $0$-type, but it is not ``small'' in the sense of being an object of $\UU$, hence not an object of the category \uset.
-However, if we assume an appropriate form of propositional resizing (see \cref{subsec:prop-subsets}), then we can find a small version of $\prop$, so that \uset becomes an elementary topos.
+\index{拓扑|(}
+人们自然会想知道，有什么（如果有的话）阻止$\uset$成为一个（基本）拓扑？
+除了已经提到的结构，拓扑还具有一个\emph{子对象分类器}：
+\indexdef{子对象分类器(subobject classifier)}%
+\index{分类器!子对象(classifier!subobject)}%
+\index{幂集(power set)}%
+这是一个指示对象，用于分类（等价类的）单态射（monomorphisms）。实际上，在具有子对象分类器的情况下，事情变得稍微简单一些：仅需要笛卡尔闭包即可获得余积。
+在同伦类型论中，单值化公理表明，类型$\prop \defeq \sm{X:\UU}\isprop(X)$确实分类单态射（通过类似于\cref{sec:object-classification}的论证），但通常它与周围的宇宙$\UU$一样大。因此，它在某种意义上是一个“集合”，因为它是一个$0$-类型，但它不是“小的”，因为它不是$\UU$的对象，因此不是范畴$\uset$的对象。然而，如果我们假设一种适当形式的命题缩放（见\cref{subsec:prop-subsets}），那么我们可以找到$\prop$的一个小版本，使得$\uset$成为一个基本的拓扑范畴。
 
 \begin{thm}\label{thm:settopos}
-  \index{propositional!resizing}%
-  If there is a type $\Omega:\UU$ of all mere propositions, then the category $\uset_\UU$ is an elementary topos.
+\index{命题!缩放(propositional resizing)}%
+如果存在一个类型$\Omega:\UU$，包含所有简单命题，那么范畴$\uset_\UU$是一个基本拓扑范畴。
 \end{thm}
-\index{topos|)}
+\index{拓扑|)}
 
-A sufficient condition for this is the law of excluded middle, in the ``mere-propositional'' form that we have called \LEM{}; for then we have $\prop = \bool$, which \emph{is} small, and which then also classifies all mere propositions.
-Moreover, in topos theory a well-known sufficient condition for \LEM{} is the axiom of choice, which is of course often assumed as an axiom in classical\index{mathematics!classical} set theory.
-In the next section, we briefly investigate the relation between these conditions in our setting.
+一个足够的条件是排中律，在“简单命题”形式中，我们称之为 \LEM{}；因为在这种情况下，我们有 $\prop = \bool$，这是“小的”，并且可以分类所有的简单命题。此外，拓扑理论中一个众所周知的充分条件是选择公理，这是经典\index{数学!经典} 集合论中经常假设的公理。在下一节中，我们将简要探讨这些条件在我们环境下的关系。
 
-\index{structural!set theory|)}%
+\index{结构化!集合论|)}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The axiom of choice implies excluded middle}
+\subsection{选择公理蕴含排中律}
 \label{subsec:emacinsets}
 
-% In this section we prove a classic result that the axiom of choice implies excluded
-% middle.
-
-We begin with the following lemma.
+我们从以下引理开始。
 
 \begin{lem}\label{prop:trunc_of_prop_is_set}
-If $A$ is a mere proposition then its suspension $\susp(A)$ is a set,
-and $A$ is equivalent to $\id[\susp(A)]{\north}{\south}$.
+如果 $A$ 是一个简单命题，那么其悬挂 $\susp(A)$ 是一个集合，并且 $A$ 等价于 $\id[\susp(A)]{\north}{\south}$。
 \end{lem}
 
 \begin{proof}
-To show that $\susp(A)$ is a set, we define a
-family $P:\susp(A)\to\susp(A)\to\type$ with the
-property that $P(x,y)$ is a mere proposition for each $x,y:\susp(A)$,
-and which is equivalent to its identity type $\idtypevar{\susp(A)}$.
+为了证明 $\susp(A)$ 是一个集合，我们定义一个族 $P:\susp(A)\to\susp(A)\to\type$，使得对于每个 $x,y:\susp(A)$，$P(x,y)$ 是一个简单命题，并且它等价于 $\susp(A)$ 上的同一类型 $\idtypevar{\susp(A)}$。
 %
-We make the following definitions:
+我们做以下定义：
 \begin{align*}
 P(\north,\north) & \defeq \unit &
 P(\south,\north) & \defeq A\\
 P(\north,\south) & \defeq A &
-P(\south,\south) & \defeq \unit.
+P(\south,\south) & \defeq \unit。
 \end{align*}
-We have to check that the definition preserves paths.
-Given any $a : A$, there is a meridian $\merid(a) : \north = \south$,
-so we should also have
+我们需要检查定义是否保持路径。对于任何 $a : A$，有一个子午线 $\merid(a) : \north = \south$，因此我们应该有
 %
 \begin{equation*}
-  P(\north, \north) = P(\north, \south) = P(\south, \north) = P(\south, \south).
+P(\north, \north) = P(\north, \south) = P(\south, \north) = P(\south, \south)。
 \end{equation*}
 %
-But since $A$ is inhabited by $a$, it is equivalent to $\unit$, so we have
+但由于 $A$ 由 $a$ 占据，它等价于 $\unit$，因此我们有
 %
 \begin{equation*}
-  P(\north, \north) \eqvsym P(\north, \south) \eqvsym P(\south, \north) \eqvsym P(\south, \south).
+P(\north, \north) \eqvsym P(\north, \south) \eqvsym P(\south, \north) \eqvsym P(\south, \south)。
 \end{equation*}
 %
-The univalence axiom turns these into the desired equalities. Also, $P(x,y)$ is a mere
-proposition for all $x, y : \susp(A)$, which is proved by induction on $x$ and $y$, and
-using the fact that being a mere proposition is a mere proposition.
+单值化公理将这些转换为所需的相等性。此外，$P(x,y)$ 对于所有 $x, y : \susp(A)$ 是一个简单命题，这通过对 $x$ 和 $y$ 的归纳以及简单命题是一个简单命题这一事实来证明。
 
-Note that $P$ is a reflexive relation.
-Therefore we may apply \cref{thm:h-set-refrel-in-paths-sets}, so it suffices to
-construct $\tau : \prd{x,y:\susp(A)}P(x,y)\to(x=y)$. We do this by a double induction.
-When $x$ is $\north$, we define $\tau(\north)$ by
+注意，$P$ 是一个自反关系。因此，我们可以应用 \cref{thm:h-set-refrel-in-paths-sets}，因此只需构造 $\tau : \prd{x,y:\susp(A)}P(x,y)\to(x=y)$。我们通过双重归纳来实现。当 $x$ 是 $\north$ 时，我们定义 $\tau(\north)$ 为
 %
 \begin{equation*}
-  \tau(\north,\north,u) \defeq \refl{\north}
-  \qquad\text{and}\qquad
-  \tau(\north,\south,a) \defeq \merid(a).
+\tau(\north,\north,u) \defeq \refl{\north}
+\qquad\text{以及}\qquad
+\tau(\north,\south,a) \defeq \merid(a)。
 \end{equation*}
 %
-If $A$ is inhabited by $a$ then $\merid(a) : \north = \south$ so we also need
+如果 $A$ 由 $a$ 占据，那么 $\merid(a) : \north = \south$，因此我们还需要
 \narrowequation{
-  \trans{\merid(a)}{\tau(\north, \north)} = \tau(\north, \south).
+\trans{\merid(a)}{\tau(\north, \north)} = \tau(\north, \south)。
 }
-This we get by function extensionality using the fact that, for all $x : A$,
+通过函数外延性，我们使用以下事实来完成这一步：
 %
 \begin{multline*}
-  \trans{\merid(a)}{\tau(\north,\north,x)} =
-  \tau(\north,\north,x) \ct \opp{\merid(a)} \jdeq \\
-  \refl{\north} \ct \merid(a) =
-  \merid(a) =
-  \merid(x) \jdeq
-  \tau(\north, \south, x).
+\trans{\merid(a)}{\tau(\north,\north,x)} =
+\tau(\north,\north,x) \ct \opp{\merid(a)} \jdeq \\
+\refl{\north} \ct \merid(a) =
+\merid(a) =
+\merid(x) \jdeq
+\tau(\north, \south, x)。
 \end{multline*}
-In a symmetric fashion we may define $\tau(\south)$ by
+以对称的方式，我们可以通过以下方式定义 $\tau(\south)$：
 %
 \begin{equation*}
-  \tau(\south,\north, a) \defeq \opp{\merid(a)}
-  \qquad\text{and}\qquad
-  \tau(\south,\south, u) \defeq \refl{\south}.
+\tau(\south,\north, a) \defeq \opp{\merid(a)}
+\qquad\text{以及}\qquad
+\tau(\south,\south, u) \defeq \refl{\south}。
 \end{equation*}
 %
-To complete the construction of $\tau$, we need to check $\trans{\merid(a)}{\tau(\north)} = \tau(\south)$,
-given any $a : A$. The verification proceeds much along the same lines by induction on the
-second argument of $\tau$.
+为了完成 $\tau$ 的构造，我们需要检查 $\trans{\merid(a)}{\tau(\north)} = \tau(\south)$，对于任何 $a : A$。验证过程与上述类似，通过对 $\tau$ 的第二个参数的归纳来进行。
 
-Thus, by \cref{thm:h-set-refrel-in-paths-sets} we have that $\susp(A)$ is a set and that $P(x,y) \eqvsym (\id{x}{y})$ for all $x,y:\susp(A)$.
-Taking $x\defeq \north$ and $y\defeq \south$ yields $\eqv{A}{(\id[\susp(A)]\north\south)}$ as desired.
+因此，通过 \cref{thm:h-set-refrel-in-paths-sets} 我们得出 $\susp(A)$ 是一个集合，并且对于所有 $x,y:\susp(A)$ 有 $P(x,y) \eqvsym (\id{x}{y})$。取 $x\defeq \north$ 和 $y\defeq \south$ 即可得到所需的 $A \eqvsym (\id[\susp(A)]\north\south)$。
 \end{proof}
 
-\begin{thm}[Diaconescu]\label{thm:1surj_to_surj_to_pem}
-  \index{axiom!of choice}%
-  \index{excluded middle}%
-  \index{Diaconescu's theorem}\index{theorem!Diaconescu's}%
-  The axiom of choice implies the law of excluded middle.
+\begin{thm}[Diaconescu 定理]\label{thm:1surj_to_surj_to_pem}
+\index{选择公理(axiom of choice)}%
+\index{排中律(excluded middle)}%
+\index{Diaconescu's theorem(迪亚孔涅斯库定理)}\index{theorem!Diaconescu's(迪亚孔涅斯库定理)}%
+选择公理蕴含排中律。
 \end{thm}
 
 \begin{proof}
-We use the equivalent form of choice given in \cref{thm:ac-epis-split}.
-Consider a mere proposition $A$.
-The function $f:\bool\to\susp(A)$ defined by
-$f(\bfalse) \defeq \north$ and $f(\btrue) \defeq \south$
-is surjective.
-Indeed, we have
-$\pairr{\bfalse,\refl{\north}} : \hfiber{f}{\north}$
-and $\pairr{\btrue,\refl{\south}} :\hfiber{f}{\south}$.
-Since $\bbrck{\hfiber{f}{x}}$ is a mere proposition, by induction the claimed surjectivity follows.
+我们使用在 \cref{thm:ac-epis-split} 中给出的选择公理的等价形式。考虑一个简单命题 $A$。定义一个函数 $f:\bool\to\susp(A)$，其定义为 $f(\bfalse) \defeq \north$ 和 $f(\btrue) \defeq \south$。这个函数是满射的。实际上，我们有 $\pairr{\bfalse,\refl{\north}} : \hfiber{f}{\north}$ 和 $\pairr{\btrue,\refl{\south}} :\hfiber{f}{\south}$。由于 $\bbrck{\hfiber{f}{x}}$ 是一个简单命题，通过归纳法可以得出所需的满射性。
 
-By \cref{prop:trunc_of_prop_is_set} the suspension $\susp(A)$
-is a set, so by the axiom of choice there merely exists a
-section $g: \susp(A) \to \bool$ of $f$.
-As equality on $\bool$ is decidable we get
+根据 \cref{prop:trunc_of_prop_is_set}，悬挂 $\susp(A)$ 是一个集合，因此根据选择公理，存在一个从 $\susp(A)$ 到 $\bool$ 的截面 $g: \susp(A) \to \bool$。由于 $\bool$ 上的相等性是可判定的，我们得到
 \begin{equation*}
- (g(f(\bfalse))= g(f(\btrue))) +
- \lnot (g(f(\bfalse))= g(f(\btrue))),
+(g(f(\bfalse))= g(f(\btrue))) +
+\lnot (g(f(\bfalse))= g(f(\btrue))),
 \end{equation*}
-and, since $g$ is a section of $f$, hence injective,
+并且，由于 $g$ 是 $f$ 的一个截面，因此是单射，
 \begin{equation*}
 (f(\bfalse) = f(\btrue)) +
-\lnot (f(\bfalse) = f(\btrue)).
+\lnot (f(\bfalse) = f(\btrue))。
 \end{equation*}
-Finally, since $(f(\bfalse)=f(\btrue)) = (\north=\south) = A$ by \cref{prop:trunc_of_prop_is_set}, we have $A+\neg A$.
+最后，由于 $(f(\bfalse)=f(\btrue)) = (\north=\south) = A$ 根据 \cref{prop:trunc_of_prop_is_set}，我们有 $A+\neg A$。
 \end{proof}
 
 % This conclusion needs only \LEM{}, see \cref{ex:lemnm}.
@@ -663,21 +536,19 @@ Finally, since $(f(\bfalse)=f(\btrue)) = (\north=\south) = A$ by \cref{prop:trun
 %   is none other than an inhabitant of $A + \neg A$. Therefore $\brck{A+\neg A}$.
 % \end{proof}
 
-\index{denial}
+\index{denial(否定)}
 \begin{thm}\label{thm:ETCS}
-  \index{Elementary Theory of the Category of Sets}%
-  \index{category!well-pointed}%
-  If the axiom of choice holds then the category $\uset$ is a well-pointed boolean\index{topos!boolean}\index{boolean!topos} elementary topos\index{topos} with choice.
+\index{Elementary Theory of the Category of Sets(集合范畴的初等理论)}%
+\index{category!well-pointed(范畴!良好定点)}%
+如果选择公理成立，则类别 $\uset$ 是一个带选择的良好定点布尔初等拓扑。
 \end{thm}
 
 \begin{proof}
-  Since \choice{} implies \LEM{}, we have a boolean elementary topos with choice by \cref{thm:settopos} and the remark following it.  We leave the proof of well-pointedness as
-an exercise for the reader (\cref{ex:well-pointed}).
+由于 \choice{} 蕴含 \LEM{}，通过 \cref{thm:settopos} 以及后面的注释，我们可以得到一个带选择的布尔初等拓扑。我们将良好定点性的证明留给读者作为练习 (\cref{ex:well-pointed})。
 \end{proof}
 
 \begin{rmk}
-  The conditions on a category mentioned in the theorem are known as Lawvere's\index{Lawvere}
-  axioms for the \emph{Elementary Theory of the Category of Sets}~\cite{lawvere:etcs-long}.
+定理中提到的关于范畴的条件被称为 Lawvere 用于“集合范畴的初等理论”的公理~\cite{lawvere:etcs-long}。
 \end{rmk}
 
 \section{Cardinal numbers}
