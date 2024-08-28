@@ -551,297 +551,286 @@
 我们将在 \cref{cha:hlevels} 中对其进行推广。
 
 % \section{Fiberwise equivalences}
-
-\section{Closure properties of equivalences}
+\section{等价的闭包性质 (Closure properties of equivalences)}
 \label{sec:equiv-closures}
 \label{sec:fiberwise-equivalences}
 \index{equivalence!properties of}%
 
+我们已经在 \cref{thm:equiv-eqrel} 中看到，等价关系在复合下是封闭的。
+此外，我们还有：
 
-% We end this chapter by observing some important closure properties of equivalences.
-We have already seen in \cref{thm:equiv-eqrel} that equivalences are closed under composition.
-Furthermore, we have:
-
-\begin{thm}[The 2-out-of-3 property]\label{thm:two-out-of-three}
-  \index{2-out-of-3 property}%
-  Suppose $f:A\to B$ and $g:B\to C$.
-  If any two of $f$, $g$, and $g\circ f$ are equivalences, so is the third.
+\begin{thm}[三选二性质 (The 2-out-of-3 property)]\label{thm:two-out-of-three}
+\index{2-out-of-3 property}%
+假设 $f:A\to B$ 和 $g:B\to C$。
+如果 $f$、$g$ 和 $g\circ f$ 中的任意两个是等价的，那么第三个也是等价的。
 \end{thm}
 \begin{proof}
-  If $g\circ f$ and $g$ are equivalences, then $\opp{(g\circ f)} \circ g$ is a quasi-inverse to $f$.
-  On the one hand, we have $\opp{(g\circ f)} \circ g \circ f \htpy \idfunc[A]$, while on the other we have
+  如果 $g\circ f$ 和 $g$ 是等价的，那么 $\opp{(g\circ f)} \circ g$ 是 $f$ 的准逆 (quasi-inverse)。
+  一方面，我们有 $\opp{(g\circ f)} \circ g \circ f \htpy \idfunc[A]$，而另一方面我们有
   \begin{align*}
     f \circ \opp{(g\circ f)} \circ g
     &\htpy \opp g \circ g \circ f \circ \opp{(g\circ f)} \circ g\\
     &\htpy \opp g \circ g\\
     &\htpy \idfunc[B].
   \end{align*}
-  Similarly, if $g\circ f$ and $f$ are equivalences, then $f\circ \opp{(g\circ f)}$ is a quasi-inverse to $g$.
+  同样地，如果 $g\circ f$ 和 $f$ 是等价的，那么 $f\circ \opp{(g\circ f)}$ 是 $g$ 的准逆。
 \end{proof}
 
-This is a standard closure condition on equivalences from homotopy theory.
-Also well-known is that they are closed under retracts, in the following sense.
+这是同伦理论中关于等价的一个标准闭包条件。
+同样众所周知的是，它们在以下意义下对于再牵引 (retracts) 也是封闭的。
 
-\index{retract!of a function|(defstyle}%
+\index{retract!of a function|(defstyle)}%
 
 \begin{defn}\label{defn:retract}
-A function $g:A\to B$ is said to be a \define{retract}
-of a function $f:X\to Y$ if there is a diagram
+若有一个图
 \begin{equation*}
   \xymatrix{
-    {A} \ar[r]^{s} \ar[d]_{g}
+      {A} \ar[r]^{s} \ar[d]_{g}
     &
-    {X} \ar[r]^{r} \ar[d]_{f}
+      {X} \ar[r]^{r} \ar[d]_{f}
     &
-    {A} \ar[d]^{g}
+      {A} \ar[d]^{g}
     \\
     {B} \ar[r]_{s'}
     &
-    {Y} \ar[r]_{r'}
+      {Y} \ar[r]_{r'}
     &
-    {B}
+      {B}
   }
 \end{equation*}
-for which there are
+则称函数 $g:A\to B$ 是函数 $f:X\to Y$ 的 \define{再牵引 (retract)}，其中存在
 \begin{enumerate}
-\item a homotopy $R:r\circ s \htpy \idfunc[A]$.
-\item a homotopy $R':r'\circ s' \htpy\idfunc[B]$.
-\item a homotopy $L:f\circ s\htpy s'\circ g$.
-\item a homotopy $K:g\circ r\htpy r'\circ f$.
-\item for every $a:A$, a path $H(a)$ witnessing the commutativity of the square
-\begin{equation*}
-  \xymatrix@C=3pc{
-    {g(r(s(a)))} \ar@{=}[r]^-{K(s(a))} \ar@{=}[d]_{\ap g{R(a)}}
-    &
-    {r'(f(s(a)))} \ar@{=}[d]^{\ap{r'}{L(a)}}
-    \\
-    {g(a)} \ar@{=}[r]_-{\opp{R'(g(a))}}
-    &
-    {r'(s'(g(a)))}
-  }
-\end{equation*}
+  \item 一个同伦 $R:r\circ s \htpy \idfunc[A]$。
+  \item 一个同伦 $R':r'\circ s' \htpy\idfunc[B]$。
+  \item 一个同伦 $L:f\circ s\htpy s'\circ g$。
+  \item 一个同伦 $K:g\circ r\htpy r'\circ f$。
+  \item 对于每个 $a:A$，存在一个路径 $H(a)$ 见证下图的交换性
+  \begin{equation*}
+    \xymatrix@C=3pc{
+        {g(r(s(a)))} \ar@{=}[r]^-{K(s(a))} \ar@{=}[d]_{\ap g{R(a)}}
+      &
+        {r'(f(s(a)))} \ar@{=}[d]^{\ap{r'}{L(a)}}
+      \\
+      {g(a)} \ar@{=}[r]_-{\opp{R'(g(a))}}
+      &
+        {r'(s'(g(a)))}
+    }
+  \end{equation*}
 \end{enumerate}
 \end{defn}
 
-Recall that in \cref{sec:contractibility} we defined what it means for a type to be a retract of another.
-This is a special case of the above definition where $B$ and $Y$ are $\unit$.
-Conversely, just as with contractibility, retractions of maps induce retractions of their fibers.
+回顾一下，在 \cref{sec:contractibility} 中我们定义了类型如何成为另一类型的再牵引。
+这是上述定义的一个特例，其中 $B$ 和 $Y$ 是 $\unit$。
+相反，正如与可收缩性一样，映射的再牵引会诱导其纤维的再牵引。
 
 \begin{lem}\label{lem:func_retract_to_fiber_retract}
-If a function $g:A\to B$ is a retract of a function $f:X\to Y$, then $\hfib{g}b$ is a retract of $\hfib{f}{s'(b)}$
-for every $b:B$, where $s':B\to Y$ is as in \cref{defn:retract}.
+如果函数 $g:A\to B$ 是函数 $f:X\to Y$ 的再牵引，那么对于每个 $b:B$，$\hfib{g}b$ 是 $\hfib{f}{s'(b)}$ 的再牵引，其中 $s':B\to Y$ 如 \cref{defn:retract} 所述。
 \end{lem}
 
 \begin{proof}
-Suppose that $g:A\to B$ is a retract of $f:X\to Y$. Then for any $b:B$ we have the functions
-\begin{align*}
-\varphi_b &:\hfiber{g}b\to\hfib{f}{s'(b)}, &
-\varphi_b(a,p) & \defeq \pairr{s(a),L(a)\ct s'(p)},\\
-\psi_b &:\hfib{f}{s'(b)}\to\hfib{g}b, &
-\psi_b(x,q) &\defeq \pairr{r(x),K(x)\ct r'(q)\ct R'(b)}.
-\end{align*}
-Then we have $\psi_b(\varphi_b({a,p}))\equiv\pairr{r(s(a)),K(s(a))\ct r'(L(a)\ct s'(p))\ct R'(b)}$.
-We claim $\psi_b$ is a retraction with section $\varphi_b$ for all $b:B$, which is to say that for all $(a,p):\hfib g b$ we have $\psi_b(\varphi_b({a,p}))= \pairr{a,p}$.
-In other words, we want to show
-\begin{equation*}
-\prd{b:B}{a:A}{p:g(a)=b} \psi_b(\varphi_b({a,p}))= \pairr{a,p}.
-\end{equation*}
-By reordering the first two $\Pi$s and applying a version of \cref{thm:omit-contr}, this is equivalent to
-\begin{equation*}
-\prd{a:A}\psi_{g(a)}(\varphi_{g(a)}({a,\refl{g(a)}}))=\pairr{a,\refl{g(a)}}.
-\end{equation*}
-For any $a$, by \cref{thm:path-sigma}, this equality of pairs is equivalent to a pair of equalities. The first components are equal by $R(a):r(s(a))= a$, so we need only show
-\begin{equation*}
-\trans{R(a)}{K(s(a))\ct r'(L(a))\ct R'(g(a))} = \refl{g(a)}.
-\end{equation*}
-But this transportation computes as $\opp{g(R(a))}\ct K(s(a))\ct r'(L(a))\ct R'(g(a))$, so the required path is given by $H(a)$.
+  假设 $g:A\to B$ 是 $f:X\to Y$ 的再牵引。那么对于任何 $b:B$，我们有函数
+  \begin{align*}
+    \varphi_b &:\hfiber{g}b\to\hfib{f}{s'(b)}, &
+    \varphi_b(a,p) & \defeq \pairr{s(a),L(a)\ct s'(p)},\\
+    \psi_b &:\hfib{f}{s'(b)}\to\hfib{g}b, &
+    \psi_b(x,q) &\defeq \pairr{r(x),K(x)\ct r'(q)\ct R'(b)}.
+  \end{align*}
+  那么我们有 $\psi_b(\varphi_b({a,p}))\equiv\pairr{r(s(a)),K(s(a))\ct r'(L(a)\ct s'(p))\ct R'(b)}$。
+  我们声称 $\psi_b$ 是一个具有截面的再牵引 $\varphi_b$ 对于所有 $b:B$，也就是说，对于所有 $(a,p):\hfib g b$，我们有 $\psi_b(\varphi_b({a,p}))= \pairr{a,p}$。
+  换句话说，我们要证明
+  \begin{equation*}
+    \prd{b:B}{a:A}{p:g(a)=b} \psi_b(\varphi_b({a,p}))= \pairr{a,p}。
+  \end{equation*}
+  通过重新排列前两个 $\Pi$ 并应用 \cref{thm:omit-contr} 的一个版本，这等价于
+  \begin{equation*}
+    \prd{a:A}\psi_{g(a)}(\varphi_{g(a)}({a,\refl{g(a)}}))=\pairr{a,\refl{g(a)}}。
+  \end{equation*}
+  对于任何 $a$，根据 \cref{thm:path-sigma}，这个对偶对等价于一对等式。由于 $R(a):r(s(a))= a$，所以我们只需要证明
+  \begin{equation*}
+    \trans{R(a)}{K(s(a))\ct r'(L(a))\ct R'(g(a))} = \refl{g(a)}。
+  \end{equation*}
+  但这种变换计算为 $\opp{g(R(a))}\ct K(s(a))\ct r'(L(a))\ct R'(g(a))$，所以所需的路径由 $H(a)$ 给出。
 \end{proof}
 
 \begin{thm}\label{thm:retract-equiv}
-  If $g$ is a retract of an equivalence $f$, then $g$ is also an equivalence.
+如果 $g$ 是等价映射 $f$ 的再牵引，那么 $g$ 也是等价映射。
 \end{thm}
 \begin{proof}
-  By \cref{lem:func_retract_to_fiber_retract}, every fiber of $g$ is a retract of a fiber of $f$.
-  Thus, by \cref{thm:retract-contr}, if the latter are all contractible, so are the former.
+  根据 \cref{lem:func_retract_to_fiber_retract}，$g$ 的每个纤维都是 $f$ 的纤维的再牵引。
+  因此，根据 \cref{thm:retract-contr}，如果后者都是可收缩的，那么前者也是。
 \end{proof}
 
 \index{retract!of a function|)}%
 
 \index{fibration}%
 \index{total!space}%
-Finally, we show that fiberwise equivalences can be characterized in terms of equivalences of total spaces.
-To explain the terminology, recall from \cref{sec:fibrations} that a type family $P:A\to\type$ can be viewed as a fibration over $A$ with total space $\sm{x:A} P(x)$, the fibration being the projection $\proj1:\sm{x:A} P(x) \to A$.
-From this point of view, given two type families $P,Q:A\to\type$, we may refer to a function $f:\prd{x:A} (P(x)\to Q(x))$ as a \define{fiberwise map} or a \define{fiberwise transformation}.
+最后，我们展示了纤维等价性 (fiberwise equivalences) 可以通过全空间等价 (equivalences of total spaces) 来表征。
+为了解释这个术语，回顾 \cref{sec:fibrations}，其中类型族 $P:A\to\type$ 可以看作是 $A$ 上的一个纤维丛，其全空间为 $\sm{x:A} P(x)$，纤维丛的投影为 $\proj1:\sm{x:A} P(x) \to A$。
+从这个角度来看，给定两个类型族 $P,Q:A\to\type$，我们可以称函数 $f:\prd{x:A} (P(x)\to Q(x))$ 为 \define{纤维映射 (fiberwise map)} 或 \define{纤维变换 (fiberwise transformation)}。
 \indexsee{transformation!fiberwise}{fiberwise transformation}%
 \indexsee{function!fiberwise}{fiberwise transformation}%
 \index{fiberwise!transformation|(defstyle}%
 \indexsee{fiberwise!map}{fiberwise transformation}%
 \indexsee{map!fiberwise}{fiberwise transformation}
-Such a map induces a function on total spaces:
+这样的映射在全空间上诱导一个函数：
 
 \begin{defn}\label{defn:total-map}
-  Given type families $P,Q:A\to\type$ and a map $f:\prd{x:A} P(x)\to Q(x)$, we define
-  \begin{equation*}
-    \total f  \defeq \lam{w}\pairr{\proj{1}w,f(\proj{1}w,\proj{2}w)} : \sm{x:A}P(x)\to\sm{x:A}Q(x).
-  \end{equation*}
+给定类型族 $P,Q:A\to\type$ 和一个映射 $f:\prd{x:A} P(x)\to Q(x)$，我们定义
+\begin{equation*}
+  \total f  \defeq \lam{w}\pairr{\proj{1}w,f(\proj{1}w,\proj{2}w)} : \sm{x:A}P(x)\to\sm{x:A}Q(x)。
+\end{equation*}
 \end{defn}
 
 \begin{thm}\label{fibwise-fiber-total-fiber-equiv}
-Suppose that $f$ is a fiberwise transformation between families $P$ and
-$Q$ over a type $A$ and let $x:A$ and $v:Q(x)$. Then we have an equivalence
+假设 $f$ 是类型 $A$ 上族 $P$ 和 $Q$ 之间的一个纤维变换，并设 $x:A$ 和 $v:Q(x)$。那么我们有一个等价关系
 \begin{equation*}
-\eqv{\hfib{\total{f}}{\pairr{x,v}}}{\hfib{f(x)}{v}}.
+  \eqv{\hfib{\total{f}}{\pairr{x,v}}}{\hfib{f(x)}{v}}。
 \end{equation*}
 \end{thm}
 \begin{proof}
-  We calculate:
-\begin{align}
-  \hfib{\total{f}}{\pairr{x,v}}
-  & \jdeq \sm{w:\sm{x:A}P(x)}\pairr{\proj{1}w,f(\proj{1}w,\proj{2}w)}=\pairr{x,v}
-  \notag \\
-  & \eqv{}{} \sm{a:A}{u:P(a)}\pairr{a,f(a,u)}=\pairr{x,v}
-  \tag{by~\cref{ex:sigma-assoc}} \\
-  & \eqv{}{} \sm{a:A}{u:P(a)}{p:a=x}\trans{p}{f(a,u)}=v
-  \tag{by \cref{thm:path-sigma}} \\
-  & \eqv{}{} \sm{a:A}{p:a=x}{u:P(a)}\trans{p}{f(a,u)}=v
-  \notag \\
-  & \eqv{}{} \sm{u:P(x)}f(x,u)=v
-  \tag{$*$}\label{eq:uses-sum-over-paths} \\
-  & \jdeq \hfib{f(x)}{v}. \notag
-\end{align}
-The equivalence~\eqref{eq:uses-sum-over-paths} follows from \cref{thm:omit-contr,thm:contr-paths,ex:sigma-assoc}.
+  我们计算如下：
+  \begin{align}
+    \hfib{\total{f}}{\pairr{x,v}}
+    & \jdeq \sm{w:\sm{x:A}P(x)}\pairr{\proj{1}w,f(\proj{1}w,\proj{2}w)}=\pairr{x,v}。
+    \notag \\
+    & \eqv{}{} \sm{a:A}{u:P(a)}\pairr{a,f(a,u)}=\pairr{x,v}。
+    \tag{by~\cref{ex:sigma-assoc}} \\
+    & \eqv{}{} \sm{a:A}{u:P(a)}{p:a=x}\trans{p}{f(a,u)}=v。
+    \tag{by \cref{thm:path-sigma}} \\
+    & \eqv{}{} \sm{a:A}{p:a=x}{u:P(a)}\trans{p}{f(a,u)}=v。
+    \notag \\
+    & \eqv{}{} \sm{u:P(x)}f(x,u)=v。
+    \tag{$*$}\label{eq:uses-sum-over-paths} \\
+    & \jdeq \hfib{f(x)}{v}。 \notag
+  \end{align}
+  等式~\eqref{eq:uses-sum-over-paths} 由 \cref{thm:omit-contr,thm:contr-paths,ex:sigma-assoc} 得出。
 \end{proof}
 
-We say that a fiberwise transformation $f:\prd{x:A} P(x)\to Q(x)$ is a \define{fiberwise equivalence}%
+我们称纤维变换 $f:\prd{x:A} P(x)\to Q(x)$ 为 \define{纤维等价 (fiberwise equivalence)}%
 \indexdef{fiberwise!equivalence}%
-\indexdef{equivalence!fiberwise}
-if each $f(x):P(x) \to Q(x)$ is an equivalence.
+\indexdef{equivalence!fiberwise}%
+如果每个 $f(x):P(x) \to Q(x)$ 是一个等价。
 
 \begin{thm}\label{thm:total-fiber-equiv}
-Suppose that $f$ is a fiberwise transformation between families
-$P$ and $Q$ over a type $A$.
-Then $f$ is a fiberwise equivalence if and only if $\total{f}$ is an equivalence.
+假设 $f$ 是类型 $A$ 上族 $P$ 和 $Q$ 之间的一个纤维变换。
+则 $f$ 是纤维等价当且仅当 $\total{f}$ 是等价映射。
 \end{thm}
 
 \begin{proof}
-Let $f$, $P$, $Q$ and $A$ be as in the statement of the theorem.
-By \cref{fibwise-fiber-total-fiber-equiv} it follows for all
-$x:A$ and $v:Q(x)$ that
-$\hfib{\total{f}}{\pairr{x,v}}$ is contractible if and only if
-$\hfib{f(x)}{v}$ is contractible.
-Thus, $\hfib{\total{f}}{w}$ is contractible for all $w:\sm{x:A}Q(x)$ if and only if $\hfib{f(x)}{v}$ is contractible for all $x:A$ and $v:Q(x)$.
+  设 $f$、$P$、$Q$ 和 $A$ 如定理所述。
+  根据 \cref{fibwise-fiber-total-fiber-equiv}，对所有 $x:A$ 和 $v:Q(x)$，$\hfib{\total{f}}{\pairr{x,v}}$ 可收缩当且仅当 $\hfib{f(x)}{v}$ 可收缩。
+  因此，$\hfib{\total{f}}{w}$ 对所有 $w:\sm{x:A}Q(x)$ 可收缩当且仅当 $\hfib{f(x)}{v}$ 对所有 $x:A$ 和 $v:Q(x)$ 可收缩。
 \end{proof}
 
 \index{fiberwise!transformation|)}%
 
-
-\section{The object classifier}
+\section{对象分类器 (The object classifier)}
 \label{sec:object-classification}
 
-In type theory we have a basic notion of \emph{family of types}, namely a function $B:A\to\type$.
-We have seen that such families behave somewhat like \emph{fibrations} in homotopy theory, with the fibration being the projection $\proj1:\sm{a:A} B(a) \to A$.
-A basic fact in homotopy theory is that every map is equivalent to a fibration.
-With univalence at our disposal, we can prove the same thing in type theory.
+在类型论中，我们有一个基本的“类型族”的概念，即函数 $B:A\to\type$。
+我们已经看到，这样的族在某种程度上类似于同伦理论中的纤维丛 (fibration)，纤维丛为投影 $\proj1:\sm{a:A} B(a) \to A$。
+同伦理论中的一个基本事实是每个映射都等价于一个纤维丛。
+借助单值化 (univalence)，我们可以在类型论中证明同样的事情。
 
 \begin{lem}\label{thm:fiber-of-a-fibration}
-  For any type family $B:A\to\type$, the fiber of $\proj1:\sm{x:A} B(x) \to A$ over $a:A$ is equivalent to $B(a)$:
-  \[ \eqv{\hfib{\proj1}{a}}{B(a)} \]
+对于任意类型族 $B:A\to\type$，$\proj1:\sm{x:A} B(x) \to A$ 在 $a:A$ 处的纤维等价于 $B(a)$：
+\[ \eqv{\hfib{\proj1}{a}}{B(a)} \]
 \end{lem}
 \begin{proof}
-  We have
+  我们有
   \begin{align*}
     \hfib{\proj1}{a} &\defeq \sm{u:\sm{x:A} B(x)} \proj1(u)=a\\
     &\eqvsym \sm{x:A}{b:B(x)} (x=a)\\
     &\eqvsym \sm{x:A}{p:x=a} B(x)\\
     &\eqvsym B(a)
   \end{align*}
-  using the left universal property of identity types.
+  使用恒等类型的左泛性质 (left universal property)。
 \end{proof}
 
 \begin{lem}\label{thm:total-space-of-the-fibers}
-  For any function $f:A\to B$, we have $\eqv{A}{\sm{b:B}\hfib{f}{b}}$.
+对于任意函数 $f:A\to B$，我们有 $\eqv{A}{\sm{b:B}\hfib{f}{b}}$。
 \end{lem}
 \begin{proof}
-  We have
+  我们有
   \begin{align*}
     \sm{b:B}\hfib{f}{b} &\defeq \sm{b:B}{a:A} (f(a)=b)\\
     &\eqvsym \sm{a:A}{b:B} (f(a)=b)\\
     &\eqvsym A
   \end{align*}
-  using the fact that $\sm{b:B} (f(a)=b)$ is contractible.
+  利用 $\sm{b:B} (f(a)=b)$ 是可收缩的事实。
 \end{proof}
 
 \begin{thm}\label{thm:nobject-classifier-appetizer}
-For any type $B$ there is an equivalence
+对于任意类型 $B$，存在一个等价
 \begin{equation*}
-\chi:\Parens{\sm{A:\type} (A\to B)}\eqvsym (B\to\type).
+  \chi:\Parens{\sm{A:\type} (A\to B)}\eqvsym (B\to\type)。
 \end{equation*}
 \end{thm}
 \begin{proof}
-We have to construct quasi-inverses
-\begin{align*}
-\chi & : \Parens{\sm{A:\type} (A\to B)}\to B\to\type\\
-\psi & : (B\to\type)\to\Parens{\sm{A:\type} (A\to B)}.
-\end{align*}
-We define $\chi$ by $\chi((A,f),b)\defeq\hfiber{f}b$, and $\psi$ by $\psi(P)\defeq\Pairr{(\sm{b:B} P(b)),\proj1}$.
-Now we have to verify that $\chi\circ\psi\htpy\idfunc{}$ and that $\psi\circ\chi \htpy\idfunc{}$.
-\begin{enumerate}
-\item Let $P:B\to\type$.
-  By \cref{thm:fiber-of-a-fibration},
-$\hfiber{\proj1}{b}\eqvsym P(b)$ for any $b:B$, so it follows immediately
-that $P\htpy\chi(\psi(P))$.
-\item Let $f:A\to B$ be a function. We have to find a path
-\begin{equation*}
-\Pairr{\tsm{b:B} \hfiber{f}b,\,\proj1}=\pairr{A,f}.
-\end{equation*}
-First note that by \cref{thm:total-space-of-the-fibers}, we have
-$e:\sm{b:B} \hfiber{f}b\eqvsym A$ with $e(b,a,p)\defeq a$ and $e^{-1}(a)
-\defeq(f(a),a,\refl{f(a)})$.
-By \cref{thm:path-sigma}, it remains to show $\trans{(\ua(e))}{\proj1} = f$.
-But by the computation rule for univalence and~\eqref{eq:transport-arrow}, we have $\trans{(\ua(e))}{\proj1} = \proj1\circ e^{-1}$, and the definition of $e^{-1}$ immediately yields $\proj1 \circ e^{-1} \jdeq f$.\qedhere
-\end{enumerate}
+  我们需要构造准逆
+  \begin{align*}
+    \chi & : \Parens{\sm{A:\type} (A\to B)}\to B\to\type\\
+    \psi & : (B\to\type)\to\Parens{\sm{A:\type} (A\to B)}。
+  \end{align*}
+  我们定义 $\chi$ 为 $\chi((A,f),b)\defeq\hfiber{f}b$，定义 $\psi$ 为 $\psi(P)\defeq\Pairr{(\sm{b:B} P(b)),\proj1}$。
+  现在我们需要验证 $\chi\circ\psi\htpy\idfunc{}$ 和 $\psi\circ\chi \htpy\idfunc{}$。
+  \begin{enumerate}
+    \item 设 $P:B\to\type$。
+    通过 \cref{thm:fiber-of-a-fibration}，
+    $\hfiber{\proj1}{b}\eqvsym P(b)$ 对于任意 $b:B$，所以这立即得出
+    $P\htpy\chi(\psi(P))$。
+    \item 设 $f:A\to B$ 是一个函数。我们需要找到一个路径
+    \begin{equation*}
+      \Pairr{\tsm{b:B} \hfiber{f}b,\,\proj1}=\pairr{A,f}。
+    \end{equation*}
+    首先注意到，通过 \cref{thm:total-space-of-the-fibers}，我们有
+    $e:\sm{b:B} \hfiber{f}b\eqvsym A$，定义为 $e(b,a,p)\defeq a$ 和 $e^{-1}(a)
+    \defeq(f(a),a,\refl{f(a)})$。
+    根据 \cref{thm:path-sigma}，剩下的部分是要证明 $\trans{(\ua(e))}{\proj1} = f$。
+    但通过单值化的计算规则和~\eqref{eq:transport-arrow}，我们有 $\trans{(\ua(e))}{\proj1} = \proj1\circ e^{-1}$，并且 $e^{-1}$ 的定义立即得出 $\proj1 \circ e^{-1} \jdeq f$。\qedhere
+  \end{enumerate}
 \end{proof}
 
 \noindent
 \indexdef{object!classifier}%
 \indexdef{classifier!object}%
 \index{.infinity1-topos@$(\infty,1)$-topos}%
-In particular, this implies that we have an \emph{object classifier} in the sense of higher topos theory.
-Recall from \cref{def:pointedtype} that $\pointed\type$ denotes the type $\sm{A:\type} A$ of pointed types.
+特别地，这意味着我们在更高拓扑论 (higher topos theory) 的意义上有一个对象分类器 (object classifier)。
+回顾 \cref{def:pointedtype} 中 $\pointed\type$ 表示带指点类型的类型 $\sm{A:\type} A$。
 
 \begin{thm}\label{thm:object-classifier}
-Let $f:A\to B$ be a function. Then the diagram
+设 $f:A\to B$ 是一个函数。则图
 \begin{equation*}
   \vcenter{\xymatrix{
-      A\ar[r]^-{\vartheta_f} \ar[d]_{f} &
-      \pointed{\type}\ar[d]^{\proj1}\\
-      B\ar[r]_{\chi_f} &
-      \type
-      }}
+    A\ar[r]^-{\vartheta_f} \ar[d]_{f} &
+    \pointed{\type}\ar[d]^{\proj1}\\
+    B\ar[r]_{\chi_f} &
+    \type
+  }}
 \end{equation*}
-is a pullback\index{pullback} square (see \cref{ex:pullback}).
-Here the function $\vartheta_f$ is defined by
+是一个拉回方块 (pullback square)（见 \cref{ex:pullback}）。
+其中函数 $\vartheta_f$ 定义为
 \begin{equation*}
- \lam{a} \pairr{\hfiber{f}{f(a)},\pairr{a,\refl{f(a)}}}.
+  \lam{a} \pairr{\hfiber{f}{f(a)},\pairr{a,\refl{f(a)}}}。
 \end{equation*}
 \end{thm}
 \begin{proof}
-Note that we have the equivalences
-\begin{align*}
-A & \eqvsym \sm{b:B} \hfiber{f}b\\
-& \eqvsym \sm{b:B}{X:\type}{p:\hfiber{f}b= X} X\\
-& \eqvsym \sm{b:B}{X:\type}{x:X} \hfiber{f}b= X\\
-& \eqvsym \sm{b:B}{Y:\pointed{\type}} \hfiber{f}b = \proj1 Y\\
-& \jdeq B\times_{\type}\pointed{\type}
-\end{align*}
-which gives us a composite equivalence $e:A\eqvsym B\times_\type\pointed{\type}$.
-We may display the action of this composite equivalence step by step by
-\begin{align*}
-a & \mapsto \pairr{f(a),\; \pairr{a,\refl{f(a)}}}\\
-& \mapsto \pairr{f(a), \; \hfiber{f}{f(a)}, \; \refl{\hfiber{f}{f(a)}}, \; \pairr{a,\refl{f(a)}}}\\
-& \mapsto \pairr{f(a), \; \hfiber{f}{f(a)}, \; \pairr{a,\refl{f(a)}}, \; \refl{\hfiber{f}{f(a)}}}.
-\end{align*}
-Therefore, we get homotopies $f\htpy\proj1\circ e$ and $\vartheta_f\htpy \proj2\circ e$.
+  注意我们有等价关系
+  \begin{align*}
+    A & \eqvsym \sm{b:B} \hfiber{f}b\\
+    & \eqvsym \sm{b:B}{X:\type}{p:\hfiber{f}b= X} X\\
+    & \eqvsym \sm{b:B}{X:\type}{x:X} \hfiber{f}b= X\\
+    & \eqvsym \sm{b:B}{Y:\pointed{\type}} \hfiber{f}b = \proj1 Y\\
+    & \jdeq B\times_{\type}\pointed{\type}
+  \end{align*}
+  这给我们一个复合等价 $e:A\eqvsym B\times_\type\pointed{\type}$。
+  我们可以通过以下步骤逐步显示这个复合等价的操作：
+  \begin{align*}
+    a & \mapsto \pairr{f(a),\; \pairr{a,\refl{f(a)}}}\\
+    & \mapsto \pairr{f(a), \; \hfiber{f}{f(a)}, \; \refl{\hfiber{f}{f(a)}}, \; \pairr{a,\refl{f(a)}}}\\
+    & \mapsto \pairr{f(a), \; \hfiber{f}{f(a)}, \; \pairr{a,\refl{f(a)}}, \; \refl{\hfiber{f}{f(a)}}}。
+  \end{align*}
+  因此，我们得到同伦 $f\htpy\proj1\circ e$ 和 $\vartheta_f\htpy \proj2\circ e$。
 \end{proof}
 
 
