@@ -254,237 +254,216 @@ Rezk 完成还进一步阐明了范畴等价的概念。
 
 我们还将在 \crefrange{sec:strict-categories}{sec:dagger-categories} 中看到，在稍微异质的背景下，某些类型的预范畴除了范畴之外还有其他用途，每种预范畴以不同的方式“修复”对象的等同性。
 这进一步强调了预范畴的“预”性：它们是从中可以定义多种重要范畴结构的原材料。
-
-\section{Functors and transformations}
+\section{函子与变换 (Functors and transformations)}
 \label{sec:transfors}
 
-The following definitions are fairly obvious, and need no modification.
+以下定义非常明显，无需修改。
 
 \begin{defn}\label{ct:functor}
-  Let $A$ and $B$ be precategories.
-  A \define{functor}
-  \indexdef{functor}%
-  $F:A\to B$ consists of
-  \begin{enumerate}
-  \item A function $F_0:A_0\to B_0$, generally also denoted $F$.
-  \item For each $a,b:A$, a function $F_{a,b}:\hom_A(a,b) \to \hom_B(Fa,Fb)$, generally also denoted $F$.
-  \item For each $a:A$, we have $\id{F(1_a)}{1_{Fa}}$.
-  \item For each $a,b,c:A$ and $f:\hom_A(a,b)$ and $g:\hom_A(b,c)$, we have
-    \[\id{F(g\circ f)}{Fg\circ Ff}.\]\label{ct:functor:comp}
-  \end{enumerate}
+设 $A$ 和 $B$ 是前范畴 (precategories)。
+一个\define{函子 (functor)} $F:A\to B$ 由以下部分组成：
+\begin{enumerate}
+  \item 一个函数 $F_0:A_0\to B_0$，通常也记作 $F$。
+  \item 对每个 $a,b:A$，一个函数 $F_{a,b}:\hom_A(a,b) \to \hom_B(Fa,Fb)$，通常也记作 $F$。
+  \item 对每个 $a:A$，我们有 $\id{F(1_a)}{1_{Fa}}$。
+  \item 对每个 $a,b,c:A$ 以及 $f:\hom_A(a,b)$ 和 $g:\hom_A(b,c)$，我们有
+  \[\id{F(g\circ f)}{Fg\circ Ff}。\]\label{ct:functor:comp}
+\end{enumerate}
 \end{defn}
 
-Note that by induction on identity, a functor also preserves \idtoiso.
+注意，通过同一性归纳 (induction on identity)，函子还保持 $\idtoiso$。
 
 \begin{defn}\label{ct:nattrans}
-  For functors $F,G:A\to B$, a \define{natural transformation}
-  \indexdef{natural!transformation}%
-  \indexsee{transformation!natural}{natural transformation}%
-  $\gamma:F\to G$ consists of
-  \begin{enumerate}
-  \item For each $a:A$, a morphism $\gamma_a:\hom_B(Fa,Ga)$ (the ``components'').
-  \item For each $a,b:A$ and $f:\hom_A(a,b)$, we have $\id{Gf\circ \gamma_a}{\gamma_b\circ Ff}$ (the ``naturality axiom'').
-  \end{enumerate}
+对于函子 $F,G:A\to B$，一个\define{自然变换 (natural transformation)} $\gamma:F\to G$ 由以下部分组成：
+\begin{enumerate}
+  \item 对每个 $a:A$，一个态射 $\gamma_a:\hom_B(Fa,Ga)$ (称为“分量”)。
+  \item 对每个 $a,b:A$ 和 $f:\hom_A(a,b)$，我们有 $\id{Gf\circ \gamma_a}{\gamma_b\circ Ff}$ (称为“自然性公理”)。
+\end{enumerate}
 \end{defn}
 
-Since each type $\hom_B(Fa,Gb)$ is a set, its identity type is a mere proposition.
-Thus, the naturality axiom is a mere proposition, so identity of natural transformations is determined by identity of their components.
-In particular, for any $F$ and $G$, the type of natural transformations from $F$ to $G$ is again a set.
+由于每个类型 $\hom_B(Fa,Gb)$ 是一个集合，因此它的同一性类型 (identity type) 是一个纯命题 (mere proposition)。
+因此，自然性公理是一个纯命题，所以自然变换的同一性由它们的分量的同一性决定。
+特别地，对于任意 $F$ 和 $G$，从 $F$ 到 $G$ 的自然变换的类型也是一个集合。
 
-Similarly, identity of functors is determined by identity of the functions $A_0\to B_0$ and (transported along this) of the corresponding functions on hom-sets.
+同样，函子的同一性由函数 $A_0\to B_0$ 的同一性（以及在此基础上运输的同源集合上的相应函数）决定。
 
 \begin{defn}\label{ct:functor-precat}
-  \indexdef{precategory!of functors}%
-  For precategories $A,B$, there is a precategory $B^A$, called the \define{functor precategory}, defined by
-  \begin{itemize}
-  \item $(B^A)_0$ is the type of functors from $A$ to $B$.
-  \item $\hom_{B^A}(F,G)$ is the type of natural transformations from $F$ to $G$.
-  \end{itemize}
+对于前范畴 $A,B$，存在一个称为\define{函子前范畴 (functor precategory)} 的前范畴 $B^A$，其定义如下：
+\begin{itemize}
+  \item $(B^A)_0$ 是从 $A$ 到 $B$ 的函子的类型。
+  \item $\hom_{B^A}(F,G)$ 是从 $F$ 到 $G$ 的自然变换的类型。
+\end{itemize}
 \end{defn}
 \begin{proof}
-  We define $(1_F)_a\defeq 1_{Fa}$.
-  Naturality follows by the unit axioms of a precategory.
-  For $\gamma:F\to G$ and $\delta:G\to H$, we define $(\delta\circ\gamma)_a\defeq \delta_a\circ \gamma_a$.
-  Naturality follows by associativity.
-  Similarly, the unit and associativity laws for $B^A$ follow from those for $B$.
+  我们定义 $(1_F)_a\defeq 1_{Fa}$。
+  自然性遵循前范畴的单位公理。
+  对于 $\gamma:F\to G$ 和 $\delta:G\to H$，我们定义 $(\delta\circ\gamma)_a\defeq \delta_a\circ \gamma_a$。
+  自然性遵循结合性。
+  同样，$B^A$ 的单位和结合性公理也遵循 $B$ 的单位和结合性公理。
 \end{proof}
 
 \begin{lem}\label{ct:natiso}
-  \index{natural!isomorphism}%
-  \index{isomorphism!natural}%
-  A natural transformation $\gamma:F\to G$ is an isomorphism in $B^A$ if and only if each $\gamma_a$ is an isomorphism in $B$.
+一个自然变换 $\gamma:F\to G$ 如果且仅如果每个 $\gamma_a$ 在 $B$ 中是一个同构，那么它在 $B^A$ 中是一个同构。
 \end{lem}
 \begin{proof}
-  If $\gamma$ is an isomorphism, then we have $\delta:G\to F$ that is its inverse.
-  By definition of composition in $B^A$, $(\delta\gamma)_a\jdeq \delta_a\gamma_a$ and similarly $(\gamma\delta)_a\jdeq \gamma_a\delta_a$.
-  Thus, $\id{\delta\gamma}{1_F}$ and $\id{\gamma\delta}{1_G}$ imply $\id{\delta_a\gamma_a}{1_{Fa}}$ and $\id{\gamma_a\delta_a}{1_{Ga}}$, so $\gamma_a$ is an isomorphism.
+  如果 $\gamma$ 是一个同构，那么我们有 $\delta:G\to F$ 作为它的逆变换。
+  根据在 $B^A$ 中的合成定义，$(\delta\gamma)_a\jdeq \delta_a\gamma_a$，同样地 $(\gamma\delta)_a\jdeq \gamma_a\delta_a$。
+  因此，$\id{\delta\gamma}{1_F}$ 和 $\id{\gamma\delta}{1_G}$ 意味着 $\id{\delta_a\gamma_a}{1_{Fa}}$ 和 $\id{\gamma_a\delta_a}{1_{Ga}}$，因此 $\gamma_a$ 是一个同构。
 
-  Conversely, suppose each $\gamma_a$ is an isomorphism, with inverse called $\delta_a$, say.
-We define a natural transformation $\delta:G\to F$ with components $\delta_a$; for the naturality axiom we have
+  反过来，假设每个 $\gamma_a$ 是一个同构，设它的逆为 $\delta_a$。
+  我们定义一个自然变换 $\delta:G\to F$，其分量为 $\delta_a$；对于自然性公理，我们有
   \[ Ff\circ \delta_a = \delta_b\circ \gamma_b\circ Ff \circ \delta_a = \delta_b\circ Gf\circ \gamma_a\circ \delta_a = \delta_b\circ Gf. \]
-  Now since composition and identity of natural transformations is determined on their components, we have $\id{\gamma\delta}{1_G}$ and $\id{\delta\gamma}{1_F}$.
+  现在，由于自然变换的合成和同一性是由它们的分量决定的，我们有 $\id{\gamma\delta}{1_G}$ 和 $\id{\delta\gamma}{1_F}$。
 \end{proof}
 
-The following result is fundamental.
+以下结果是基础性的。
 
 \begin{thm}\label{ct:functor-cat}
-  \indexdef{category!of functors}%
-  \indexdef{functor!category of}%
-  If $A$ is a precategory and $B$ is a category, then $B^A$ is a category.
+如果 $A$ 是一个前范畴而 $B$ 是一个范畴 (category)，那么 $B^A$ 是一个范畴。
 \end{thm}
 \begin{proof}
-  Let $F,G:A\to B$; we must show that $\idtoiso:(\id{F}{G}) \to (F\cong G)$ is an equivalence.
+  令 $F,G:A\to B$；我们必须证明 $\idtoiso:(\id{F}{G}) \to (F\cong G)$ 是一个等价。
 
-  To give an inverse to it, suppose $\gamma:F\cong G$ is a natural isomorphism.
-  Then for any $a:A$, we have an isomorphism $\gamma_a:Fa \cong Ga$, hence an identity $\isotoid(\gamma_a):\id{Fa}{Ga}$.
-  By function extensionality, we have an identity $\bar{\gamma}:\id[(A_0\to B_0)]{F_0}{G_0}$.
+  为了给它一个逆，我们假设 $\gamma:F\cong G$ 是一个自然同构。
+  然后对于任意 $a:A$，我们有一个同构 $\gamma_a:Fa \cong Ga$，因此一个同一性 $\isotoid(\gamma_a):\id{Fa}{Ga}$。
+  通过函数扩展性 (function extensionality)，我们有一个同一性 $\bar{\gamma}:\id[(A_0\to B_0)]{F_0}{G_0}$。
 
-  Now since the last two axioms of a functor are mere propositions, to show that $\id{F}{G}$ it will suffice to show that for any $a,b:A$, the functions
+  现在，由于函子的最后两个公理是纯命题，为了证明 $\id{F}{G}$，我们只需证明对于任意 $a,b:A$，函数
   \begin{align*}
-    F_{a,b}&:\hom_A(a,b) \to \hom_B(Fa,Fb)\mathrlap{\qquad\text{and}}\\
+    F_{a,b}&:\hom_A(a,b) \to \hom_B(Fa,Fb)\mathrlap{\qquad\text{和}}\\
     G_{a,b}&:\hom_A(a,b) \to \hom_B(Ga,Gb)
   \end{align*}
-  become equal when transported along $\bar\gamma$.
-  By computation for function extensionality, when applied to $a$, $\bar\gamma$ becomes equal to $\isotoid(\gamma_a)$.
-  But by \cref{ct:idtoiso-trans}, transporting $Ff:\hom_B(Fa,Fb)$ along $\isotoid(\gamma_a)$ and $\isotoid(\gamma_b)$ is equal to the composite $\gamma_b\circ Ff\circ \inv{(\gamma_a)}$, which by naturality of $\gamma$ is equal to $Gf$.
+  在沿着 $\bar\gamma$ 运输时变得相等。
+  通过函数扩展性的计算，当应用于 $a$ 时，$\bar\gamma$ 变得等于 $\isotoid(\gamma_a)$。
+  但通过 \cref{ct:idtoiso-trans}，沿 $\isotoid(\gamma_a)$ 和 $\isotoid(\gamma_b)$ 运输 $Ff:\hom_B(Fa,Fb)$ 等于复合 $\gamma_b\circ Ff\circ \inv{(\gamma_a)}$，这通过 $\gamma$ 的自然性等于 $Gf$。
 
-  This completes the definition of a function $(F\cong G) \to (\id F G)$.
-  Now consider the composite
+  这完成了从 $(F\cong G) \to (\id F G)$ 的函数的定义。
+  现在考虑复合
   \[ (\id F G) \to (F\cong G) \to (\id F G). \]
-  Since hom-sets are sets, their identity types are mere propositions, so to show that two identities $p,q:\id F G$ are equal, it suffices to show that $\id[\id{F_0}{G_0}]{p}{q}$.
-  But in the definition of $\bar\gamma$, if $\gamma$ were of the form $\idtoiso(p)$, then $\gamma_a$ would be equal to $\idtoiso(p_a)$ (this can easily be proved by induction on $p$).
-  Thus, $\isotoid(\gamma_a)$ would be equal to $p_a$, and so by function extensionality we would have $\id{\bar\gamma}{p}$, which is what we need.
+  由于同源集 (hom-sets) 是集合，它们的同一性类型是纯命题，因此为了证明两个同一性 $p,q:\id F G$ 是相等的，只需证明 $\id[\id{F_0}{G_0}]{p}{q}$。
+  但在 $\bar\gamma$ 的定义中，如果 $\gamma$ 是 $\idtoiso(p)$ 的形式，那么 $\gamma_a$ 将等于 $\idtoiso(p_a)$（这可以通过对 $p$ 归纳轻松证明）。
+  因此，$\isotoid(\gamma_a)$ 将等于 $p_a$，所以通过函数扩展性，我们将有 $\id{\bar\gamma}{p}$，这正是我们需要的。
 
-  Finally, consider the composite
+  最后，考虑复合
   \[(F\cong G)\to  (\id F G) \to (F\cong G). \]
-  Since identity of natural transformations can be tested componentwise, it suffices to show that for each $a$ we have $\id{\idtoiso(\bar\gamma)_a}{\gamma_a}$.
-  But as observed above, we have $\id{\idtoiso(\bar\gamma)_a}{\idtoiso((\bar\gamma)_a)}$, while $\id{(\bar\gamma)_a}{\isotoid(\gamma_a)}$ by computation for function extensionality.
-  Since $\isotoid$ and $\idtoiso$ are inverses, we have $\id{\idtoiso(\bar\gamma)_a}{\gamma_a}$ as desired.
+  由于自然变换的同一性可以通过分量来测试，只需证明对于每个 $a$，我们有 $\id{\idtoiso(\bar\gamma)_a}{\gamma_a}$。
+  但如上所述，我们有 $\id{\idtoiso(\bar\gamma)_a}{\idtoiso((\bar\gamma)_a)}$，而 $\id{(\bar\gamma)_a}{\isotoid(\gamma_a)}$ 通过函数扩展性计算得到。
+  由于 $\isotoid$ 和 $\idtoiso$ 是逆函数，我们有 $\id{\idtoiso(\bar\gamma)_a}{\gamma_a}$，如所希望的那样。
 \end{proof}
 
-In particular, naturally isomorphic functors between categories (as opposed to precategories) are equal.
+特别地，范畴（相对于前范畴）之间的自然同构函子是相等的。
 
 \mentalpause
 
-We now define all the usual ways to compose functors and natural transformations.
+我们现在定义所有常见的函子和自然变换的合成方式。
 
 \begin{defn}\label{ct:functor-composition}
-  For functors $F:A\to B$ and $G:B\to C$, their composite $G\circ F:A\to C$ is given by
-  \begin{itemize}
-  \item The composite $(G_0\circ F_0) : A_0 \to C_0$
-  \item For each $a,b:A$, the composite
-    \[(G_{Fa,Fb}\circ F_{a,b}):\hom_A(a,b) \to \hom_C(GFa,GFb).\]
-  \end{itemize}
-  It is easy to check the axioms.
+对于函子 $F:A\to B$ 和 $G:B\to C$，它们的复合 $G\circ F:A\to C$ 定义如下：
+\begin{itemize}
+  \item 复合 $(G_0\circ F_0) : A_0 \to C_0$
+  \item 对每个 $a,b:A$，复合
+  \[(G_{Fa,Fb}\circ F_{a,b}):\hom_A(a,b) \to \hom_C(GFa,GFb)。\]
+\end{itemize}
+公理很容易验证。
 \end{defn}
 
 \begin{defn}\label{ct:whisker}
-  For functors $F:A\to B$ and $G,H:B\to C$ and a natural transformation $\gamma:G\to H$, the composite $(\gamma F):GF\to HF$ is given by
-  \begin{itemize}
-  \item For each $a:A$, the component $\gamma_{Fa}$.
-  \end{itemize}
-  Naturality is easy to check.
-  Similarly, for $\gamma$ as above and $K:C\to D$, the composite $(K\gamma):KG\to KH$ is given by
-  \begin{itemize}
-  \item For each $b:B$, the component $K(\gamma_b)$.
-  \end{itemize}
+对于函子 $F:A\to B$ 和 $G,H:B\to C$ 以及自然变换 $\gamma:G\to H$，复合 $(\gamma F):GF\to HF$ 定义如下：
+\begin{itemize}
+  \item 对每个 $a:A$，分量为 $\gamma_{Fa}$。
+\end{itemize}
+自然性很容易验证。
+同样，对于上述的 $\gamma$ 和 $K:C\to D$，复合 $(K\gamma):KG\to KH$ 定义如下：
+\begin{itemize}
+  \item 对每个 $b:B$，分量为 $K(\gamma_b)$。
+\end{itemize}
 \end{defn}
 
 \begin{lem}\label{ct:interchange}
-  \index{interchange law}%
-  For functors $F,G:A\to B$ and $H,K:B\to C$ and natural transformations $\gamma:F\to G$ and $\delta:H\to K$, we have
-  \[\id{(\delta G)(H\gamma)}{(K\gamma)(\delta F)}.\]
+对于函子 $F,G:A\to B$ 和 $H,K:B\to C$ 以及自然变换 $\gamma:F\to G$ 和 $\delta:H\to K$，我们有
+\[\id{(\delta G)(H\gamma)}{(K\gamma)(\delta F)}。\]
 \end{lem}
 \begin{proof}
-  It suffices to check componentwise: at $a:A$ we have
+  分量检查足够了：在 $a:A$ 处我们有
   \begin{align*}
     ((\delta G)(H\gamma))_a
     &\jdeq (\delta G)_{a}(H\gamma)_a\\
     &\jdeq \delta_{Ga}\circ H(\gamma_a)\\
-    &= K(\gamma_a) \circ \delta_{Fa} \tag{by naturality of $\delta$}\\
+    &= K(\gamma_a) \circ \delta_{Fa} \tag{通过 $\delta$ 的自然性}\\
     &\jdeq (K \gamma)_a\circ (\delta F)_a\\
-    &\jdeq ((K \gamma)(\delta F))_a.\qedhere
+    &\jdeq ((K \gamma)(\delta F))_a。\qedhere
   \end{align*}
 \end{proof}
 
-\index{horizontal composition!of natural transformations}%
-\index{classical!category theory}%
-Classically, one defines the ``horizontal composite'' of $\gamma:F\to G$ and $\delta:H\to K$ to be the common value of ${(\delta G)(H\gamma)}$ and ${(K\gamma)(\delta F)}$.
-We will refrain from doing this, because while equal, these two transformations are not \emph{definitionally} equal.
-This also has the consequence that we can use the symbol $\circ$ (or juxtaposition) for all kinds of composition unambiguously: there is only one way to compose two natural transformations (as opposed to composing a natural transformation with a functor on either side).
+\index{水平合成!自然变换的 (horizontal composition of natural transformations)}%
+\index{经典!范畴论 (classical category theory)}%
+在经典的范畴论中，通常定义 $\gamma:F\to G$ 和 $\delta:H\to K$ 的“水平合成 (horizontal composite)”为 ${(\delta G)(H\gamma)}$ 和 ${(\gamma\delta)(\delta F)}$ 的公共值。
+我们将避免这样做，因为虽然它们相等，但这两个变换并不是\emph{定义上}相等的。
+这也带来了这样的结果，即我们可以明确地使用符号 $\circ$（或并列）进行所有种类的合成：只有一种方式可以合成两个自然变换（而不是在任一侧将自然变换与函子合成）。
 
 \begin{lem}\label{ct:functor-assoc}
-  \index{associativity!of functor composition}
-  Composition of functors is associative: $\id{H(GF)}{(HG)F}$.
+函子合成是结合的：$\id{H(GF)}{(HG)F}$。
 \end{lem}
 \begin{proof}
-  Since composition of functions is associative, this follows immediately for the actions on objects and on homs.
-  And since hom-sets are sets, the rest of the data is automatic.
+  由于函数的合成是结合的，这在作用于对象和同态时立刻就可以得到。
+  由于同源集是集合，其余的数据是自动的。
 \end{proof}
 
-The equality in \cref{ct:functor-assoc} is likewise not definitional.
-(Composition of functions is definitionally associative, but the axioms that go into a functor must also be composed, and this breaks definitional associativity.)  For this reason, we need also to know about \emph{coherence}\index{coherence} for associativity.
+\cref{ct:functor-assoc} 中的等式同样不是定义上的。
+（函数合成是定义上的结合，但进入函子的公理也必须合成，这打破了定义上的结合性。）因此，我们还需要知道关于结合性的\emph{一致性 (coherence)}。
 
 \begin{lem}\label{ct:pentagon}
-  \index{associativity!of functor composition!coherence of}%
-  \cref{ct:functor-assoc} is coherent, i.e.\ the following pentagon\index{pentagon, Mac Lane} of equalities commutes:
-  \[ \xymatrix{ & K(H(GF)) \ar@{=}[dl] \ar@{=}[dr]\\
-    (KH)(GF) \ar@{=}[d] && K((HG)F) \ar@{=}[d]\\
-    ((KH)G)F && (K(HG))F \ar@{=}[ll].}
-  \]
+\cref{ct:functor-assoc} 是一致的，即以下五边形 (pentagon) 的等式是可交换的：
+\[ \xymatrix{ & K(H(GF)) \ar@{=}[dl] \ar@{=}[dr]\\
+(KH)(GF) \ar@{=}[d] && K((HG)F) \ar@{=}[d]\\
+  ((KH)G)F && (K(HG))F \ar@{=}[ll].}
+\]
 \end{lem}
 \begin{proof}
-  As in \cref{ct:functor-assoc}, this is evident for the actions on objects, and the rest is automatic.
+  正如在 \cref{ct:functor-assoc} 中一样，这在作用于对象时是显而易见的，其余的是自动的。
 \end{proof}
 
-We will henceforth abuse notation by writing $H\circ G\circ F$ or $HGF$ for either $H(GF)$ or $(HG)F$, transporting along \cref{ct:functor-assoc} whenever necessary.
-We have a similar coherence result for units.
+我们将从此滥用符号，通过书写 $H\circ G\circ F$ 或 $HGF$ 来表示 $H(GF)$ 或 $(HG)F$，在必要时沿 \cref{ct:functor-assoc} 运输。
+对于单位我们也有类似的一致性结果。
 
 \begin{lem}\label{ct:units}
-  For a functor $F:A\to B$, we have equalities $\id{(1_B\circ F)}{F}$ and $\id{(F\circ 1_A)}{F}$, such that given also $G:B\to C$, the following triangle of equalities commutes:
-  \[ \xymatrix{
-    G\circ (1_B \circ F) \ar@{=}[rr] \ar@{=}[dr] &&
-    (G\circ 1_B)\circ F \ar@{=}[dl] \\
-    & G \circ F.}
-  \]
+对于函子 $F:A\to B$，我们有等式 $\id{(1_B\circ F)}{F}$ 和 $\id{(F\circ 1_A)}{F}$，并且给定 $G:B\to C$ 时，以下三角形的等式是可交换的：
+\[ \xymatrix{
+  G\circ (1_B \circ F) \ar@{=}[rr] \ar@{=}[dr] &&
+  (G\circ 1_B)\circ F \ar@{=}[dl] \\
+  & G \circ F.}
+\]
 \end{lem}
 
-See \cref{ct:pre2cat,ct:2cat} for further development of these ideas.
+请参阅 \cref{ct:pre2cat,ct:2cat} 以进一步发展这些思想。
 
 
-\section{Adjunctions}
+\section{伴随 (Adjunctions)}
 \label{sec:adjunctions}
 
-The definition of adjoint functors is straightforward; the main interesting aspect arises from proof-relevance.
+伴随函子的定义是直接的；主要的有趣方面来源于证明相关性。
 
 \begin{defn}\label{ct:adjoints}
-  A functor $F:A\to B$ is a \define{left adjoint}
-  \indexdef{left!adjoint}%
-  \indexdef{adjoint!functor}%
-  \indexdef{right!adjoint}%
-  \indexdef{adjoint!functor}%
-  \index{functor!adjoint}%
-  if there exists
-  \begin{itemize}
-  \item A functor $G:B\to A$.
-  \item A natural transformation $\eta:1_A \to GF$ (the \define{unit}\indexdef{unit!of an adjunction}).
-  \item A natural transformation $\epsilon:FG\to 1_B$ (the \define{counit}\indexdef{counit of an adjunction}).
-  \item $\id{(\epsilon F)(F\eta)}{1_F}$.
-  \item $\id{(G\epsilon)(\eta G)}{1_G}$.
-  \end{itemize}
+一个函子 $F:A\to B$ 是一个\define{左伴随 (left adjoint)}，如果存在
+\begin{itemize}
+  \item 一个函子 $G:B\to A$。
+  \item 一个自然变换 $\eta:1_A \to GF$ (称为\define{单元 (unit)}）。
+  \item 一个自然变换 $\epsilon:FG\to 1_B$ (称为\define{余单元 (counit)}）。
+  \item $\id{(\epsilon F)(F\eta)}{1_F}$。
+  \item $\id{(G\epsilon)(\eta G)}{1_G}$。
+\end{itemize}
 \end{defn}
 
-The last two equations are called the \define{triangle identities}\indexdef{triangle!identity} or \define{zigzag identities}\indexdef{zigzag identity}.
-\indexdef{identity!triangle}\indexdef{identity!zigzag}
-We leave it to the reader to define right adjoints analogously.
+最后两个等式称为\define{三角等式 (triangle identities)} 或\define{锯齿等式 (zigzag identities)}。
+我们将留给读者定义右伴随 (right adjoints) 的类似定义。
 
 \begin{lem}\label{ct:adjprop}
-  If $A$ is a category (but $B$ may be only a precategory), then the type ``$F$ is a left adjoint'' is a mere proposition.
+如果 $A$ 是一个范畴（但 $B$ 可能只是一个前范畴），那么类型“$F$ 是一个左伴随”是一个纯命题。
 \end{lem}
 \begin{proof}
-  Suppose we are given $(G,\eta,\epsilon)$ with the triangle identities and also $(G',\eta',\epsilon')$.
-  Define $\gamma:G\to G'$ to be $(G'\epsilon)(\eta' G)$, and $\delta:G'\to G$ to be $(G\epsilon')(\eta G')$.
-  Then
+  假设我们给定 $(G,\eta,\epsilon)$ 以及三角等式，并且也有 $(G',\eta',\epsilon')$。
+  定义 $\gamma:G\to G'$ 为 $(G'\epsilon)(\eta' G)$，并且定义 $\delta:G'\to G$ 为 $(G\epsilon')(\eta G')$。
+  那么
   \begin{align*}
     \delta\gamma &=
     (G\epsilon')(\eta G')(G'\epsilon)(\eta'G)\\
@@ -493,24 +472,24 @@ We leave it to the reader to define right adjoints analogously.
     &= (G\epsilon)(\eta G)\\
     &= 1_G
   \end{align*}
-  using \cref{ct:interchange} and the triangle identities.
-  Similarly, we show $\id{\gamma\delta}{1_{G'}}$, so $\gamma$ is a natural isomorphism $G\cong G'$.
-  By \cref{ct:functor-cat}, we have an identity $\id G {G'}$.
+  使用 \cref{ct:interchange} 和三角等式。
+  类似地，我们证明 $\id{\gamma\delta}{1_{G'}}$，因此 $\gamma$ 是一个自然同构 $G\cong G'$。
+  通过 \cref{ct:functor-cat}，我们有一个同一性 $\id G {G'}$。
 
-  Now we need to know that when $\eta$ and $\epsilon$ are transported along this identity, they become equal to $\eta'$ and $\epsilon'$.
-  By \cref{ct:idtoiso-trans}, this transport is given by composing with $\gamma$ or $\delta$ as appropriate.
-  For $\eta$, this yields
+  现在我们需要知道当 $\eta$ 和 $\epsilon$ 沿此同一性运输时，它们变得等于 $\eta'$ 和 $\epsilon'$。
+  通过 \cref{ct:idtoiso-trans}，此运输通过与 $\gamma$ 或 $\delta$ 适当地复合来给出。
+  对于 $\eta$，这产生了
   \begin{equation*}
-    (G'\epsilon F)(\eta'GF)\eta
-    = (G'\epsilon F)(G'F\eta)\eta'
-    = \eta'
+  (G'\epsilon F)(\eta'GF)\eta
+  = (G'\epsilon F)(G'F\eta)\eta'
+  = \eta'
   \end{equation*}
-  using \cref{ct:interchange} and the triangle identity.
-  The case of $\epsilon$ is similar.
-  Finally, the triangle identities transport correctly automatically, since hom-sets are sets.
+  使用 \cref{ct:interchange} 和三角等式。
+  对于 $\epsilon$ 的情况是类似的。
+  最后，三角等式自动正确地运输，因为同源集是集合。
 \end{proof}
 
-In \cref{sec:yoneda} we will give another proof of \cref{ct:adjprop}.
+在 \cref{sec:yoneda} 中我们将给出 \cref{ct:adjprop} 的另一个证明。
 
 
 \section{Equivalences}
