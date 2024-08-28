@@ -1,114 +1,108 @@
-\chapter{Real numbers}
+\chapter{实数 (Real numbers)}
 \label{cha:real-numbers}
 
-\index{real numbers|(}%
-Any foundation of mathematics worthy of its name must eventually address the construction of real numbers as understood by mathematical analysis, namely as a complete archimedean ordered field.
-\index{ordered field}%
-There are two notions of completeness. The one by Cauchy requires that the reals be closed under limits of Cauchy sequences\index{Cauchy!sequence}, while the stronger one by Dedekind requires closure under Dedekind cuts.\index{cut!Dedekind}
-These lead to two ways of constructing reals, which we study in \cref{sec:dedekind-reals} and \cref{sec:cauchy-reals}, respectively. In \cref{RD-final-field,RC-initial-Cauchy-complete} we characterize the two constructions in terms of universal properties: the Dedekind reals are the final archimedean ordered field, and the Cauchy reals the initial Cauchy complete archimedean ordered field.
+\index{real numbers|(实数|(}%
+任何称得上是数学基础的理论最终都必须解决实数的构造问题，这个问题在数学分析中被理解为完备的阿基米德有序域。
+\index{ordered field (有序域)}%
+完备性有两种定义。一种由柯西提出，要求实数在柯西序列的极限下是封闭的\index{Cauchy!sequence (柯西!序列)}，而Dedekind提出的更强的定义要求实数在Dedekind分割下是封闭的\index{cut!Dedekind (分割!Dedekind)}。
+这两种完备性定义分别引出了两种构造实数的方法，我们将在\cref{sec:dedekind-reals}和\cref{sec:cauchy-reals}中分别进行研究。在\cref{RD-final-field,RC-initial-Cauchy-complete}中，我们从泛性质的角度对这两种构造进行了刻画：Dedekind实数是最终的阿基米德有序域，而柯西实数是初始的柯西完备阿基米德有序域。
 
-In traditional constructive mathematics,
-\index{mathematics!constructive}%
-real numbers always seem to require certain compromises. For example, the Dedekind reals work better with power sets or some other form of impredicativity, while Cauchy reals work well in the presence of countable choice.
-\index{axiom!of choice!countable}%
-However, we give a new construction of the Cauchy reals as a higher inductive-inductive type that seems to be a third possibility, which requires neither power sets nor countable choice.
+在传统的构造性数学中，
+\index{mathematics!constructive (数学!构造性)}%
+实数总是需要某些妥协。例如，Dedekind实数在幂集或其他形式的不可判定性存在时效果较好，而柯西实数在可数选择的存在下效果较好。
+\index{axiom!of choice!countable (选择公理!可数)}%
+然而，我们给出了柯西实数的新构造，将其作为一种更高阶的归纳-归纳类型，这种构造似乎是第三种可能性，它既不需要幂集也不需要可数选择。
 
-In~\cref{sec:comp-cauchy-dedek} we compare the two constructions of reals. The Cauchy reals are included in the Dedekind reals. They coincide if excluded middle or countable choice holds, but in general the inclusion might be proper.
+在~\cref{sec:comp-cauchy-dedek}中，我们比较了这两种实数构造。柯西实数包含在Dedekind实数中。如果排中律或可数选择成立，它们是一致的，但通常情况下，这种包含可能是严格的。
 
-In~\cref{sec:compactness-interval} we consider three notions of compactness of the closed interval~$[0,1]$. We first show that $[0,1]$ is metrically compact\indexdef{metrically compact}\indexdef{compactness!metric} in the sense that it is complete and totally bounded, and that uniformly continuous maps on metrically compact spaces behave as expected. In contrast, the Bolzano--Weierstra\ss{} property that every sequence has a convergent subsequence implies the limited principle of omniscience, which is an instance of excluded middle. Finally, we discuss Heine--Borel compactness. A naive formulation of the finite subcover property does not work, but a proof relevant notion of inductive covers does.
-This section is basically standard constructive analysis.
+在~\cref{sec:compactness-interval}中，我们讨论了闭区间~$[0,1]$的三种紧致性定义。我们首先证明~$[0,1]$在度量意义上是紧致的\indexdef{metrically compact (度量紧致)}\indexdef{compactness!metric (紧致性!度量)}，即它是完备且全有界的，并且度量紧致空间上的一致连续映射表现得如预期那样。相对而言，Bolzano--Weierstra\ss{}性质，即每个序列都有一个收敛的子序列，意味着有限全知原理，这是排中律的一种形式。最后，我们讨论了Heine--Borel紧致性。有限子覆盖性质的一个朴素的表述是不可行的，但证明相关的归纳覆盖是可行的。
+本节基本上属于标准的构造性分析。
 
-The development of real numbers and analysis in homotopy type theory can be easily made compatible with classical mathematics. By assuming excluded middle and the axiom of choice we get standard classical analysis:\index{mathematics!classical}\index{classical!analysis} the Dedekind and Cauchy reals coincide, foundational questions about the impredicative nature of the Dedekind reals disappear, and the interval is as compact as it could be.
+在同伦类型论中，实数和分析的发展可以很容易地与经典数学兼容。通过假设排中律和选择公理，我们得到了标准的经典分析\index{mathematics!classical (数学!经典的)}\index{classical!analysis (经典!分析)}：Dedekind实数和柯西实数一致，关于Dedekind实数的不可判定性性质的基础问题消失了，并且区间是尽可能紧致的。
 
-We close the chapter by constructing Conway's surreals as a higher inductive-inductive type in \cref{sec:surreals};
-the construction is more natural in univalent type theory than in  classical set theory.
+我们在\cref{sec:surreals}中通过构造Conway的超现实数作为一种更高阶的归纳-归纳类型来结束本章；
+这种构造在一元类型论中比在经典集合论中更自然。
 
-In addition to the basic theory of \cref{cha:basics,cha:logic}, as noted above we use ``higher inductive-inductive types'' for the Cauchy reals and the surreals: these combine the ideas of \cref{cha:hits} with the notion of inductive-inductive type mentioned in \cref{sec:generalizations}.
-We will also frequently use the traditional logical notation described in \cref{subsec:prop-trunc}, and the fact (proven in \cref{sec:piw-pretopos}) that our ``sets'' behave the way we would expect.
+除了\cref{cha:basics,cha:logic}中的基本理论外，如上所述，我们还使用了“更高阶的归纳-归纳类型”来构造柯西实数和超现实数：这些结合了\cref{cha:hits}中的思想和\cref{sec:generalizations}中提到的归纳-归纳类型的概念。
+我们还经常使用\cref{subsec:prop-trunc}中描述的传统逻辑符号，以及（在\cref{sec:piw-pretopos}中证明的）我们的“集合”表现如预期的事实。
 
-Note that the total space of the universal cover of the circle, which
-in \cref{subsec:pi1s1-homotopy-theory} played a role similar to ``the real numbers'' in
-classical algebraic topology, is \emph{not} the type of reals we are looking for. That
-type is contractible, and thus equivalent to the singleton type, so it cannot be equipped
-with a non-trivial algebraic structure.
+请注意，圆的通用覆盖的总空间，在
+\cref{subsec:pi1s1-homotopy-theory}中扮演了类似于“实数”在经典代数拓扑中的角色，但并\emph{不是}我们寻找的实数类型。该
+类型是可缩的，因此等价于单类型，因此它不能被赋予非平凡的代数结构。
 
 
 
-\section{The field of rational numbers}
+\section{有理数域 (The field of rational numbers)}
 \label{sec:field-rati-numb}
 
-\indexdef{rational numbers}%
-\indexsee{number!rational}{rational numbers}%
-We first construct the rational numbers \Q, as the reals can then be seen as a completion
-of~\Q. An expert will point out that \Q could be replaced by any approximate field,
-\indexdef{field!approximate}%
-i.e., a subring of \Q in which arbitrarily precise approximate inverses
-\index{inverse!approximate}%
-exist. An example is the
-ring of dyadic rationals,
-\index{rational numbers!dyadic}%
-which are those of the form $n/2^k$.
-If we were implementing constructive mathematics on a computer,
-an approximate field would be more suitable, but we leave such finesse for those
-who care about the digits of~$\pi$.
+\indexdef{rational numbers (有理数)}%
+\indexsee{number!rational (数!有理数)}{rational numbers (有理数)}%
+我们首先构造有理数 \Q，因为实数可以被视为~\Q 的完备化。
+一个专家可能会指出，\Q 可以被任何近似域替代，
+\indexdef{field!approximate (域!近似)}%
+即 \Q 的一个子环，其中存在任意精确的近似逆元
+\index{inverse!approximate (逆元!近似)}%
+。一个例子是
+二进制有理数环，
+\index{rational numbers!dyadic (有理数!二进制)}%
+这些有理数的形式为 $n/2^k$。
+如果我们在计算机上实现构造性数学，
+近似域会更适合，但我们将这种精细留给那些
+关心~$\pi$ 的位数的人。
 
-We constructed the integers \Z in \cref{sec:set-quotients} as a quotient of $\N\times
-\N$, and observed that this quotient is generated by an idempotent. In
-\cref{sec:free-algebras} we saw that \Z is the free group on \unit; we could similarly
-show that it is the free commutative ring\index{ring} on \emptyt. The field of rationals \Q is
-constructed along the same lines as well, namely as the quotient
+我们在\cref{sec:set-quotients}中构造了整数 \Z，作为 $\N\times
+\N$ 的商，并观察到该商由幂等生成。在
+\cref{sec:free-algebras}中我们看到 \Z 是在 \unit 上的自由群；我们可以类似地
+证明它是 \emptyt 上的自由交换环\index{ring (环)}。有理数域 \Q 是
+沿着相同的思路构造的，即为商
 %
 \[ \Q \defeq (\Z \times \N)/{\approx} \]
 %
-where
-\[ (u,a) \approx (v,b) \defeq (u (b + 1) = v (a + 1)). \]
+其中
+\[ (u,a) \approx (v,b) \defeq (u (b + 1) = v (a + 1))。 \]
 %
-In other words, a pair $(u, a)$ represents the rational number $u / (1 + a)$. There can be
-no division by zero because we cunningly added one to the denominator~$a$. Here too we
-have a canonical choice of representatives, namely fractions in lowest terms. Thus we may
-apply \cref{lem:quotient-when-canonical-representatives} to obtain a set \Q, which
-again has a decidable equality.
-\index{decidable!equality}%
+换句话说，一个对 $(u, a)$ 代表有理数 $u / (1 + a)$。这里不存在除以零的问题，因为我们巧妙地在分母~$a$ 上加了一。这里我们
+也有一个规范的代表选择，即最简分数。因此我们可以
+应用\cref{lem:quotient-when-canonical-representatives}来获得集合 \Q，它
+再次具有可判定的等式。
+\index{decidable!equality (可判定!等式)}%
 
-We do not bother to write down the arithmetical operations on \Q as we trust that our readers
-know how to compute with fractions even in the case when one is added to the denominator.
-Let us just record the conclusion that there is an entirely unproblematic construction of
-the ordered field of rational numbers \Q, with a decidable equality and decidable order.
-It can also be characterized as the initial ordered field.
-\index{initial!ordered field}%
+我们不打算写下 \Q 上的算术运算，因为我们相信我们的读者
+知道如何计算分数，即使是在分母上加一的情况下。
+让我们只是记录结论，即有理数域 \Q 的构造完全没有问题，它具有可判定的等式和可判定的顺序。
+它也可以被刻画为初始有序域。
+\index{initial!ordered field (初始!有序域)}%
 
-\symlabel{positive-rationals}
-\indexdef{rational numbers!positive}%
-\indexdef{positive!rational numbers}%
-Finally, we will denote by $\Qp \defeq \setof{ q : \Q | q > 0 }$ the type of positive rational numbers.
+\symlabel{positive-rationals (正有理数)}
+\indexdef{rational numbers!positive (有理数!正)}%
+\indexdef{positive!rational numbers (正!有理数)}%
+最后，我们将 $\Qp \defeq \setof{ q : \Q | q > 0 }$ 记作正有理数的类型。
 
-\section{Dedekind reals}
+\section{Dedekind 实数 (Dedekind reals)}
 \label{sec:dedekind-reals}
 
-\index{real numbers!Dedekind|(}%
-Let us first recall the basic idea of Dedekind's construction. We use two-sided Dedekind
-cuts, as opposed to an often used one-sided version, because the symmetry makes
-constructions more elegant, and it works constructively as well as classically.
-\index{mathematics!constructive}%
-A \emph{Dedekind cut}\index{cut!Dedekind} consists of a pair $(L, U)$ of subsets $L, U \subseteq \Q$, called the
-\emph{lower} and \emph{upper cut} respectively, which are:
+\index{real numbers!Dedekind|(实数!Dedekind|(}%
+让我们首先回顾一下Dedekind构造的基本思想。我们使用双侧的Dedekind
+分割，而不是经常使用的单侧版本，因为对称性使
+构造更优雅，并且它在构造性数学和经典数学中都能工作。
+\index{mathematics!constructive (数学!构造性)}%
+一个\emph{Dedekind分割}\index{cut!Dedekind (分割!Dedekind)}由一对 $(L, U)$ 组成，其中 $L, U \subseteq \Q$，
+分别称为
+\emph{下分割 (lower cut)} 和 \emph{上分割 (upper cut)}，满足：
 %
 \begin{enumerate}
-\item \emph{inhabited:} there are $q \in L$ and $r \in U$,
-\item \emph{rounded:} $q \in L \Leftrightarrow \exis {r \in \Q} q < r \land r \in L$
-  and $r \in U \Leftrightarrow \exis {q \in \Q} q \in U \land q < r$,
-  \index{rounded!Dedekind cut}
-\item \emph{disjoint:} $\lnot (q \in L \land q \in U)$, and
-\item \emph{located:} $q < r \Rightarrow q \in L \lor r \in U$.
-  \index{locatedness}%
+  \item \emph{非空 (inhabited):} 存在 $q \in L$ 和 $r \in U$，
+  \item \emph{圆整 (rounded):} $q \in L \Leftrightarrow \exis {r \in \Q} q < r \land r \in L$
+  和 $r \in U \Leftrightarrow \exis {q \in \Q} q \in U \land q < r$，
+  \index{rounded!Dedekind cut (圆整!Dedekind 分割)}
+  \item \emph{不相交 (disjoint):} $\lnot (q \in L \land q \in U)$，并且
+  \item \emph{确定性 (located):} $q < r \Rightarrow q \in L \lor r \in U$。
+  \index{locatedness (确定性)}%
 \end{enumerate}
 %
-Reading the roundedness condition from left to right tells us that cuts are \emph{open},
-\index{open!cut}%
-and from right to left that they are \emph{lower}, respectively \emph{upper}, sets. The
-locatedness condition states that there is no large gap between $L$ and $U$. Because cuts
-are always open, they never include the ``point in between'', even when it is rational. A
-typical Dedekind cut looks like this:
+从左到右阅读圆整性条件告诉我们分割是\emph{开集 (open)}，
+\index{open!cut (开!分割)}%
+而从右到左它们分别是\emph{下集 (lower)} 和 \emph{上集 (upper)}。确定性条件表明 $L$ 和 $U$ 之间没有大间隙。由于分割始终是开集，它们永远不会包含“中间的点”，即使它是有理数。一个典型的Dedekind分割如下图所示：
 %
 \begin{center}
   \begin{tikzpicture}[x=\textwidth]
@@ -117,565 +111,537 @@ typical Dedekind cut looks like this:
   \end{tikzpicture}
 \end{center}
 %
-We might naively translate the informal definition into type theory by saying that a cut
-is a pair of maps $L, U : \Q \to \prop$. But we saw in \cref{subsec:prop-subsets} that
-$\prop$ is an ambiguous\index{typical ambiguity} notation for $\prop_{\UU_i}$ where~$\UU_i$ is a universe. Once we
-use a particular $\UU_i$ to define cuts, the type of reals will reside in the next
-universe $\UU_{i+1}$, a property of reals two levels higher in $\UU_{i+2}$, a property of
-subsets of reals in $\UU_{i+3}$, etc. In principle we should be able to keep track of the
-universe levels\index{universe level}, especially with the help of a proof assistant, but doing so here would
-just burden us with bureaucracy that we prefer to avoid. We shall therefore make a
-simplifying assumption that a single type of propositions $\Omega$ is sufficient for all
-our purposes.
+我们可能会天真地将非正式定义翻译成类型论，认为分割
+是一对映射 $L, U : \Q \to \prop$。但是我们在\cref{subsec:prop-subsets}中看到
+$\prop$ 是 $\prop_{\UU_i}$ 的一种含糊的\index{typical ambiguity (典型模糊性)}符号，其中~$\UU_i$ 是一个宇宙。一旦我们
+使用特定的 $\UU_i$ 来定义分割，实数类型将位于下一个
+宇宙 $\UU_{i+1}$ 中，实数的性质位于更高的宇宙 $\UU_{i+2}$ 中，实数
+子集的性质位于更高的宇宙 $\UU_{i+3}$ 中，依此类推。原则上，我们应该能够
+跟踪宇宙层级\index{universe level (宇宙层级)}，特别是在证明助手的帮助下，但这样做只会
+让我们负担更多的繁琐工作，因此我们更愿意避免。我们因此将
+作一个简化的假设，即单一命题类型 $\Omega$ 足以满足我们所有的需求。
 
-In fact, the construction of the Dedekind reals is quite resilient to logical
-manipulations. There are several ways in which we can make sense of using a single type
-$\Omega$:
+事实上，Dedekind 实数的构造对逻辑操作相当有弹性。
+我们可以有几种方法来理解使用单一类型
+$\Omega$ 的含义：
 %
 \begin{enumerate}
 
-\item We could identify $\Omega$ with the ambiguous $\prop$ and track all the universes
-  that appear in definitions and constructions.
+  \item 我们可以将 $\Omega$ 识别为含糊的 $\prop$ 并跟踪所有出现在定义和构造中的宇宙。
 
-\item We could assume the propositional resizing axiom,
-  \index{propositional!resizing}%
-  as in \cref{subsec:prop-subsets}, which essentially collapses the $\prop_{\UU_i}$'s to the
-  lowest level\index{universe level}, which we call $\Omega$.
+  \item 我们可以假设命题重设公理，
+  \index{propositional!resizing (命题!重设)}%
+  如\cref{subsec:prop-subsets}所述，这本质上将所有 $\prop_{\UU_i}$ 的层级折叠为
+  最低层级\index{universe level (宇宙层级)}，我们称之为 $\Omega$。
 
-\item A classical mathematician who is not interested in the intricacies of type-theoretic
-  universes or computation may simply assume the law of excluded middle~\eqref{eq:lem} for
-  mere propositions so that $\Omega \jdeq \bool$.
-  \index{excluded middle}
-  This not only eradicates questions about
-  levels\index{universe level} of $\prop$, but also turns everything we do into the standard classical\index{mathematics!classical}
-  construction of real numbers.
+  \item 对于一个不关心类型论宇宙的复杂性或计算的经典数学家，他可以简单地假设对于单纯命题成立的排中律~\eqref{eq:lem}，
+  \index{excluded middle (排中律)}%
+  这样 $\Omega \jdeq \bool$。
+  这不仅消除了对
+  $\prop$ 的层级\index{universe level (宇宙层级)}问题，还将我们所做的一切转化为标准的经典\index{mathematics!classical (数学!经典的)}实数构造。
 
-\item On the other end of the spectrum one might ask for a minimal requirement that makes
-  the constructions work. The condition that a mere predicate be a Dedekind cut is
-  expressible using only conjunctions, disjunctions, and existential quantifiers\index{quantifier!existential} over~\Q, which
-  is a countable set. Thus we could take $\Omega$ to be the initial \emph{$\sigma$-frame},
-  \index{initial!sigma-frame@$\sigma$-frame}%
-  \index{sigma-frame@$\sigma$-frame!initial|defstyle}%
-  i.e., a lattice\index{lattice} with countable joins\index{join!in a lattice} in which binary meets distribute over countable
-  joins. (The initial $\sigma$-frame cannot be the two-point lattice $\bool$ because
-  $\bool$ is not closed under countable joins, unless we assume excluded middle.) This
-  would lead to a construction of~$\Omega$ as a higher inductive-inductive type, but one
-  experiment of this kind in \cref{sec:cauchy-reals} is enough.
+  \item 在另一个极端，人们可能会要求一个使构造工作所需的最小要求。定义一个命题为Dedekind分割的条件
+  只使用合取，析取和对~\Q 的存在量词\index{quantifier!existential (量词!存在)}，\Q 是一个可数集。因此我们可以将 $\Omega$ 视为初始\emph{$\sigma$-框架 (sigma-frame)}，
+  \index{initial!sigma-frame@$\sigma$-frame (初始!$\sigma$-框架)}%
+  \index{sigma-frame@$\sigma$-frame!initial|defstyle ($\sigma$-框架!初始|定义风格)}%
+  即一个具有可数上确界的格\index{lattice (格)}，其中二元下确界分布在可数
+  上确界上。(初始 $\sigma$-框架不能是两点格 $\bool$，因为
+  $\bool$ 不闭合于可数上确界，除非我们假设排中律。) 这
+  将导致 $\Omega$ 的构造作为一种更高阶的归纳-归纳类型，但在\cref{sec:cauchy-reals}中进行这种实验已经足够了。
 \end{enumerate}
 
-In all of the above cases $\Omega$ is a set.
+在所有上述情况下，$\Omega$ 是一个集合。
 %
-Without further ado, we translate the informal definition into type theory.
-Throughout this chapter, we use the
-logical notation from \cref{defn:logical-notation}.
+事不宜迟，我们将非正式定义翻译成类型论。
+在本章中，我们使用了
+来自\cref{defn:logical-notation}中的
+逻辑符号。
 
 \begin{defn} \label{defn:dedekind-reals}
-  A \define{Dedekind cut}
-  \indexsee{Dedekind!cut}{cut, Dedekind}%
-  \indexdef{cut!Dedekind}%
-  is a pair $(L, U)$ of mere predicates $L : \Q \to \Omega$ and $U
-  : \Q \to \Omega$ which is:
-  %
-  \begin{enumerate}
+一个\define{Dedekind 分割 (Dedekind cut)}
+\indexsee{Dedekind!cut (Dedekind!分割)}{cut, Dedekind (分割, Dedekind)}%
+\indexdef{cut!Dedekind (分割!Dedekind)}%
+是一对仅仅命题的 $L : \Q \to \Omega$ 和 $U
+: \Q \to \Omega$，满足：
+%
+\begin{enumerate}
   \item \label{defn:dedekind-reals-inhabited}
-    \emph{inhabited (i.e., bounded):} $\exis{q : \Q} L(q)$ and $\exis{r : \Q} U(r)$,
-  \item \emph{rounded:} for all $q, r : \Q$,
-    \index{rounded!Dedekind cut}
-    %
-    \begin{align*}
-      L(q) &\Leftrightarrow \exis{r : \Q} (q < r) \land L(r)
-      \qquad\text{and}\\
-      U(r) &\Leftrightarrow \exis{q : \Q} (q < r) \land U(q),
-    \end{align*}
-  \item \emph{disjoint:} $\lnot (L(q) \land U(q))$ for all $q : \Q$,
-  \item \emph{located:} $(q < r) \Rightarrow L(q) \lor U(r)$ for all $q, r : \Q$.
-  \index{locatedness}%
-  \end{enumerate}
+  \emph{非空 (inhabited) (即有界):} $\exis{q : \Q} L(q)$ 和 $\exis{r : \Q} U(r)$，
+  \item \emph{圆整 (rounded):} 对于所有 $q, r : \Q$，
+  \index{rounded!Dedekind cut (圆整!Dedekind 分割)}
   %
-  We let $\dcut(L, U)$ denote the conjunction of these conditions. The type of
-  \define{Dedekind reals} is
-  \indexsee{Dedekind!real numbers}{real numbers, De\-de\-kind}%
-  \indexdef{real numbers!Dedekind}%
-  %
-  \begin{equation*}
-    \RD \defeq \setof{ (L, U) : (\Q \to \Omega) \times (\Q \to \Omega) | \dcut(L,U)}.
-  \end{equation*}
+  \begin{align*}
+    L(q) &\Leftrightarrow \exis{r : \Q} (q < r) \land L(r)
+    \qquad\text{并且}\\
+    U(r) &\Leftrightarrow \exis{q : \Q} (q < r) \land U(q)，
+  \end{align*}
+  \item \emph{不相交 (disjoint):} 对于所有 $q : \Q$，$\lnot (L(q) \land U(q))$，
+  \item \emph{确定性 (located):} 对于所有 $q, r : \Q$，$(q < r) \Rightarrow L(q) \lor U(r)$。
+  \index{locatedness (确定性)}%
+\end{enumerate}
+%
+我们用 $\dcut(L, U)$ 表示这些条件的合取。定义
+\define{Dedekind 实数 (Dedekind reals)} 的类型为
+\indexsee{Dedekind!real numbers (Dedekind!实数)}{real numbers, Dedekind (实数, Dedekind)}%
+\indexdef{real numbers!Dedekind (实数!Dedekind)}%
+%
+\begin{equation*}
+  \RD \defeq \setof{ (L, U) : (\Q \to \Omega) \times (\Q \to \Omega) | \dcut(L,U)}。
+\end{equation*}
 \end{defn}
 
-It is apparent that $\dcut(L, U)$ is a mere proposition, and since $\Q \to \Omega$ is a
-set the Dedekind reals form a set too. See
-\cref{ex:RD-extended-reals,ex:RD-lower-cuts,ex:RD-interval-arithmetic} for variants of
-Dedekind cuts which lead to extended reals, lower and upper reals, and the interval
-domain.
+显然，$\dcut(L, U)$ 是一个仅仅命题，并且由于 $\Q \to \Omega$ 是一个
+集合，Dedekind 实数也形成了一个集合。参见
+\cref{ex:RD-extended-reals,ex:RD-lower-cuts,ex:RD-interval-arithmetic}，了解Dedekind
+分割的变体，它们导致了扩展实数、下实数和上实数以及区间
+域。
 
-There is an embedding $\Q \to \RD$ which associates with each rational $q : \Q$ the cut
-$(L_q, U_q)$ where
+存在一个嵌入 $\Q \to \RD$，它将每个有理数 $q : \Q$ 关联到分割
+$(L_q, U_q)$，其中
 %
 \begin{equation*}
   L_q(r) \defeq (r < q)
-  \qquad\text{and}\qquad
-  U_q(r) \defeq (q < r).
+  \qquad\text{并且}\qquad
+  U_q(r) \defeq (q < r)。
 \end{equation*}
 %
-We shall simply write $q$ for the cut $(L_q, U_q)$ associated with a rational number.
+我们将简单地用 $q$ 表示与有理数相关联的分割 $(L_q, U_q)$。
 
-\subsection{The algebraic structure of Dedekind reals}
+\subsection{Dedekind 实数的代数结构 (The algebraic structure of Dedekind reals)}
 \label{sec:algebr-struct-dedek}
 
-The construction of the algebraic and order-theoretic structure of Dedekind reals proceeds
-as usual in intuitionistic logic. Rather than dwelling on details we point out the
-differences between the classical\index{mathematics!classical} and intuitionistic setup. Writing $L_x$ and $U_x$ for
-the lower and upper cut of a real number $x : \RD$, we define addition as%
+在直觉主义逻辑中，Dedekind 实数的代数和序理论结构的构造
+如往常一样进行。我们不打算详细讨论，而是指出经典\index{mathematics!classical (数学!经典的)}和直觉主义设置之间的差异。用 $L_x$ 和 $U_x$ 表示实数 $x : \RD$ 的下分割和上分割，我们定义加法为%
 %
-\indexdef{addition!of Dedekind reals}%
+\indexdef{addition!of Dedekind reals (加法!Dedekind 实数)}%
 \begin{align*}
   L_{x + y}(q) &\defeq \exis{r, s : \Q} L_x(r) \land L_y(s) \land q = r + s, \\
-  U_{x + y}(q) &\defeq \exis{r, s : \Q} U_x(r) \land U_y(s) \land q = r + s,
+  U_{x + y}(q) &\defeq \exis{r, s : \Q} U_x(r) \land U_y(s) \land q = r + s，
 \end{align*}
 %
-and the additive inverse by
+并定义加法逆元为
 %
 \begin{align*}
   L_{-x}(q) &\defeq \exis{r : \Q} U_x(r) \land q = - r, \\
-  U_{-x}(q) &\defeq \exis{r : \Q} L_x(r) \land q = - r.
+  U_{-x}(q) &\defeq \exis{r : \Q} L_x(r) \land q = - r。
 \end{align*}
 %
-With these operations $(\RD, 0, {+}, {-})$ is an abelian\index{group!abelian} group. Multiplication is a bit
-more cumbersome:
+通过这些操作，$(\RD, 0, {+}, {-})$ 是一个阿贝尔群\index{group!abelian (群!阿贝尔)}。乘法稍微复杂一点：
 %
-\indexdef{multiplication!of Dedekind reals}%
+\indexdef{multiplication!of Dedekind reals (乘法!Dedekind 实数)}%
 \begin{align*}
   L_{x \cdot y}(q) &\defeq
   \begin{aligned}[t]
     \exis{a, b, c, d : \Q} & L_x(a) \land U_x(b) \land L_y(c) \land U_y(d) \land {}\\
-                           & \qquad q < \min (a \cdot c, a \cdot d, b \cdot c, b \cdot d),
+    & \qquad q < \min (a \cdot c, a \cdot d, b \cdot c, b \cdot d)，
   \end{aligned} \\
   U_{x \cdot y}(q) &\defeq
   \begin{aligned}[t]
     \exis{a, b, c, d : \Q} & L_x(a) \land U_x(b) \land L_y(c) \land U_y(d) \land {}\\
-                           & \qquad \max (a \cdot c, a \cdot d, b \cdot c, b \cdot d) < q.
+    & \qquad \max (a \cdot c, a \cdot d, b \cdot c, b \cdot d) < q。
   \end{aligned}
 \end{align*}
 %
-\index{interval!arithmetic}%
-These formulas are related to multiplication of intervals in interval arithmetic, where
-intervals $[a,b]$ and $[c,d]$ with rational endpoints multiply to the interval
+\index{interval!arithmetic (区间!算术)}%
+这些公式与区间算术中区间的乘法有关，其中区间 $[a,b]$ 和 $[c,d]$ 的端点是有理数，乘积为区间
 %
 \begin{equation*}
-  [a,b] \cdot [c,d] =
-  [\min(a c, a d, b c, b d), \max(a c, a d, b c, b d)].
+[a,b] \cdot [c,d] =
+[\min(a c, a d, b c, b d), \max(a c, a d, b c, b d)]。
 \end{equation*}
 %
-For instance, the formula for the lower cut can be read as saying that $q < x \cdot y$
-when there are intervals $[a,b]$ and $[c,d]$ containing $x$ and $y$, respectively, such
-that $q$ is to the left of $[a,b] \cdot [c,d]$. It is generally useful to think of an
-interval $[a,b]$ such that $L_x(a)$ and $U_x(b)$ as an approximation of~$x$, see
-\cref{ex:RD-interval-arithmetic}.
+例如，下分割的公式可以解释为当存在包含 $x$ 和 $y$ 的区间 $[a,b]$ 和 $[c,d]$ 时，$q < x \cdot y$
+说明 $q$ 位于 $[a,b] \cdot [c,d]$ 的左侧。通常将满足 $L_x(a)$ 和 $U_x(b)$ 的区间 $[a,b]$ 视为~$x$ 的近似是有用的，参见
+\cref{ex:RD-interval-arithmetic}。
 
-We now have a commutative ring\index{ring} with unit
-\index{unit!of a ring}%
-$(\RD, 0, 1, {+}, {-}, {\cdot})$. To treat
-multiplicative inverses, we must first introduce order. Define $\leq$ and $<$ as
+现在我们有了一个具有单位元的交换环\index{ring (环)}，单位元为
+\index{unit!of a ring (单位元!环)}%
+$(\RD, 0, 1, {+}, {-}, {\cdot})$。为了处理乘法逆元，我们首先引入顺序。定义 $\leq$ 和 $<$ 为
 %
 \begin{align*}
-  (x \leq y) &\ \defeq \ \fall{q : \Q} L_x(q) \Rightarrow L_y(q), \\
-  (x < y)    &\ \defeq \ \exis{q : \Q} U_x(q) \land L_y(q).
+(x \leq y) &\ \defeq \ \fall{q : \Q} L_x(q) \Rightarrow L_y(q)， \\
+(x < y)    &\ \defeq \ \exis{q : \Q} U_x(q) \land L_y(q)。
 \end{align*}
 
 \begin{lem} \label{dedekind-in-cut-as-le}
-  For all $x : \RD$ and $q : \Q$, $L_x(q) \Leftrightarrow (q < x)$ and $U_x(q)
-  \Leftrightarrow (x < q)$.
+对于所有 $x : \RD$ 和 $q : \Q$，$L_x(q) \Leftrightarrow (q < x)$ 并且 $U_x(q)
+\Leftrightarrow (x < q)$。
 \end{lem}
 
 \begin{proof}
-  If $L_x(q)$ then by roundedness there merely is $r > q$ such that $L_x(r)$, and since
-  $U_q(r)$ it follows that $q < x$. Conversely, if $q < x$ then there is $r : \Q$ such
-  that $U_q(r)$ and $L_x(r)$, hence $L_x(q)$ because $L_x$ is a lower set. The other half
-  of the proof is symmetric.
+  如果 $L_x(q)$，则通过圆整性，存在仅仅一个 $r > q$ 使得 $L_x(r)$，并且由于
+  $U_q(r)$，因此得出 $q < x$。反之，如果 $q < x$，则存在 $r : \Q$ 使得 $U_q(r)$ 并且 $L_x(r)$，因此由于 $L_x$ 是下集，因此 $L_x(q)$。其余证明对称成立。
 \end{proof}
 
-\index{partial order}%
-\index{transitivity!of . for reals@of $<$ for reals}
-\index{transitivity!of . for reals@of $\leq$ for reals}
-\index{relation!irreflexive}
-\index{irreflexivity!of . for reals@of $<$ for reals}
-The relation $\leq$ is a partial order, and $<$ is transitive and irreflexive. Linearity
-\index{order!linear}%
-\index{linear order}%
+\index{partial order (偏序)}%
+\index{transitivity!of . for reals@of $<$ for reals (传递性!实数的 $<$)}%
+\index{transitivity!of . for reals@of $\leq$ for reals (传递性!实数的 $\leq$)}%
+\index{relation!irreflexive (关系!反自反)}%
+\index{irreflexivity!of . for reals@of $<$ for reals (反自反性!实数的 $<$)}%
+关系 $\leq$ 是偏序，并且 $<$ 是传递的和反自反的。线性性
+\index{order!linear (顺序!线性)}%
+\index{linear order (线性顺序)}%
 %
 \begin{equation*}
-  (x < y) \lor (y \leq x)
+(x < y) \lor (y \leq x)
 \end{equation*}
 %
-is valid if we assume excluded middle, but without it we get weak linearity
+在假设排中律时成立，但在不假设排中律的情况下，我们得到弱线性性
 %
-\index{order!weakly linear}
-\index{weakly linear order}
+\index{order!weakly linear (顺序!弱线性)}
+\index{weakly linear order (弱线性顺序)}
 \begin{equation} \label{eq:RD-linear-order}
-  (x < y) \Rightarrow (x < z) \lor (z < y).
+(x < y) \Rightarrow (x < z) \lor (z < y)。
 \end{equation}
 %
-At first sight it might not be clear what~\eqref{eq:RD-linear-order} has to do with
-linear order. But if we take $x \jdeq u - \epsilon$ and $y \jdeq u + \epsilon$ for
-$\epsilon > 0$, then we get
+乍一看，\eqref{eq:RD-linear-order} 可能不清楚与线性顺序的关系。但如果我们令 $x \jdeq u - \epsilon$ 和 $y \jdeq u + \epsilon$，其中
+$\epsilon > 0$，那么我们得到
 %
 \begin{equation*}
-  (u - \epsilon < z) \lor (z < u + \epsilon).
+(u - \epsilon < z) \lor (z < u + \epsilon)。
 \end{equation*}
 %
-This is linearity ``up to a small numerical error'', i.e., since it is unreasonable to
-expect that we can actually compute with infinite precision, we should not be surprised
-that we can decide~$<$ only up to whatever finite precision we have computed.
+这是“加上一个小数误差”的线性性，即，由于不合理地期望我们可以实际用无限精度计算，我们不应感到惊讶，我们只能在计算的任何有限精度范围内决定~$<$。
 
-To see that~\eqref{eq:RD-linear-order} holds, suppose $x < y$. Then there merely exists $q : \Q$ such that $U_x(q)$ and
-$L_y(q)$. By roundedness there merely exist $r, s : \Q$ such that $r < q < s$, $U_x(r)$
-and $L_y(s)$. Then, by locatedness $L_z(r)$ or $U_z(s)$. In the first case we get $x < z$
-and in the second $z < y$.
+要看出~\eqref{eq:RD-linear-order} 成立，假设 $x < y$。那么仅仅存在 $q : \Q$ 使得 $U_x(q)$ 并且
+$L_y(q)$。通过圆整性，存在仅仅 $r, s : \Q$ 使得 $r < q < s$，$U_x(r)$
+并且 $L_y(s)$。然后，通过确定性 $L_z(r)$ 或 $U_z(s)$。在第一种情况下，我们得到 $x < z$，在第二种情况下，得到 $z < y$。
 
-Classically, multiplicative inverses exist for all numbers which are different from zero.
-However, without excluded middle, a stronger condition is required. Say that $x, y : \RD$
-are \define{apart}
-\indexdef{apartness}%
-from each other, written $x \apart y$, when $(x < y) \lor (y < x)$:
+在经典情况下，乘法逆元存在于所有不等于零的数中。
+然而，在没有排中律的情况下，需要一个更强的条件。称 $x, y : \RD$
+彼此\define{相异 (apart)}，
+\indexdef{apartness (相异)}%
+记作 $x \apart y$，当 $(x < y) \lor (y < x)$ 时：
 %
-\symlabel{apart}
+\symlabel{apart (相异)}
 \begin{equation*}
-  (x \apart y) \defeq (x < y) \lor (y < x).
+(x \apart y) \defeq (x < y) \lor (y < x)。
 \end{equation*}
 %
-If $x \apart y$, then $\lnot (x = y)$.
-The converse is true if we assume excluded middle, but is not provable constructively.
-\index{mathematics!constructive}%
-Indeed, if $\lnot (x = y)$ implies $x\apart y$, then a little bit of excluded middle follows; see \cref{ex:reals-apart-neq-MP}.
+如果 $x \apart y$，则 $\lnot (x = y)$。
+如果假设排中律，反过来也是成立的，但在构造性数学中不可证。
+\index{mathematics!constructive (数学!构造性)}%
+事实上，如果 $\lnot (x = y)$ 蕴含 $x\apart y$，那么排中律的一小部分将成立；参见\cref{ex:reals-apart-neq-MP}。
 
 \begin{thm} \label{RD-inverse-apart-0}
-  A real is invertible if, and only if, it is apart from $0$.
+当且仅当一个实数与 $0$ 相异时，它是可逆的。
 \end{thm}
 
 \begin{rmk}
-  We observe that a real is invertible if, and only if, it is merely
-  invertible.  Indeed, the same is true in any ring,\index{ring} since a ring is a set, and
-  multiplicative inverses are unique if they exist.  See the discussion
-  following \cref{cor:UC}.
+  我们观察到一个实数是可逆的，当且仅当它是仅仅可逆的。实际上，在任何环中都是如此，\index{ring (环)} 因为一个环是一个集合，如果存在，乘法逆元是唯一的。 参见\cref{cor:UC}后的讨论。
 \end{rmk}
 
 \begin{proof}
-  Suppose $x \cdot y = 1$. Then there merely exist $a, b, c, d : \Q$ such that
-  $a < x < b$, $c < y < d$ and $0 < \min (a c, a d, b c, b d)$. From $0 < a c$ and $0 < b c$ it follows
-  that $a$, $b$, and $c$ are either all positive or all negative.
-  Hence either $0 < a < x$ or $x < b < 0$, so that $x \apart 0$.
+  假设 $x \cdot y = 1$。那么仅仅存在 $a, b, c, d : \Q$ 使得
+  $a < x < b$，$c < y < d$ 并且 $0 < \min (a c, a d, b c, b d)$。由于 $0 < a c$ 和 $0 < b c$，可得
+  $a$，$b$ 和 $c$ 要么全为正数，要么全为负数。
+  因此，要么 $0 < a < x$，要么 $x < b < 0$，因此 $x \apart 0$。
 
-  Conversely, if $x \apart 0$, then either $x > 0$ or $x < 0$.
-  If $x > 0$, we define $x^{-1}$ as follows:
+  反之，如果 $x \apart 0$，则 $x > 0$ 或 $x < 0$。
+  如果 $x > 0$，我们定义 $x^{-1}$ 如下：
   %
   \begin{align*}
     L_{x^{-1}}(q) &\defeq
-    (q > 0) \Rightarrow \exis{r : \Q} U_x(r) \land (q r < 1),
+    (q > 0) \Rightarrow \exis{r : \Q} U_x(r) \land (q r < 1)，
     \\
     U_{x^{-1}}(q) &\defeq
-    (q > 0) \land \exis{r : \Q} L_x(r) \land (q r > 1).
+    (q > 0) \land \exis{r : \Q} L_x(r) \land (q r > 1)。
   \end{align*}
   %
-  If $x < 0$, then we define it by
+  如果 $x < 0$，则我们通过以下方式定义它：
   %
   \begin{align*}
     L_{x^{-1}}(q) &\defeq
-    (q < 0) \land \exis{r : \Q} U_x(r) \land (q r > 1),
+    (q < 0) \land \exis{r : \Q} U_x(r) \land (q r > 1)，
     \\
     U_{x^{-1}}(q) &\defeq
-    (q < 0) \Rightarrow \exis{r : \Q} L_x(r) \land (q r < 1). \qedhere
+    (q < 0) \Rightarrow \exis{r : \Q} L_x(r) \land (q r < 1)。\qedhere
   \end{align*}
 \end{proof}
 
-\index{ordered field!archimedean}%
-\index{dense}%
-\indexsee{order-dense}{dense}%
-The archimedean principle can be stated in several ways. We find it most illuminating in the
-form which says that $\Q$ is dense in $\RD$.
+\index{ordered field!archimedean (有序域!阿基米德)}%
+\index{dense (稠密)}%
+\indexsee{order-dense (顺序稠密)}{dense (稠密)}%
+阿基米德原理可以用几种方式表达。我们认为最具启发性的是
+形式，它说 $\Q$ 在 $\RD$ 中是稠密的。
 
-\begin{thm}[Archimedean principle for $\RD$] \label{RD-archimedean}
-  %
-  For all $x, y : \RD$ if $x < y$ then there merely exists $q : \Q$ such that
-  $x < q < y$.
+\begin{thm}[阿基米德原理对于 $\RD$] \label{RD-archimedean}
+%
+对于所有 $x, y : \RD$，如果 $x < y$，则仅仅存在 $q : \Q$ 使得
+$x < q < y$。
 \end{thm}
 
 \begin{proof}
-  By definition of $<$.
+  根据 $<$ 的定义。
 \end{proof}
 
-Before tackling completeness of Dedekind reals, let us state precisely what algebraic
-structure they possess. In the following definition we are not aiming at a minimal
-axiomatization, but rather at a useful amount of structure and properties.
+在处理 Dedekind 实数的完备性之前，让我们准确地描述它们具有的代数
+结构。在以下定义中，我们的目标不是最小公理化，而是一个有用的结构和性质。
 
-\begin{defn} \label{ordered-field} An \define{ordered field}
-  \indexdef{ordered field}%
-  \indexsee{field!ordered}{ordered field}%
-  is a set $F$ together with
-  constants $0$, $1$, operations $+$, $-$, $\cdot$, $\min$, $\max$, and mere relations
-  $\leq$, $<$, $\apart$ such that:
+\begin{defn} \label{ordered-field} 一个\define{有序域 (ordered field)}
+\indexdef{ordered field (有序域)}%
+\indexsee{field!ordered (域!有序)}{ordered field (有序域)}%
+是一个集合 $F$，它与
+常数 $0$，$1$，运算 $+$，$-$，$\cdot$，$\min$，$\max$，和仅仅关系
+$\leq$，$<$，$\apart$ 使得：
+%
+\begin{enumerate}
+  \item $(F, 0, 1, {+}, {-}, {\cdot})$ 是一个交换环，带有单位元；
+  \index{unit!of a ring (单位元!环)}%
+  \index{ring (环)}%
+  \item 当且仅当 $x \apart 0$ 时，$x : F$ 是可逆的；
+  \item $(F, {\leq}, {\min}, {\max})$ 是一个格；
+  \item 严格顺序 $<$ 是传递的，反自反的，
+  \index{relation!irreflexive (关系!反自反)}
+  \index{irreflexivity!of . in a field@of $<$ in a field (反自反性!$<$ 在一个域中)}%
+  并且弱线性 ($x < y \Rightarrow x < z \lor z < y$)；\index{transitivity!of . in a field@of $<$ in a field (传递性!$<$ 在一个域中)}
+  \index{order!weakly linear (顺序!弱线性)}
+  \index{weakly linear order (弱线性顺序)}
+  \index{strict!order (严格!顺序)}%
+  \index{order!strict (顺序!严格)}%
+  \item 相异性 $\apart$ 是反自反的，对称的，并且是对传递的 ($x \apart y \Rightarrow x \apart z \lor y \apart z$)；
+  \index{relation!irreflexive (关系!反自反)}
+  \index{irreflexivity!of apartness (反自反性!相异性)}%
+  \indexdef{relation!cotransitive (关系!对传递)}%
+  \index{cotransitivity of apartness (相异性的对传递)}%
+  \item 对于所有 $x, y, z : F$：
   %
-  \begin{enumerate}
-  \item $(F, 0, 1, {+}, {-}, {\cdot})$ is a commutative ring with unit;
-    \index{unit!of a ring}%
-    \index{ring}%
-  \item $x : F$ is invertible if, and only if, $x \apart 0$;
-  \item $(F, {\leq}, {\min}, {\max})$ is a lattice;
-  \item the strict order $<$ is transitive, irreflexive,
-    \index{relation!irreflexive}
-    \index{irreflexivity!of . in a field@of $<$ in a field}%
-    and weakly linear ($x < y \Rightarrow x < z \lor z < y$);\index{transitivity!of . in a field@of $<$ in a field}
-    \index{order!weakly linear}
-    \index{weakly linear order}
-    \index{strict!order}%
-    \index{order!strict}%
-  \item apartness $\apart$ is irreflexive, symmetric and cotransitive ($x \apart y \Rightarrow x \apart z \lor y \apart z$);
-    \index{relation!irreflexive}
-    \index{irreflexivity!of apartness}%
-    \indexdef{relation!cotransitive}%
-    \index{cotransitivity of apartness}%
-  \item for all $x, y, z : F$:
-    %
-    \begin{align*}
-      x \leq y &\Leftrightarrow \lnot (y < x), &
-      x < y \leq z &\Rightarrow x < z, \\
-      x \apart y &\Leftrightarrow (x < y) \lor (y < x), &
-      x \leq y < z &\Rightarrow x < z, \\
-      x \leq y &\Leftrightarrow x + z \leq y + z, &
-      x \leq y \land 0 \leq z &\Rightarrow x z \leq y z, \\
-      x < y &\Leftrightarrow x + z < y + z, &
-      0 < z \Rightarrow (x < y &\Leftrightarrow x z < y z), \\
-      0 < x + y &\Rightarrow 0 < x \lor 0 < y, &
-      0 &< 1.
-    \end{align*}
-  \end{enumerate}
-  %
-  Every such field has a canonical embedding $\Q \to F$. An ordered field is
-  \define{archimedean}
-  \indexdef{ordered field!archimedean}%
-  \indexsee{archimedean property}{ordered field, archi\-mede\-an}%
-  when for all $x, y : F$, if $x < y$ then there merely exists $q :
-  \Q$ such that $x < q < y$.
+  \begin{align*}
+    x \leq y &\Leftrightarrow \lnot (y < x)， &
+    x < y \leq z &\Rightarrow x < z， \\
+    x \apart y &\Leftrightarrow (x < y) \lor (y < x)， &
+    x \leq y < z &\Rightarrow x < z， \\
+    x \leq y &\Leftrightarrow x + z \leq y + z， &
+    x \leq y \land 0 \leq z &\Rightarrow x z \leq y z， \\
+    x < y &\Leftrightarrow x + z < y + z， &
+    0 < z \Rightarrow (x < y &\Leftrightarrow x z < y z)， \\
+    0 < x + y &\Rightarrow 0 < x \lor 0 < y， &
+    0 &< 1。
+  \end{align*}
+\end{enumerate}
+%
+每个这样的域都有一个规范的嵌入 $\Q \to F$。一个有序域是
+\define{阿基米德 (archimedean)}
+\indexdef{ordered field!archimedean (有序域!阿基米德)}%
+\indexsee{archimedean property (阿基米德性质)}{ordered field, archimedean (有序域, 阿基米德)}%
+当对于所有 $x, y : F$，如果 $x < y$，则仅仅存在 $q :
+\Q$ 使得 $x < q < y$。
 \end{defn}
 
 \begin{thm} \label{RD-archimedean-ordered-field}
-  The Dedekind reals form an ordered archimedean field.
+Dedekind 实数形成了一个有序的阿基米德域。
 \end{thm}
 
 \begin{proof}
-  We omit the proof in the hope that what we have demonstrated so far makes the theorem
-  plausible.
+  我们省略了证明，因为我们已经展示的内容使得该定理
+  看起来是合理的。
 \end{proof}
 
-\subsection{Dedekind reals are Cauchy complete}
+\subsection{Dedekind 实数是柯西完备的 (Dedekind reals are Cauchy complete)}
 \label{sec:RD-cauchy-complete}
 
-Recall that $x : \N \to \Q$ is a \emph{Cauchy sequence}\indexdef{Cauchy!sequence} when it satisfies
+回顾一下，$x : \N \to \Q$ 是一个\emph{柯西序列 (Cauchy sequence)}\indexdef{Cauchy!sequence (柯西!序列)}当它满足
 %
 \begin{equation} \label{eq:cauchy-sequence}
-  \prd{\epsilon : \Qp} \sm{n : \N} \prd{m, k \geq n} |x_m - x_k| < \epsilon.
+\prd{\epsilon : \Qp} \sm{n : \N} \prd{m, k \geq n} |x_m - x_k| < \epsilon。
 \end{equation}
 %
-Note that we did \emph{not} truncate the inner existential because we actually want to
-compute rates of convergence---an approximation without an error estimate carries little
-useful information. By \cref{thm:ttac}, \eqref{eq:cauchy-sequence} yields a function $M
-: \Qp \to \N$, called the \emph{modulus of convergence}\indexdef{modulus!of convergence}, such that $m, k \geq M(\epsilon)$
-implies $|x_m - x_k| < \epsilon$. From this we get $|x_{M(\delta/2)} - x_{M(\epsilon/2)}|<
-\delta + \epsilon$ for all $\delta, \epsilon : \Qp$. In fact, the map $(\epsilon \mapsto
-x_{M(\epsilon/2)}) : \Qp \to \Q$ carries the same information about the limit as the
-original Cauchy condition~\eqref{eq:cauchy-sequence}. We shall work with these
-approximation functions rather than with Cauchy sequences.
+请注意，我们并\emph{没有} 截断内部存在的存在量词，因为我们实际上希望
+计算收敛速度——没有误差估计的近似几乎没有什么有用的信息。通过\cref{thm:ttac}，\eqref{eq:cauchy-sequence}产生一个函数 $M
+: \Qp \to \N$，称为\emph{收敛模 (modulus of convergence)}\indexdef{modulus!of convergence (模!收敛)}，使得 $m, k \geq M(\epsilon)$
+时，$|x_m - x_k| < \epsilon$。由此我们得到 $|x_{M(\delta/2)} - x_{M(\epsilon/2)}|<
+\delta + \epsilon$ 对于所有 $\delta, \epsilon : \Qp$。事实上，映射 $(\epsilon \mapsto
+x_{M(\epsilon/2)}) : \Qp \to \Q$ 携带的极限信息与
+原始的柯西条件~\eqref{eq:cauchy-sequence} 相同。我们将处理这些
+近似函数而不是柯西序列。
 
 \begin{defn} \label{defn:cauchy-approximation}
-  A \define{Cauchy approximation}
-  \indexdef{Cauchy!approximation}%
-  is a map $x : \Qp \to \RD$ which satisfies
-  %
-  \begin{equation}
-    \label{eq:cauchy-approx}
-    \fall{\delta, \epsilon :\Qp} |x_\delta - x_\epsilon| < \delta + \epsilon.
-  \end{equation}
-  %
-  The \define{limit}
-  \index{limit!of a Cauchy approximation}%
-  of a Cauchy approximation $x : \Qp \to \RD$ is a number $\ell : \RD$ such
-  that
-  %
-  \begin{equation*}
-    \fall{\epsilon, \theta : \Qp} |x_\epsilon - \ell| < \epsilon + \theta.
-  \end{equation*}
+一个\define{柯西近似 (Cauchy approximation)}
+\indexdef{Cauchy!approximation (柯西!近似)}%
+是一个映射 $x : \Qp \to \RD$，满足
+%
+\begin{equation}
+  \label{eq:cauchy-approx}
+  \fall{\delta, \epsilon :\Qp} |x_\delta - x_\epsilon| < \delta + \epsilon。
+\end{equation}
+%
+一个柯西近似 $x : \Qp \to \RD$ 的\define{极限 (limit)}
+\index{limit!of a Cauchy approximation (极限!柯西近似)}%
+是一个实数 $\ell : \RD$，使得
+%
+\begin{equation*}
+  \fall{\epsilon, \theta : \Qp} |x_\epsilon - \ell| < \epsilon + \theta。
+\end{equation*}
 \end{defn}
 
 \begin{thm} \label{RD-cauchy-complete}
-  Every Cauchy approximation in $\RD$ has a limit.
+$\RD$ 中的每一个柯西近似都有一个极限。
 \end{thm}
 
 \begin{proof}
-  Note that we are showing existence, not mere existence, of the limit.
-  Given a Cauchy approximation $x : \Qp \to \RD$, define
+  请注意，我们正在展示极限的存在，而不是仅仅存在。
+  给定一个柯西近似 $x : \Qp \to \RD$，定义
   %
   \begin{align*}
-    L_y(q) &\defeq \exis{\epsilon, \theta : \Qp} L_{x_\epsilon}(q + \epsilon + \theta),\\
-    U_y(q) &\defeq \exis{\epsilon, \theta : \Qp} U_{x_\epsilon}(q - \epsilon - \theta).
+    L_y(q) &\defeq \exis{\epsilon, \theta : \Qp} L_{x_\epsilon}(q + \epsilon + \theta)，\\
+    U_y(q) &\defeq \exis{\epsilon, \theta : \Qp} U_{x_\epsilon}(q - \epsilon - \theta)。
   \end{align*}
   %
-  It is clear that $L_y$ and $U_y$ are inhabited, rounded, and disjoint. To establish
-  locatedness, consider any $q, r : \Q$ such that $q < r$. There is $\epsilon : \Qp$ such
-  that $5 \epsilon < r - q$. Since $q + 2 \epsilon < r - 2 \epsilon$ merely
-  $L_{x_\epsilon}(q + 2 \epsilon)$ or $U_{x_\epsilon}(r - 2 \epsilon)$. In the first case
-  we have $L_y(q)$ and in the second $U_y(r)$.
+  很明显 $L_y$ 和 $U_y$ 是非空的，圆整的，不相交的。为了证明
+  确定性，考虑任意的 $q, r : \Q$ 满足 $q < r$。存在 $\epsilon : \Qp$ 满足
+  $5 \epsilon < r - q$。由于 $q + 2 \epsilon < r - 2 \epsilon$ 仅仅
+  $L_{x_\epsilon}(q + 2 \epsilon)$ 或 $U_{x_\epsilon}(r - 2 \epsilon)$。在第一种情况下，
+  我们有 $L_y(q)$，在第二种情况下我们有 $U_y(r)$。
 
-  To show that $y$ is the limit of $x$, consider any $\epsilon, \theta : \Qp$. Because
-  $\Q$ is dense in $\RD$ there merely exist $q, r : \Q$ such that
+  为了表明 $y$ 是 $x$ 的极限，考虑任意的 $\epsilon, \theta : \Qp$。由于
+  $\Q$ 在 $\RD$ 中是稠密的，存在仅仅的 $q, r : \Q$ 满足
   %
   \begin{narrowmultline*}
     x_\epsilon - \epsilon - \theta/2 < q < x_\epsilon - \epsilon - \theta/4
     < x_\epsilon < \\
-    x_\epsilon + \epsilon + \theta/4 < r < x_\epsilon + \epsilon + \theta/2,
+    x_\epsilon + \epsilon + \theta/4 < r < x_\epsilon + \epsilon + \theta/2，
   \end{narrowmultline*}
   %
-  and thus $q < y < r$. Now either $y < x_\epsilon + \theta/2$ or $x_\epsilon - \theta/2 < y$.
-  In the first case we have
+  因此 $q < y < r$。现在要么 $y < x_\epsilon + \theta/2$，要么 $x_\epsilon - \theta/2 < y$。
+  在第一种情况下，我们有
   %
   \begin{equation*}
-    x_\epsilon - \epsilon - \theta/2 < q < y < x_\epsilon + \theta/2,
+    x_\epsilon - \epsilon - \theta/2 < q < y < x_\epsilon + \theta/2，
   \end{equation*}
   %
-  and in the second
+  在第二种情况下
   %
   \begin{equation*}
-    x_\epsilon - \theta/2 < y < r < x_\epsilon + \epsilon + \theta/2.
+    x_\epsilon - \theta/2 < y < r < x_\epsilon + \epsilon + \theta/2。
   \end{equation*}
   %
-  In either case it follows that $|y - x_\epsilon| < \epsilon + \theta$.
+  无论哪种情况，都得出 $|y - x_\epsilon| < \epsilon + \theta$。
 \end{proof}
 
-For sake of completeness we record the classic formulation as well.
+为了完整性，我们记录了经典的表达方式。
 
 \begin{cor}
-  Suppose $x : \N \to \RD$ satisfies the Cauchy condition~\eqref{eq:cauchy-sequence}. Then
-  there exists $y : \RD$ such that
+  假设 $x : \N \to \RD$ 满足柯西条件~\eqref{eq:cauchy-sequence}。那么
+  存在 $y : \RD$ 满足
   %
   \begin{equation*}
-    \prd{\epsilon : \Qp} \sm{n : \N} \prd{m \geq n} |x_m - y| < \epsilon.
+    \prd{\epsilon : \Qp} \sm{n : \N} \prd{m \geq n} |x_m - y| < \epsilon。
   \end{equation*}
 \end{cor}
 
 \begin{proof}
-  By \cref{thm:ttac} there is $M : \Qp \to \N$ such that $\bar{x}(\epsilon) \defeq
-  x_{M(\epsilon/2)}$ is a Cauchy approximation. Let $y$ be its limit, which exists by
-  \cref{RD-cauchy-complete}. Given any $\epsilon : \Qp$, let $n \defeq M(\epsilon/4)$
-  and observe that, for any $m \geq n$,
+  通过\cref{thm:ttac}存在 $M : \Qp \to \N$ 使得 $\bar{x}(\epsilon) \defeq
+  x_{M(\epsilon/2)}$ 是一个柯西近似。令 $y$ 为其极限，该极限通过
+  \cref{RD-cauchy-complete} 存在。给定任意 $\epsilon : \Qp$，令 $n \defeq M(\epsilon/4)$
+  并观察到，对于任何 $m \geq n$，
   %
   \begin{narrowmultline*}
     |x_m - y| \leq |x_m - x_n| + |x_n - y| =
     |x_m - x_n| + |\bar{x}(\epsilon/2) - y| < \narrowbreak
-    \epsilon/4 + \epsilon/2 + \epsilon/4 = \epsilon.\qedhere
+    \epsilon/4 + \epsilon/2 + \epsilon/4 = \epsilon。\qedhere
   \end{narrowmultline*}
 \end{proof}
 
-\subsection{Dedekind reals are Dedekind complete}
+\subsection{Dedekind 实数是 Dedekind 完备的 (Dedekind reals are Dedekind complete)}
 \label{sec:RD-dedekind-complete}
 
-We obtained $\RD$ as the type of Dedekind cuts on $\Q$. But we could have instead started
-with any archimedean ordered field $F$ and constructed Dedekind cuts\index{cut!Dedekind} on $F$. These would
-again form an archimedean ordered field $\bar{F}$, the \define{Dedekind completion of $F$},%
-\index{completion!Dedekind}%
-\indexsee{Dedekind!completion}{completion, Dedekind}
-with $F$ contained as a subfield. What happens if we apply this construction to
-$\RD$, do we get even more real numbers? The answer is negative. In fact, we shall prove a
-stronger result: $\RD$ is final.
+我们得到了 $\RD$ 作为 $\Q$ 上的 Dedekind 分割的类型。但是我们也可以从任意的阿基米德有序域 $F$ 开始，并构造 $F$ 上的 Dedekind 分割\index{cut!Dedekind (分割!Dedekind)}。这些将
+再次形成一个阿基米德有序域 $\bar{F}$，称为\define{Dedekind 完备的 $F$}，
+\index{completion!Dedekind (完备!Dedekind)}%
+\indexsee{Dedekind!completion (Dedekind!完备)}{completion, Dedekind (完备, Dedekind)}，
+其中 $F$ 被包含为一个子域。如果我们将此构造应用于
+$\RD$，我们会得到更多的实数吗？答案是否定的。事实上，我们将证明一个更强的结果：$\RD$ 是最终的。
 
-Say that an ordered field~$F$ is \define{admissible for $\Omega$}
-\indexsee{admissible!ordered field}{ordered field, admissible}%
-\indexdef{ordered field!admissible}%
-when the strict order
-$<$ on~$F$ is a map ${<} : F \to F \to \Omega$.
+称一个有序域~$F$ 是\define{对 $\Omega$ 可接受的 (admissible for $\Omega$)}
+\indexsee{admissible!ordered field (可接受的!有序域)}{ordered field, admissible (有序域, 可接受的)}%
+\indexdef{ordered field!admissible (有序域!可接受的)}%
+当严格顺序
+$<$ 在~$F$ 上是一个映射 ${<} : F \to F \to \Omega$。
 
 \begin{thm} \label{RD-final-field}
-  Every archimedean ordered field which is admissible for $\Omega$ is a subfield of~$\RD$.
+每一个对 $\Omega$ 可接受的阿基米德有序域都是~$\RD$ 的一个子域。
 \end{thm}
 
 \begin{proof}
-  Let $F$ be an archimedean ordered field. For every $x : F$ define $L_x, U_x : \Q \to
-  \Omega$ by
+  令 $F$ 为一个阿基米德有序域。对于每一个 $x : F$ 定义 $L_x, U_x : \Q \to
+  \Omega$ 如下
   %
   \begin{equation*}
     L_x(q) \defeq (q < x)
-    \qquad\text{and}\qquad
-    U_x(q) \defeq (x < q).
+    \qquad\text{并且}\qquad
+    U_x(q) \defeq (x < q)。
   \end{equation*}
   %
-  (We have just used the assumption that $F$ is admissible for $\Omega$.)
-  Then $(L_x, U_x)$ is a Dedekind cut.\index{cut!Dedekind} Indeed, the cuts are inhabited and rounded because
-  $F$ is archimedean and $<$ is transitive, disjoint because $<$ is irreflexive, and
-  located because $<$ is a weak linear order. Let $e : F \to \RD$ be the map $e(x) \defeq (L_x,
-  U_x)$.
+  (我们刚刚使用了 $F$ 是对 $\Omega$ 可接受的这个假设。)
+  然后 $(L_x, U_x)$ 是一个 Dedekind 分割。事实上，这些分割是非空且圆整的，因为
+  $F$ 是阿基米德的，$<$ 是传递的，不相交是因为 $<$ 是反自反的，并且
+  确定性是因为 $<$ 是弱线性顺序。令 $e : F \to \RD$ 为映射 $e(x) \defeq (L_x,
+  U_x)$。
 
-  We claim that $e$ is a field embedding which preserves and reflects the order. First of
-  all, notice that $e(q) = q$ for a rational number $q$. Next we have the equivalences,
-  for all $x, y : F$,
+  我们声称 $e$ 是一个保持并反映顺序的域嵌入。首先，
+  注意 $e(q) = q$ 对于一个有理数 $q$。其次，我们有等价关系，
+  对于所有 $x, y : F$，
   %
   \begin{narrowmultline*}
     x < y \Leftrightarrow
     (\exis{q : \Q} x < q < y) \Leftrightarrow \narrowbreak
     (\exis{q : \Q} U_x(q) \land L_y(q)) \Leftrightarrow
-    e(x) < e(y),
+    e(x) < e(y)，
   \end{narrowmultline*}
   %
-  so $e$ indeed preserves and reflects the order. That $e(x + y) = e(x) + e(y)$ holds
-  because, for all $q : \Q$,
+  因此 $e$ 确实保持并反映顺序。$e(x + y) = e(x) + e(y)$ 成立
+  是因为对于所有 $q : \Q$，
   %
   \begin{equation*}
     q < x + y \Leftrightarrow
-    \exis{r, s : \Q} r < x \land s < y \land q = r + s.
+    \exis{r, s : \Q} r < x \land s < y \land q = r + s。
   \end{equation*}
   %
-  The implication from right to left is obvious. For the other direction, if $q < x +
-  y$ then there merely exists $r : \Q$ such that $q - y < r < x$, and by taking $s \defeq
-  q - r$ we get the desired $r$ and $s$. We leave preservation of multiplication by $e$ as
-  an exercise.
+  从右到左的蕴含是显然的。对于另一方向，如果 $q < x +
+  y$，则仅仅存在 $r : \Q$ 使得 $q - y < r < x$，通过取 $s \defeq
+  q - r$ 我们得到所需的 $r$ 和 $s$。我们将保留 $e$ 的乘法的证明
+  作为练习。
 \end{proof}
 
-To establish that the Dedekind cuts on $\RD$ do not give us anything new, we need just one
-more lemma.
+为了证明 $\RD$ 上的 Dedekind 分割不会给我们带来任何新内容，我们需要再证明一个引理。
 
 \begin{lem} \label{lem:cuts-preserve-admissibility}
-  If $F$ is admissible for $\Omega$ then so is its Dedekind completion.
-  \index{completion!Dedekind}%
+如果 $F$ 对 $\Omega$ 是可接受的，那么它的 Dedekind 完备也是如此。
+\index{completion!Dedekind (完备!Dedekind)}%
 \end{lem}
 
 \begin{proof}
-  Let $\bar{F}$ be the Dedekind completion of $F$. The strict order on $\bar{F}$ is
-  defined by
+  令 $\bar{F}$ 为 $F$ 的 Dedekind 完备。$\bar{F}$ 上的严格顺序
+  定义为
   %
   \begin{equation*}
-    ((L,U) < (L',U')) \defeq \exis{q : \Q} U(q) \land L'(q).
+    ((L,U) < (L',U')) \defeq \exis{q : \Q} U(q) \land L'(q)。
   \end{equation*}
   %
-  Since $U(q)$ and $L'(q)$ are elements of $\Omega$, the lemma holds as long as $\Omega$
-  is closed under conjunctions and countable existentials, which we assumed from the outset.
+  由于 $U(q)$ 和 $L'(q)$ 是 $\Omega$ 的元素，该引理成立只要 $\Omega$
+  在合取和可数存在下是封闭的，这是我们一开始就假设的。
 \end{proof}
 
 
 \begin{cor} \label{RD-dedekind-complete}
-  %
-  \indexdef{complete!ordered field, Dedekind}%
-  \indexdef{Dedekind!completeness}%
-  The Dedekind reals are Dedekind complete: for every real-valued Dedekind cut $(L, U)$
-  there is a unique $x : \RD$ such that $L(y) = (y < x)$ and $U(y) = (x < y)$ for all $y :
-  \RD$.
+%
+\indexdef{complete!ordered field, Dedekind (完备!有序域, Dedekind)}%
+\indexdef{Dedekind!completeness (Dedekind!完备性)}%
+Dedekind 实数是 Dedekind 完备的：对于每一个实数值的 Dedekind 分割 $(L, U)$，
+存在唯一的 $x : \RD$ 使得 $L(y) = (y < x)$ 并且 $U(y) = (x < y)$ 对于所有 $y :
+\RD$ 成立。
 \end{cor}
 
 \begin{proof}
-  By \cref{lem:cuts-preserve-admissibility} the Dedekind completion $\barRD$ of $\RD$
-  is admissible for $\Omega$, so by \cref{RD-final-field} we have an embedding $\barRD
-  \to \RD$, as well as an embedding $\RD \to \barRD$. But these embeddings must be
-  isomorphisms, because their compositions are order-preserving field homomorphisms\index{homomorphism!field} which
-  fix the dense subfield~$\Q$, which means that they are the identity. The corollary now
-  follows immediately from the fact that $\barRD \to \RD$ is an isomorphism.
+  通过\cref{lem:cuts-preserve-admissibility}，$\RD$ 的 Dedekind 完备 $\barRD$
+  对 $\Omega$ 是可接受的，因此通过\cref{RD-final-field} 我们有一个嵌入 $\barRD
+  \to \RD$，以及一个嵌入 $\RD \to \barRD$。但这些嵌入必须是
+  同构，因为它们的组合是保持顺序的域同态\index{homomorphism!field (同态!域)}，它们
+  固定了稠密子域~$\Q$，这意味着它们是恒等映射。推论现在
+  立即得出，因为 $\barRD \to \RD$ 是一个同构。
 \end{proof}
 
-\index{real numbers!Dedekind|)}%
+\index{real numbers!Dedekind|) (实数!Dedekind|)}%
 
 \section{Cauchy reals}
 \label{sec:cauchy-reals}
