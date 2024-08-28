@@ -916,388 +916,316 @@ $\id{\pi_1(\Sn ^1)} {\Z}$，而 $\id{\pi_n(\Sn ^1)}0$ 对于 $n>1$。
 \index{fiber sequence|)}%
 \index{sequence!fiber|)}%
 
-\section{The Hopf fibration}
+\section{霍普夫纤维丛 (The Hopf fibration)}
 \label{sec:hopf}
 
-In this section we will define the \define{Hopf fibration}.
-\indexdef{Hopf!fibration}%
+在本节中，我们将定义\define{霍普夫纤维丛 (Hopf fibration)}。
+\indexdef{霍普夫!纤维丛 (Hopf!fibration)}%
 
-\begin{thm}[Hopf Fibration]\label{thm:hopf-fibration}
-There is a fibration $H$ over $\Sn ^2$ whose fiber over the basepoint is $\Sn ^1$ and
-whose total space is $\Sn ^3$.
+\begin{thm}[霍普夫纤维丛 (Hopf Fibration)]\label{thm:hopf-fibration}
+存在一个在 $\Sn^2$ 上的纤维丛 $H$，其基点上的纤维是 $\Sn^1$，总空间是 $\Sn^3$。
 \end{thm}
 
-The Hopf fibration will allow us to compute several homotopy groups of
-spheres.
-Indeed, it yields the following long exact sequence
-\index{homotopy!group!of sphere}
-\index{sequence!exact}
-of homotopy groups
-(see
-\cref{sec:long-exact-sequence-homotopy-groups}):
+霍普夫纤维丛将使我们能够计算多个球面上的同伦群。
+确实，它得出了以下的同伦群的长确界序列
+\index{同伦!群!球面 (homotopy!group!of sphere)}
+\index{确界序列 (sequence!exact)}
+(参见 \cref{sec:long-exact-sequence-homotopy-groups})：
 %
 \[
-\xymatrix@R=1.2pc{
-  \pi_k(\Sn^1) \ar[r] & \pi_k(\Sn^3) \ar[r] & \pi_k(\Sn^2) \ar[lld] \\
-  \vdots & \vdots & \vdots \ar[lld] \\
-  \pi_2(\Sn^1) \ar[r] & \pi_2(\Sn^3) \ar[r] & \pi_2(\Sn^2) \ar[lld] \\
-  \pi_1(\Sn^1) \ar[r] & \pi_1(\Sn^3) \ar[r] & \pi_1(\Sn^2)}
+  \xymatrix@R=1.2pc{
+    \pi_k(\Sn^1) \ar[r] & \pi_k(\Sn^3) \ar[r] & \pi_k(\Sn^2) \ar[lld] \\
+    \vdots & \vdots & \vdots \ar[lld] \\
+    \pi_2(\Sn^1) \ar[r] & \pi_2(\Sn^3) \ar[r] & \pi_2(\Sn^2) \ar[lld] \\
+    \pi_1(\Sn^1) \ar[r] & \pi_1(\Sn^3) \ar[r] & \pi_1(\Sn^2)}
 \]
 %
-We've already computed all $\pi_n(\Sn^1)$, and $\pi_k(\Sn^n)$ for $k<n$, so this
-becomes the following:
+我们已经计算出了所有 $\pi_n(\Sn^1)$ 和 $\pi_k(\Sn^n)$，对于 $k<n$ 的情况，这就变成了以下的形式：
 %
 \[
-\xymatrix@R=1.2pc{
-  0 \ar[r] & \pi_k(\Sn^3) \ar[r] & \pi_k(\Sn^2) \ar[lld] \\
-  \vdots & \vdots & \vdots \ar[lld] \\
-  0 \ar[r] & \pi_3(\Sn^3) \ar[r] & \pi_3(\Sn^2) \ar[lld] \\
-  0 \ar[r] & 0 \ar[r] & \pi_2(\Sn^2) \ar[lld] \\
-  \Z \ar[r] & 0 \ar[r] & 0}
+  \xymatrix@R=1.2pc{
+    0 \ar[r] & \pi_k(\Sn^3) \ar[r] & \pi_k(\Sn^2) \ar[lld] \\
+    \vdots & \vdots & \vdots \ar[lld] \\
+    0 \ar[r] & \pi_3(\Sn^3) \ar[r] & \pi_3(\Sn^2) \ar[lld] \\
+    0 \ar[r] & 0 \ar[r] & \pi_2(\Sn^2) \ar[lld] \\
+    \Z \ar[r] & 0 \ar[r] & 0}
 \]
 %
-In particular we get the following result:
+特别地，我们得到了以下结果：
 
 \begin{cor} \label{cor:pis2-hopf}
-  We have $\eqv{\pi_2(\Sn^2)}{\Z}$ and $\eqv{\pi_k(\Sn^3)}{\pi_k(\Sn^2)}$ for
-  every $k\ge3$ (where the map is induced by the Hopf fibration, seen as a map
-  from the total space $\Sn^3$ to the base space $\Sn^2$).
+我们有 $\eqv{\pi_2(\Sn^2)}{\Z}$ 和 $\eqv{\pi_k(\Sn^3)}{\pi_k(\Sn^2)}$ 对于每个 $k\ge3$ (其中该映射是由霍普夫纤维丛诱导的，从总空间 $\Sn^3$ 到基空间 $\Sn^2$)。
 \end{cor}
 
-In fact, we can say more: the fiber sequence of the Hopf fibration will show that $\Omega^3(\Sn^3)$ is the fiber of a map from $\Omega^3(\Sn^2)$ to $\Omega^2(\Sn^1)$.
-Since $\Omega^2(\Sn^1)$ is contractible, we have $\eqv{\Omega^3(\Sn^3)}{\Omega^3(\Sn^2)}$.
-In classical homotopy theory, this fact would be a consequence of \cref{cor:pis2-hopf} and Whitehead's theorem, but Whitehead's theorem is not necessarily valid in homotopy type theory (see \cref{sec:whitehead}).
-We will not use the more precise version here though.
+事实上，我们可以说更多：霍普夫纤维丛的纤维序列将表明 $\Omega^3(\Sn^3)$ 是从 $\Omega^3(\Sn^2)$ 到 $\Omega^2(\Sn^1)$ 的映射的纤维。
+由于 $\Omega^2(\Sn^1)$ 是可收缩的，我们有 $\eqv{\Omega^3(\Sn^3)}{\Omega^3(\Sn^2)}$。
+在经典同伦论中，这一事实将是 \cref{cor:pis2-hopf} 和怀特海德定理的结果，但怀特海德定理在同伦类型论中不一定成立 (参见 \cref{sec:whitehead})。
+不过，我们在此不会使用更精确的版本。
 
-\subsection{Fibrations over pushouts}
+\subsection{推送中的纤维丛 (Fibrations over pushouts)}
 \label{sec:fib-over-pushout}
 
-We first start with a lemma explaining how to construct fibrations over
-pushouts.
-\index{pushout}%
+我们首先从一个引理开始，解释如何构造推送中的纤维丛。
+\index{推送 (pushout)}%
 
 \begin{lem}\label{lem:fibration-over-pushout}
-  Let $\Ddiag=(Y\xleftarrow{j}X\xrightarrow{k}Z)$ be a span\index{span} and assume
-  that we have
-  \begin{itemize}
-  \item Two fibrations $E_Y:Y\to\type$ and $E_Z:Z\to\type$.
-  \item An equivalence $e_X$ between $E_Y\circ j:X\to\type$ and $E_Z\circ
-    k:X\to\type$, i.e.
-    \[e_X:\prd{x:X}\eqv{E_Y(j(x))}{E_Z(k(x))}.\]
-  \end{itemize}
+令 $\Ddiag=(Y\xleftarrow{j}X\xrightarrow{k}Z)$ 是一个跨图\index{跨图 (span)}，并假设我们有
+\begin{itemize}
+  \item 两个纤维丛 $E_Y:Y\to\type$ 和 $E_Z:Z\to\type$。
+  \item 一个等价性 $e_X$，在 $E_Y\circ j:X\to\type$ 和 $E_Z\circ k:X\to\type$ 之间，即
+  \[e_X:\prd{x:X}\eqv{E_Y(j(x))}{E_Z(k(x))}。\]
+\end{itemize}
 
-  Then we can construct a fibration $E:Y\sqcup^XZ\to\type$ such that
-  \begin{itemize}
-  \item For all $y:Y$, $E(\inl(y))\judgeq E_Y(y)$.
-  \item For all $z:Z$, $E(\inr(z))\judgeq E_Z(z)$.
-  \item For all $x:X$, $\map E{\glue(x)}=\ua(e_X(x))$ (note that both sides of
-    the equation are paths in $\type$ from $E_Y(j(x))$ to $E_Z(k(x))$).
-  \end{itemize}
-  Moreover, the total space of this fibration fits in the following pushout
-  square:
-  \[\xymatrix{ \sm{x:X}E_Y(j(x)) \ar[r]_\sim^{\idfunc\times e_X}
-    \ar[d]_{j\times\idfunc} &
-    \sm{x:X}E_Z(k(x)) \ar[r]^-{k\times\idfunc}
-    & \sm{z:Z}E_Z(z) \ar[d]^\inr \\
-    \sm{y:Y}E_Y(y) \ar[rr]_\inl & & \sm{t:Y\sqcup^XZ}E(t) }\]
+然后我们可以构造一个纤维丛 $E:Y\sqcup^XZ\to\type$ 使得
+\begin{itemize}
+  \item 对于所有 $y:Y$，$E(\inl(y))\judgeq E_Y(y)$。
+  \item 对于所有 $z:Z$，$E(\inr(z))\judgeq E_Z(z)$。
+  \item 对于所有 $x:X$，$\map E{\glue(x)}=\ua(e_X(x))$ (注意方程两边都是在 $\type$ 中从 $E_Y(j(x))$ 到 $E_Z(k(x))$ 的路径)。
+\end{itemize}
+此外，这个纤维丛的总空间符合以下推送方框：
+\[\xymatrix{ \sm{x:X}E_Y(j(x)) \ar[r]_\sim^{\idfunc\times e_X}
+  \ar[d]_{j\times\idfunc} &
+  \sm{x:X}E_Z(k(x)) \ar[r]^-{k\times\idfunc}
+  & \sm{z:Z}E_Z(z) \ar[d]^\inr \\
+  \sm{y:Y}E_Y(y) \ar[rr]_\inl & & \sm{t:Y\sqcup^XZ}E(t) }\]
 \end{lem}
 
 \begin{proof}
-  We define $E$ by the recursion principle of the pushout $Y\sqcup^XZ$. For
-  that, we need to specify the value of $E$ on elements of the form $\inl(y)$, $\inr(z)$
-  and the action of $E$ on paths $\glue(x)$, so we can just choose the following
-  values:
+  我们通过 $Y\sqcup^XZ$ 的推送递归原理来定义 $E$。为此，我们需要指定 $E$ 在 $\inl(y)$ 和 $\inr(z)$ 形式的元素上的值，以及 $E$ 在 $\glue(x)$ 路径上的作用，因此我们可以选择以下值：
   \begin{align*}
-    E(\inl(y)) & \defeq E_Y(y),\\
-    E(\inr(z)) & \defeq E_Z(z),\\
-    \map E{\glue(x)} & \defid \ua(e_X(x)).
+    E(\inl(y)) & \defeq E_Y(y)，\\
+    E(\inr(z)) & \defeq E_Z(z)，\\
+    \map E{\glue(x)} & \defid \ua(e_X(x))。
   \end{align*}
-  %
-  To see that the total space of this fibration is a pushout, we apply the
-  flattening lemma (\cref{thm:flattening}) with the following values:\index{flattening lemma}
+%
+  为了看到该纤维丛的总空间是一个推送，我们应用展平引理 (\cref{thm:flattening})，使用以下值：\index{展平引理 (flattening lemma)}
   \begin{itemize}
-  \item $A\defeq Y+Z$, $B\defeq X$ and $f,g:B\to A$ are defined by
-    $f(x)\defeq\inl(j(x))$, $g(x)\defeq\inr(k(x))$,
-  \item the type family $C:A\to\type$ is defined by
+    \item $A\defeq Y+Z$，$B\defeq X$，并且 $f,g:B\to A$ 通过 $f(x)\defeq\inl(j(x))$，$g(x)\defeq\inr(k(x))$ 来定义，
+    \item 类型族 $C:A\to\type$ 定义为
     \begin{equation*}
       C(\inl(y)) \defeq E_Y(y)
-      \qquad\text{and}\qquad
-      C(\inr(z)) \defeq E_Z(z),
+      \qquad\text{和}\qquad
+      C(\inr(z)) \defeq E_Z(z)，
     \end{equation*}
-  \item the family of equivalences $D:\prd{b:B}C(f(b))\eqvsym C(g(b))$ is defined
-    to be $e_X$.
+    \item 等价族 $D:\prd{b:B}C(f(b))\eqvsym C(g(b))$ 被定义为 $e_X$。
   \end{itemize}
-  %
-  The base higher inductive type $W$ in the flattening lemma is equivalent to
-  the pushout $Y\sqcup^XZ$ and the type family $P:Y\sqcup^XZ\to\type$ is
-  equivalent to the $E$ defined above.
+%
+  展平引理的基本高阶归纳类型 $W$ 与推送 $Y\sqcup^XZ$ 等价，类型族 $P:Y\sqcup^XZ\to\type$ 与上述定义的 $E$ 等价。
 
-  Thus the flattening lemma tells us that $\sm{t:Y\sqcup^XZ}E(t)$ is equivalent
-  to the higher inductive type ${E^{\mathrm{tot}}}'$ with the following generators:
-  %
+  因此，展平引理告诉我们 $\sm{t:Y\sqcup^XZ}E(t)$ 与具有以下生成器的高阶归纳类型 ${E^{\mathrm{tot}}}'$ 等价：
+%
   \begin{itemize}
-  \item a function $\mathsf{z}:\sm{a:Y+Z}C(a)\to {E^{\mathrm{tot}}}'$,
-  \item for each $x:X$ and $t:E_Y(j(x))$, a path
-    \narrowequation{\mathsf{z}(\inl(j(x)),t)=\mathsf{z}(\inr(k(x)),e_X(t)).}
+    \item 一个函数 $\mathsf{z}:\sm{a:Y+Z}C(a)\to {E^{\mathrm{tot}}}'$，
+    \item 对于每个 $x:X$ 和 $t:E_Y(j(x))$，一个路径
+    \narrowequation{\mathsf{z}(\inl(j(x)),t)=\mathsf{z}(\inr(k(x)),e_X(t))。}
   \end{itemize}
-  %
-  Using the flattening lemma again or a direct computation, it is easy to see
-  that $\eqv{\sm{a:Y+Z}C(a)}{\sm{y:Y}E_Y(y)+\sm{z:Z}E_Z(z)}$, hence
-  ${E^{\mathrm{tot}}}'$ is equivalent to the higher inductive type
-  $E^{\mathrm{tot}}$ with the following generators:
-  %
+%
+  再使用展平引理或直接计算，容易看出 $\eqv{\sm{a:Y+Z}C(a)}{\sm{y:Y}E_Y(y)+\sm{z:Z}E_Z(z)}$，因此 ${E^{\mathrm{tot}}}'$ 与具有以下生成器的高阶归纳类型 $E^{\mathrm{tot}}$ 等价：
+%
   \begin{itemize}
-  \item a function $\inl:\sm{y:Y}E_Y(y)\to E^{\mathrm{tot}}$,
-  \item a function $\inr:\sm{z:Z}E_Z(z)\to E^{\mathrm{tot}}$,
-  \item for each $(x,t):\sm{x:X}E_Y(j(x))$ a path
-    \narrowequation{\glue(x,t):\inl(j(x),t) = \inr(k(x),e_X(t)).}
+    \item 一个函数 $\inl:\sm{y:Y}E_Y(y)\to E^{\mathrm{tot}}$，
+    \item 一个函数 $\inr:\sm{z:Z}E_Z(z)\to E^{\mathrm{tot}}$，
+    \item 对于每个 $(x,t):\sm{x:X}E_Y(j(x))$，一个路径
+    \narrowequation{\glue(x,t):\inl(j(x),t) = \inr(k(x),e_X(t))。}
   \end{itemize}
-  %
-  Thus the total space of $E$ is the pushout of the total spaces of
-  $E_Y$ and $E_Z$, as required.
+%
+  因此，$E$ 的总空间是 $E_Y$ 和 $E_Z$ 的总空间的推送，如所需。
 \end{proof}
 
-\subsection{The Hopf construction}
+\subsection{霍普夫构造 (The Hopf construction)}
 
 \begin{defn}
-  An \define{H-space}
-  \indexdef{H-space}%
-  consists of
+  \define{H-空间 (H-space)}
+  \indexdef{H-空间 (H-space)}%
+  包括
   \begin{itemize}
-  \item a type $A$,
-  \item a base point $e:A$,
-  \item a binary operation $\mu:A\times A\to A$, and
-  \item for every $a:A$, equalities $\mu(e,a)=a$ and $\mu(a,e)=a$.
+    \item 一个类型 $A$，
+    \item 一个基点 $e:A$，
+    \item 一个二元操作 $\mu:A\times A\to A$，以及
+    \item 对于每个 $a:A$，等式 $\mu(e,a)=a$ 和 $\mu(a,e)=a$。
   \end{itemize}
 \end{defn}
 
 \begin{lem}
-  Let $A$ be a connected H-space. Then for every $a:A$, the maps $\mu(a,\blank):A\to
-  A$ and $\mu(\blank,a):A\to A$ are equivalences.
+  设 $A$ 是一个连通的 H-空间。对于每个 $a:A$，映射 $\mu(a,\blank):A\to A$ 和 $\mu(\blank,a):A\to A$ 是等价的。
 \end{lem}
 
 \begin{proof}
-  Let us prove that for every $a:A$ the map $\mu(a,\blank)$ is an equivalence. The
-  other statement is symmetric.
-  %
-  The statement that $\mu(a,\blank)$ is an equivalence corresponds to a type family
-  $P:A\to\prop$ and proving it corresponds to finding a section of this type
-  family.
+  我们证明对于每个 $a:A$，映射 $\mu(a,\blank)$ 是等价的。另一个命题是对称的。
+%
+  声明 $\mu(a,\blank)$ 是等价的对应于一个类型族 $P:A\to\prop$，证明它对应于找到该类型族的一个截面。
 
-  The type $\prop$ is a set (\cref{thm:hleveln-of-hlevelSn}) hence we can
-  define a new type family $P':\trunc0A\to\prop$ by $P'(\tproj0a)\defeq
-  P(a)$. But $A$ is connected by assumption, hence $\trunc0A$ is
-  contractible. This implies that in order to find a section of $P'$, it is
-  enough to find a point in the fiber of $P'$ over $\tproj0e$. But we have
-  $P'(\tproj0e)=P(e)$ which is inhabited because $\mu(e,\blank)$ is equal to the
-  identity map by definition of an H-space, hence is an equivalence.
+  类型 $\prop$ 是一个集 (\cref{thm:hleveln-of-hlevelSn})，因此我们可以通过 $P'(\tproj0a)\defeq P(a)$ 定义一个新的类型族 $P':\trunc0A\to\prop$。但根据假设，$A$ 是连通的，因此 $\trunc0A$ 是可收缩的。这意味着为了找到 $P'$ 的一个截面，足以找到 $P'$ 在 $\tproj0e$ 处的纤维中的一个点。但我们有 $P'(\tproj0e)=P(e)$，它是居住的，因为根据 H-空间的定义，$\mu(e,\blank)$ 等于恒等映射，因此是等价的。
 
-  We have proved that for every $x:\trunc0A$ the proposition $P'(x)$ is true,
-  hence in particular for every $a:A$ the proposition $P(a)$ is true because
-  $P(a)$ is $P'(\tproj0a)$.
+  我们已经证明，对于每个 $x:\trunc0A$，命题 $P'(x)$ 是正确的，因此特别地对于每个 $a:A$，命题 $P(a)$ 是正确的，因为 $P(a)$ 是 $P'(\tproj0a)$。
 \end{proof}
 
 \begin{defn}
-  Let $A$ be a connected H-space. We define a fibration over $\susp A$ using
-  \cref{lem:fibration-over-pushout}.
+  设 $A$ 是一个连通的 H-空间。我们使用 \cref{lem:fibration-over-pushout} 定义在 $\susp A$ 上的纤维丛。
 
-  Given that $\susp A$ is the pushout $\unit\sqcup^A\unit$, we can define a
-  fibration over $\susp A$ by specifying
+  给定 $\susp A$ 是推送 $\unit\sqcup^A\unit$，我们可以通过指定
   \begin{itemize}
-  \item two fibrations over $\unit$ (i.e. two types $F_1$ and $F_2$), and
-  \item a family $e:A\to(\eqv{F_1}{F_2})$ of equivalences between
-    $F_1$ and $F_2$, one for every element of $A$.
+    \item 两个在 $\unit$ 上的纤维丛（即两个类型 $F_1$ 和 $F_2$），以及
+    \item 一个等价族 $e:A\to(\eqv{F_1}{F_2})$，在 $F_1$ 和 $F_2$ 之间，对于 $A$ 的每个元素。
   \end{itemize}
-  %
-  We take $A$ for $F_1$ and $F_2$, and for $a:A$ we take the equivalence
-  $\mu(a,\blank)$ for $e(a)$.
+%
+  我们取 $A$ 作为 $F_1$ 和 $F_2$，并为每个 $a:A$ 取等价 $\mu(a,\blank)$ 为 $e(a)$。
 \end{defn}
 
-According to \cref{lem:fibration-over-pushout}, we have the following
-diagram:
+根据 \cref{lem:fibration-over-pushout}，我们有以下的图表：
 %
 \[\xymatrix{A \ar@{->>}[d] & A \times A \ar[l]_-{\proj2} \ar@{->>}_{\proj1}[d]
   \ar[r]^-{\mu} & A \ar@{->>}[d] \\
   1 & A \ar[r] \ar[l] & 1}\]
 %
-and the fibration we just constructed is a fibration over $\susp A$ whose total
-space is the pushout of the top line.
+我们刚刚构建的纤维丛是一个在 $\susp A$ 上的纤维丛，其总空间是顶线上推送的结果。
 
-Moreover, with $f(x,y)\defeq(\mu(x,y),y)$ we have the following diagram:
+此外，使用 $f(x,y)\defeq(\mu(x,y),y)$，我们有以下的图表：
 %
 \[\xymatrix{A \ar_\idfunc[d] & A \times A \ar[l]_-{\proj2} \ar^f[d]
   \ar[r]^-{\mu} & A \ar^\idfunc[d] \\
   A & A\times A \ar^-{\proj2}[l] \ar_-{\proj1}[r] & A}\]
 %
-The diagram commutes and the three vertical maps are equivalences, the inverse
-of $f$ being the function $g$ defined by
-\[g(u,v)\defeq(\opp{\mu(\blank,v)}(u),v).\]
+该图表是可交换的，三个垂直映射都是等价的，$f$ 的逆映射是由
+\[g(u,v)\defeq(\opp{\mu(\blank,v)}(u),v)\]
+定义的。
 %
-This shows that the two lines are equivalent (hence equal) spans, so the total
-space of the fibration we constructed is equivalent to the pushout of the bottom
-line.
-And by definition, this latter pushout is the \emph{join} of $A$ with itself (see \cref{sec:colimits}).
+这表明两个线条是等价（因此是相等）的跨图，因此我们构造的纤维丛的总空间等价于底线推送的结果。
+根据定义，后者的推送是 $A$ 与自身的\emph{连接 (join)}（参见 \cref{sec:colimits}）。
 %
-We have proven:
+我们已经证明了：
 
 \begin{lem}\label{lem:hopf-construction}
-  Given a connected H-space $A$, there is a fibration, called the
-  \define{Hopf construction},
-  \indexdef{Hopf!construction}%
-  over $\susp A$ with fiber $A$ and total space $A*A$.
+给定一个连通的 H-空间 $A$，存在一个纤维丛，称为\define{霍普夫构造 (Hopf construction)}，
+\indexdef{霍普夫!构造 (Hopf!construction)}%
+在 $\susp A$ 上，其纤维是 $A$，总空间是 $A*A$。
 \end{lem}
 
-\subsection{The Hopf fibration}
+\subsection{霍普夫纤维丛 (The Hopf fibration)}
 
-\index{Hopf fibration|(}
-\indexsee{fibration!Hopf}{Hopf fibration}
-We will first construct a structure of H-space on the circle $\Sn^1$, hence by
-\cref{lem:hopf-construction} we will get a fibration over $\Sn^2$ with fiber
-$\Sn^1$ and total space $\Sn^1*\Sn^1$. We will then prove that this join is
-equivalent to $\Sn^3$.
+\index{霍普夫纤维丛|(Hopf fibration|(}
+\indexsee{纤维丛!霍普夫 (fibration!Hopf)}{霍普夫纤维丛 (Hopf fibration)}
+我们首先将在 $\Sn^1$ 圆周上构造一个 H-空间的结构，因此根据 \cref{lem:hopf-construction}，我们将获得一个在 $\Sn^2$ 上的纤维丛，其纤维是 $\Sn^1$，总空间是 $\Sn^1*\Sn^1$。然后我们将证明这个连接等价于 $\Sn^3$。
 
 \begin{lem}\label{lem:hspace-S1}
-  There is an H-space structure on the circle $\Sn^1$.
+在 $\Sn^1$ 圆周上存在一个 H-空间结构。
 \end{lem}
 \begin{proof}
-  For the base point of the H-space structure we choose $\base$.
-  %
-  Now we need to define the multiplication operation
-  $\mu:\Sn^1\times\Sn^1\to\Sn^1$.
-  We will define the curried form $\widetilde\mu:\Sn^1\to(\Sn^1\to\Sn^1)$ of $\mu$
-  by recursion on $\Sn^1$:
+  对于 H-空间结构的基点，我们选择 $\base$。
+%
+  现在我们需要定义乘法操作 $\mu:\Sn^1\times\Sn^1\to\Sn^1$。
+  我们将通过 $\Sn^1$ 的递归定义乘法的柯里化形式 $\widetilde\mu:\Sn^1\to(\Sn^1\to\Sn^1)$：
   \begin{equation*}
-    \widetilde\mu(\base) \defeq\idfunc[\Sn^1],
-    \qquad\text{and}\qquad
-    \ap{\widetilde\mu}{\lloop} \defid\funext(h).
+    \widetilde\mu(\base) \defeq\idfunc[\Sn^1]，
+    \qquad\text{和}\qquad
+    \ap{\widetilde\mu}{\lloop} \defid\funext(h)。
   \end{equation*}
-  where $h:\prd{x:\Sn^1}(x=x)$ is the function defined in \cref{thm:S1-autohtpy},
-  which has the property that $h(\base) \defeq\lloop$.
+  其中 $h:\prd{x:\Sn^1}(x=x)$ 是在 \cref{thm:S1-autohtpy} 中定义的函数，
+  其性质是 $h(\base) \defeq\lloop$。
 
-  Now we just have to prove that $\mu(x,\base)=\mu(\base,x)=x$ for every
-  $x:\Sn^1$.
-  %
-  By definition, if $x:\Sn^1$ we have
-  $\mu(\base,x)=\widetilde\mu(\base)(x)=\idfunc[\Sn^1](x)=x$. For the equality
-  $\mu(x,\base)=x$ we do it by induction on $x:\Sn^1$:
+  现在我们只需要证明 $\mu(x,\base)=\mu(\base,x)=x$ 对于每个 $x:\Sn^1$。
+%
+  根据定义，如果 $x:\Sn^1$，我们有 $\mu(\base,x)=\widetilde\mu(\base)(x)=\idfunc[\Sn^1](x)=x$。对于等式 $\mu(x,\base)=x$，我们通过在 $x:\Sn^1$ 上的归纳法来进行：
   \begin{itemize}
-  \item If $x$ is $\base$ then $\mu(\base,\base)=\base$ by definition, so we
-    have $\refl\base:\mu(\base,\base)=\base$.
-  \item When $x$ varies along $\lloop$, we need to prove that
+    \item 如果 $x$ 是 $\base$，那么根据定义，$\mu(\base,\base)=\base$，所以我们有 $\refl\base:\mu(\base,\base)=\base$。
+    \item 当 $x$ 随着 $\lloop$ 变化时，我们需要证明
     \[\refl\base\ct\apfunc{\lam{x}x}({\lloop})=
-    \apfunc{\lam{x}\mu(x,\base)}({\lloop})\ct\refl\base.\]
-    The left-hand side is equal to $\lloop$, and for the right-hand side we have:
+    \apfunc{\lam{x}\mu(x,\base)}({\lloop})\ct\refl\base。\]
+    左边等于 $\lloop$，对于右边，我们有：
     \begin{align*}
       \apfunc{\lam{x}\mu(x,\base)}({\lloop})\ct\refl\base &=
       \apfunc{\lam{x}(\widetilde\mu(x))(\base)}({\lloop})\\
       &=\happly(\apfunc{\lam{x}(\widetilde\mu(x))}({\lloop}),\base)\\
       &=\happly(\funext(h),\base)\\
       &=h(\base)\\
-      &=\lloop. \qedhere
+      &=\lloop。 \qedhere
     \end{align*}
   \end{itemize}
 \end{proof}
 
-Now recall from \cref{sec:colimits} that the \emph{join} $A*B$ of types $A$ and $B$ is the pushout of the diagram
-\index{join!of types}%
-\[A \xleftarrow{\proj1}A\times B \xrightarrow{\proj2} B. \]
+现在回想 \cref{sec:colimits}，类型 $A$ 和 $B$ 的\emph{连接 (join)} $A*B$ 是以下图表的推送：
+\index{连接!类型 (join!of types)}%
+\[A \xleftarrow{\proj1}A\times B \xrightarrow{\proj2} B.\]
 
 \begin{lem}
-  \index{associativity!of join}%
-  The operation of join is associative: if $A$, $B$ and $C$ are three types
-  then we have an equivalence $\eqv{(A*B)*C}{A*(B*C)}$.
+  \index{连接的结合律 (associativity!of join)}%
+  连接操作是结合的：如果 $A$、$B$ 和 $C$ 是三个类型，那么我们有一个等价 $\eqv{(A*B)*C}{A*(B*C)}$。
 \end{lem}
 
 \begin{proof}
-  We define a map $f:(A*B)*C\to A*(B*C)$ by induction. We first need to define
-  $f\circ\inl:A*B\to A*(B*C)$ which will be done by induction, then
-  $f\circ\inr:C\to A*(B*C)$, and then $\apfunc{f}\circ\glue:\prd{t:(A*B)\times
-    C}f(\inl(\fst(t)))=f(\inr(\snd(t)))$ which will be done by induction on the
-  first component of $t$:
+  我们通过归纳定义一个映射 $f:(A*B)*C\to A*(B*C)$。首先需要通过归纳法定义 $f\circ\inl:A*B\to A*(B*C)$，然后定义 $f\circ\inr:C\to A*(B*C)$，最后定义 $\apfunc{f}\circ\glue:\prd{t:(A*B)\times C}f(\inl(\fst(t)))=f(\inr(\snd(t)))$，这将通过对 $t$ 的第一个分量进行归纳来完成：
   \begin{align*}
-    (f\circ\inl)(\inl(a)) &\defeq \inl(a), \\
-    (f\circ\inl)(\inr(b)) &\defeq \inr(\inl(b)), \\
-    \apfunc{f\circ\inl}(\glue(a,b)) &\defid \glue(a,\inl(b)), \\
-    f(\inr(c)) &\defeq \inr(\inr(c)),\\
-    \apfunc{f}(\glue(\inl(a),c)) &\defid\glue(a,\inr(c)),\\
-    \apfunc{f}(\glue(\inr(b),c)) &\defid\apfunc{\inr}(\glue(b,c)),\\
-    \apdfunc{\lam{x}\apfunc{f}(\glue(x,c))}(\glue(a,b)) &\defid
-    ``\apdfunc{\lam{x}\glue(a,x)}(\glue(b,c))''.
+  (f\circ\inl)(\inl(a)) &\defeq \inl(a)， \\
+  (f\circ\inl)(\inr(b)) &\defeq \inr(\inl(b))， \\
+  \apfunc{f\circ\inl}(\glue(a,b)) &\defid \glue(a,\inl(b))， \\
+  f(\inr(c)) &\defeq \inr(\inr(c))，\\
+  \apfunc{f}(\glue(\inl(a),c)) &\defid \glue(a,\inr(c))，\\
+  \apfunc{f}(\glue(\inr(b),c)) &\defid \apfunc{\inr}(\glue(b,c))，\\
+  \apdfunc{\lam{x}\apfunc{f}(\glue(x,c))}(\glue(a,b)) &\defid
+  ``\apdfunc{\lam{x}\glue(a,x)}(\glue(b,c))''。
   \end{align*}
-  %
-  For the last equation, note that the right-hand side is of type
+%
+  对于最后一个等式，注意右边的类型是
   \[\transfib{\lam{x}\inl(a)=\inr(x)}{\glue(b,c)}{\glue(a,\inl(b))}=
-  \glue(a,\inr(c))\]
-  whereas it is supposed to be of type
-  %
+  \glue(a,\inr(c))，\]
+  而它应该是
+%
   \begin{narrowmultline*}
     \transfib{\lam{x}f(\inl(x))=f(\inr(c))}{\glue(a,b)}{\apfunc{f}(\glue(\inl(a),c))}
     = \narrowbreak
-    \apfunc{f}(\glue(\inr(b),c)).
+    \apfunc{f}(\glue(\inr(b),c)) 的类型。
   \end{narrowmultline*}
-  %
-  But by the previous clauses in the definition, both of these types are equivalent to the following type:
-  \[\glue(a,\inr(c))=\glue(a,\inl(b))\ct\apfunc\inr(\glue(b,c)),\]
-  and so we can coerce by an equivalence to obtain the necessary element.
-  %
-  Similarly, we can define a map $g:A*(B*C)\to(A*B)*C$, and checking that $f$ and
-  $g$ are inverse to each other is a long and tedious but essentially
-  straightforward computation.
+%
+  但是根据定义中的前述条款，这两种类型都等价于以下类型：
+  \[\glue(a,\inr(c))=\glue(a,\inl(b))\ct\apfunc\inr(\glue(b,c))，\]
+  所以我们可以通过等价来进行强制转换以获得必要的元素。
+%
+  类似地，我们可以定义一个映射 $g:A*(B*C)\to (A*B)*C$，并检查 $f$ 和 $g$ 是相互逆的，这是一个漫长而乏味但本质上直截了当的计算。
 \end{proof}
 
-A more conceptual proof sketch is as follows.
+一种更概念化的证明大纲如下。
 
 \begin{proof}
-  Let us consider the following diagram where the maps are the obvious
-  projections:
+  让我们考虑以下图表，其中映射是显然的投影：
   \[\xymatrix{
     A & A\times C \ar[l] \ar[r] & A\times C\\
     A\times B \ar[u] \ar[d] & A\times B\times C \ar[l]\ar[u]\ar[r]\ar[d] &
     A\times C \ar[u] \ar[d] \\
     B & B\times C \ar[l] \ar[r] & C}\]
-  %
-  Taking the colimit of the columns gives the following
-  diagram, whose colimit is $(A*B)*C$:
+%
+  取列的极限（colimit）得到以下图表，其极限是 $(A*B)*C$：
   \[\xymatrix{A*B & (A*B)\times C \ar[l]\ar[r] & C}\]
-  %
-  On the other hand, taking the colimit of the lines gives a diagram whose
-  colimit is $A*(B*C)$.
+%
+  另一方面，取行的极限得到一个图表，其极限是 $A*(B*C)$。
 
-  Hence using a Fubini-like theorem for colimits (that we haven’t proved) we
-  have an equivalence $\eqv{(A*B)*C}{A*(B*C)}$. The proof of this Fubini theorem
-  \index{Fubini theorem for colimits}
-  for colimits still requires the long and tedious computation, though.
+  因此，使用我们尚未证明的极限的 Fubini 类似定理（Fubini-like theorem for colimits），我们有 $\eqv{(A*B)*C}{A*(B*C)}$ 的等价性。尽管如此，这个 Fubini 定理的证明仍然需要漫长而乏味的计算。
 \end{proof}
 
 \begin{lem}
-  For any type $A$, there is an equivalence $\eqv{\susp A}{\bool*A}$.
+  对于任意类型 $A$，存在一个等价 $\eqv{\susp A}{\bool*A}$。
 \end{lem}
 
 \begin{proof}
-  It is easy to define the two maps back and forth and to prove that they are
-  inverse to each other. The details are left as an exercise to the reader.
+  定义两个映射来回并证明它们是相互逆的很容易。具体细节留作读者练习。
 \end{proof}
 
-We can now construct the Hopf fibration:
+我们现在可以构造霍普夫纤维丛：
 
 \begin{thm}
-  There is a fibration over $\Sn^2$ of fiber $\Sn^1$ and total space $\Sn^3$.
-  \index{total!space}%
+  存在一个在 $\Sn^2$ 上的纤维丛，其纤维为 $\Sn^1$，总空间为 $\Sn^3$。
+  \index{总空间 (total!space)}%
 \end{thm}
 \begin{proof}
-  We proved that $\Sn^1$ has a structure of H-space (cf \cref{lem:hspace-S1})
-  hence by \cref{lem:hopf-construction} there is a fibration over $\Sn^2$ of
-  fiber $\Sn^1$ and total space $\Sn^1*\Sn^1$. But by the two previous results
-  and \cref{thm:suspbool} we have:
+  我们证明了 $\Sn^1$ 具有 H-空间的结构（参见 \cref{lem:hspace-S1}），因此根据 \cref{lem:hopf-construction}，存在一个在 $\Sn^2$ 上的纤维丛，其纤维是 $\Sn^1$，总空间是 $\Sn^1*\Sn^1$。但根据前两个结果和 \cref{thm:suspbool}，我们有：
   \begin{equation*}
     \Sn^1*\Sn^1 = (\susp\bool)*\Sn^1
     =(\bool*\bool)*\Sn^1
     =\bool*(\bool*\Sn^1)
     =\susp(\susp\Sn^1)
-    =\Sn^3. \qedhere
+    =\Sn^3。 \qedhere
   \end{equation*}
 \end{proof}
-\index{Hopf fibration|)}
+\index{霍普夫纤维丛 (Hopf fibration)|)}
 
 \section{The Freudenthal suspension theorem}
 \label{sec:freudenthal}
