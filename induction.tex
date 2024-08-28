@@ -658,322 +658,231 @@ $\nat$-代数 $(\nat, \emptyt, \suc)$ 是同伦初始的。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{The general syntax of inductive definitions}
+\section{归纳定义的一般语法 (The general syntax of inductive definitions)}
 \label{sec:strictly-positive}
 
 \index{type!inductive|(}%
 \indexsee{inductive!type}{type, inductive}%
 
-So far, we have been discussing only particular inductive types: $\emptyt$, $\unit$, $\bool$, $\nat$, coproducts, products, $\Sigma$-types, $\w$-types, etc.
-However, an important aspect of type theory is the ability to define \emph{new} inductive types, rather than being restricted only to some particular fixed list of them.
-In order to be able to do this, however, we need to know what sorts of ``inductive definitions'' are valid or reasonable.
+到目前为止，我们仅讨论了一些特定的归纳类型：$\emptyt$、$\unit$、$\bool$、$\nat$、并积 (coproducts)、积 (products)、$\Sigma$ 类型、$\w$ 类型等。然而，类型论的一个重要方面是能够定义\emph{新的}归纳类型，而不仅仅局限于某些特定的固定列表。然而，为了能够做到这一点，我们需要知道哪些“归纳定义”是有效或合理的。
 
-To see that not everything which ``looks like an inductive definition'' makes sense, consider the following ``constructor'' of a type $C$:
+为了说明不是所有“看起来像归纳定义”的东西都有意义，考虑以下类型 $C$ 的“构造函数”：
 \begin{itemize}
-\item $g:(C\to \nat) \to C$.
+    \item $g:(C\to \nat) \to C$。
 \end{itemize}
-The recursion principle for such a type $C$ ought to say that given a type $P$, in order to construct a function $f:C\to P$, it suffices to consider the case when the input $c:C$ is of the form $g(\alpha)$ for some $\alpha:C\to\nat$.
-Moreover, we would expect to be able to use the ``recursive data'' of $f$ applied to $\alpha$ in some way.
-However, it is not at all clear how to ``apply $f$ to $\alpha$'', since both are functions with domain $C$.
+这种类型 $C$ 的递归原则 (recursion principle) 应该说，给定一个类型 $P$，为了构造一个函数 $f:C\to P$，只需考虑当输入 $c:C$ 具有形式 $g(\alpha)$（对于某个 $\alpha:C\to\nat$）的情况。此外，我们希望能够以某种方式使用 $f$ 应用于 $\alpha$ 的“递归数据”。然而，目前尚不清楚如何将 $f$ 应用于 $\alpha$，因为它们都是以 $C$ 为定义域的函数。
 
-We could write down a ``recursion principle'' for $C$ by just supposing (unjustifiably) that there is some way to apply $f$ to $\alpha$ and obtain a function $P\to\nat$.
-Then the input to the recursion rule would ask for a type $P$ together with a function
+我们可以通过假设（不合理地）存在某种方法将 $f$ 应用于 $\alpha$ 并得到一个 $P\to\nat$ 的函数，写下 $C$ 的“递归原则”。然后，递归规则的输入会要求一个类型 $P$，以及一个函数
 \begin{equation}
-  h:(C\to\nat) \to (P\to\nat) \to P\label{eq:fake-recursor}
+    h:(C\to\nat) \to (P\to\nat) \to P \label{eq:fake-recursor}
 \end{equation}
-where the two arguments of $h$ are $\alpha$ and ``the result of applying $f$ to $\alpha$''.
-However, what would the computation rule for the resulting function $f:C\to P$ be?
-Looking at other computation rules, we would expect something like ``$f(g(\alpha)) \jdeq h(\alpha,f(\alpha))$'' for $\alpha:C\to\nat$, but as we have seen, ``$f(\alpha)$'' does not make sense.
-The induction principle of $C$ is even more problematic; it's not even clear how to write down the hypotheses.
+其中 $h$ 的两个参数是 $\alpha$ 和“应用 $f$ 于 $\alpha$ 的结果”。然而，所得函数 $f:C\to P$ 的计算规则会是什么？观察其他计算规则，我们可能期望类似“$f(g(\alpha)) \jdeq h(\alpha,f(\alpha))$”的结果，其中 $\alpha:C\to\nat$，但如我们所见，“$f(\alpha)$”是没有意义的。$C$ 的归纳原则（induction principle）甚至更成问题；如何写出假设都不清楚。
 
-On the other hand, we could write down a different ``recursion principle'' for $C$ by ignoring the ``recursive'' presence of $C$ in the domain of $\alpha$, considering it as merely an indexing type for a family of natural numbers.
-In this case the input would ask for a type $P$ together with a function
+另一方面，我们可以通过忽略 $C$ 在 $\alpha$ 定义域中的“递归”存在，将其视为仅仅是一个自然数族的索引类型，写出 $C$ 的另一个“递归原则”。在这种情况下，输入将要求一个类型 $P$ 以及一个函数
 \begin{equation*}
-  h:(C\to \nat) \to P,
+    h:(C\to \nat) \to P，
 \end{equation*}
-so the type of the recursion principle would be $\rec{C}:\prd{P:\UU} ((C\to \nat) \to P) \to C\to P$, and similarly for the induction principle.
-Now it is possible to write down a computation rule, namely $\rec{C}(P,h,g(\alpha))\jdeq h(\alpha)$.
-However, the existence of a type $C$ with this recursor and computation rule turns out to be inconsistent.
-See \cref{ex:loop,ex:loop2,ex:inductive-lawvere,ex:ilunit} for proofs of this and other variations.
+所以递归原则的类型将是 $\rec{C}:\prd{P:\UU} ((C\to \nat) \to P) \to C\to P$，类似地对于归纳原则。现在，可以写出计算规则，即 $\rec{C}(P,h,g(\alpha))\jdeq h(\alpha)$。然而，具有这种递归器和计算规则的类型 $C$ 的存在结果是不一致的。参见 \cref{ex:loop,ex:loop2,ex:inductive-lawvere,ex:ilunit} 的证明和其他变式。
 
-This example suggests one restriction on inductive definitions: the domains of all the constructors must be \emph{covariant functors}\index{functor!covariant}\index{covariant functor} of the type being defined, so that we can ``apply $f$ to them'' to get the result of the ``recursive call''.
-In other words, if we replace all occurrences of the type being defined with a variable
-\index{variable!type}%
-$X:\type$, then each domain of a constructor
-\index{domain!of a constructor}%
-must be an expression that can be made into a covariant functor of $X$.
-This is the case for all the examples we have considered so far.
-For instance, with the constructor $\inl:A\to A+B$, the relevant functor is constant at $A$ (i.e.\ $X\mapsto A$), while for the constructor $\suc:\nat\to\nat$, the functor is the identity functor ($X\mapsto X$).
+这个例子表明了归纳定义的一个限制：所有构造函数的定义域必须是类型被定义的\emph{协变函子} (covariant functors)\index{functor!covariant}\index{covariant functor}，以便我们可以“将 $f$ 应用于它们”来得到“递归调用”的结果。换句话说，如果我们将正在定义的类型的所有出现替换为一个变量\index{variable!type} $X:\type$，那么每个构造函数的定义域\index{domain!of a constructor}必须是可以作为 $X$ 的协变函子的表达式。这对于我们迄今为止讨论的所有例子都是如此。例如，对于构造函数 $\inl:A\to A+B$，相关的函子恒等于 $A$（即 $X\mapsto A$），而对于构造函数 $\suc:\nat\to\nat$，函子是恒等函子 ($X\mapsto X$)。
 
-However, this necessary condition is also not sufficient.
-Covariance prevents the inductive type from occurring on the left of a single function type, as in the argument $C\to\nat$ of the ``constructor'' $g$ considered above, since this yields a contravariant\index{functor!contravariant}\index{contravariant functor} functor rather than a covariant one.
-However, since the composite of two contravariant functors is covariant, \emph{double} function types such as $((X\to \nat)\to \nat)$ are once again covariant.
-This enables us to reproduce Cantorian-style paradoxes\index{paradox}.
+然而，这个必要条件仍然不充分。协变性防止了归纳类型出现在其构造函数定义域中的单一函数类型的左边，如上面“构造函数”$g$ 中的参数 $C\to\nat$，因为这会产生一个逆变 (contravariant)\index{functor!contravariant}\index{contravariant functor} 函子，而不是协变的。然而，由于两个逆变函子的复合是协变的，诸如 $((X\to \nat)\to \nat)$ 的双重函数类型又变得协变。这使我们能够重现康托尔式的悖论\index{paradox}。
 
-For instance, consider an ``inductive type'' $D$ with the following constructor:
+例如，考虑一个“归纳类型” $D$，其构造函数如下：
 \begin{itemize}
-\item $k:((D\to\prop)\to\prop)\to D$.
+    \item $k:((D\to\prop)\to\prop)\to D$。
 \end{itemize}
-Assuming such a type exists, we define functions
+假设存在这样的类型，我们定义函数
 \begin{align*}
-  r&:D\to (D\to\prop)\to\prop,\\
-  f&:(D\to\prop) \to D,\\
-  p&:(D\to \prop) \to (D\to\prop)\to \prop,\\
-  \intertext{by}
-  r(k(\theta)) &\defeq \theta,\\
-  f(\delta) &\defeq k(\lam{x} (x=\delta)),\\
-  p(\delta) &\defeq \lam{x} \delta(f(x)).
+    r&:D\to (D\to\prop)\to\prop，\\
+    f&:(D\to\prop) \to D，\\
+    p&:(D\to \prop) \to (D\to\prop)\to \prop，\\
+    \intertext{由}
+    r(k(\theta)) &\defeq \theta，\\
+    f(\delta) &\defeq k(\lam{x} (x=\delta))，\\
+    p(\delta) &\defeq \lam{x} \delta(f(x))。
 \end{align*}
-Here $r$ is defined by the recursion principle of $D$, while $f$ and $p$ are defined explicitly.
-Then for any $\delta:D\to\prop$, we have $r(f(\delta)) = \lam{x}(x=\delta)$.
+这里 $r$ 是通过 $D$ 的递归原则定义的，而 $f$ 和 $p$ 是显式定义的。然后，对于任意 $\delta:D\to\prop$，我们有 $r(f(\delta)) = \lam{x}(x=\delta)$。
 
-In particular, therefore, if $f(\delta)=f(\delta')$, then we have a path $s:(\lam{x}(x=\delta)) = (\lam{x}(x=\delta'))$.
-Thus, $\happly(s,\delta) : (\delta=\delta) = (\delta=\delta')$, and so in particular $\delta=\delta'$ holds.
-Hence, $f$ is ``injective'' (although \emph{a priori} $D$ may not be a set).
-This already sounds suspicious --- we have an ``injection'' of the ``power set''\index{power set} of $D$ into $D$ --- and with a little more work we can massage it into a contradiction.
+特别地，因此如果 $f(\delta)=f(\delta')$，那么我们有一个路径 $s:(\lam{x}(x=\delta)) = (\lam{x}(x=\delta'))$。于是，$\happly(s,\delta) : (\delta=\delta) = (\delta=\delta')$，因此特别地 $\delta=\delta'$ 成立。因此，$f$ 是“单射”的（尽管 \emph{a priori} $D$ 可能不是集合）。这听起来已经很可疑了——我们将“幂集”\index{power set}的“注入”到 $D$ 中——并且通过一些额外的工作我们可以将其转化为一个矛盾。
 
-Suppose given $\theta:(D\to\prop)\to\prop$, and define $\delta:D\to\prop$ by
+假设给定 $\theta:(D\to\prop)\to\prop$，并通过
 \begin{equation}
-  \delta(d) \defeq \exis{\gamma:D\to\prop} (f(\gamma) = d) \times \theta(\gamma).\label{eq:Pinj}
+    \delta(d) \defeq \exis{\gamma:D\to\prop} (f(\gamma) = d) \times \theta(\gamma)。\label{eq:Pinj}
 \end{equation}
-We claim that $p(\delta)=\theta$.
-By function extensionality, it suffices to show $p(\delta)(\gamma) =_\prop \theta(\gamma)$ for any $\gamma:D\to\prop$.
-And by univalence, for this it suffices to show that each implies the other.
-Now by definition of $p$, we have
+定义函数 $\delta:D\to\prop$。我们声称 $p(\delta)=\theta$。通过函数外延性 (function extensionality)，只需证明对于任意 $\gamma:D\to\prop$，$p(\delta)(\gamma) =_\prop \theta(\gamma)$。通过一致性，我们只需证明每个都能推出另一个。现在根据 $p$ 的定义，我们有
 \begin{align*}
-  p(\delta)(\gamma) &\jdeq \delta(f(\gamma))\\
-  &\jdeq \exis{\gamma':D\to\prop} (f(\gamma') = f(\gamma)) \times \theta(\gamma').
+    p(\delta)(\gamma) &\jdeq \delta(f(\gamma))，\\
+    &\jdeq \exis{\gamma':D\to\prop} (f(\gamma') = f(\gamma)) \times \theta(\gamma')。
 \end{align*}
-Clearly this holds if $\theta(\gamma)$, since we may take $\gamma'\defeq \gamma$.
-On the other hand, if we have $\gamma'$ with $f(\gamma') = f(\gamma)$ and $\theta(\gamma')$, then $\gamma'=\gamma$ since $f$ is injective, hence also $\theta(\gamma)$.
+显然，如果 $\theta(\gamma)$ 成立，则这成立，因为我们可以取 $\gamma'\defeq \gamma$。另一方面，如果我们有 $\gamma'$ 使得 $f(\gamma') = f(\gamma)$ 并且 $\theta(\gamma')$ 成立，则 $\gamma'=\gamma$ 因为 $f$ 是单射的，因此也 $\theta(\gamma)$ 成立。
 
-This completes the proof that $p(\delta)=\theta$.
-Thus, every element $\theta:(D\to\prop)\to\prop$ is the image under $p$ of some element $\delta:D\to\prop$.
-However, if we define $\theta$ by a classic diagonalization:
-\[ \theta(\gamma) \defeq \neg p(\gamma)(\gamma) \quad\text{for all $\gamma:D\to\prop$} \]
-then from $\theta = p(\delta)$ we deduce $p(\delta)(\delta) = \neg p(\delta)(\delta)$.
-This is a contradiction: no proposition can be equivalent to its negation.
-(Supposing $P\Leftrightarrow \neg P$, if $P$, then $\neg P$, and so $\emptyt$; hence $\neg P$, but then $P$, and so $\emptyt$.)
+这完成了证明 $p(\delta)=\theta$。因此，每个元素 $\theta:(D\to\prop)\to\prop$ 都是某个元素 $\delta:D\to\prop$ 的 $p$ 的像。然而，如果我们通过经典的对角线化定义 $\theta$：
+\[ \theta(\gamma) \defeq \neg p(\gamma)(\gamma) \quad\text{对于所有 $\gamma:D\to\prop$} \]
+那么从 $\theta = p(\delta)$ 我们推导出 $p(\delta)(\delta) = \neg p(\delta)(\delta)$。这是一个矛盾：没有命题可以与其否定相等。（假设 $P\Leftrightarrow \neg P$，如果 $P$，那么 $\neg P$，因此 $\emptyt$；于是 $\neg P$，但然后 $P$，因此 $\emptyt$。）
 
 \begin{rmk}
-  There is a question of universe size to be addressed.
-  In general, an inductive type must live in a universe that already contains all the types going into its definition.
-  Thus if in the definition of $D$, the ambiguous notation \prop means $\prop_{\UU}$, then we do not have $D:\UU$ but only $D:\UU'$ for some larger universe $\UU'$ with $\UU:\UU'$.
-  \index{mathematics!predicative}%
-  \indexsee{impredicativity}{mathematics, predicative}%
-  \indexsee{predicative mathematics}{mathematics, predicative}%
-  In a predicative theory, therefore, the right-hand side of~\eqref{eq:Pinj} lives in $\prop_{\UU'}$, not $\prop_\UU$.
-  So this contradiction does require the propositional resizing axiom
-  \index{propositional!resizing}%
-  mentioned in \cref{subsec:prop-subsets}.
+    这里需要解决一个宇宙大小的问题。一般来说，一个归纳类型必须存在于一个已经包含其定义中所有类型的宇宙中。因此，如果在 $D$ 的定义中，模糊的记号 \prop 表示 $\prop_{\UU}$，那么我们没有 $D:\UU$ 但只有 $D:\UU'$ 对于某个更大的宇宙 $\UU'$ 使得 $\UU:\UU'$。 \index{mathematics!predicative}%
+    \indexsee{impredicativity}{mathematics, predicative}%
+    \indexsee{predicative mathematics}{mathematics, predicative}%
+    在一个前视的理论中，因此~\eqref{eq:Pinj} 的右侧存在于 $\prop_{\UU'}$ 中，而不是 $\prop_\UU$。因此，这一矛盾确实需要命题调整公理 (propositional resizing axiom) \index{propositional!resizing}%
+    在 \cref{subsec:prop-subsets} 中提到。
 \end{rmk}
 
 \index{consistency}%
-This counterexample suggests that we should ban an inductive type from ever appearing on the left of an arrow in the domain of its constructors, even if that appearance is nested in other arrows so as to eventually become covariant.
-(Similarly, we also forbid it from appearing in the domain of a dependent function type.)
-This restriction is called \define{strict positivity}
-\indexdef{strict!positivity}%
+这个反例表明我们应该禁止一个归纳类型出现在其构造函数定义域的箭头左边，即使该出现嵌套在其他箭头中，以至于最终成为协变的。这种限制称为\define{严格正性} (strict positivity)\indexdef{strict!positivity}%
 \indexsee{positivity, strict}{strict positivity}%
-(ordinary ``positivity'' being essentially covariance), and it turns out to suffice.
+（普通的“正性”本质上是协变性），事实证明这是足够的。
 
 \index{constructor}%
-In conclusion, therefore, a valid inductive definition of a type $W$ consists of a list of \emph{constructors}.
-Each constructor is assigned a type that is a function type taking some number (possibly zero) of inputs (possibly dependent on one another) and returning an element of $W$.
-Finally, we allow $W$ itself to occur in the input types of its constructors, but only strictly positively.
-This essentially means that each argument of a constructor is either a type not involving $W$, or some iterated function type with codomain $W$.
-For instance, the following is a valid constructor type:
+因此，总结而言，一个有效的归纳类型 $W$ 的定义由一个\emph{构造函数}列表组成。每个构造函数都被分配一个类型，该类型是一个函数类型，接受一定数量（可能为零）的输入（可能相互依赖）并返回 $W$ 的元素。最后，我们允许 $W$ 本身出现在其构造函数的输入类型中，但必须严格为正性。这本质上意味着构造函数的每个参数要么是一个不涉及 $W$ 的类型，要么是某种迭代函数类型，其结果类型为 $W$。例如，以下是一个有效的构造函数类型：
 \begin{equation}
-  c:(A\to W) \to (B\to C \to W) \to D \to W \to W.\label{eq:example-constructor}
+    c:(A\to W) \to (B\to C \to W) \to D \to W \to W。\label{eq:example-constructor}
 \end{equation}
-All of these function types can also be dependent functions ($\Pi$-types).%
-\footnote{In the language of \cref{sec:initial-alg}, the condition of strict positivity ensures that the relevant endofunctor is polynomial.\indexfoot{endofunctor!polynomial}\indexfoot{algebra!initial}\indexsee{algebra!initial}{homotopy-initial} It is well-known in category theory that not \emph{all} endofunctors can have initial algebras; restricting to polynomial functors ensures consistency.
-One can consider various relaxations of this condition, but in this book we will restrict ourselves to strict positivity as defined here.}
+所有这些函数类型也可以是依赖函数 ($\Pi$-types)。%
+\footnote{在 \cref{sec:initial-alg} 中的语言中，严格正性确保了相关的自函子是多项式函子。\indexfoot{endofunctor!polynomial}\indexfoot{algebra!initial}\indexsee{algebra!initial}{homotopy-initial} 众所周知，在范畴论中，并非\emph{所有}自函子都可以具有初始代数；限制为多项式函子确保了一致性。
+我们可以考虑这种条件的各种放松，但在本书中我们将自己限制在这里定义的严格正性。}
 
-Note we require that an inductive definition is given by a \emph{finite} list of constructors.
-This is simply because we have to write it down on the page.
-If we want an inductive type which behaves as if it has an infinite number of constructors, we can simply parametrize one constructor by some infinite type.
-For instance, a constructor such as $\nat \to W \to W$ can be thought of as equivalent to countably many constructors of the form $W\to W$.
-(Of course, the infinity is now \emph{internal} to the type theory, but this is as it should be for any foundational system.)
-Similarly, if we want a constructor that takes ``infinitely many arguments'', we can allow it to take a family of arguments parametrized by some infinite type, such as $(\nat\to W) \to W$ which takes an infinite sequence\index{sequence} of elements of $W$.
+请注意，我们要求归纳定义由一个\emph{有限}的构造函数列表给出。这仅仅是因为我们必须将其写在页面上。如果我们想要一个表现得像是具有无限构造函数的归纳类型，我们可以简单地通过某个无限类型来参数化一个构造函数。例如，类似 $\nat \to W \to W$ 的构造函数可以被视为形式上等价于可数多个形如 $W\to W$ 的构造函数。当然，无限性现在是\emph{内部}的，但这对于任何基础系统都是应有的。同样地，如果我们想要一个构造函数接受“无限多个参数”，我们可以允许它接受由某个无限类型参数化的参数族，例如 $(\nat\to W) \to W$ 接受 $W$ 元素的无限序列\index{sequence}。
 
 \index{recursion principle!for an inductive type}%
-Now, once we have such an inductive definition, what can we do with it?
-Firstly, there is a \define{recursion principle} stating that in order to define a function $f:W\to P$, it suffices to consider the case when the input $w:W$ arises from one of the constructors, allowing ourselves to recursively call $f$ on the inputs to that constructor.
-For the example constructor~\eqref{eq:example-constructor}, we would require $P$ to be equipped with a function of type
+现在，一旦我们有了这样的归纳定义，我们可以用它做什么呢？首先，有一个\define{递归原则}，它表明为了定义一个函数 $f:W\to P$，只需考虑当输入 $w:W$ 来源于构造函数之一的情况，并允许我们递归调用该构造函数的输入上的 $f$。对于示例构造函数~\eqref{eq:example-constructor}，我们需要 $P$ 具有类型的函数
 \begin{narrowmultline}\label{eq:example-rechyp}
-  d : (A\to W) \to (A\to P) \to (B\to C\to W) \to
-  \narrowbreak
-  (B\to C \to P) \to D \to W \to P \to P.
+d : (A\to W) \to (A\to P) \to (B\to C\to W) \to
+\narrowbreak
+(B\to C \to P) \to D \to W \to P \to P。
 \end{narrowmultline}
-Under these hypotheses, the recursion principle yields $f:W\to P$, which moreover ``preserves the constructor data'' in the evident way --- this is the computation rule, where we use covariance of the inputs.
+在这些假设下，递归原则产生 $f:W\to P$，而且“显然保留构造函数数据”——这就是计算规则，其中我们使用输入的协变性。
 \index{computation rule!for inductive types}%
-For instance, in the example~\eqref{eq:example-constructor}, the computation rule says that for any $\alpha:A\to W$, $\beta:B\to C\to W$, $\delta:D$, and $\omega:W$, we have
+例如，在示例~\eqref{eq:example-constructor} 中，计算规则表示对于任意 $\alpha:A\to W$、$\beta:B\to C\to W$、$\delta:D$ 和 $\omega:W$，我们有
 \begin{equation}
-  f(c(\alpha,\beta,\delta,\omega)) \jdeq d(\alpha,f\circ \alpha,\beta, f\circ \beta, \delta, \omega,f(\omega)).\label{eq:example-comp}
+    f(c(\alpha,\beta,\delta,\omega)) \jdeq d(\alpha,f\circ \alpha,\beta, f\circ \beta, \delta, \omega,f(\omega))。\label{eq:example-comp}
 \end{equation}
-% As we have before in particular cases, when defining a particular function $f$, we may write these rules with $\defeq$ as a way of specifying the data $d$, and say that $f$ is defined by them.
+% 如我们之前在特定情况下所见，当定义一个特定函数 $f$ 时，我们可以使用 $\defeq$ 这些规则作为指定数据 $d$ 的方式，并说 $f$ 由它们定义。
 
 \index{induction principle!for an inductive type}%
-The \define{induction principle} for a general inductive type $W$ is only a little more complicated.
-Of course, we start with a type family $P:W\to\type$, which we require to be equipped with constructor data ``lying over'' the constructor data of $W$.
-That means the ``recursive call'' arguments such as $A\to P$ above must be replaced by dependent functions with types such as $\prd{a:A} P(\alpha(a))$.
-In the full example of~\eqref{eq:example-constructor}, the corresponding hypothesis for the induction principle would require
+一般归纳类型 $W$ 的\define{归纳原则}仅稍微复杂一些。当然，我们从一个类型族 $P:W\to\type$ 开始，我们要求该类型族具备构造函数数据，“覆盖” $W$ 的构造函数数据。这意味着递归调用参数如 $A\to P$ 必须被替换为依赖函数，其类型如 $\prd{a:A} P(\alpha(a))$。在~\eqref{eq:example-constructor} 的完整示例中，归纳原则的对应假设要求
 \begin{multline}\label{eq:example-indhyp}
 d : \prd{\alpha:A\to W}\Parens{\prd{a:A} P(\alpha(a))} \to \narrowbreak
 \prd{\beta:B\to C\to W} \Parens{\prd{b:B}{c:C} P(\beta(b,c))} \to\\
 \prd{\delta:D}
 \prd{\omega:W} P(\omega) \to
-P(c(\alpha,\beta,\delta,\omega)).
+P(c(\alpha,\beta,\delta,\omega))。
 \end{multline}
-The corresponding computation rule looks identical to~\eqref{eq:example-comp}.
-Of course, the recursion principle is the special case of the induction principle where $P$ is a constant family.
-As we have mentioned before, the induction principle is also called the \define{eliminator}, and the recursion principle the \define{non-dependent eliminator}.
+对应的计算规则看起来与~\eqref{eq:example-comp} 相同。当然，递归原则是归纳原则的特例，其中 $P$ 是常数族。
+如我们之前提到的，归纳原则也被称为\define{消元器} (eliminator)，递归原则被称为\define{非依赖消元器} (non-dependent eliminator)。
 
-As discussed in \cref{sec:pattern-matching}, we also allow ourselves to invoke the induction and recursion principles implicitly, writing a definitional equation with $\defeq$ for each expression that would be the hypotheses of the induction principle.
-This is called giving a definition by (dependent) \define{pattern matching}.
+如 \cref{sec:pattern-matching} 中所讨论的，我们还允许自己隐式调用归纳和递归原则，为归纳原则的每个假设表达式写一个带有 $\defeq$ 的定义方程。这称为通过（依赖）\define{模式匹配} (pattern matching) 给出定义。
 \index{pattern matching}%
 \index{definition!by pattern matching}%
-In our running example, this means we could define $f:\prd{w:W} P(w) $ by
+在我们的示例中，这意味着我们可以定义 $f:\prd{w:W} P(w) $ 通过
 \[ f(c(\alpha,\beta,\delta,\omega)) \defeq \cdots \]
-where $\alpha:A\to W$ and $\beta:B\to C\to W$ and $\delta:D$ and $\omega:W$ are variables
-\index{variable}%
-that are bound in the right-hand side.
-Moreover, the right-hand side may involve recursive calls to $f$ of the form $f(\alpha(a))$, $f(\beta(b,c))$, and $f(\omega)$.
-When this definition is repackaged in terms of the induction principle, we replace such recursive calls by $\bar\alpha(a)$, $\bar\beta(b,c)$, and $\bar\omega$, respectively, for new variables
+其中 $\alpha:A\to W$ 和 $\beta:B\to C\to W$ 和 $\delta:D$ 和 $\omega:W$ 是变量\index{variable}%
+绑定在右侧。此外，右侧可能涉及形式为 $f(\alpha(a))$、$f(\beta(b,c))$ 和 $f(\omega)$ 的递归调用。
+当这个定义重新打包为归纳原则时，我们将这些递归调用替换为新变量 $\bar\alpha(a)$、$\bar\beta(b,c)$ 和 $\bar\omega$，其类型分别为
 \begin{align*}
-  \bar\alpha &: \prd{a:A} P(\alpha(a))\\
-  \bar\beta &: \prd{b:B}{c:C} P(\beta(b,c))\\
-  \bar\omega &: P(\omega).
+    \bar\alpha &: \prd{a:A} P(\alpha(a))，\\
+    \bar\beta &: \prd{b:B}{c:C} P(\beta(b,c))，\\
+    \bar\omega &: P(\omega)。
 \end{align*}
 \symlabel{defn:induction-wtype}%
-Then we could write
+然后我们可以写为
 \[ f \defeq \ind{W}(P,\, \lam{\alpha}{\bar\alpha}{\beta}{\bar\beta}{\delta}{\omega}{\bar\omega} \cdots ) \]
-where the second argument to $\ind{W}$ has the type of~\eqref{eq:example-indhyp}.
+其中 $\ind{W}$ 的第二个参数具有~\eqref{eq:example-indhyp} 的类型。
 
-We will not attempt to give a formal presentation of the grammar of a valid inductive definition and its resulting induction and recursion principles and pattern matching rules.
-This is possible to do (indeed, it is necessary to do if implementing a computer proof assistant), but provides no additional insight.
-With practice, one learns to automatically deduce the induction and recursion principles for any inductive definition, and to use them without having to think twice.
+我们不会尝试给出一个有效归纳定义的语法及其结果归纳和递归原则及模式匹配规则的正式表述。尽管可以做到（实际上，如果实现一个计算机证明助理，这是必要的），但并没有提供额外的见解。通过练习，我们可以自动推导出任何归纳定义的归纳和递归原则，并在不加思考的情况下使用它们。
 
-
-\section{Generalizations of inductive types}
+\section{归纳类型的推广 (Generalizations of inductive types)}
 \label{sec:generalizations}
 
 \index{type!inductive!generalizations}%
-The notion of inductive type has been studied in type theory for many years, and admits many, many generalizations: inductive type families, mutual inductive types, inductive-inductive types, inductive-recur\-sive types, etc.
-In this section we give an overview of some of these, a few of which will be used later in the book.
-(In \cref{cha:hits} we will study in more depth a very different generalization of inductive types, which is particular to \emph{homotopy} type theory.)
+归纳类型的概念在类型论中已经研究多年，并且承认了许多，许多推广：归纳类型族、互递归归纳类型、归纳-归纳类型、归纳-递归类型等。在本节中，我们将概述其中的一些，书中稍后将使用的少数几种。（在 \cref{cha:hits} 中，我们将更深入地研究一种特定于\emph{同伦}类型论的归纳类型的不同推广。）
 
-Most of these generalizations involve allowing ourselves to define more than one type by induction at the same time.
-One very simple example of this, which we have already seen, is the coproduct $A+B$.
-It would be tedious indeed if we had to write down separate inductive definitions for $\nat+\nat$, for $\nat+\bool$, for $\bool+\bool$, and so on every time we wanted to consider the coproduct of two types.
-Instead, we make one definition in which $A$ and $B$ are variables standing for types;
+这些推广中的大多数涉及允许我们同时定义多个类型。我们已经看到的一个非常简单的例子是并积 $A+B$。如果我们每次想考虑两个类型的并积时都要分别写下 $\nat+\nat$、$\nat+\bool$、$\bool+\bool$ 等等的归纳定义，这将是非常乏味的。相反，我们进行一个定义，其中 $A$ 和 $B$ 是代表类型的变量；
 \index{variable!type}%
-in type theory they are called \define{parameters}.%
+在类型论中，它们被称为\define{参数}。%
 \indexdef{parameter!of an inductive definition}
-Thus technically speaking, what results from the definition is not a single type, but a family of types $+ : \type\to\type\to\type$, taking two types as input and producing their coproduct.
-Similarly, the type $\lst A$ of lists\index{type!of lists} is a family $\lst{\blank}:\type\to\type$ in which the type $A$ is a parameter.
+因此，从技术上讲，定义的结果不是单一类型，而是一个类型族 $+ : \type\to\type\to\type$，接受两个类型作为输入并产生它们的并积。类似地，列表类型 $\lst A$ 是一个类型族 $\lst{\blank}:\type\to\type$，其中类型 $A$ 是参数。
 
-In mathematics, this sort of thing is so obvious as to not be worth mentioning, but we bring it up in order to contrast it with the next example.
-Note that each type $A+B$ is \emph{independently} defined inductively, as is each type $\lst A$.
+在数学中，这种事情显而易见，以至于不值得一提，但我们提到这一点是为了与下一个例子形成对比。请注意，每个类型 $A+B$ 是\emph{独立地}定义的归纳类型，如同每个类型 $\lst A$。%
 \index{type!family of!inductive}%
 \index{inductive!type family}%
-By contrast, we might also consider defining a whole type family $B:A\to\type$ by induction \emph{together}.
-The difference is that now the constructors may change the index $a:A$, and as a consequence we cannot say that the individual types $B(a)$ are inductively defined, only that the entire family is inductively defined.
+相比之下，我们也可以考虑定义一个整个类型族 $B:A\to\type$，\emph{同时}进行归纳。不同之处在于，现在构造函数可以更改索引 $a:A$，因此我们不能说个别类型 $B(a)$ 是归纳定义的，而只能说整个类型族是归纳定义的。
 
 \index{type!of vectors}%
 \index{vector}%
-The standard example is the type of \emph{lists of specified length}, traditionally called \define{vectors}.
-We fix a parameter type $A$, and define a type family $\vect n A$, for $n:\nat$, generated by the following constructors:
+标准的例子是\emph{指定长度的列表类型}，通常称为\define{向量} (vectors)。我们固定一个参数类型 $A$，并定义一个类型族 $\vect n A$，其中 $n:\nat$，其构造函数如下：
 \begin{itemize}
-\item a vector $\nil:\vect 0 A$ of length zero,
-\item a function $\cons:\prd{n:\nat} A\to \vect n A \to \vect{\suc (n)} A$.
+    \item 一个长度为零的向量 $\nil:\vect 0 A$，
+    \item 一个函数 $\cons:\prd{n:\nat} A\to \vect n A \to \vect{\suc (n)} A$。
 \end{itemize}
-In contrast to lists, vectors (with elements from a fixed type $A$) form a family of types indexed by their length.
-While $A$ is a parameter, we say that $n:\nat$ is an \define{index}
+与列表相比，向量（固定类型 $A$ 的元素）形成一个以其长度为索引的类型族。虽然 $A$ 是一个参数，但我们说 $n:\nat$ 是归纳族的\define{索引}。%
 \indexdef{index of an inductive definition}%
-of the inductive family.
-An individual type such as $\vect3A$ is not inductively defined: the constructors which build elements of $\vect3A$ take input from a different type in the family, such as $\cons:A \to \vect2A \to \vect3A$.
+一个单独的类型，如 $\vect3A$，不是归纳定义的：构造 $\vect3A$ 元素的构造函数来自于家族中的不同类型，如 $\cons:A \to \vect2A \to \vect3A$。
 
-\index{induction principle!for type of vectors}
-\index{vector!induction principle for}
-In particular, the induction principle must refer to the entire type family as well; thus the hypotheses and the conclusion must quantify over the indices appropriately.
-In the case of vectors, the induction principle states that given a type family $C:\prd{n:\nat} \vect n A \to \type$, together with
+\index{induction principle!for type of vectors}%
+\index{vector!induction principle for}%
+特别是，归纳原则必须参考整个类型族；因此，假设和结论必须适当地对索引进行量化。在向量的情况下，归纳原则声明，给定一个类型族 $C:\prd{n:\nat} \vect n A \to \type$，以及
 \begin{itemize}
-\item an element $c_\nil : C(0,\nil)$, and
-\item a function \narrowequation{c_\cons : \prd{n:\nat}{a:A}{\ell:\vect n A} C(n,\ell) \to C(\suc(n),\cons(a,\ell))}
+    \item 一个元素 $c_\nil : C(0,\nil)$，和
+    \item 一个函数 \narrowequation{c_\cons : \prd{n:\nat}{a:A}{\ell:\vect n A} C(n,\ell) \to C(\suc(n),\cons(a,\ell))}
 \end{itemize}
-there exists a function $f:\prd{n:\nat}{\ell:\vect n A} C(n,\ell)$ such that
+存在一个函数 $f:\prd{n:\nat}{\ell:\vect n A} C(n,\ell)$，使得
 \begin{align*}
-  f(0,\nil) &\jdeq c_\nil\\
-  f(\suc(n),\cons(a,\ell)) &\jdeq c_\cons(n,a,\ell,f(\ell)).
+    f(0,\nil) &\jdeq c_\nil\\
+    f(\suc(n),\cons(a,\ell)) &\jdeq c_\cons(n,a,\ell,f(\ell))。
 \end{align*}
 
 \index{predicate!inductive}%
 \index{inductive!predicate}%
-One use of inductive families is to define \emph{predicates} inductively.
-For instance, we might define the predicate $\mathsf{iseven}:\nat\to\type$ as an inductive family indexed by $\nat$, with the following constructors:
+归纳族的一个用途是\emph{归纳定义谓词}。例如，我们可以定义谓词 $\mathsf{iseven}:\nat\to\type$ 作为归纳族，索引为 $\nat$，其构造函数如下：
 \begin{itemize}
-\item an element $\mathsf{even}_0 : \mathsf{iseven}(0)$,
-\item a function $\mathsf{even}_{ss} : \prd{n:\nat} \mathsf{iseven}(n) \to \mathsf{iseven}(\suc(\suc(n)))$.
+    \item 一个元素 $\mathsf{even}_0 : \mathsf{iseven}(0)$，
+    \item 一个函数 $\mathsf{even}_{ss} : \prd{n:\nat} \mathsf{iseven}(n) \to \mathsf{iseven}(\suc(\suc(n)))$。
 \end{itemize}
-In other words, we stipulate that $0$ is even, and that if $n$ is even then so is $\suc(\suc(n))$.
-These constructors ``obviously'' give no way to construct an element of, say, $\mathsf{iseven}(1)$, and since $\mathsf{iseven}$ is supposed to be freely generated by these constructors, there must be no such element.
-(Actually proving that $\neg \mathsf{iseven}(1)$ is not entirely trivial, however).
-The induction principle for $\mathsf{iseven}$ says that to prove something about all even natural numbers, it suffices to prove it for $0$ and verify that it is preserved by adding two.
+换句话说，我们规定 $0$ 是偶数，并且如果 $n$ 是偶数，那么 $\suc(\suc(n))$ 也是偶数。这些构造函数显然不会构造出 $\mathsf{iseven}(1)$ 的元素，并且由于 $\mathsf{iseven}$ 应该由这些构造函数自由生成，因此不应有这样的元素。（然而，实际证明 $\neg \mathsf{iseven}(1)$ 并非完全平凡）。$\mathsf{iseven}$ 的归纳原则表明，为了证明关于所有偶数自然数的某些性质，只需证明它对 $0$ 成立并验证其在加二时保持不变。
 
 \index{mathematics!formalized}%
-Inductively defined predicates are much used in computer formalization of mathematics and software verification.
-But we will not have much use for them, with a couple of exceptions in \cref{sec:ordinals,sec:compactness-interval}.
+归纳定义的谓词在计算机形式化数学和软件验证中得到广泛使用。但在本书中，我们不会有太多的使用，除了 \cref{sec:ordinals,sec:compactness-interval} 中的几个例外。
 
 \index{type!mutual inductive}%
 \index{mutual inductive type}%
-Another important special case is when the indexing type of an inductive family is finite.
-In this case, we can equivalently express the inductive definition as a finite collection of types defined by \emph{mutual induction}.
-For instance, we might define the types $\mathsf{even}$ and $\mathsf{odd}$ of even and odd natural numbers by mutual induction, where $\mathsf{even}$ is generated by constructors
+另一个重要的特例是当归纳族的索引类型是有限的。在这种情况下，我们可以等价地将归纳定义表达为通过\emph{相互归纳} (mutual induction) 定义的一组有限类型。例如，我们可以通过相互归纳定义 $\mathsf{even}$ 和 $\mathsf{odd}$ 类型，其中 $\mathsf{even}$ 由构造函数生成：
 \begin{itemize}
-\item $0:\mathsf{even}$ and
-\item $\mathsf{esucc} : \mathsf{odd}\to\mathsf{even}$,
+    \item $0:\mathsf{even}$，和
+    \item $\mathsf{esucc} : \mathsf{odd}\to\mathsf{even}$，
 \end{itemize}
-while $\mathsf{odd}$ is generated by the one constructor
+而 $\mathsf{odd}$ 由一个构造函数生成
 \begin{itemize}
-\item $\mathsf{osucc} : \mathsf{even}\to \mathsf{odd}$.
+    \item $\mathsf{osucc} : \mathsf{even}\to \mathsf{odd}$。
 \end{itemize}
-Note that $\mathsf{even}$ and $\mathsf{odd}$ are simple types (not type families), but their constructors can refer to each other.
-If we expressed this definition as an inductive type family $\mathsf{paritynat} : \bool \to \type$, with $\mathsf{paritynat}(\bfalse)$ and $\mathsf{paritynat}(\btrue)$ representing $\mathsf{even}$ and $\mathsf{odd}$ respectively, it would instead have constructors:
+请注意，$\mathsf{even}$ 和 $\mathsf{odd}$ 是简单类型（不是类型族），但它们的构造函数可以相互引用。如果我们将此定义表示为一个归纳类型族 $\mathsf{paritynat} : \bool \to \type$，其中 $\mathsf{paritynat}(\bfalse)$ 和 $\mathsf{paritynat}(\btrue)$ 分别表示 $\mathsf{even}$ 和 $\mathsf{odd}$，那么它将具有以下构造函数：
 \begin{itemize}
-\item $0 : \mathsf{paritynat}(\bfalse)$,
-\item $\mathsf{esucc} : \mathsf{paritynat}(\btrue) \to \mathsf{paritynat}(\bfalse)$,
-\item $\mathsf{osucc} : \mathsf{paritynat}(\bfalse) \to \mathsf{paritynat}(\btrue)$.
+    \item $0 : \mathsf{paritynat}(\bfalse)$，
+    \item $\mathsf{esucc} : \mathsf{paritynat}(\btrue) \to \mathsf{paritynat}(\bfalse)$，
+    \item $\mathsf{osucc} : \mathsf{paritynat}(\bfalse) \to \mathsf{paritynat}(\btrue)$。
 \end{itemize}
-When expressed explicitly as a mutual inductive definition, the induction principle for $\mathsf{even}$ and $\mathsf{odd}$ says that given $C:\mathsf{even}\to\type$ and $D:\mathsf{odd}\to\type$, along with
+当明确表示为相互归纳定义时，$\mathsf{even}$ 和 $\mathsf{odd}$ 的归纳原则表明，给定 $C:\mathsf{even}\to\type$ 和 $D:\mathsf{odd}\to\type$，以及
 \begin{itemize}
-\item $c_0 : C(0)$,
-\item $c_s : \prd{n:\mathsf{odd}} D(n) \to C(\mathsf{esucc}(n))$,
-\item $d_s : \prd{n:\mathsf{even}} C(n) \to D(\mathsf{osucc}(n))$,
+    \item $c_0 : C(0)$，
+    \item $c_s : \prd{n:\mathsf{odd}} D(n) \to C(\mathsf{esucc}(n))$，
+    \item $d_s : \prd{n:\mathsf{even}} C(n) \to D(\mathsf{osucc}(n))$，
 \end{itemize}
-there exist $f:\prd{n:\mathsf{even}} C(n)$ and $g:\prd{n:\mathsf{odd}}D(n)$ such that
+存在 $f:\prd{n:\mathsf{even}} C(n)$ 和 $g:\prd{n:\mathsf{odd}}D(n)$，使得
 \begin{align*}
-  f(0) &\jdeq c_0\\
-  f(\mathsf{esucc}(n)) &\jdeq c_s(g(n))\\
-  g(\mathsf{osucc}(n)) &\jdeq d_s(f(n)).
+    f(0) &\jdeq c_0\\
+    f(\mathsf{esucc}(n)) &\jdeq c_s(g(n))\\
+    g(\mathsf{osucc}(n)) &\jdeq d_s(f(n))。
 \end{align*}
-In particular, just as we can only induct over an inductive family ``all at once'', we have to induct on $\mathsf{even}$ and $\mathsf{odd}$ simultaneously.
-We will not have much use for mutual inductive definitions in this book either.
+特别是，正如我们只能“同时”对归纳族进行归纳一样，我们必须同时对 $\mathsf{even}$ 和 $\mathsf{odd}$ 进行归纳。在本书中，我们也不会有太多对相互归纳定义的使用。
 
 \index{type!inductive-inductive}%
 \index{inductive-inductive type}%
-A further, more radical, generalization is to allow definition of a type family $B:A\to \type$ in which not only the types $B(a)$, but the type $A$ itself, is defined as part of one big induction.
-In other words, not only do we specify constructors for the $B(a)$s which can take inputs from other $B(a')$s, as with inductive families, we also at the same time specify constructors for $A$ itself, which can take inputs from the $B(a)$s.
-This can be regarded as an inductive family in which the indices are inductively defined simultaneously with the indexed types, or as a mutual inductive definition in which one of the types can depend on the other.
-More complicated dependency structures are also possible.
-In general, these are called \define{inductive-inductive definitions}.
-For the most part, we will not use them in this book, but their higher variant (see \cref{cha:hits}) will appear in a couple of experimental examples in \cref{cha:real-numbers}.
+进一步的、更激进的推广是允许定义一个类型族 $B:A\to \type$，其中不仅 $B(a)$ 的类型被定义，类型 $A$ 本身也是作为一个整体通过归纳定义的。换句话说，我们不仅为 $B(a)$ 指定了构造函数，也同时为 $A$ 本身指定了构造函数，后者可以引用 $B(a)$ 的元素。这可以看作是一个归纳族，其中索引与被索引的类型同时被归纳定义，或者作为一个类型依赖于另一个类型的相互归纳定义。更复杂的依赖结构也是可能的。一般来说，这些称为\define{归纳-归纳定义} (inductive-inductive definitions)。在本书中，我们不会使用它们，但其更高的变体（见 \cref{cha:hits}）将在 \cref{cha:real-numbers} 的几个实验性示例中出现。
 
 \index{type!inductive-recursive}%
 \index{inductive-recursive type}%
-The last generalization we wish to mention is \define{inductive-recursive definitions}, in which a type is defined inductively at the same time as a \emph{recursive} function on it.
-That is, we fix a known type $P$, and give constructors for an inductive type $A$ and at the same time define a function $f:A\to P$ using the recursion principle for $A$ resulting from its constructors --- with the twist that the constructors of $A$ are allowed to refer also to the values of $f$.
-We do not yet know how to justify such definitions from a homotopical perspective, and we will not use any of them in this book.
+最后一个要提到的推广是\define{归纳-递归定义} (inductive-recursive definitions)，其中一个类型和一个\emph{递归}函数同时被定义。也就是说，我们固定一个已知类型 $P$，并给出一个归纳类型 $A$ 的构造函数，同时使用 $A$ 的递归原则定义一个函数 $f:A\to P$——其中的转折点是，$A$ 的构造函数也被允许引用 $f$ 的值。我们尚不知道如何从同伦的角度来证明这种定义的合理性，因此在本书中我们不会使用它们。
 
 \index{type!inductive|)}%
 
