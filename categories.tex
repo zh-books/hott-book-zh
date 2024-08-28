@@ -998,298 +998,276 @@ Yoneda 嵌入 $\y :A\to \uset^{A\op}$ 是完全忠实的。
 \end{proof}
 \index{Yoneda!lemma|)}
 
-
-\section{Strict categories}
+\section{严格范畴 (Strict categories)}
 \label{sec:strict-categories}
 
 \index{bargaining|(}%
 
 \begin{defn}\label{ct:strict-category}
-  A \define{strict category}
-  \indexdef{category!strict}%
-  \indexdef{strict!category}%
-  is a precategory whose type of objects is a set.
+一个\define{严格范畴 (strict category)}
+\indexdef{category!strict}%
+\indexdef{strict!category}%
+是一个其对象类型为集合的预范畴。
 \end{defn}
 
-In accordance with the mathematical red herring principle,\index{red herring principle} a strict category is not necessarily a category.
-In fact, a category is a strict category precisely when it is gaunt (\cref{ct:gaunt}).
+根据数学中“红鲱鱼原则 (red herring principle)”\index{red herring principle}，严格范畴不一定是一个范畴。
+实际上，当且仅当一个范畴是消瘦范畴 (gaunt category) 时，它才是一个严格范畴 (\cref{ct:gaunt})。
 \index{gaunt category}%
 \index{category!gaunt}%
-Most of the time, category theory is about categories, not strict ones, but sometimes one wants to consider strict categories.
-The main advantage of this is that strict categories have a stricter notion of ``sameness'' than equivalence, namely isomorphism (or equivalently, by \cref{ct:cat-eq-iso}, equality).
+大多数情况下，范畴论研究的是范畴，而非严格范畴，但有时人们会考虑严格范畴。
+其主要优点在于，严格范畴比等价关系有更严格的“相同”概念，即同构（或者等价地，通过 \cref{ct:cat-eq-iso}，即等同关系）。
 
-Here is one origin of strict categories.
+以下是严格范畴的一个来源。
 
 \begin{eg}\label{ct:mono-cat}
-  Let $A$ be a precategory and $x:A$ an object.
-  Then there is a precategory $\mathsf{mono}(A,x)$ as follows:
-  \index{monomorphism}
-  \indexsee{mono}{monomorphism}
-  \indexsee{monic}{monomorphism}
-  \begin{itemize}
-  \item Its objects consist of an object $y:A$ and a monomorphism $m:\hom_A(y,x)$.
-    (As usual, $m:\hom_A(y,x)$ is a \define{monomorphism} (or is \define{monic}) if $(m\circ f = m\circ g) \Rightarrow (f=g)$.)
-  \item Its morphisms from $(y,m)$ to $(z,n)$ are arbitrary morphisms from $y$ to $z$ in $A$ (not necessarily respecting $m$ and $n$).
-  \end{itemize}
-  An equality $(y,m)=(z,n)$ of objects in $\mathsf{mono}(A,x)$ consists of an equality $p:y=z$ and an equality $\trans{p}{m}=n$, which by \cref{ct:idtoiso-trans} is equivalently an equality $m=n\circ \idtoiso(p)$.
-  Since hom-sets are sets, the type of such equalities is a mere proposition.
-  But since $m$ and $n$ are monomorphisms, the type of morphisms $f$ such that $m = n\circ f$ is also a mere proposition.
-  Thus, if $A$ is a category, then $(y,m)=(z,n)$ is a mere proposition, and hence $\mathsf{mono}(A,x)$ is a strict category.
+设 $A$ 是一个预范畴，$x:A$ 是一个对象。
+则存在一个预范畴 $\mathsf{mono}(A,x)$，如下定义：
+\index{monomorphism}
+\indexsee{mono}{monomorphism}
+\indexsee{monic}{monomorphism}
+\begin{itemize}
+  \item 其对象由一个对象 $y:A$ 和一个从 $y$ 到 $x$ 的单态射 $m:\hom_A(y,x)$ 组成。
+  （通常，$m:\hom_A(y,x)$ 是一个\define{单态射 (monomorphism)}（或称为\define{单态 (monic)}）当且仅当 $(m\circ f = m\circ g) \Rightarrow (f=g)$。）
+  \item 从 $(y,m)$ 到 $(z,n)$ 的态射是 $A$ 中从 $y$ 到 $z$ 的任意态射（不必尊重 $m$ 和 $n$）。
+\end{itemize}
+在 $\mathsf{mono}(A,x)$ 中对象的等同 $(y,m)=(z,n)$ 包含对象的等同 $p:y=z$ 和等同 $\trans{p}{m}=n$，根据 \cref{ct:idtoiso-trans}，这等价于等同 $m=n\circ \idtoiso(p)$。
+由于态射集是集合，这种等同性的类型只是一个单纯命题。
+但是由于 $m$ 和 $n$ 是单态射，使得 $m = n\circ f$ 的态射 $f$ 的类型也是一个单纯命题。
+因此，如果 $A$ 是一个范畴，那么 $(y,m)=(z,n)$ 只是一个单纯命题，因此 $\mathsf{mono}(A,x)$ 是一个严格范畴。
 \end{eg}
 
-This example can be dualized, and generalized in various ways.
-Here is an interesting application of strict categories.
+这个例子可以对偶化，并以各种方式推广。
+以下是严格范畴的一个有趣应用。
 
 \begin{eg}\label{ct:galois}
-  Let $E/F$ be a finite Galois extension
-  \index{Galois!extension}%
-  of fields, and $G$ its Galois group.
-  \index{Galois!group}%
-  Then there is a strict category whose objects are intermediate fields $F\subseteq K\subseteq E$, and whose morphisms are field homomorphisms\index{homomorphism!field} which fix $F$ pointwise (but need not commute with the inclusions into $E$).
-  There is another strict category whose objects are subgroups $H\subseteq G$, and whose morphisms are morphisms of $G$-sets $G/H \to G/K$.
-  The fundamental theorem of Galois theory
-  \index{fundamental!theorem of Galois theory}%
-  says that these two precategories are isomorphic (not merely equivalent).
+设 $E/F$ 是有限伽罗瓦扩展 (Galois extension)
+\index{Galois!extension}%
+的域，$G$ 是其伽罗瓦群 (Galois group)。
+\index{Galois!group}%
+则存在一个严格范畴，其对象是中间域 $F\subseteq K\subseteq E$，其态射是固定 $F$ 不动的域同态\index{homomorphism!field}（但不必与 $E$ 中的包含映射可交换）。
+另一个严格范畴的对象是子群 $H\subseteq G$，其态射是 $G$ 集合 $G/H \to G/K$ 的态射。
+伽罗瓦理论的基本定理
+\index{fundamental!theorem of Galois theory}%
+表明这两个预范畴是同构的（不仅仅是等价的）。
 \end{eg}
 
 \index{bargaining|)}%
 
-\section{\texorpdfstring{$\dagger$}{†}-categories}
+\section{\texorpdfstring{$\dagger$}{†}-范畴 ($\dagger$-categories)}
 \label{sec:dagger-categories}
 
-It is also worth mentioning a useful kind of precategory whose type of objects is not a set, but which is not a category either.
+还值得一提的是一种有用的预范畴，其对象类型不是集合，但它也不是一个范畴。
 
 \begin{defn}\label{ct:dagger-precategory}
-  A \define{$\dagger$-precategory}
-  \indexdef{.dagger-precategory@$\dagger$-precategory}%
-  \indexdef{precategory!.dagger-@$\dagger$-}%
-  is a precategory $A$ together with the following.
-  \begin{enumerate}
-  \item For each $x,y:A$, a function $\dgr{(-)}:\hom_A(x,y) \to \hom_A(y,x)$.
-  \item For all $x:A$, we have $\dgr{(1_x)} = 1_x$.
-  \item For all $f,g$ we have $\dgr{(g\circ f)} = \dgr f \circ \dgr g$.
-  \item For all $f$ we have $\dgr{(\dgr f)} = f$.
-  \end{enumerate}
+一个\define{$\dagger$-预范畴 ($\dagger$-precategory)}
+\indexdef{.dagger-precategory@$\dagger$-precategory}%
+\indexdef{precategory!.dagger-@$\dagger$-}%
+是一个预范畴 $A$，同时具备以下结构：
+\begin{enumerate}
+  \item 对于每个 $x,y:A$，存在一个函数 $\dgr{(-)}:\hom_A(x,y) \to \hom_A(y,x)$。
+  \item 对于所有 $x:A$，我们有 $\dgr{(1_x)} = 1_x$。
+  \item 对于所有 $f,g$，我们有 $\dgr{(g\circ f)} = \dgr f \circ \dgr g$。
+  \item 对于所有 $f$，我们有 $\dgr{(\dgr f)} = f$。
+\end{enumerate}
 \end{defn}
 
 \begin{defn}\label{ct:unitary}
-  A morphism $f:\hom_A(x,y)$ in a $\dagger$-precategory is \define{unitary}
-  \indexdef{.dagger-precategory@$\dagger$-precategory!unitary morphism in}%
-  \indexdef{unitary morphism}%
-  \indexdef{morphism!unitary}%
-  \indexdef{isomorphism!unitary}%
-  if $\dgr f \circ f = 1_x$ and $f\circ \dgr f = 1_y$.
+在 $\dagger$-预范畴中的态射 $f:\hom_A(x,y)$ 是\define{酉态射 (unitary)}
+\indexdef{.dagger-precategory@$\dagger$-precategory!unitary morphism in}%
+\indexdef{unitary morphism}%
+\indexdef{morphism!unitary}%
+\indexdef{isomorphism!unitary}%
+如果 $\dgr f \circ f = 1_x$ 并且 $f\circ \dgr f = 1_y$。
 \end{defn}
 
-Of course, every unitary morphism is an isomorphism, and being unitary is a mere proposition.
-Thus for each $x,y:A$ we have a set of unitary isomorphisms from $x$ to $y$, which we denote $(x\unitaryiso y)$.
+当然，每个酉态射都是同构的，并且酉态射的性质是一个单纯命题。
+因此，对于每个 $x,y:A$，我们有从 $x$ 到 $y$ 的酉同构的集合，我们记为 $(x\unitaryiso y)$。
 
 \begin{lem}\label{ct:idtounitary}
-  If $p:(x=y)$, then $\idtoiso(p)$ is unitary.
+如果 $p:(x=y)$，则 $\idtoiso(p)$ 是酉态射。
 \end{lem}
 \begin{proof}
-  By induction, we may assume $p$ is $\refl x$.
-  But then $\dgr{(1_x)} \circ 1_x = 1_x\circ 1_x = 1_x$ and similarly.
+  通过归纳法，我们可以假设 $p$ 是 $\refl x$。
+  但此时 $\dgr{(1_x)} \circ 1_x = 1_x\circ 1_x = 1_x$，类似地。
 \end{proof}
 
 \begin{defn}\label{ct:dagger-category}
-  A \define{$\dagger$-category}
-  \indexdef{.dagger-category@$\dagger$-category}%
-  is a $\dagger$-precategory such that for all $x,y:A$, the function
-  \[ (x=y) \to (x \unitaryiso y) \]
-  from \cref{ct:idtounitary} is an equivalence.
+一个\define{$\dagger$-范畴 ($\dagger$-category)}
+\indexdef{.dagger-category@$\dagger$-category}%
+是一个 $\dagger$-预范畴，使得对于所有 $x,y:A$，函数
+\[ (x=y) \to (x \unitaryiso y) \]
+从 \cref{ct:idtounitary} 是一个等价。
 \end{defn}
 
 \begin{eg}\label{ct:rel-dagger-cat}
-  The category \urel from \cref{ct:rel} becomes a $\dagger$-pre\-cat\-e\-go\-ry if we define $(\dgr R)(y,x) \defeq R(x,y)$.
-  The proof that \urel is a category actually shows that every isomorphism is unitary; hence \urel is also a $\dagger$-category.
+从 \cref{ct:rel} 中的关系范畴 (\urel) 通过定义 $(\dgr R)(y,x) \defeq R(x,y)$ 变成一个 $\dagger$-预范畴。
+关系范畴 (\urel) 是一个范畴的证明实际上表明每个同构都是酉的；因此 \urel 也是一个 $\dagger$-范畴。
 \end{eg}
 
 \begin{eg}\label{ct:groupoid-dagger-cat}
-  Any groupoid becomes a $\dagger$-category if we define $\dgr f \defeq \inv{f}$.
+任何群胚 (groupoid) 通过定义 $\dgr f \defeq \inv{f}$ 变成一个 $\dagger$-范畴。
 \end{eg}
 
 \begin{eg}\label{ct:hilb}
-  Let \uhilb be the following precategory.
-  \begin{itemize}
-  \item Its objects are finite-dimensional \index{finite!-dimensional vector space} vector spaces\index{vector!space} equipped with an inner product $\langle \blank,\blank\rangle$.
-  \item Its morphisms are arbitrary linear maps.
-    \index{function!linear}%
-    \indexsee{linear map}{function, linear}%
-  \end{itemize}
-  By standard linear algebra, any linear map $f:V\to W$ between finite
-  dimensional inner product spaces has a uniquely defined adjoint\index{adjoint!linear map} $\dgr f:W\to V$, characterized by $\langle f v,w\rangle = \langle v,\dgr f w\rangle$.
-  In this way, \uhilb becomes a $\dagger$-precategory.
-  Moreover, a linear isomorphism is unitary precisely when it is an \define{isometry},
-  \indexdef{isometry}%
-  i.e.\ $\langle fv,fw\rangle = \langle v,w\rangle$.
-  It follows from this that \uhilb is a $\dagger$-category, though it is not a category (not every linear isomorphism is unitary).
+令 \uhilb 是以下预范畴：
+\begin{itemize}
+  \item 其对象是有限维度的\index{finite!-dimensional vector space}带内积 $\langle \blank,\blank\rangle$ 的向量空间\index{vector!space}。
+  \item 其态射是任意的线性映射。
+  \index{function!linear}%
+  \indexsee{linear map}{function, linear}%
+\end{itemize}
+根据标准的线性代数，任意有限维度内积空间之间的线性映射 $f:V\to W$ 都有一个唯一确定的伴随映射\index{adjoint!linear map} $\dgr f:W\to V$，其特征是 $\langle f v,w\rangle = \langle v,\dgr f w\rangle$。
+通过这种方式，\uhilb 变成了一个 $\dagger$-预范畴。
+此外，当且仅当线性同构是\define{等距同构 (isometry)}时，它是酉态射，
+\indexdef{isometry}%
+即 $\langle fv,fw\rangle = \langle v,w\rangle$。
+由此可以推断 \uhilb 是一个 $\dagger$-范畴，尽管它不是一个范畴（不是每个线性同构都是酉态射）。
 \end{eg}
 
-There has been a good deal of general theory developed for $\dagger$-cat\-e\-gor\-ies under classical\index{mathematics!classical}\index{classical!category theory} foundations.
-It was observed early on that the unitary isomorphisms, not arbitrary isomorphisms, are the correct notion of ``sameness'' for objects of a $\dagger$-category, which has caused some consternation among category theorists.
-Homotopy type theory resolves this issue by identifying $\dagger$-categories, like strict categories, as simply a different kind of precategory.
+关于 $\dagger$-范畴的经典理论已经有了相当多的发展\index{mathematics!classical}\index{classical!category theory}。
+人们很早就观察到，对于 $\dagger$-范畴的对象，酉同构，而不是任意的同构，是“相同”的正确概念，这在范畴论学者中引起了一些困惑。
+同伦类型论通过将 $\dagger$-范畴与严格范畴一样视为一种不同的预范畴，解决了这一问题。
 
-
-\section{The structure identity principle}
+\section{结构同一性原理 (The structure identity principle)}
 \label{sec:sip}
- \index{structure!identity principle|(}
+\index{structure!identity principle|(}
 
-The \emph{structure identity principle} is an informal principle
-that expresses that isomorphic structures are identical.  We aim to
-prove a general abstract result which can be applied to a wide family
-of notions of structure, where structures may be many-sorted or even
-dependently-sorted, infinitary, or even higher order.
+\emph{结构同一性原理 (structure identity principle)} 是一个非正式的原理，表示同构结构是相同的。我们旨在证明一个可以应用于广泛结构概念的一般抽象结果，其中结构可以是多类的，甚至是依赖类的，无穷的，甚至是高阶的。
 
-The simplest kind of single-sorted structure consists of a type with
-no additional structure.  The univalence axiom expresses the structure identity principle for that
-notion of structure in a strong form: for types $A,B$, the
-canonical function $(A=B)\to (\eqv A B)$ is an equivalence.
+最简单的单类结构由没有附加结构的类型组成。单值性公理以一种强烈的形式表达了这种结构概念的结构同一性原理：对于类型 $A,B$，从 $(A=B)\to (\eqv A B)$ 的典型函数是一个等价。
 
-We start with a precategory $X$.  In our application to
-single-sorted first order structures, $X$ will be the category %\uset%
-of $\bbU$-small sets, where $\bbU$ is a univalent type universe.
+我们从一个预范畴 $X$ 开始。在我们应用于单类一阶结构时，$X$ 将是 $\bbU$-小集的范畴 (\uset%)，其中 $\bbU$ 是一个单值类型宇宙。
 
 \begin{defn}\label{ct:sig}
-  A \define{notion of structure}
-  \indexdef{structure!notion of}%
-  $(P,H)$ over $X$ consists of the following.
-  \begin{enumerate}
-  \item A type family $P:X_0 \to \type$.
-    For each $x:X_0$ the elements of $Px$ are called \define{$(P,H)$-structures}
-    \indexsee{PH-structure@$(P,H)$-structure}{structure}%
-    \indexdef{structure!PH@$(P,H)$-}%
-    on $x$.
-  \item For $x,y:X_0$, $f:\hom_X(x,y)$ and $\alpha:Px$, $\;\beta:Py$, a mere proposition
-  \[ H_{\alpha\beta}(f).\]
-    If $H_{\alpha\beta}(f)$ is true, we say that $f$ is a \define{$(P,H)$-homomorphism}
-    \indexdef{homomorphism!of structures}%
-    \indexdef{structure!homomorphism of}%
-    from $\alpha$ to $\beta$.
-  \item For $x:X_0$ and $\alpha:Px$, we have $H_{\alpha\alpha}(1_x)$.\label{item:sigid}
-  \item For $x,y,z:X_0$ and $\alpha:Px$, $\;\beta:Py$, $\;\gamma:Pz$,
-if $f:\hom_X(x,y)$ and $g:\hom_X(y,z)$, we have\label{item:sigcmp}
-  \[ H_{\alpha\beta}(f)\to H_{\beta\gamma}(g)\to H_{\alpha\gamma}(g\circ   f).\]
-   \end{enumerate}
-  When $(P,H)$ is a notion of structure, for $\alpha,\beta:Px$ we define
-  \[ (\alpha\leq_x\beta) \defeq H_{\alpha\beta}(1_x).\]
-  By~\ref{item:sigid} and~\ref{item:sigcmp}, this is a preorder (\cref{ct:orders}) with $Px$ its type of objects.
-  We say that $(P,H)$ is a \define{standard notion of structure}
-  \indexdef{structure!standard notion of}%
-  if this preorder is in fact a partial order, for all $x:X$.
+一个\define{结构概念 (notion of structure)}
+\indexdef{structure!notion of}%
+$(P,H)$ 在 $X$ 上包括以下内容。
+\begin{enumerate}
+  \item 一个类型族 $P:X_0 \to \type$。
+  对于每个 $x:X_0$，$Px$ 的元素称为\define{$(P,H)$-结构 (structures on $x$)}。
+  \indexsee{PH-structure@$(P,H)$-structure}{structure}%
+  \indexdef{structure!PH@$(P,H)$-}%
+  \item 对于 $x,y:X_0$，$f:\hom_X(x,y)$ 和 $\alpha:Px$，$\;\beta:Py$，一个单纯命题
+  \[ H_{\alpha\beta}(f)。\]
+  如果 $H_{\alpha\beta}(f)$ 为真，我们称 $f$ 是从 $\alpha$ 到 $\beta$ 的\define{$(P,H)$-同态 (homomorphism)}。
+  \indexdef{homomorphism!of structures}%
+  \indexdef{structure!homomorphism of}%
+  \item 对于 $x:X_0$ 和 $\alpha:Px$，我们有 $H_{\alpha\alpha}(1_x)$。\label{item:sigid}
+  \item 对于 $x,y,z:X_0$ 和 $\alpha:Px$，$\;\beta:Py$，$\;\gamma:Pz$，如果 $f:\hom_X(x,y)$ 和 $g:\hom_X(y,z)$，我们有\label{item:sigcmp}
+  \[ H_{\alpha\beta}(f)\to H_{\beta\gamma}(g)\to H_{\alpha\gamma}(g\circ   f)。\]
+\end{enumerate}
+当 $(P,H)$ 是一个结构概念时，对于 $\alpha,\beta:Px$ 我们定义
+\[ (\alpha\leq_x\beta) \defeq H_{\alpha\beta}(1_x)。\]
+根据~\ref{item:sigid} 和~\ref{item:sigcmp}，这是一个预序 (\cref{ct:orders})，其对象类型为 $Px$。
+如果 $(P,H)$ 是一个\define{标准的结构概念 (standard notion of structure)}，则对于 $X$ 上的所有 $x$，这个预序实际上是一个偏序。
 \end{defn}
 
-Note that for a standard notion of structure, each type $Px$ must actually be a set.
-We now define, for any notion of structure $(P,H)$, a \define{precategory of $(P,H)$-structures},
+请注意，对于标准的结构概念，每个类型 $Px$ 实际上必须是一个集合。
+我们现在定义，对于任何 $(P,H)$ 的结构概念，\define{$(P,H)$-结构的预范畴}，
 \indexdef{precategory!of PH-structures@of $(P,H)$-structures}%
 \indexdef{structure!precategory of PH@precategory of $(P,H)$-}%
-$A = \mathsf{Str}_{(P,H)}(X)$.
+$A = \mathsf{Str}_{(P,H)}(X)$。
 \begin{itemize}
-\item The type of objects of $A$ is the type $A_0 \defeq \sm{x:X_0} Px$.
-  If $a\jdeq (x,\alpha):A_0$, we may write $|a| \defeq x$.
-\item For $(x,\alpha):A_0$ and $(y,\beta):A_0$, we define
-  \[\hom_A((x,\alpha),(y,\beta)) \defeq \setof{ f:x \to y | H_{\alpha\beta}(f)}.\]
+  \item $A$ 的对象类型是类型 $A_0 \defeq \sm{x:X_0} Px$。
+  如果 $a\jdeq (x,\alpha):A_0$，我们可以写作 $|a| \defeq x$。
+  \item 对于 $(x,\alpha):A_0$ 和 $(y,\beta):A_0$，我们定义
+  \[\hom_A((x,\alpha),(y,\beta)) \defeq \setof{ f:x \to y | H_{\alpha\beta}(f)}。\]
 \end{itemize}
-The composition and identities are inherited from $X$; conditions~\ref{item:sigid} and \ref{item:sigcmp} ensure that these lift to $A$.
+合成和身份继承自 $X$；条件~\ref{item:sigid} 和 \ref{item:sigcmp} 确保这些提升到 $A$。
 
-\begin{thm}[Structure identity principle]\label{thm:sip}
-  \indexdef{structure!identity principle}%
-  If $X$ is a category and $(P,H)$ is a standard notion of structure over $X$, then the precategory $\mathsf{Str}_{(P,H)}(X)$ is a category.
+\begin{thm}[结构同一性原理 (Structure identity principle)]\label{thm:sip}
+\indexdef{structure!identity principle}%
+如果 $X$ 是一个范畴，并且 $(P,H)$ 是 $X$ 上的一个标准结构概念，则预范畴 $\mathsf{Str}_{(P,H)}(X)$ 是一个范畴。
 \end{thm}
 \begin{proof}
-  By the definition of equality in dependent pair types, to give an equality $(x,\alpha)=(y,\beta)$ consists of
+  根据依赖对类型的等同性定义，给出等同性 $(x,\alpha)=(y,\beta)$ 包括以下内容：
   \begin{itemize}
-  \item An equality $p:x=y$, and
-  \item An equality $\trans{p}{\alpha}=\beta$.
+    \item 一个等同性 $p:x=y$，以及
+    \item 一个等同性 $\trans{p}{\alpha}=\beta$。
   \end{itemize}
-  Since $P$ is set-valued, the latter is a mere proposition.
-  On the other hand, it is easy to see that an isomorphism $(x,\alpha)\cong (y,\beta)$ in $\mathsf{Str}_{(P,H)}(X)$ consists of
+  由于 $P$ 是集合值的，后者只是一个单纯命题。
+  另一方面，很容易看出 $\mathsf{Str}_{(P,H)}(X)$ 中的一个同构 $(x,\alpha)\cong (y,\beta)$ 包括以下内容：
   \begin{itemize}
-  \item An isomorphism $f:x\cong y$ in $X$, such that
-  \item $H_{\alpha\beta}(f)$ and $H_{\beta\alpha}(\inv f)$.
+    \item $X$ 中 $x\cong y$ 的一个同构 $f$，使得
+    \item $H_{\alpha\beta}(f)$ 和 $H_{\beta\alpha}(\inv f)$ 成立。
   \end{itemize}
-  Of course, the second of these is also a mere proposition.
-  And since $X$ is a category, the function $(x=y) \to (x\cong y)$ is an equivalence.
-  Thus, it will suffice to show that for any $p:x=y$ and for any $(\alpha:Px)$, $(\beta:Py)$, we have $\trans{p}{\alpha}=\beta$ if and only if both  $H_{\alpha\beta}(\idtoiso (p))$ and $H_{\beta\alpha}(\inv{\idtoiso(p)})$.
+  当然，第二项也是一个单纯命题。
+  并且由于 $X$ 是一个范畴，函数 $(x=y) \to (x\cong y)$ 是一个等价。
+  因此，只需证明对于任意 $p:x=y$ 和任意 $(\alpha:Px)$, $(\beta:Py)$，我们有 $\trans{p}{\alpha}=\beta$ 当且仅当 $H_{\alpha\beta}(\idtoiso (p))$ 和 $H_{\beta\alpha}(\inv{\idtoiso(p)})$ 同时成立。
 
-  The ``only if'' direction is just the existence of the function $\idtoiso$ for the category $\mathsf{Str}_{(P,H)}(X)$.
-  For the ``if'' direction, by induction on $p$ we may assume that $y\jdeq x$ and $p\jdeq\refl x$.
-  However, in this case $\idtoiso (p)\jdeq 1_x$ and therefore $\inv{\idtoiso(p)}=1_x$.
-  Thus, $\alpha\leq_x \beta$ and $\beta\leq_x \alpha$, which implies $\alpha=\beta$ since $(P,H)$ is a standard notion of structure.
+  “仅当”方向仅是 $\mathsf{Str}_{(P,H)}(X)$ 范畴的函数 $\idtoiso$ 的存在性。
+  对于“如果”方向，通过对 $p$ 进行归纳，我们可以假设 $y\jdeq x$ 且 $p\jdeq\refl x$。
+  然而，在这种情况下 $\idtoiso (p)\jdeq 1_x$ 因此 $\inv{\idtoiso(p)}=1_x$。
+  因此，$\alpha\leq_x \beta$ 和 $\beta\leq_x \alpha$，这意味着 $\alpha=\beta$，因为 $(P,H)$ 是一个标准的结构概念。
 \end{proof}
 
-As an example, this methodology gives an alternative way to express the proof of \cref{ct:functor-cat}.
+作为一个例子，这种方法提供了一种表达 \cref{ct:functor-cat} 证明的替代方法。
 
 \begin{eg}\label{ct:sip-functor-cat}
-  Let $A$ be a precategory and $B$ a category.
-  There is a precategory $B^{A_0}$ whose objects are functions $A_0 \to B_0$, and whose set of morphisms from $F_0:A_0 \to B_0$ to $G_0:A_0 \to B_0$ is $\prd{a:A_0} \hom_B(F_0 a, G_0 a)$.
-  Composition and identities are inherited directly from those in $B$.
-  It is easy to show that $\gamma:\hom_{B^{A_0}}(F_0, G_0)$ is an isomorphism exactly when each component $\gamma_a$ is an isomorphism, so that we have $\eqv{(F_0 \cong G_0)}{\prd{a:A_0} (F_0 a \cong G_0 a)}$.
-  Moreover, the map $\idtoiso : (F_0 = G_0) \to (F_0 \cong G_0)$ of $B^{A_0}$ is equal to the composite
-  \[ (F_0 = G_0) \longrightarrow \prd{a:A_0} (F_0 a  = G_0 a) \longrightarrow \prd{a:A_0} (F_0 a \cong G_0 a) \longrightarrow (F_0 \cong G_0) \]
-  in which the first map is an equivalence by function extensionality, the second because it is a dependent product of equivalences (since $B$ is a category), and the third as remarked above.
-  Thus, $B^{A_0}$ is a category.
+设 $A$ 是一个预范畴，$B$ 是一个范畴。
+存在一个预范畴 $B^{A_0}$，其对象是从 $A_0$ 到 $B_0$ 的函数，其态射集是从 $F_0:A_0 \to B_0$ 到 $G_0:A_0 \to B_0$ 的 $\gamma:\hom_{B^{A_0}}(F_0, G_0)$ 是一个同构，当且仅当每个分量 $\gamma_a$ 是同构，因此我们有 $\eqv{(F_0 \cong G_0)}{\prd{a:A_0} (F_0 a \cong G_0 a)}$。
+此外，$B^{A_0}$ 的 $\idtoiso : (F_0 = G_0) \to (F_0 \cong G_0)$ 映射等同于以下复合函数
+\[ (F_0 = G_0) \longrightarrow \prd{a:A_0} (F_0 a  = G_0 a) \longrightarrow \prd{a:A_0} (F_0 a \cong G_0 a) \longrightarrow (F_0 \cong G_0) \]
+其中第一个映射是函数外延性给出的等价，第二个因为它是等价的依赖积（因为 $B$ 是一个范畴），第三个如上所述。
+因此，$B^{A_0}$ 是一个范畴。
 
-  Now we define a notion of structure on $B^{A_0}$ for which $P(F_0)$ is the type of operations $F:\prd{a,a':A_0} \hom_A(a,a') \to \hom_B(F_0 a,F_0 a')$ which extend $F_0$ to a functor (i.e.\ preserve composition and identities).
-  This is a set since each $\hom_B(\blank,\blank)$ is so.
-  Given such $F$ and $G$, we define $\gamma:\hom_{B^{A_0}}(F_0, G_0)$ to be a homomorphism if it forms a natural transformation.\index{natural!transformation}
-  In \cref{ct:functor-precat} we essentially verified that this is a notion of structure.
-  Moreover, if $F$ and $F'$ are both structures on $F_0$ and the identity is a natural transformation from $F$ to $F'$, then for any $f:\hom_A(a,a')$ we have $F'f = F'f \circ 1_{F_0 a} = 1_{F_0 a}\circ F f = F f$.
-  Applying function extensionality, we conclude $F = F'$.
-  Thus, we have a \emph{standard} notion of structure, and so by \cref{thm:sip}, the precategory $B^A$ is a category.
+现在我们在 $B^{A_0}$ 上定义一个结构概念，其中 $P(F_0)$ 是扩展 $F_0$ 为函子的操作的类型 $F:\prd{a,a':A_0} \hom_A(a,a') \to \hom_B(F_0 a,F_0 a')$（即保持合成和身份）。
+这是一个集合，因为每个 $\hom_B(\blank,\blank)$ 是这样。
+给定这样的 $F$ 和 $G$，如果它形成了一个自然变换，我们定义 $\gamma:\hom_{B^{A_0}}(F_0, G_0)$ 为同态。\index{natural!transformation}
+在 \cref{ct:functor-precat} 中，我们基本上验证了这是一种结构概念。
+此外，如果 $F$ 和 $F'$ 都是 $F_0$ 上的结构，并且恒等是从 $F$ 到 $F'$ 的自然变换，那么对于任何 $f:\hom_A(a,a')$，我们有 $F'f = F'f \circ 1_{F_0 a} = 1_{F_0 a}\circ F f = F f$。
+应用函数外延性，我们得出结论 $F = F'$。
+因此，我们有一个\emph{标准}结构概念，因此根据 \cref{thm:sip}，预范畴 $B^A$ 是一个范畴。
 \end{eg}
 
-As another example, we consider categories of structures for a first-order signature.
-We define a \define{first-order signature},
+作为另一个例子，我们考虑一阶签名的结构范畴。
+我们定义一个\define{一阶签名 (first-order signature)}，
 \indexdef{first-order!signature}%
 \indexdef{signature!first-order}%
-$\Omega$, to consist of sets $\Omega_0$ and $\Omega_1$ of function symbols, $\omega:\Omega_0$, and relation symbols, $\omega:\Omega_1$, each having an arity\index{arity} $|\omega|$ that is a set.
-An \define{$\Omega$-structure}
+$\Omega$，其由函数符号 $\Omega_0$ 和关系符号 $\Omega_1$ 组成，$\omega:\Omega_0$ 和 $\omega:\Omega_1$，每个符号都有一个为集合的元数\index{arity} $|\omega|$。
+一个\define{$\Omega$-结构 ($\Omega$-structure)}%
 \indexdef{structure!Omega@$\Omega$-}%
 \indexsee{omega-structure@$\Omega$-structure}{structure}%
-$a$ consists of a set $|a|$ together with an assignment of an $|\omega|$-ary function $\omega^a:|a|^{|\omega|}\to |a|$ on $|a|$ to each function symbol, $\omega$, and an assignment of an $|\omega|$-ary relation $\omega^a$ on $|a|$, assigning a mere proposition $\omega^ax$ to each $x:|a|^{|\omega|}$, to each relation symbol.
-And given $\Omega$-structures $a,b$, a function $f:|a|\to |b|$ is a \define{homomorphism $a\to b$}
-\indexdef{homomorphism!of Omega-structures@of $\Omega$-structures}%
-\indexdef{structure!homomorphism of Omega@homomorphism of $\Omega$-}%
-if it preserves the structure; i.e.\ if for each symbol $\omega$ of the signature and each $x:|a|^{|\omega|}$,
+$a$ 由一个集合 $|a|$ 以及为每个函数符号 $\omega$ 分配的一个 $|\omega|$ 元函数 $\omega^a:|a|^{|\omega|}\to |a|$ 和为每个关系符号 $\omega$ 分配的一个 $|\omega|$ 元关系 $\omega^a$ 组成，赋予每个 $x:|a|^{|\omega|}$ 一个单纯命题 $\omega^ax$。
+并且对于给定的 $\Omega$-结构 $a,b$，如果它保持结构，即对于每个签名符号 $\omega$ 和每个 $x:|a|^{|\omega|}$，
 \begin{enumerate}
-\item $f(\omega^ax) = \omega^b(f\circ x)$ if $\omega:\Omega_0$, and
-\item $\omega^ax\to\omega^b(f\circ x)$ if $\omega:\Omega_1$.
+  \item 如果 $\omega:\Omega_0$，则 $f(\omega^ax) = \omega^b(f\circ x)$，并且
+  \item 如果 $\omega:\Omega_1$，则 $\omega^ax\to\omega^b(f\circ x)$。
 \end{enumerate}
-Note that each $x:|a|^{|\omega|}$ is a function $x:|\omega|\to |a|$ so that $f\circ x : b^\omega$.
+请注意，每个 $x:|a|^{|\omega|}$ 是一个函数 $x:|\omega|\to |a|$ 使得 $f\circ x : b^\omega$。
 
-Now we assume given a (univalent) universe $\bbU$ and a $\bbU$-small signature $\Omega$; i.e. $|\Omega|$ is a $\bbU$-small set and, for each $\omega:|\Omega|$, the set $|\omega|$ is $\bbU$-small.
-Then we have the category $\uset_\bbU$ of $\bbU$-small sets.  We want to define the precategory of $\bbU$-small $\Omega$-structures over $\uset_\bbU$ and use \cref{thm:sip} to show that it is a category.
+现在我们假设给定一个（单值的）宇宙 $\bbU$ 和一个 $\bbU$-小的签名 $\Omega$；即 $|\Omega|$ 是一个 $\bbU$-小集合，并且对于每个 $\omega:|\Omega|$，集合 $|\omega|$ 是 $\bbU$-小集合。
+然后我们有 $\bbU$-小集合的范畴 $\uset_\bbU$。我们希望定义 $\uset_\bbU$ 上的 $\bbU$-小 $\Omega$-结构的预范畴，并使用 \cref{thm:sip} 来证明它是一个范畴。
 
-We use the first order signature $\Omega$ to give us a standard notion of structure $(P,H)$ over $\uset_\bbU$.
+我们使用一阶签名 $\Omega$ 给我们一个 $\uset_\bbU$ 上的标准结构概念 $(P,H)$。
 
 \begin{defn}\label{defn:fo-notion-of-structure}
 \mbox{}
 \begin{enumerate}
-\item For each $\bbU$-small set $x$ define
-  \[ Px \defeq P_0x\times P_1x.\]
-  Here
+  \item 对于每个 $\bbU$-小集合 $x$ 定义
+  \[ Px \defeq P_0x\times P_1x。\]
+  这里
   %
   \begin{align*}
-    P_0x &\defeq \prd{\omega:\Omega_0} x^{|\omega|}\to x, \mbox{ and } \\
+    P_0x &\defeq \prd{\omega:\Omega_0} x^{|\omega|}\to x, \mbox{ 和 } \\
     P_1x &\defeq \prd{\omega:\Omega_1} x^{|\omega|}\to \propU,
   \end{align*}
-\item For $\bbU$-small sets $x,y$ and
-  $\alpha:P^\omega x,\;\beta:P^\omega y,\; f:x\to y$, define
-  \[ H_{\alpha\beta}(f) \defeq H_{0,\alpha\beta}(f)\wedge H_{1,\alpha\beta}(f).\]
-  Here
+  \item 对于 $\bbU$-小集合 $x,y$ 和
+  $\alpha:P^\omega x,\;\beta:P^\omega y,\; f:x\to y$，定义
+  \[ H_{\alpha\beta}(f) \defeq H_{0,\alpha\beta}(f)\wedge H_{1,\alpha\beta}(f)。\]
+  这里
   \begin{align*}
     H_{0,\alpha\beta}(f) &\defeq
     \fall{\omega:\Omega_0}{u:x^{|\omega|}} f(\alpha u)=\;\beta(f\circ u),
-    \mbox{ and }\\
+    \mbox{ 和 }\\
     H_{1,\alpha\beta}(f) &\defeq
-    \fall{\omega:\Omega_1}{u:x^{|\omega|}} \alpha u\to\beta(f\circ u).
+    \fall{\omega:\Omega_1}{u:x^{|\omega|}} \alpha u\to\beta(f\circ u)。
   \end{align*}
 \end{enumerate}
 \end{defn}
 
-It is now routine to check that $(P,H)$ is a standard notion of structure over $\uset_\bbU$ and hence we may use \cref{thm:sip} to get that the precategory $Str_{(P,H)}(\uset_\bbU)$ is a category.  It only remains to observe that this is essentially the same as the precategory of $\bbU$-small $\Omega$-structures over $\uset_\bbU$.
- \index{structure!identity principle|)}
+现在例行公事地检查 $(P,H)$ 是 $\uset_\bbU$ 上的标准结构概念，因此我们可以使用 \cref{thm:sip} 得出 $\bbU$-小 $\Omega$-结构的预范畴 $Str_{(P,H)}(\uset_\bbU)$ 是一个范畴。只需观察到这本质上与 $\uset_\bbU$ 上的 $\bbU$-小 $\Omega$-结构的预范畴相同。
+\index{structure!identity principle|)}
 
 
 \section{The Rezk completion}
