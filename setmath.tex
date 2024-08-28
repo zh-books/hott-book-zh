@@ -1127,301 +1127,293 @@ $(\ord,<)$ 是一个序数。
   此外，对于每个 $x:X$，诱导的映射 $Fx\to B$ 是一个模拟。
 \end{proof}
 
-\section{Classical well-orderings}
+\section{经典良序 (Classical well-orderings)}
 \label{sec:wellorderings}
 
 \index{denial|(}%
-We now show the equivalence of our ordinals with the more familiar classical\index{mathematics!classical} well-orderings.
+现在我们来展示我们定义的序数 (ordinal) 与更为熟悉的经典良序 (classical well-orderings) 之间的等价性。
 
 \begin{lem}
-  \index{excluded middle}%
-  Assuming excluded middle, every ordinal is trichotomous:
-  \index{trichotomy of ordinals}%
-  \index{ordinal!trichotomy of}%
-  \[ \fall{a,b:A} (a<b) \vee (a=b) \vee (b<a). \]
+\index{排中律 (excluded middle)}%
+在假设排中律的情况下，每一个序数 (ordinal) 都是三分性的 (trichotomous)：
+\index{trichotomy of ordinals (序数的三分性)}%
+\index{ordinal (序数)!trichotomy of (三分性)}%
+\[ \fall{a,b:A} (a<b) \vee (a=b) \vee (b<a). \]
 \end{lem}
 \begin{proof}
-  By induction on $a$, we may assume that for every $a'<a$ and every $b':A$, we have $(a'<b') \vee (a'=b') \vee (b'<a')$.
-  Now by induction on $b$, we may assume that for every $b'<b$, we have $(a<b') \vee (a=b') \vee (b'<a)$.
+通过对 $a$ 进行归纳，我们可以假设对于每一个 $a'<a$ 和每一个 $b':A$，我们有 $(a'<b') \vee (a'=b') \vee (b'<a')$。
+现在通过对 $b$ 进行归纳，我们可以假设对于每一个 $b'<b$，我们有 $(a<b') \vee (a=b') \vee (b'<a)$。
 
-  By excluded middle, either there merely exists a $b'<b$ such that $a<b'$, or there merely exists a $b'<b$ such that $a=b'$, or for every $b'<b$ we have $b'<a$.
-  In the first case, merely $a<b$ by transitivity, hence $a<b$ as it is a mere proposition.
-  Similarly, in the second case, $a<b$ by transport.
-  Thus, suppose $\fall{b':A}(b'<b)\to (b'<a)$.
+根据排中律，存在一个 $b'<b$ 使得 $a<b'$，或者存在一个 $b'<b$ 使得 $a=b'$，或者对于所有的 $b'<b$ 我们有 $b'<a$。
+在第一种情况下，仅 $a<b$ 通过传递性成立，因此 $a<b$ 作为一个命题成立。
+同样地，在第二种情况下，$a<b$ 通过传递成立。
+因此，假设 $\fall{b':A}(b'<b)\to (b'<a)$。
 
-  Now analogously, either there merely exists $a'<a$ such that $b<a'$, or there merely exists $a'<a$ such that $a'=b$, or for every $a'<a$ we have $a'<b$.
-  In the first and second cases, $b<a$, so we may suppose $\fall{a':A}(a'<a)\to (a'<b)$.
-  However, by extensionality, our two suppositions now imply $a=b$.
+现在类似地，要么存在 $a'<a$ 使得 $b<a'$，要么存在 $a'<a$ 使得 $a'=b$，要么对于每个 $a'<a$ 我们有 $a'<b$。
+在第一种和第二种情况下，$b<a$，因此我们可以假设 $\fall{a':A}(a'<a)\to (a'<b)$。
+然而，通过外延性 (extensionality)，我们的两个假设现在意味着 $a=b$。
 \end{proof}
 
 \begin{lem}
-  A well-founded relation contains no cycles, i.e.\
-  \[ \fall{n:\mathbb{N}}{a:\mathbb{N}_n\to A} \neg\Big((a_0<a_1) \wedge \dots \wedge (a_{n-1}<a_n)\wedge (a_n<a_0)\Big). \]
+一个良基关系 (well-founded relation) 不包含循环，也就是说
+\[ \fall{n:\mathbb{N}}{a:\mathbb{N}_n\to A} \neg\Big((a_0<a_1) \wedge \dots \wedge (a_{n-1}<a_n)\wedge (a_n<a_0)\Big). \]
 \end{lem}
 \begin{proof}
-  We prove by induction on $a:A$ that there is no cycle containing $a$.
-  Thus, suppose by induction that for all $a'<a$, there is no cycle containing $a'$.
-  But in any cycle containing $a$, there is some element less than $a$ and contained in the same cycle.
+我们通过对 $a:A$ 进行归纳证明不存在包含 $a$ 的循环。
+因此，假设通过归纳，对于所有的 $a'<a$，不存在包含 $a'$ 的循环。
+但是在任何包含 $a$ 的循环中，都存在一些元素小于 $a$ 并包含在相同的循环中。
 \end{proof}
 
-\indexdef{relation!irreflexive}%
-\index{irreflexivity!of well-founded relation}%
-In particular, a well-founded relation must be \define{irreflexive}, i.e.\ $\neg(a<a)$ for all $a$.
+\indexdef{relation!irreflexive (反自反的关系)}%
+\index{irreflexivity (反自反性)!of well-founded relation (良基关系的反自反性)}%
+特别是，一个良基关系必须是\define{反自反的} (irreflexive)，即对于所有的 $a$，$\neg(a<a)$。
 
 \begin{thm}\label{thm:wellorder}
-  Assuming excluded middle, $(A,<)$ is an ordinal if and only if every nonempty subset $B\subseteq A$ has a least element.
+在假设排中律的情况下，$(A,<)$ 是一个序数 (ordinal) 当且仅当每个非空子集 $B\subseteq A$ 都有一个最小元素。
 \end{thm}
 \begin{proof}
-  If $A$ is an ordinal, then by \cref{thm:wfmin} every nonempty subset merely has a minimal element.
-  But trichotomy implies that any minimal element is a least element.
-  Moreover, least elements are unique when they exist, so merely having one is as good as having one.
+如果 $A$ 是一个序数，那么根据 \cref{thm:wfmin}，每个非空子集仅存在一个最小元素。
+但是三分性 (trichotomy) 意味着任何最小元素都是一个最小元素。
+此外，最小元素存在时是唯一的，因此仅有一个最小元素等同于存在一个最小元素。
 
-  Conversely, if every nonempty subset has a least element, then by \cref{thm:wfmin}, $A$ is well-founded.
-  We also have trichotomy, since for any $a,b$ the subset
-  $ \setof{a,b} \defeq \setof{x:A | x=a \lor x=b} $
-  merely has a least element, which must be either $a$ or $b$.
-  This implies transitivity, since if $a<b$ and $b<c$, then either $a=c$ or $c<a$ would produce a cycle.
-  Similarly, it implies extensionality, for if $\fall{c:A}(c<a)\Leftrightarrow (c<b)$, then $a<b$ implies (letting $c$ be $a$) that $a<a$, which is a cycle, and similarly if $b<a$; hence $a=b$.
+反之，如果每个非空子集都有一个最小元素，那么根据 \cref{thm:wfmin}，$A$ 是良基的。
+我们也有三分性，因为对于任何 $a,b$，子集
+$ \setof{a,b} \defeq \setof{x:A | x=a \lor x=b} $
+仅有一个最小元素，这个元素必定是 $a$ 或者 $b$。
+这意味着传递性 (transitivity)，因为如果 $a<b$ 并且 $b<c$，那么 $a=c$ 或者 $c<a$ 将产生一个循环。
+类似地，它也意味着外延性，因为如果 $\fall{c:A}(c<a)\Leftrightarrow (c<b)$，那么 $a<b$ 意味着 (取 $c$ 为 $a$) $a<a$，这将产生一个循环，反之亦然；因此 $a=b$。
 \end{proof}
 
-In classical\index{mathematics!classical} mathematics, the characterization of \cref{thm:wellorder} is taken as the definition of a \emph{well-ordering}, with the \emph{ordinals} being a canonical set of representatives of isomorphism classes for well-orderings.
-In our context, the structure identity principle means that there is no need to look for such representatives: any well-ordering is as good as any other.
+在经典\index{mathematics!classical (数学!经典的)}数学中，\cref{thm:wellorder} 中的特征被视为\emph{良序} (well-ordering) 的定义，其中\emph{序数} (ordinals) 是同构类的良序的一个典型代表。在我们的语境中，结构同一性原理 (structure identity principle) 意味着不需要寻找这样的代表：任何一个良序与另一个都是同样好的。
 
-We now move on to consider consequences of the axiom of choice.
-For any set $X$, let $\powerp X$ denote the type of merely inhabited subsets of $X$:
-\symlabel{inhabited-powerset}
+我们现在继续讨论选择公理 (axiom of choice) 的后果。
+对于任何集合 $X$，让 $\powerp X$ 表示 $X$ 的仅有居住的子集类型：
+\symlabel{inhabited-powerset (居住的幂集)}
 \[ \powerp X \defeq \setof{ Y : \power X | \exis{x:X} x\in Y}. \]
-Assuming excluded middle, this is equivalently the type of \emph{nonempty}\index{nonempty subset} subsets of $X$, and we have $\power X \eqvsym (\powerp X) + \unit$.
+在假设排中律的情况下，这等价于 $X$ 的\emph{非空} (nonempty) 子集的类型，并且我们有 $\power X \eqvsym (\powerp X) + \unit$。
 
 \begin{thm}\label{thm:wop}
-  \index{axiom!of choice}%
-  \index{excluded middle}%
-  Assuming excluded middle, the following are equivalent.
-  \begin{enumerate}
-  \item For every set $X$, there merely exists a function
-    $ f: \powerp X \to X $
-    such that $f(Y)\in Y$ for all $Y:\powerp X$.\label{item:wop1}
-  \item Every set merely admits the structure of an ordinal.\label{item:wop2}
-  \end{enumerate}
+\index{axiom!of choice (选择公理)}%
+\index{排中律 (excluded middle)}%
+在假设排中律的情况下，以下条件等价：
+\begin{enumerate}
+\item 对于每个集合 $X$，仅存在一个函数
+$ f: \powerp X \to X $
+使得对于所有 $Y:\powerp X$ 有 $f(Y)\in Y$。\label{item:wop1}
+\item 每个集合仅具有序数结构。\label{item:wop2}
+\end{enumerate}
 \end{thm}
 
 \noindent
-Of course,~\ref{item:wop1} is a standard classical\index{mathematics!classical} version of the axiom of choice; see \cref{ex:choice-function}.
+当然，~\ref{item:wop1} 是选择公理的一种标准经典\index{mathematics!classical (数学!经典的)}版本；参见 \cref{ex:choice-function}。
 
 \begin{proof}
-  One direction is easy: suppose~\ref{item:wop2}.
-  Since we aim to prove the mere proposition~\ref{item:wop1}, we may assume $A$ is an ordinal.
-  But then we can define $f(B)$ to be the least element of $B$.
+一个方向是容易的：假设~\ref{item:wop2}。
+因为我们要证明仅作为命题的~\ref{item:wop1}，我们可以假设 $A$ 是一个序数。
+但随后我们可以定义 $f(B)$ 为 $B$ 的最小元素。
 
-  Now suppose~\ref{item:wop1}.
-  As before, since~\ref{item:wop2} is a mere proposition, we may assume given such an $f$.
-  We extend $f$ to a function
-  \[ \bar f:\power X \eqvsym (\powerp X) + \unit \longrightarrow X+\unit
-  \]
-  in the obvious way.
-  Now for any ordinal $A$, we can define $g_A:A\to X+\unit$ by well-founded recursion:
-  \[ g_A(a) \defeq
-    \bar f\Big(X \setminus \setof{ g_A(b) | \strut (b<a) \wedge (g_A(b) \in X) }\Big)
-  \]
-  (regarding $X$ as a subset of $X+\unit$ in the obvious way).
+现在假设~\ref{item:wop1}。
+同样，由于~\ref{item:wop2} 是一个命题，我们可以假设给定这样的一个 $f$。
+我们将 $f$ 扩展为一个函数
+\[ \bar f:\power X \eqvsym (\powerp X) + \unit \longrightarrow X+\unit \]
+以显而易见的方式。
+现在对于任何一个序数 $A$，我们可以通过良基递归定义 $g_A:A\to X+\unit$：
+\[ g_A(a) \defeq
+\bar f\Big(X \setminus \setof{ g_A(b) | \strut (b<a) \wedge (g_A(b) \in X) }\Big)
+\]
+(将 $X$ 视为 $X+\unit$ 的一个子集显然)。
 
-  Let $A'\defeq \setof{a:A | g_A(a) \in X}$ be the preimage of $X\subseteq X+\unit$; then we claim the restriction $g_A':A' \to X$ is injective.
-  For if $a,a':A$ with $a\neq a'$, then by trichotomy and without loss of generality, we may assume $a'<a$.
-  Thus $g_A(a') \in \setof{ g_A(b) | b<a }$, so since $f(Y)\in Y$ for all $Y$ we have $g_A(a) \neq g_A(a')$.
+设 $A'\defeq \setof{a:A | g_A(a) \in X}$ 为 $g_A$ 的预像；然后我们声明 $g_A':A' \to X$ 是单射 (injective)。
+因为如果 $a,a':A$ 且 $a\neq a'$，那么根据三分性，我们可以假设 $a'<a$。
+因此 $g_A(a') \in \setof{ g_A(b) | b<a }$，所以由于对于所有 $Y$ 有 $f(Y)\in Y$，我们有 $g_A(a) \neq g_A(a')$。
 
-  Moreover, $A'$ is an initial segment of $A$.
-  For $g_A(a)$ lies in \unit if and only if $\setof{g_A(b)|b<a} = X$, and if this holds then it also holds for any $a'>a$.
-  Thus, $A'$ is itself an ordinal.
+此外，$A'$ 是 $A$ 的一个初始片段 (initial segment)。
+因为 $g_A(a)$ 落在 \unit 中当且仅当 $\setof{g_A(b)|b<a} = X$，并且如果这是成立的，那么对于任何 $a'>a$ 这也是成立的。
+因此，$A'$ 本身是一个序数。
 
-  Finally, since \ord is an ordinal, we can take $A\defeq\ord$.
-  Let $X'$ be the image of $g_\ord':\ord' \to X$; then the inverse of $g_\ord'$ yields an injection $H:X'\to \ord$.
-  By \cref{thm:ordunion}, there is an ordinal $C$ such that $Hx\le C$ for all $x:X'$.
-  Then by \cref{thm:ordsucc}, there is a further ordinal $D$ such that $C<D$, hence $Hx<D$ for all $x:X'$.
-  Now we have
-  \begin{align*}
-    g_{\ord}(D) &= \bar f\Big( X \setminus \setof{ g_\ord(B) | \rule{0pt}{1em} B<D \wedge (g_\ord(B) \in X)} \Big)\\
-    &=\bar f\Big( X \setminus \setof{ g_\ord(B) | \rule{0pt}{1em} g_\ord(B) \in X} \Big)
-  \end{align*}
-  since if $B:\ord$ and $(g_\ord(B) \in X)$, then $B = Hx$ for some $x:X'$, hence $B<D$.
-  Now if
-  \[\setof{ g_\ord(B) | \rule{0pt}{1em} g_\ord(B) \in X}\]
-  is not all of $X$, then $g_\ord(D)$ would lie in $X$ but not in this subset, which would be a contradiction since $D$ is itself a potential value for $B$.
-  So this set must be all of $X$, and hence $g_\ord'$ is surjective as well as injective.
-  Thus, we can transport the ordinal structure on $\ord'$ to $X$.
+最后，由于 \ord 是一个序数，我们可以取 $A\defeq\ord$。
+设 $X'$ 为 $g_\ord':\ord' \to X$ 的像；然后 $g_\ord'$ 的逆函数给出了一个单射 $H:X'\to \ord$。
+根据 \cref{thm:ordunion}，存在一个序数 $C$ 使得对于所有 $x:X'$，$Hx\le C$。
+然后根据 \cref{thm:ordsucc}，存在一个更大的序数 $D$ 使得 $C<D$，因此对于所有 $x:X'$，$Hx<D$。
+现在我们有
+\begin{align*}
+g_{\ord}(D) &= \bar f\Big( X \setminus \setof{ g_\ord(B) | \rule{0pt}{1em} B<D \wedge (g_\ord(B) \in X)} \Big)\\
+&=\bar f\Big( X \setminus \setof{ g_\ord(B) | \rule{0pt}{1em} g_\ord(B) \in X} \Big)
+\end{align*}
+因为如果 $B:\ord$ 并且 $(g_\ord(B) \in X)$，那么 $B = Hx$ 对于某些 $x:X'$，因此 $B<D$。
+现在如果
+\[\setof{ g_\ord(B) | \rule{0pt}{1em} g_\ord(B) \in X}\]
+不是全部的 $X$，那么 $g_\ord(D)$ 将在 $X$ 中但不在这个子集中，这将与 $D$ 自己作为 $B$ 的一个可能值相矛盾。
+所以这个集合必须是全部的 $X$，因此 $g_\ord'$ 是满射 (surjective) 的同时也是单射的。
+因此，我们可以将 \ord' 上的序数结构传递给 $X$。
 \end{proof}
 
 \begin{rmk}
-  If we had given the wrong proof of \cref{thm:ordsucc} or \cref{thm:ordunion}, then the resulting proof of \cref{thm:wop} would be invalid: there would be no way to consistently assign universe levels\index{universe level}.
-  As it is, we require propositional resizing (which follows from \LEM{}) to ensure that $X'$ lives in the same universe as $X$ (up to equivalence).
+如果我们使用了错误的 \cref{thm:ordsucc} 或 \cref{thm:ordunion} 的证明，那么 \cref{thm:wop} 的结果证明将是无效的：将无法一致地分配宇宙级别\index{universe level (宇宙级别)}。如现在所示，我们需要命题调整 (propositional resizing)（这由 \LEM{} 导出）来确保 $X'$ 处于与 $X$ 相同的宇宙中（直到等价）。
 \end{rmk}
 
 \begin{cor}
-  Assuming the axiom of choice, the function $\ord\to\set$ (which forgets the order structure) is a surjection.
+在假设选择公理的情况下，函数 $\ord\to\set$（它忽略了序结构）是一个满射。
 \end{cor}
 
-Note that \ord is a set, while \set is a 1-type.
-In general, there is no reason for a 1-type to admit any surjective function from a set.
-Even the axiom of choice does not appear to imply that \emph{every} 1-type does so (although see \cref{ex:acnm-surjset}), but it readily implies that this is so for 1-types constructed out of \set, such as the types of objects of categories of structures as in \cref{sec:sip}.
-The following corollary also applies to such categories.
+注意，\ord 是一个集合，而 \set 是一个1类型 (1-type)。
+一般来说，没有理由让一个1类型接受来自集合的任何满射。
+即使选择公理似乎也不意味着\emph{每一个}1类型都如此（尽管参见 \cref{ex:acnm-surjset}），但它很容易意味着对从 \set 构造出的1类型（例如在 \cref{sec:sip} 中的结构的类别对象类型）是如此。
+以下的推论也适用于这样的类别。
 
 \begin{cor}
-  \index{weak equivalence!of precategories}%
-  Assuming \choice{}, \uset admits a weak equivalence functor from a strict category.
+\index{weak equivalence (弱等价)!of precategories (的前类)}%
+在假设 \choice{} 的情况下，\uset 接受来自严格类别的弱等价函子。
 \end{cor}
 \begin{proof}
-  Let $X_0\defeq \ord$, and for $A,B:X_0$ let $\hom_X(A,B) \defeq (A\to B)$.
-  Then $X$ is a strict category, since \ord is a set, and the above surjection $X_0 \to \set$ extends to a weak equivalence functor $X\to \uset$.
+设 $X_0\defeq \ord$，并且对于 $A,B:X_0$，设 $\hom_X(A,B) \defeq (A\to B)$。
+那么 $X$ 是一个严格类别，因为 \ord 是一个集合，并且上述满射 $X_0 \to \set$ 扩展为一个弱等价函子 $X\to \uset$。
 \end{proof}
 
-Now recall from \cref{sec:cardinals} that we have a further surjection $\cd{\blank}:\set\to\card$, and hence a composite surjection $\ord\to\card$ which sends each ordinal to its cardinality.
+现在回顾 \cref{sec:cardinals}，我们有进一步的满射 $\cd{\blank}:\set\to\card$，因此有一个复合满射 $\ord\to\card$ 将每个序数映射到其基数 (cardinality)。
 
 \begin{thm}
-  Assuming \choice{}, the surjection $\ord\to\card$ has a section.
+在假设 \choice{} 的情况下，满射 $\ord\to\card$ 有一个截面 (section)。
 \end{thm}
 \begin{proof}
-  There is an easy and wrong proof of this: since \ord and \card are both sets, \choice{} implies that any surjection between them \emph{merely} has a section.
-  However, we actually have a canonical \emph{specified} section: because \ord is an ordinal, every nonempty subset of it has a uniquely specified least element.
-  Thus, we can map each cardinal to the least element in the corresponding fiber.
+有一个简单且错误的证明：因为 \ord 和 \card 都是集合，\choice{} 意味着任何满射之间\emph{仅}有一个截面。
+然而，我们实际上有一个规范的\emph{指定}截面：因为 \ord 是一个序数，每个非空子集都有一个唯一指定的最小元素。
+因此，我们可以将每个基数映射到对应纤维中的最小元素。
 \end{proof}
 
-It is traditional in set theory to identify cardinals with their image in \ord: the least ordinal having that cardinality.
+在集合论中，传统上将基数与其在 \ord 中的像相识别：具有该基数的最小序数。
 
-It follows that \card also canonically admits the structure of an ordinal: in fact, one isomorphic to \ord.
-Specifically, we define by well-founded recursion a function $\aleph:\ord\to\ord$, such that $\aleph(A)$ is the least ordinal having cardinality greater than $\aleph({\ordsl A a})$ for all $a:A$.
-Then (assuming \choice{}) the image of $\aleph$ is exactly the image of \card.
+这意味着 \card 也可以规范地接受一个序数结构：实际上，它与 \ord 同构。
+具体来说，我们通过良基递归定义了一个函数 $\aleph:\ord\to\ord$，使得 $\aleph(A)$ 是具有大于 $\aleph({\ordsl A a})$ 的基数的最小序数，对于所有 $a:A$。
+然后（假设 \choice{}），$\aleph$ 的像正好是 \card 的像。
 
 \index{denial|)}%
 
 \index{ordinal|)}%
 
-\section{The cumulative hierarchy}
+\section{累积层次 (The cumulative hierarchy)}
 \label{sec:cumulative-hierarchy}
 
 \index{bargaining|(}%
-We can define a cumulative hierarchy $V$ of all sets in a given universe $\UU$ as a higher inductive type, in such a way that $V$ is again a set (in a larger universe $\UU'$), equipped with a binary ``membership'' relation $x\in y$ which satisfies the usual laws of set theory.
+我们可以将给定宇宙 $\UU$ 中的所有集合的累积层次 $V$ 定义为一个高阶归纳类型 (higher inductive type)，使得 $V$ 再次是一个集合（在更大的宇宙 $\UU'$ 中），配备一个二元“成员”关系 $x\in y$，它满足集合论的通常定律。
 
 \begin{defn}\label{defn:V}
-  The \define{cumulative hierarchy}
-  \indexdef{cumulative!hierarchy, set-theoretic}%
-  \indexdef{hierarchy!cumulative, set-theoretic}%
-  $V$ relative to a type universe $\UU$ is the
-  higher inductive type generated by the following constructors.
-  %
-  \begin{enumerate}
-  \item For every $A : \UU$ and $f : A \to V$, there is an element $\vset(A, f) : V$.
-  \item For all $A, B : \UU$, $f : A \to V$ and $g : B \to V$ such that
-    %
-    \begin{narrowmultline} \label{eq:V-path}
-      \big(\fall{a:A} \exis{b:B} \id[V]{f(a)}{g(b)}\big) \land \narrowbreak
-      \big(\fall{b:B} \exis{a:A} \id[V]{f(a)}{g(b)}\big)
-    \end{narrowmultline}
-    %
-    there is a path $\id[V]{\vset(A,f)}{\vset(B,g)}$.
-  \item The 0-truncation constructor: for all $x,y:V$ and $p,q:x=y$, we have $p=q$.
-  \end{enumerate}
+相对于类型宇宙 $\UU$ 的\define{累积层次 (cumulative hierarchy)}
+\indexdef{cumulative (累积)!hierarchy, set-theoretic (层次，集合论)}%
+\indexdef{hierarchy (层次)!cumulative, set-theoretic (累积，集合论)}%
+$V$ 是由以下构造函数生成的高阶归纳类型：
+%
+\begin{enumerate}
+\item 对于每个 $A : \UU$ 和 $f : A \to V$，有一个元素 $\vset(A, f) : V$。
+\item 对于所有 $A, B : \UU$，$f : A \to V$ 和 $g : B \to V$，满足
+%
+\begin{narrowmultline} \label{eq:V-path}
+\big(\fall{a:A} \exis{b:B} \id[V]{f(a)}{g(b)}\big) \land \narrowbreak
+\big(\fall{b:B} \exis{a:A} \id[V]{f(a)}{g(b)}\big)
+\end{narrowmultline}
+%
+存在一个路径 $\id[V]{\vset(A,f)}{\vset(B,g)}$。
+\item 0-截断构造函数：对于所有 $x,y:V$ 和 $p,q:x=y$，我们有 $p=q$。
+\end{enumerate}
 \end{defn}
 
-In set-theoretic language, $\vset(A,f)$ can be understood as the set (in the sense of classical set theory) that is the image of $A$ under $f$, i.e.\ $\setof{ f(a) | a \in A }$.
-However, we will avoid this notation, since it would clash with our notation for subtypes (but see~\eqref{eq:class-notation} and \cref{def:TypeOfElements} below).
+在集合论的语言中，$\vset(A,f)$ 可以理解为（经典集合论意义上的）集合，它是 $A$ 在 $f$ 下的像，即 $\setof{ f(a) | a \in A }$。
+然而，我们将避免这种表示法，因为它会与我们的子类型 (subtypes) 表示法发生冲突（但参见~\eqref{eq:class-notation} 和 \cref{def:TypeOfElements}）。
 
-The hierarchy $V$ is
-bootstrapped from the empty map $\rec\emptyt(V) : \emptyt \to V$, which gives the empty set as $\emptyset = \vset(\emptyt,\rec\emptyt(V))$.
-Then the singleton $\{\emptyset\}$ enters $V$ through $\unit \to V$, defined as $\ttt \mapsto \emptyset$, and so
-on.
-(The definition can also be adapted to include an arbitrary set of ``atoms'' or ``urelements'', by adding an additional point constructor.)
-The type $V$ lives in the same universe as the base universe $\UU$.
+层次 $V$ 是从空映射 $\rec\emptyt(V) : \emptyt \to V$ 启动的，它给出了空集 $\emptyset = \vset(\emptyt,\rec\emptyt(V))$。
+然后通过 $\unit \to V$ 的定义 $\ttt \mapsto \emptyset$ 进入 $V$，以此类推。
+（该定义也可以调整为包括任意的“原子” (atoms) 或“无元素” (urelements) 集合，通过添加额外的点构造函数。）
+类型 $V$ 存在于与基础宇宙 $\UU$ 相同的宇宙中。
 
-The second constructor of $V$ has a form unlike any we have seen before: it involves not only paths in $V$ (which in \cref{sec:hittruncations} we claimed were slightly fishy) but truncations of sums of them.
-It certainly does not fit the general scheme described in \cref{sec:naturality}, and thus it may not be obvious what its induction principle should be.
-Fortunately, like our first definition of the 0-truncation in \cref{sec:hittruncations}, it can be re-expressed using auxiliary higher inductive types.
-We leave it to the reader to work out the details (see \cref{ex:cumhierhit}).
+$V$ 的第二个构造函数的形式与我们以前见过的任何东西都不同：它不仅涉及 $V$ 中的路径（在 \cref{sec:hittruncations} 中我们声称这些路径稍有问题），而且还涉及它们的和的截断。
+显然，它不符合在 \cref{sec:naturality} 中描述的一般方案，因此其归纳原理是什么可能并不明显。
+幸运的是，就像我们在 \cref{sec:hittruncations} 中对 0-截断的第一次定义一样，它可以通过辅助高阶归纳类型重新表达。
+我们将细节留给读者去思考（参见 \cref{ex:cumhierhit}）。
 
-\index{induction principle!for cumulative hierarchy}%
-At the end of the day, the induction principle for $V$ (written in pattern matching language) says that given $P:V\to \set$, in order to construct $h:\prd{x:V} P(x)$, it suffices to give the following.
+\index{induction principle!for cumulative hierarchy (累积层次的归纳原理)}%
+最后，$V$ 的归纳原理（用模式匹配语言书写）表明，给定 $P:V\to \set$，为了构造 $h:\prd{x:V} P(x)$，只需给出以下内容即可。
 \begin{enumerate}
-\item For any $f:A\to V$, construct $h(\vset(A,f))$, assuming as given $h(f(a))$ for all $a:A$.
-\item Verify that if $f : A \to V$ and $g : B \to V$ satisfy~\eqref{eq:V-path}, then $\dpath{P}{q}{h(\vset(A,f))}{h(\vset(B,g))}$, where $q$ is the path arising from the second constructor of $V$ and~\eqref{eq:V-path}, assuming inductively that $h(f(a))$ and $h(g(b))$ are defined for all $a:A$ and $b:B$, and that the following condition holds:
+\item 对于任意 $f:A\to V$，构造 $h(\vset(A,f))$，假设给定了所有 $a:A$ 的 $h(f(a))$。
+\item 验证如果 $f : A \to V$ 和 $g : B \to V$ 满足~\eqref{eq:V-path}，则 $\dpath{P}{q}{h(\vset(A,f))}{h(\vset(B,g))}$，其中 $q$ 是从 $V$ 的第二个构造函数和~\eqref{eq:V-path} 中生成的路径，假设 $h(f(a))$ 和 $h(g(b))$ 已经为所有 $a:A$ 和 $b:B$ 定义，并且满足以下条件：
 \begin{eqnarray*}
-    &       & \big(\fall{a:A} \exis{b:B} \exis{p:f(a)=g(b)} \dpath{P}{p}{h(f(a))}{h(g(b))}\big) \\
-    & \land & \big(\fall{b:B} \exis{a:A} \exis{p:f(a)=g(b)} \dpath{P}{p}{h(f(a))}{h(g(b))}\big)
+&       & \big(\fall{a:A} \exis{b:B} \exis{p:f(a)=g(b)} \dpath{P}{p}{h(f(a))}{h(g(b))}\big) \\
+& \land & \big(\fall{b:B} \exis{a:A} \exis{p:f(a)=g(b)} \dpath{P}{p}{h(f(a))}{h(g(b))}\big)
 \end{eqnarray*}
 \end{enumerate}
-The second clause checks that the map being defined must respect the paths introduced in \eqref{eq:V-path}.
-As usual when we state higher induction principles using pattern matching, it may seem tautologous, but is not.
-The point is that ``$h(f(a))$'' is essentially a formal symbol which we cannot peek inside of, which $h(\vset(A,f))$ must be defined in terms of. Thus, in the second clause, we assume equality of these formal symbols when appropriate, and verify that the elements resulting from the construction of the first clause are also equal.
-Of course, if $P$ is a family of mere propositions, then the second clause is automatic.
+第二个条款检查正在定义的映射是否尊重在 \eqref{eq:V-path} 中引入的路径。
+像往常一样，当我们使用模式匹配来陈述高阶归纳原理时，它可能看起来像是一种同义反复，但实际上并非如此。
+关键在于“$h(f(a))$”本质上是一个形式符号，我们不能窥视其内部，$h(\vset(A,f))$ 必须根据其定义。
+因此，在第二个条款中，我们在适当的时候假设这些形式符号的等价性，并验证由第一条款的构造产生的元素是否也相等。
+当然，如果 $P$ 是一个命题族，那么第二条款是自动成立的。
 
-Observe that, by induction, for each $v:V$ there merely exist $A:\UU$ and $f:A\to V$ such that $v=\vset(A,f)$.
-Thus, it is reasonable to try to define the \define{membership relation}
-\indexdef{membership, for cumulative hierarchy}%
-$x\in v$ on $V$ by setting:
+注意，通过归纳，对于每个 $v:V$，仅存在 $A:\UU$ 和 $f:A\to V$ 使得 $v=\vset(A,f)$。
+因此，定义 $V$ 上的\define{成员关系 (membership relation)} $x\in v$ 是合理的：
 %
 % Note: "membership" rather than "elementhood", because "element" is taken.
 %
-\symlabel{V-membership}
+\symlabel{V-membership (V 的成员关系)}
 \begin{equation*}
-  (x \in \vset(A,f)) \defeq (\exis{a : A} x = f(a)).
+(x \in \vset(A,f)) \defeq (\exis{a : A} x = f(a)).
 \end{equation*}
 %
-To see that the definition is valid, we must use the recursion principle of $V$.  Thus, suppose we have a path $\vset(A, f) = \vset(B, g)$
-constructed through~\eqref{eq:V-path}. If $x \in \vset(A,f)$ then there merely is $a : A$ such
-that $x = f(a)$, but by~\eqref{eq:V-path} there merely is $b : B$ such that $f(a) = g(b)$, hence
-$x = g(b)$ and $x \in \vset(B,g)$. The converse is symmetric.
+要证明该定义是有效的，我们必须使用 $V$ 的递归原理。因此，假设我们有一个通过~\eqref{eq:V-path} 构造的路径 $\vset(A, f) = \vset(B, g)$。
+如果 $x \in \vset(A,f)$，则仅有一个 $a : A$ 使得 $x = f(a)$，但是根据~\eqref{eq:V-path} 仅有一个 $b : B$ 使得 $f(a) = g(b)$，因此 $x = g(b)$ 并且 $x \in \vset(B,g)$。
+反之亦然。
 
-The \define{subset relation}
-\indexdef{subset!relation on the cumulative hierarchy}%
-$x\subseteq y$ is defined on $V$ as usual by
+\define{子集关系 (subset relation)}
+\indexdef{subset (子集)!relation on the cumulative hierarchy (累积层次上的关系)}%
+$x\subseteq y$ 在 $V$ 上的定义与通常一样
 %
 \begin{equation*}
-  (x \subseteq y) \defeq \fall{z : V} z \in x \Rightarrow z \in y.
+(x \subseteq y) \defeq \fall{z : V} z \in x \Rightarrow z \in y.
 \end{equation*}
 
-A \define{class}
-\indexdef{class}%
-may be taken to be a mere predicate on~$V$. We can say that a class $C : V \to \prop$ is a
-\define{$V$-set}
-\indexdef{set!in the cumulative hierarchy}%
-if there merely exists $v:V$ such that
+\define{类 (class)}
+\indexdef{class (类)}%
+可以被认为是 $V$ 上的一个命题谓词。我们可以说一个类 $C : V \to \prop$ 是一个\define{$V$-集合 ($V$-set)}，
+\indexdef{set (集合)!in the cumulative hierarchy (在累积层次中)}%
+如果仅存在 $v:V$ 使得
 %
 \begin{equation*}
-  \fall{x : V} C(x) \Leftrightarrow x \in v.
+\fall{x : V} C(x) \Leftrightaway x \in v.
 \end{equation*}
-We may also use the conventional notation for classes, which matches our standard notation for subtypes:
+我们还可以使用类的常规表示法，它与我们的标准子类型 (subtypes) 表示法相匹配：
 \begin{equation}
-  \setof{ x | C(x) } \defeq \lam{x}C(x).\label{eq:class-notation}
+\setof{ x | C(x) } \defeq \lam{x}C(x).\label{eq:class-notation}
 \end{equation}
 %
-A class $C: V\to \prop$ will be called \define{$\UU$-small}
-\indexdef{class!small}%
-\indexdef{small!class}%
-if all of its values $C(x)$ lie in $\UU$, specifically $C: V\to \prop_{\UU}$.
-Since $V$ lives in the same universe $\UU'$ as does the base universe $\UU$ from which it is built, the same is true for the identity types $v=_V w$ for any $v,w:V$. To obtain a well-behaved theory in the absence of propositional resizing,
-\index{propositional!resizing}%
-\index{resizing}%
-therefore, it will be convenient to have a $\UU$-small ``resizing'' of the identity relation, which we can define by induction as follows.
+一个类 $C: V\to \prop$ 将被称为\define{$\UU$-小} ($\UU$-small)，
+\indexdef{class (类)!small (小)}%
+\indexdef{small (小)!class (类)}%
+如果其所有值 $C(x)$ 都处于 $\UU$ 中，特别是 $C: V\to \prop_{\UU}$。
+由于 $V$ 存在于与基础宇宙 $\UU$ 相同的宇宙 $\UU'$ 中，因此对于任何 $v,w:V$，它们的同一性类型 $v=_V w$ 也是如此。为了在没有命题调整的情况下获得良好表现，
+\index{propositional!resizing (命题调整)}%
+\index{resizing (调整)}%
+我们可以定义一个 $\UU$-小的“调整”身份关系，我们可以通过归纳如下定义。
 
-\begin{defn}\label{def:bisimulation}
-  Define the \define{bisimulation}
-  \indexdef{bisimulation}%
-  relation
-  %
-  \begin{equation*}
-    \mathord\bisim : V \times V \longrightarrow \prop_{\UU}
-  \end{equation*}
-  %
-  by double induction over $V$, where for $\vset(A,f)$ and $\vset(B,g)$ we let:
-  \begin{narrowmultline*}
-    \vset(A,f)  \bisim \vset(B,g) \defeq \narrowbreak
-    \big(\fall{a:A}\exis{b:B} f(a)  \bisim g(b)\big) \land
-    \big(\fall{b:B}\exis{a:A} f(a) \bisim g(b)\big).
-  \end{narrowmultline*}
+\begin{defn}\label{def:bisimulation (双模拟)}
+定义\define{双模拟 (bisimulation)}%
+\indexdef{bisimulation (双模拟)}%
+关系
+%
+\begin{equation*}
+\mathord\bisim : V \times V \longrightarrow \prop_{\UU}
+\end{equation*}
+%
+通过在 $V$ 上进行双重归纳，其中对于 $\vset(A,f)$ 和 $\vset(B,g)$ 我们有：
+\begin{narrowmultline*}
+\vset(A,f)  \bisim \vset(B,g) \defeq \narrowbreak
+\big(\fall{a:A}\exis{b:B} f(a)  \bisim g(b)\big) \land
+\big(\fall{b:B}\exis{a:A} f(a) \bisim g(b)\big).
+\end{narrowmultline*}
 \end{defn}
 %
-To verify that the definition is correct, we just need to check that it respects paths $\vset(A, f) = \vset(B, g)$ constructed through~\eqref{eq:V-path}, but this is obvious, and that $\prop_{\UU}$ is a set, which it is.  Note that $u \bisim v$ is in $\propU$ by construction.
+要验证该定义的正确性，我们只需检查它是否尊重通过~\eqref{eq:V-path} 构造的路径，但这是显而易见的，并且 $\prop_{\UU}$ 是一个集合，这也是显而易见的。请注意，$u \bisim v$ 是在构造中处于 $\propU$ 的。
 
 \begin{lem}\label{lem:BisimEqualsId}
-For any $u,v:V$ we have $(u=_V v) = (u \bisim v)$.
+对于任意 $u,v:V$ 我们有 $(u=_V v) = (u \bisim v)$。
 \end{lem}
+
 
 \begin{proof}
 An easy induction shows that $\bisim$ is reflexive, so by transport we have $(u=_V v)\to (u \bisim v)$.
