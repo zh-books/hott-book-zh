@@ -1,160 +1,72 @@
-% !TeX root = hott-online.tex
-
-\titleformat{\chapter}[display]{\fontsize{23}{25}\fontseries{m}\fontshape{it}\selectfont}{\chaptertitlename}{20pt}{\fontsize{35}{35}\fontseries{b}\fontshape{n}\selectfont}
-\chapter{Formal type theory}
+\chapter{形式类型论 (Formal Type Theory)}
 \label{cha:rules}
 
-\index{formal!type theory|(}%
-\index{type theory!formal|(}%
-\index{rules of type theory|(}%
+\index{formal!type theory|(形式!类型论|(}%
+\index{type theory!formal|(类型论!形式|(}%
+\index{rules of type theory|(类型论规则|(}%
 
-Just as one can develop mathematics in set theory without explicitly using the axioms of Zermelo--Fraenkel set theory, 
-in this book we have developed mathematics in univalent foundations without explicitly referring to a formal
-system of homotopy type theory. Nevertheless, it is important to \emph{have} a
-precise description of homotopy type theory as a formal system in order to, for example,
-%
+正如可以在不显式使用策梅洛-弗兰克尔集合论的公理的情况下在集合论中发展数学一样，在本书中，我们在不明确提及同伦类型论形式系统的情况下，在单值基础上发展了数学。然而，\emph{拥有}对同伦类型论作为一个形式系统的精确定义是很重要的，例如，为了
+
 \begin{itemize}
-\item state and prove its metatheoretic properties, including logical
-consistency,
-\item construct models, e.g.\  in simplicial sets, model categories, higher toposes,
-etc., and
-\item implement it in proof assistants like \Coq or \Agda.
-  \index{proof!assistant}
+  \item 陈述并证明其元理论性质，包括逻辑一致性，
+  \item 构造模型，例如在单纯集合、模型范畴、更高拓扑斯等中，\item 将其在 \Coq 或 \Agda 等证明助手中实现。
+  \index{proof!assistant证明!助手}
 \end{itemize}
 %
-Even the logical consistency\index{consistency} of homotopy type theory, namely that in the empty context there is no term $a:\emptyt$, is not obvious: if we had erroneously
-chosen a definition of equivalence for which $\eqv{\emptyt}{\unit}$, then
-univalence would imply that $\emptyt$ has an element, since $\unit$ does.
-Nor is it obvious that, for example, our definition of $\Sn^1$ as a higher
-inductive type yields a type which behaves like the ordinary circle.
+即使是同伦类型论的逻辑一致性\index{consistency一致性}，即在空上下文中没有术语 $a:\emptyt$，也是不明显的：如果我们错误地选择了一个定义，使得 $\eqv{\emptyt}{\unit}$，那么单值性将暗示 $\emptyt$ 有一个元素，因为 $\unit$ 有一个元素。我们的 $\Sn^1$ 作为一个高阶归纳类型的定义是否能够表现得像普通的圆，也是不明显的。
 
-There are two aspects of type theory which we must pin down before addressing
-such questions. Recall from the Introduction that type theory
-comprises a set of rules specifying when the judgments $a:A$ and $a\jdeq a':A$
-hold---for example, products are characterized by the rule that whenever $a:A$
-and $b:B$, $(a,b):A\times B$. To make this precise, we must first define
-precisely the syntax of terms---the objects $a,a',A,\dots$ which these judgments
-relate; then, we must define precisely the judgments and their rules of
-inference---the manner in which judgments can be derived from other judgments.
+在处理这些问题之前，我们必须明确类型论的两个方面。回想一下，在引言中我们提到，类型论包含一组规则，用来规定何时判断 $a:A$ 和 $a\jdeq a':A$ 成立——例如，积的规则是：当 $a:A$ 和 $b:B$ 时，$(a,b):A\times B$。要使这一点精确，我们首先必须精确定义术语的语法——这些判断所涉及的对象 $a,a',A,\dots$；然后，我们必须精确定义判断及其推理规则——即如何从其他判断中推导出判断。
 
-In this appendix, we present two formulations of Martin-L\"{o}f type
-theory, and of the extensions that constitute homotopy type theory.
-The first presentation (\cref{sec:syntax-informally}) describes the syntax of
-terms and the forms of judgments as an extension of the untyped
-$\lambda$-calculus, while leaving the rules of inference informal.
-The second (\cref{sec:syntax-more-formally}) defines the terms, judgments,
-and rules of inference inductively in the style of natural deduction, as
-is customary in much type-theoretic literature.
+在本附录中，我们将介绍 Martin-L\"{o}f 类型论及构成同伦类型论的扩展的两种表述。第一种表述 (\cref{sec:syntax-informally}) 描述了作为无类型 $\lambda$-演算扩展的术语的语法和判断的形式，而推理规则则保持非正式状态。第二种表述 (\cref{sec:syntax-more-formally}) 以自然演绎的方式递归地定义了术语、判断和推理规则，这在许多类型论文献中是常见的做法。
 
-\section*{Preliminaries}
+\section*{预备知识 (Preliminaries)}
 \label{sec:formal-prelim}
 
+在 \cref{cha:typetheory} 中，我们介绍了类型论的两个基本\define{判断 (judgments)}\index{judgment判断}。第一个判断 $a:A$ 断言一个术语 $a$ 具有类型 $A$。第二个判断 $a\jdeq b:A$ 断言两个术语 $a$ 和 $b$ 在类型 $A$ 下是\define{判断等同的 (judgmentally equal)}\index{equality!judgmental等同性!判断上的}\index{judgmental equality判断等同性}。这些判断是由 \cref{sec:syntax-more-formally} 中描述的一组推理规则递归定义的。
 
-In \cref{cha:typetheory}, we presented the two basic \define{judgments}
-\index{judgment}
-of type theory. The first, $a:A$, asserts that a term $a$ has type $A$. The second,
-$a\jdeq b:A$, states that the two terms $a$ and $b$ are \define{judgmentally
-equal}%
-\index{equality!judgmental}
-\index{judgmental equality}
-at type $A$. These judgments are inductively defined by a set of
-inference rules described in \cref{sec:syntax-more-formally}.
+构造类型 $A$ 的元素 $a$ 就是推导出 $a:A$；在本书中，我们给出了描述 $a$ 构造的非正式论证，但在正式场合中，必须具体指定一个术语 $a$ 以及 $a:A$ 的完整推导。
 
-To construct an element $a$ of a type $A$ is to derive $a:A$; in the book, we
-give informal arguments which describe the construction of $a$, but formally,
-one must specify a precise term $a$ and a full derivation that $a:A$.
-
-However, the main difference between the presentation of type theory in the book
-and in this appendix is that here judgments are explicitly
-formulated in an ambient \define{context},
-\index{context}
-or list of assumptions, of the form
+然而，本书中的类型论表述与本附录中的表述之间的主要区别在于，这里判断是在显式的\define{上下文 (context)}\index{context上下文}中进行表述的，或假设的列表，形式为
 \[
   x_1:A_1, x_2:A_2,\dots,x_n:A_n.
 \]
-An element $x_i : A_i$ of the context expresses the assumption that the
-variable
-\index{variable}%
-$x_i$ has type $A_i$. The variables $x_1, \ldots, x_n$ appearing in
-the context must be distinct. We abbreviate contexts with the letters $\Gamma$
-and $\Delta$.
+上下文中的元素 $x_i : A_i$ 表示变量 $x_i$ 拥有类型 $A_i$ 的假设。上下文中出现的变量 $x_1, \ldots, x_n$ 必须是不同的。我们用字母 $\Gamma$ 和 $\Delta$ 来表示上下文。
 
-The judgment $a:A$ in context $\Gamma$ is written 
+上下文 $\Gamma$ 中的判断 $a:A$ 记作
 \[ \oftp\Gamma aA \]
-and means that $a:A$ under the assumptions listed in $\Gamma$. When the list of
-assumptions is empty, we write simply
+表示在 $\Gamma$ 列出的假设下 $a:A$。当假设列表为空时，我们仅写作
 \[ \oftp{}aA \]
-or
+或
 \[ \oftp\emptyctx aA \]
-where $\emptyctx$ denotes the empty context. The same applies to the equality
-judgment
+其中 $\emptyctx$ 表示空上下文。相同的适用于等同性判断
 \[
   \jdeqtp\Gamma{a}{b}{A}
 \]
 
-However, such judgments are sensible only for \define{well-formed} contexts,
-\index{context!well-formed}%
-a notion captured by our third and final judgment
+然而，这些判断只有在\define{上下文良构 (well-formed)}\index{context!well-formed上下文!良构}时才有意义，这一概念由我们最后的判断表达
 \[
   \wfctx{(x_1:A_1, x_2:A_2,\dots,x_n:A_n)}
 \]
-expressing that each $A_i$ is a type in the context $x_1:A_1,
-x_2:A_2,\dots,x_{i-1}:A_{i-1}$.  In particular, therefore, if $\oftp\Gamma aA$ and
-$\wfctx\Gamma$, then we know that each $A_i$ contains only the variables
-$x_1,\dots,x_{i-1}$, and that $a$ and $A$ contain only the variables
-$x_1,\dots,x_n$.
-\index{variable!in context}
+表示在上下文 $x_1:A_1, x_2:A_2,\dots,x_{i-1}:A_{i-1}$ 中，每个 $A_i$ 都是一个类型。因此，特别地，如果 $\oftp\Gamma aA$ 且 $\wfctx\Gamma$，那么我们知道每个 $A_i$ 仅包含变量 $x_1,\dots,x_{i-1}$，而 $a$ 和 $A$ 仅包含变量 $x_1,\dots,x_n$。
+\index{variable!in context变量!在上下文中}
 
-In informal mathematical presentations, the context is
-implicit. At each point in a proof, the mathematician knows which
-variables are available and what types they have, either by historical
-convention ($n$ is usually a number, $f$ is a function, etc.) or
-because variables are explicitly introduced with sentences such as
-``let $x$ be a real number''. We discuss some benefits of using explicit
-contexts in \cref{sec:more-formal-pi,sec:more-formal-sigma}.
+在非正式的数学表述中，上下文是隐含的。在证明的每个阶段，数学家都知道哪些变量是可用的，以及它们的类型是什么，要么是基于历史惯例（$n$ 通常是一个数，$f$ 是一个函数，等等），要么是因为变量是通过类似“设 $x$ 为一个实数”这样的句子明确引入的。我们将在 \cref{sec:more-formal-pi,sec:more-formal-sigma} 中讨论使用显式上下文的一些好处。
 
-We write $B[a/x]$ for the \define{substitution}
-\index{substitution}%
-of a term $a$ for free occurrences of
-the variable~$x$ in the term $B$, with possible capture-avoiding
-renaming of bound variables,
-\index{variable!and substitution}%
-as discussed in
-\cref{sec:function-types}. The general form of substitution
+我们用 $B[a/x]$ 表示术语 $a$ 代替术语 $B$ 中自由出现的变量 $x$ 的\define{替换 (substitution)}\index{substitution替换}，同时可能会进行避免捕获的绑定变量重命名\index{variable!and substitution变量!与替换}\index{variable!bound变量!绑定的}，如 \cref{sec:function-types} 中所讨论。替换的一般形式
 %
 \[
-   B[a_1,\dots,a_n/x_1,\dots,x_n]
+  B[a_1,\dots,a_n/x_1,\dots,x_n]
 \]
 %
-substitutes expressions $a_1,\dots,a_n$ for the variables
-$x_1,\dots,x_n$ simultaneously.
+将表达式 $a_1,\dots,a_n$ 同时替换为变量 $x_1,\dots,x_n$。
 
-To \define{bind a variable $x$ in an expression $B$}
-\indexdef{variable!bound}%
-means to incorporate both of them into a larger expression, called an \define{abstraction},
-\indexdef{abstraction}%
-whose purpose is to express the fact that $x$ is ``local'' to $B$, i.e., it
-is not to be confused with other occurrences of $x$ appearing
-elsewhere. Bound variables are familiar to programmers, but less so to mathematicians.
-Various notations are used for binding, such as $x \mapsto B$,
-$\lam x B$, and $x \,.\, B$, depending on the situation. We may write $C[a]$ for the
-substitution of a term $a$ for the variable in the abstracted expression, i.e.,
-we may define $(x.B)[a]$ to be $B[a/x]$. As discussed in
-\cref{sec:function-types}, changing the name of a bound variable everywhere within an expression (``$\alpha$-conversion'')
-\index{alpha-conversion@$\alpha $-conversion}%
-does not change the expression. Thus, to be very
-precise, an expression is an equivalence class of syntactic forms
-which differ in names of bound variables.
+\define{在表达式 $B$ 中绑定变量 $x$ (bind a variable $x$ in an expression $B$)}\indexdef{variable!bound变量!绑定}意味着将两者结合到一个更大的表达式中，称为\define{抽象 (abstraction)}\indexdef{abstraction抽象}，其目的是表达 $x$ 是“局部的”于 $B$，即不应与其他地方出现的 $x$ 混淆。绑定变量对程序员来说是熟悉的，但对数学家来说却不那么熟悉。绑定有各种记法，例如 $x \mapsto B$、$\lam x B$ 和 $x \,.\, B$，具体情况视场景而定。我们可以用 $C[a]$ 表示在抽象表达式中将术语 $a$ 替换为变量的替换，即我们可以定义 $(x.B)[a]$ 为 $B[a/x]$。如 \cref{sec:function-types} 中所讨论的，改变一个表达式内的绑定变量名（“$\alpha$-转换”）\index{alpha-conversion@$\alpha $-conversion $\alpha$-转换}不会改变表达式。因此，非常精确地说，一个表达式是一个语法形式的等价类，它们在绑定变量名上有所不同。
 
-One may also regard each variable $x_i$ of a judgment
+我们还可以认为判断
 \[
   x_1:A_1, x_2:A_2,\dots,x_n:A_n \vdash a : A
 \]
-to be bound in its \define{scope},
-\indexdef{variable!scope of}%
-\index{scope}%
-consisting of the expressions $A_{i+1},
-\ldots, A_n$, $a$, and $A$.
+中的每个变量 $x_i$ 都绑定在其\define{作用域 (scope)}\indexdef{variable!scope of变量!作用域的}\index{scope作用域}中，该作用域由表达式 $A_{i+1}, \ldots, A_n$、$a$ 和 $A$ 组成。
 
 \section{The first presentation}
 \label{sec:syntax-informally}
