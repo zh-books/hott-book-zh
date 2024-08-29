@@ -2455,444 +2455,418 @@ $(\NO,\le,<)$ 的相互归纳原理适用于三种类型的族：
   %   \fall{L,R}\Big((x \preceq y^L) \to (x \prec y^R)\Big) % \land \Big((x \prec y^L) \to (x\prec y^R)\Big)。
   %   \label{eq:NO-prec-inner-IH}
   % \end{equation}
-  We can now give the definitions specified in the theorem statement:
+  我们现在可以给出定理陈述中指定的定义：
   \begin{align}
-    (x\preceq y) &\defeq
-    (\fall{L} x^L\prec y) \land (\fall{R} x\prec y^R), \label{eq:NO-preceq-def}\\
-    (x\prec y) &\defeq
-    (\exis{L} x\preceq y^L) \lor (\exis{R} x^R \preceq y).\label{eq:NO-prec-def}
+  (x\preceq y) &\defeq
+  (\fall{L} x^L\prec y) \land (\fall{R} x\prec y^R), \label{eq:NO-preceq-def}\\
+  (x\prec y) &\defeq
+  (\exis{L} x\preceq y^L) \lor (\exis{R} x^R \preceq y).\label{eq:NO-prec-def}
   \end{align}
-  For this to define an element of $A'(y)$, we must show first that $(x\prec y) \to (x\preceq y)$.
-  The assumption $x\prec y$ has two cases.
-  On one hand, if there is $L_0$ with $x\preceq y^{L_0}$, then by transitivity on the right with respect to $y^{L_0}<y^R$, we have $x\prec y^R$ for all $R$.
-  Moreover, by transitivity on the left with respect to $x^L<x$, we have $x^L \prec y^{L_0}$ for any $L$, hence $x^L\prec y$ by transitivity on the right.
-  Thus, $x\preceq y$.
+  为了定义 $A'(y)$ 的一个元素，我们首先必须证明 $(x\prec y) \to (x\preceq y)$。
+  假设 $x\prec y$ 有两种情况。
+  一方面，如果存在 $L_0$ 使得 $x\preceq y^{L_0}$，则根据右边的传递性并考虑 $y^{L_0}<y^R$，我们得到对于所有的 $R$，$x\prec y^R$。
+  此外，根据左边的传递性并考虑 $x^L<x$，我们有对于任何 $L$，$x^L \prec y^{L_0}$，因此根据右边的传递性，我们有 $x^L\prec y$。
+  因此，$x\preceq y$。
 
-  On the other hand, if there is $R_0$ with $x^{R_0}\preceq y$, then by~\eqref{eq:NO-prec-outer-IH}, we have $x^L \prec y$ for all $L$.
-  And by transitivity on the left and right with respect to $x<x^{R_0}$ and $y<y^R$, we have $x\prec y^R$ for any $R$.
-  Thus, $x\preceq y$.
+  另一方面，如果存在 $R_0$ 使得 $x^{R_0}\preceq y$，那么根据~\eqref{eq:NO-prec-outer-IH}，我们有对于所有的 $L$，$x^L \prec y$。
+  根据左边和右边的传递性并考虑 $x<x^{R_0}$ 和 $y<y^R$，我们对于任何 $R$ 都有 $x\prec y^R$。
+  因此，$x\preceq y$。
 
-  We also need to show that these definitions are transitive on the left with respect to $x^L<x$ and $x<x^R$.
-  But if $x\preceq y$, then $x^L\prec y$ for all $L$ by definition; while if $x^R\preceq y$, then $x\prec y$ also by definition.
+  我们还需要证明这些定义在左边对于 $x^L<x$ 和 $x<x^R$ 是传递的。
+  但是如果 $x\preceq y$，那么根据定义，所有的 $L$ 都有 $x^L\prec y$；如果 $x^R\preceq y$，那么根据定义 $x\prec y$。
 
-  Thus,~\eqref{eq:NO-preceq-def} and~\eqref{eq:NO-prec-def} do define an element of $A'(y)$.
-  We now have to verify that this definition preserves inequalities, as a dependent function into $A'$, i.e.\ that these relations are transitive on the right.
-  Remember that in each case, we may assume inductively that they are transitive on the right with respect to all inequalities arising in the inequality constructor.
+  因此，~\eqref{eq:NO-preceq-def} 和~\eqref{eq:NO-prec-def} 确实定义了 $A'(y)$ 的一个元素。
+  我们现在必须验证这个定义是否保持了不等式，作为到 $A'$ 的一个依赖函数，即这些关系在右边是否是传递的。
+  请记住，在每种情况下，我们可以归纳假设它们在右边对于由不等式构造器产生的所有不等式是传递的。
   \begin{itemize}
-  \item Suppose $x\preceq y$ and $y\le z$, the latter arising from $y^L<z$ and $y<z^R$ for all $L$ and $R$.
-    Then the inductive hypothesis (of the inner recursion) applied to $y<z^R$ yields $x\prec z^R$ for any $R$.
-    Moreover, by definition $x\preceq y$ implies that $x^L \prec y$ for any $L$, so by the inductive hypothesis of the outer recursion we have $x^L \prec z$.
-    Thus, $x\preceq z$.
-  \item Suppose $x\preceq y$ and $y<z$.
-    First, suppose $y<z$ arises from $y\le z^{L_0}$.
-    Then the inner inductive hypothesis applied to $y\le z^{L_0}$ yields $x \preceq z^{L_0}$, hence $x\prec z$.
+    \item 假设 $x\preceq y$ 且 $y\le z$，后者来自 $y^L<z$ 和 $y<z^R$ 对于所有的 $L$ 和 $R$。
+    然后，应用到 $y<z^R$ 的内递归的归纳假设，对于任何 $R$，我们得到 $x\prec z^R$。
+    此外，根据定义 $x\preceq y$ 意味着对于任何 $L$，$x^L \prec y$，所以通过外递归的归纳假设，我们得到 $x^L \prec z$。
+    因此，$x\preceq z$。
+    \item 假设 $x\preceq y$ 且 $y<z$。
+    首先，假设 $y<z$ 来自 $y\le z^{L_0}$。
+    然后应用到 $y\le z^{L_0}$ 的内递归的归纳假设，我们得到 $x \preceq z^{L_0}$，因此 $x\prec z$。
 
-    Second, suppose $y<z$ arises from $y^{R_0}\le z$.
-    Then by definition, $x\preceq y$ implies $x\prec y^{R_0}$, and then the inner inductive hypothesis for $y^{R_0}\le z$ yields $x\prec z$.
-  \item Suppose $x\prec y$ and $y\le z$, the latter arising from $y^L<z$ and $y<z^R$ for all $L$ and $R$.
-    By definition, $x\prec y$ implies there merely exists $R_0$ with $x^{R_0}\preceq y$ or $L_0$ with $x\preceq y^{L_0}$.
-    If $x^{R_0}\preceq y$, then the outer inductive hypothesis yields $x^{R_0}\preceq z$, hence $x\prec z$.
-    If $x\preceq y^{L_0}$, then the inner inductive hypothesis for $y^{L_0}<z$ (which holds by the constructor of $y\le z$) yields $x\prec z$.
-  % \item Suppose $x\prec y$ and $y<z$.
-  %   First, suppose $y<z$ arises from $y\le z^{L_0}$.
-  %   Then the inner inductive hypothesis for $y\le z^{L_0}$ yields $x\prec z^{L_0}$, hence $x\preceq z^{L_0}$; thus $x\prec z$.
-
-  %   Second, suppose $y<z$ arises from $y^{R_0}\le z$.
-  %   Then by definition, $x\prec y$ implies there merely exists $R_1$ with $x^{R_1}\preceq y$ or $L_1$ with $x\preceq y^{L_1}$.
-  %   If $x^{R_1}\preceq y$, then the outer inductive hypothesis implies $x^{R_1}\prec z$, hence $x^{R_1}\preceq z$, and thus $x\prec z$.
-  %   And if $x\preceq y^{L_1}$, then the inner inductive hypothesis applied to $y^{L_1}<y^{R_0}$ (which comes from $y$ being defined as a cut) and $y^{R_0}\le z$ yields $x\prec z$.
+    其次，假设 $y<z$ 来自 $y^{R_0}\le z$。
+    然后根据定义，$x\preceq y$ 意味着 $x\prec y^{R_0}$，然后对于 $y^{R_0}\le z$ 的内递归的归纳假设，我们得到 $x\prec z$。
+    \item 假设 $x\prec y$ 且 $y\le z$，后者来自 $y^L<z$ 和 $y<z^R$ 对于所有的 $L$ 和 $R$。
+    根据定义，$x\prec y$ 仅意味着存在 $R_0$ 使得 $x^{R_0}\preceq y$ 或存在 $L_0$ 使得 $x\preceq y^{L_0}$。
+    如果 $x^{R_0}\preceq y$，那么外递归的归纳假设得出 $x^{R_0}\preceq z$，因此 $x\prec z$。
+    如果 $x\preceq y^{L_0}$，那么对于 $y^{L_0}<z$ 的内递归的归纳假设（该假设由 $y\le z$ 的构造器成立）得出 $x\prec z$。
   \end{itemize}
-  This completes the inner induction.
-  Thus, for any $x$ defined by a cut, we have $(x\prec \blank)$ and $(x\preceq \blank)$ defined by~\eqref{eq:NO-preceq-def} and~\eqref{eq:NO-prec-def}, and transitive on the right.
+  这完成了内递归。
+  因此，对于由分割定义的任何 $x$，我们有 $(x\prec \blank)$ 和 $(x\preceq \blank)$ 由~\eqref{eq:NO-preceq-def} 和~\eqref{eq:NO-prec-def} 定义，并在右边是传递的。
 
-  To complete the outer recursion, we need to verify these definitions are transitive on the left.
-  After a $\NO$-induction on $z$, we end up with three cases that are essentially identical to those just described above for transitivity on the right.
-  Hence, we omit them.
+  要完成外递归，我们需要验证这些定义在左边也是传递的。
+  在对 $z$ 进行 $\NO$-归纳后，我们得到了三个基本上与上述右边传递性相同的情况。
+  因此，我们省略它们。
 \end{proof}
 
 \begin{thm}\label{thm:NO-encode-decode}
-  For any $x,y:\NO$ we have $(x<y)=(x\prec y)$ and $(x\le y)=(x\preceq y)$.
+对于任何 $x,y:\NO$，我们有 $(x<y)=(x\prec y)$ 和 $(x\le y)=(x\preceq y)$。
 \end{thm}
 \begin{proof}
-  From left to right, we use $(\NO,\le,<)$-induction where $A(x)\defeq\unit$, with $\preceq$ and $\prec$ supplying the relations $\ble$ and $\blt$.
-  In all the constructor cases, $x$ and $y$ are defined by cuts, so the definitions of $\preceq$ and $\prec$ evaluate, and the inductive hypotheses apply.
+  从左到右，我们使用 $(\NO,\le,<)$-归纳，其中 $A(x)\defeq\unit$，$\preceq$ 和 $\prec$ 提供了关系 $\ble$ 和 $\blt$。
+  在所有构造器的情况下，$x$ 和 $y$ 是通过分割定义的，因此 $\preceq$ 和 $\prec$ 的定义得到评估，归纳假设适用。
 
-  From right to left, we use $\NO$-induction to assume that $x$ and $y$ are defined by cuts.
-  But now the definitions of $\preceq$ and $\prec$, and the inductive hypotheses, supply exactly the data required for the relevant constructors of $\le$ and $<$.
-  % From right to left, we first prove by $\NO$-induction on $x$ that for any $y:\NO$ we have $(x\prec y) \to (x<y)$ and $(x\preceq y) \to (x\le y)$.
-  % Thus, we assume this to be true for all $x^L$ and $x^R$ in a cut, and show it for the resulting $x:\NO$.
-  % Next, we prove by $\NO$-induction on $y$ that $(x\prec y) \to (x<y)$ and $(x\preceq y) \to (x\le y)$, hence we assume it to be true for all $y^L$ and $y^R$ in a cut, and show it for the resulting $y:\NO$.
-  % Now since $x$ and $y$ are both defined by cuts, $x\preceq y$ means that $x^L\prec y$ and $x\prec y^R$ for all $L$ and $R$.
-  % By the inductive hypotheses, this gives $x^L<y$ and $x<y^R$, hence $x\le y$ by the constructor of $\le$.
-  % Similarly, $x\prec y$ yields merely an $R_0$ with $x^{R_0}\preceq y$ or an $L_0$ with $x\preceq y^{L_0}$.
-  % Hence merely $x^{R_0}\le y$ or $x\le y^{L_0}$ by the inductive hypothesis, so $x<y$ by a constructor.
+  从右到左，我们使用 $\NO$-归纳假设 $x$ 和 $y$ 是通过分割定义的。
+  但现在 $\preceq$ 和 $\prec$ 的定义，以及归纳假设，正好提供了 $\le$ 和 $<$ 的相关构造器所需的数据。
 \end{proof}
 
 \begin{cor}\label{thm:NO-unstrict-transitive}
-  The relations $\le$ and $<$ on $\NO$ satisfy
-  \[ \fall{x,y:\NO} (x<y) \to (x\le y) \]
-  and are transitive:
-  \index{transitivity!of . for surreals@of $<$ for surreals}
-  \index{transitivity!of . for surreals@of $\leq$ for surreals}
-  \begin{gather*}
-    (x\le y) \to (y\le z) \to (x\le z)\\
-    (x\le y) \to (y< z) \to (x< z)\\
-    (x< y) \to (y\le z) \to (x< z).
-  \end{gather*}
+在 $\NO$ 上的关系 $\le$ 和 $<$ 满足
+\[ \fall{x,y:\NO} (x<y) \to (x\le y) \]
+并且是传递的：
+\index{transitivity!of . for surreals@of $<$ for surreals}
+\index{transitivity!of . for surreals@of $\leq$ for surreals}
+\begin{gather*}
+(x\le y) \to (y\le z) \to (x\le z)\\
+(x\le y) \to (y< z) \to (x< z)\\
+(x< y) \to (y\le z) \to (x< z).
+\end{gather*}
 \end{cor}
 
-As with the Cauchy reals, the joint $(\NO,\le,<)$-recursion principle remains essential when defining all operations on $\NO$.
+与柯西实数相似，联合 $(\NO,\le,<)$-递归原则在定义所有 $\NO$ 上的操作时仍然是必要的。
 
 \begin{eg}\label{eg:surreal-addition}
 \index{addition!of surreal numbers}%
-We define $\mathord+:\NO\to\NO\to\NO$ by recursion on the first argument, followed by induction on the second argument.
-For the outer recursion, we take the codomain to be the subset of $\NO\to\NO$ consisting of functions $g$ such that $(x<y) \to (g(x)<g(y))$ and $(x\le y) \to (g(x)\le g(y))$ for all $x,y$.
-For such $g,h$ we define $(g\ble h)\defeq \fall{x:\NO} g(x)\le h(x)$ and $(g\blt h)\defeq \fall{x:\NO} g(x)< h(x)$.
-Clearly $\ble$ is antisymmetric.
+我们通过对第一个参数进行递归，然后对第二个参数进行归纳来定义 $\mathord+:\NO\to\NO\to\NO$。
+对于外递归，我们将余域设为由函数 $g$ 组成的 $\NO\to\NO$ 的子集，使得对于所有 $x,y$，$(x<y) \to (g(x)<g(y))$ 和 $(x\le y) \to (g(x)\le g(y))$ 成立。
+对于这样的 $g,h$，我们定义 $(g\ble h)\defeq \fall{x:\NO} g(x)\le h(x)$ 和 $(g\blt h)\defeq \fall{x:\NO} g(x)< h(x)$。
+显然，$\ble$ 是反对称的。
 
-For the primary clause of the recursion, we suppose $x$ defined by a cut, that the functions $(x^L+\blank)$ and $(x^R+\blank)$ are defined, preserve inequalities, and satisfy $x^L+y<x^R+y$, and we define $(x+\blank)$.
-As in \cref{defn:No-codes}, rather than an inner recursion, we use an inner induction into the family $A:\NO\to\type$, where $A(y)$ is the subset of those $z:\NO$ such that each $x^L + y < z$ and each $x^R + y > z$.
-We equip $A$ with the relations $\le$ and $<$ induced from $\NO$, so that antisymmetry is obvious.
-For the primary clause of the inner recursion, we suppose also $y$ defined by a cut, with each $x+y^L$ and $x+y^R$ defined and satisfying $x^L+y^L < x+y^L$, $x^L+y^R < x+y^R$, $x+y^L < x^R + y^L$, and $x+y^R < x^R+y^R$ (these come from the additional conditions imposed on elements of $A(y)$), and also $x+y^L < x+y^R$ (since the elements $x+y^L$ and $x+y^R$ of $A(y)$ form a dependent cut).
-Now we give Conway's definition:
+对于递归的主要条款，我们假设 $x$ 是通过分割定义的，函数 $(x^L+\blank)$ 和 $(x^R+\blank)$ 已定义、保持不等式，并满足 $x^L+y<x^R+y$，然后我们定义 $(x+\blank)$。
+与 \cref{defn:No-codes} 中一样，我们不使用内递归，而是通过进入 $A:\NO\to\type$ 的家族进行内归纳，其中 $A(y)$ 是那些满足每个 $x^L + y < z$ 和每个 $x^R + y > z$ 的 $z:\NO$ 的子集。
+我们给 $A$ 配备由 $\NO$ 诱导的不等式 $\le$ 和 $<$，因此反对称性是显而易见的。
+对于内递归的主要条款，我们还假设 $y$ 是通过分割定义的，并且每个 $x+y^L$ 和 $x+y^R$ 都已定义并满足 $x^L+y^L < x+y^L$，$x^L+y^R < x+y^R$，$x+y^L < x^R + y^L$ 和 $x+y^R < x^R+y^R$（这些来自施加在 $A(y)$ 元素上的附加条件），并且 $x+y^L < x+y^R$（因为 $x+y^L$ 和 $x+y^R$ 是 $A(y)$ 的依赖分割）。
+现在我们给出康威的定义：
 \[ x+y \defeq \surr{x^L+y, x+y^L}{x^R+y,x+y^R}. \]
-In other words, the left options of $x+y$ are all numbers of the form $x^L+y$ for some left option $x^L$, or $x+y^L$ for some left option $y^L$.
-We must show that each of these left options is less than each of these right options:
+换句话说，$x+y$ 的左选项是形式为 $x^L+y$ 的所有数字，其中 $x^L$ 是左选项，或者 $x+y^L$，其中 $y^L$ 是左选项。
+我们必须证明这些左选项中的每一个都小于这些右选项中的每一个：
 \begin{itemize}
-\item $x^L+y < x^R+y$ by the outer inductive hypothesis.
-\item $x^L+y < x^L + y^R < x + y^R$, the first since $(x^L+\blank)$ preserves inequalities, and the second since $x+y^R : A(y^R)$.
-\item $x+y^L < x^R+ y^L < x^R + y$, the first since $x+y^L : A(y^L)$ and the second since $(x^R+\blank)$ preserves inequalities.
-\item $x+y^L < x+y^R$ by the inner inductive hypothesis (specifically, the fact that we have a dependent cut).
+  \item 根据外归纳假设，$x^L+y < x^R+y$。
+  \item 根据 $(x^L+\blank)$ 保持不等式的事实，$x^L+y < x^L + y^R < x + y^R$，而第二个不等式由于 $x+y^R : A(y^R)$ 成立。
+  \item 根据 $x+y^L : A(y^L)$ 和 $(x^R+\blank)$ 保持不等式的事实，$x+y^L < x^R+ y^L < x^R + y$。
+  \item 根据内归纳假设（特别是我们有一个依赖分割的事实），$x+y^L < x+y^R$。
 \end{itemize}
-We also have to show that $x+y$ thusly defined lies in $A(y)$, i.e.\ that $x^L + y < x+y$ and $x+y < x^R + y$; but this is true by \cref{thm:NO-refl-opt}\ref{item:NO-lt-opt}.
+我们还必须证明这样定义的 $x+y$ 位于 $A(y)$ 中，即 $x^L + y < x+y$ 和 $x+y < x^R + y$；但这由 \cref{thm:NO-refl-opt}\ref{item:NO-lt-opt} 成立。
 
-Next we have to verify that the definition of $(x+\blank)$ preserves inequality:
+接下来我们必须验证 $(x+\blank)$ 的定义是否保持不等式：
 \begin{itemize}
-\item If $y\le z$ arises from knowing that $y^L<z$ and $y<z^R$ for all $L$ and $R$, then the inner inductive hypothesis gives $x+y^L<x+z$ and $x+y < x+z^R$, while the outer inductive hypotheses give $x^L+y \le x^L+z$ and $x^R+ y \le x^R+z$.
-  Moreover, since $x^R+y$ is by definition a right option of $x+y$, we have $x+y < x^R+y$.
-  Similarly, we find that $x^L+z$ is a left option of $x+z$, so that $x^L+z < x+z$.
-  Thus, using transitivity, we have $x^L+y < x+z$ and $x+y < x^R+z$; so we may conclude $x+y \le x+z$ by the constructor of $\le$.
-\item If $y<z$ arises from an $L_0$ with $y\le z^{L_0}$, then inductively $x+y \le x+z^{L_0}$, hence $x+y<x+z$ since $x+z^{L_0}$ is a right option of $x+z$.
-\item Similarly, if $y<z$ arises from $y^{R_0}\le z$, then $x+y<x+z$ since $x+y^{R_0}\le x+z$.
+  \item 如果 $y\le z$ 来自知道 $y^L<z$ 和 $y<z^R$ 对于所有的 $L$ 和 $R$，那么内归纳假设得出 $x+y^L<x+z$ 和 $x+y < x+z^R$，而外归纳假设得出 $x^L+y \le x^L+z$ 和 $x^R+ y \le x^R+z$。
+  此外，由于 $x^R+y$ 是 $x+y$ 的一个右选项，我们有 $x+y < x^R+y$。
+  类似地，我们发现 $x^L+z$ 是 $x+z$ 的一个左选项，因此 $x^L+z < x+z$。
+  因此，使用传递性，我们有 $x^L+y < x+z$ 和 $x+y < x^R+z$；所以我们可以通过 $\le$ 的构造器得出 $x+y \le x+z$。
+  \item 如果 $y<z$ 来自 $L_0$ 使得 $y\le z^{L_0}$，那么归纳得出 $x+y \le x+z^{L_0}$，因此 $x+y<x+z$，因为 $x+z^{L_0}$ 是 $x+z$ 的一个右选项。
+  \item 类似地，如果 $y<z$ 来自 $y^{R_0}\le z$，那么 $x+y<x+z$ 因为 $x+y^{R_0}\le x+z$。
 \end{itemize}
-This completes the inner induction.
-For the outer recursion, we have to verify that $+$ preserves inequality on the left as well.
-After an $\NO$-induction, this proceeds in exactly the same way.
+这完成了内递归。
+对于外递归，我们必须验证 $+$ 在左边也保持不等式。
+在 $\NO$-归纳后，这个过程与之前的完全相同。
 \end{eg}
 
 \index{acceptance|(}%
 \index{mathematics!formalized}%
-In the Appendix to Part Zero of~\cite{conway:onag}, Conway discusses how the surreal numbers may be formalized in ZFC set theory: by iterating along the ordinals and passing to sets of representatives of lowest rank for each equivalence class, or by representing numbers with ``sign-expansions''.
-He then remarks that
+在~\cite{conway:onag} 的零部分附录中，康威讨论了如何在 ZFC 集合论中形式化超现实数：通过沿着序数迭代并转向每个等价类的最低等级的代表集，或者通过用“符号扩展”来表示数字。
+然后他指出
 \begin{quote}\footnotesize
-  The curiously complicated nature of these constructions tells us more about the nature of formalizations within ZF than about our system of numbers\dots
+这些构造的奇异复杂性更多地告诉我们有关 ZF 中形式化的性质，而不是我们数字系统的性质\dots
 \end{quote}
-and goes on to advocate for a general theory of ``permissible kinds of construction'' which should include
+并继续倡导一种“允许的构造类型”的一般理论，该理论应包括
 \begin{enumerate}\footnotesize
-\item Objects may be created from earlier objects in any reasonably constructive fashion.\label{item:conway1}
-\item Equality among the created objects can be any desired equivalence relation.\label{item:conway2}
+\item 可以以任何合理的构造方式从早期对象创建新对象。\label{item:conway1}
+\item 在创建对象之间的平等可以是任何所需的等价关系。\label{item:conway2}
 \end{enumerate}
 \noindent
-Condition~\ref{item:conway1} can be naturally read as justifying general principles of \emph{inductive definition}, such as those presented in \cref{sec:strictly-positive,sec:generalizations}.
-In particular, the condition of strict positivity for constructors can be regarded as a formalization of what it means to be ``reasonably constructive''.
-Condition~\ref{item:conway2} then suggests we should extend this to \emph{higher} inductive definitions of all sorts, in which we can impose path constructors making objects equal in any reasonable way.
-For instance, in the next paragraph Conway says:
+条件~\ref{item:conway1} 可以自然地理解为证明\emph{归纳定义}的一般原则是合理的，例如在 \cref{sec:strictly-positive,sec:generalizations} 中提出的那些原则。
+特别是，构造器的严格正性条件可以被视为“合理构造”的形式化。
+然后条件~\ref{item:conway2} 建议我们应将其扩展到各种\emph{高阶归纳定义}，其中我们可以引入路径构造器以使对象以任何合理的方式相等。
+例如，在下一段中康威说：
 \begin{quote}\footnotesize
-  \dots we could also, for instance, freely create a new object $(x,y)$ and call it the ordered pair of $x$ and $y$.
-  We could also create an ordered pair $[x,y]$ different from $(x,y)$ but co-existing with it\dots
-  If instead we wanted to make $(x,y)$ into an unordered pair, we could define equality by means of the equivalence relation $(x,y)=(z,t)$ if and only if $x=z,y=t$ \emph{or} $x=t,y=z$.
+\dots 我们还可以自由创建一个新对象 $(x,y)$ 并将其称为 $x$ 和 $y$ 的有序对。
+我们还可以创建一个与 $(x,y)$ 不同但与之共存的有序对 $[x,y]$\dots
+如果我们想将 $(x,y)$ 变成无序对，我们可以通过等价关系 $(x,y)=(z,t)$ 来定义平等，当且仅当 $x=z,y=t$ 或者 $x=t,y=z$。
 \end{quote}
-The freedom to introduce new objects with new names, generated by certain forms of constructors, is precisely what we have in the theory of inductive definitions.
-Just as with our two copies of the natural numbers $\nat$ and $\nat'$ in \cref{sec:appetizer-univalence}, if we wrote down an identical definition to the cartesian product type $A\times B$, we would obtain a distinct product type $A\times' B$ whose canonical elements we could freely write as $[x,y]$.
-And we could make one of these a type of unordered pairs by adding a suitable path constructor. % (and perhaps 0-truncating).
+引入具有新名称的新对象的自由，生成特定形式的构造器，正是我们在归纳定义理论中所拥有的自由。
+正如我们在 \cref{sec:appetizer-univalence} 中的自然数 $\nat$ 和 $\nat'$ 的两个副本，如果我们写下一个与笛卡尔积类型 $A\times B$ 相同的定义，我们将获得一个不同的积类型 $A\times' B$，其规范元素我们可以自由地写作 $[x,y]$。
+并且我们可以通过添加合适的路径构造器使其中一个成为无序对的类型。%（也许进行 0 截断）。
 
-To be sure, Conway's point was not to complain about ZF in particular, but to argue against all foundational theories at once:
+当然，康威的观点不是抱怨 ZF，特别是，而是反对所有的基础理论：
 \begin{quote}\footnotesize
-  \dots this proposal is not of any particular theory as an alternative to ZF\dots{}
-  What is proposed is instead that we give ourselves the freedom to create arbitrary mathematical theories of these kinds, but prove a metatheorem which ensures once and for all that any such theory could be formalized in terms of any of the standard foundational theories.
+\dots 这个提议不是作为 ZF 的任何特定理论的替代品\dots{}
+提议的是我们赋予自己创造这些种类的任意数学理论的自由，但证明一个元定理，该定理一劳永逸地确保任何这种理论都可以用任何标准的基础理论形式化。
 \end{quote}
-One might respond that, in fact, univalent foundations is not one of the ``standard foundational theories'' which Conway had in mind, but rather the \emph{metatheory} in which we may express our ability to create new theories, and about which we may prove Conway's metatheorem.
-For instance, the surreal numbers are one of the ``mathematical theories'' Conway has in mind, and we have seen that they can be constructed and justified inside univalent foundations.
-Similarly, Conway remarked earlier that
+有人可能会回应说，实际上，单一性的基础不是康威所设想的“标准基础理论”之一，而是我们可以表达我们创造新理论的能力的\emph{元理论}，并且关于它我们可以证明康威的元定理。
+例如，超现实数是康威心中的“数学理论”之一，我们已经看到它们可以在单一性基础内构造并得到证明。
+同样，康威早些时候提到
 \begin{quote}\footnotesize
-  \dots set theory would be such a theory, sets being constructed from earlier ones by processes corresponding to the usual axioms, and the equality relation being that of having the same members.
+\dots 集合论将是这样的一种理论，集合通过对应于通常公理的过程从早期集合中构造出来，平等关系就是具有相同成员的关系。
 \end{quote}
-This description closely matches the higher-inductive construction of the cumulative hierarchy of set theory in \cref{sec:cumulative-hierarchy}.
-Conway's metatheorem would then correspond to the fact we have referred to several times that we can construct a model of univalent foundations inside ZFC (which is outside the scope of this book).
+这个描述与 \cref{sec:cumulative-hierarchy} 中累积层次的高阶归纳构造非常吻合。
+康威的元定理将对应于我们多次提到的事实，即我们可以在 ZFC 内构造单一性基础的模型（这超出了本书的范围）。
 
-However, univalent foundations is so rich and powerful in its own right that it would be foolish to relegate it to only a metatheory in which to construct set-like theories.
-We have seen that even at the level of sets (0-types), the higher inductive types in univalent foundations yield direct constructions of objects by their universal properties (\cref{sec:free-algebras}), such as a constructive theory of Cauchy completion (\cref{sec:cauchy-reals}).
-But most importantly, the potential to model homotopy theory and category theory directly in the foundational system (\cref{cha:homotopy,cha:category-theory}) gives univalent foundations an advantage which no set-theoretic foundation can match.
+然而，单一性基础本身如此丰富和强大，以至于仅将其归为构造类似集合的理论的元理论是愚蠢的。
+我们已经看到，即使在集合（0-类型）的层面，单一性基础中的高阶归纳类型通过它们的通用属性（\cref{sec:free-algebras}）直接构造对象，例如柯西完备性的构造性理论（\cref{sec:cauchy-reals}）。
+但最重要的是，直接在基础系统中建模同伦论和范畴论的潜力（\cref{cha:homotopy,cha:category-theory}）赋予单一性基础以任何集合论基础都无法比拟的优势。
 \index{acceptance|)}%
 
 \index{surreal numbers|)}%
 
 \sectionNotes
 
-Defining algebraic operations on Dedekind reals, especially multiplication, is both somewhat tricky and tedious.
-There are several ways to get arithmetic going: each has its own advantages, but they all seem to require some technical work.
-For instance, Richman~\cite{Richman:reals} defines multiplication on the Dedekind reals first on the positive cuts and then extends it algebraically to all Dedekind cuts, while Conway~\cite{conway:onag} has observed that the definition of multiplication for surreal numbers works well for Dedekind reals.
+定义Dedekind实数上的代数运算，特别是乘法，既有点棘手又有点繁琐。
+有几种方法可以启动算术：每种方法都有其优势，但它们似乎都需要一些技术工作。
+例如，Richman~\cite{Richman:reals} 首先在正切割上定义了 Dedekind 实数的乘法，然后将其代数扩展到所有 Dedekind 切割，而 Conway~\cite{conway:onag} 则观察到，超现实数的乘法定义对于 Dedekind 实数来说效果很好。
 
-Our treatment of the Dedekind reals borrows many ideas from~\cite{BauerTaylor09} where the Dedekind reals are constructed in the context of Abstract Stone Duality.
+我们对 Dedekind 实数的处理借鉴了~\cite{BauerTaylor09} 的许多想法，在该文献中，Dedekind 实数是在抽象 Stone 对偶性的背景下构造的。
 \index{Abstract Stone Duality}%
-This is a (restricted) form of simply typed $\lambda$-calculus with a distinguished object $\Sigma$ which classifies open sets, and by duality also the closed ones. In~\cite{BauerTaylor09} you can also find detailed proofs of the basic properties of arithmetical operations.
+这是一种（受限的）简单类型的 $\lambda$-演算，其中有一个区分的对象 $\Sigma$ 用于分类开集，并且通过对偶也分类闭集。在~\cite{BauerTaylor09} 中，您还可以找到算术运算基本性质的详细证明。
 
-The fact that $\RC$ is the least Cauchy complete archimedean ordered field, as was proved in \cref{RC-initial-Cauchy-complete}, indicates that our Cauchy reals probably coincide with the Escard{\'o}-Simpson reals~\cite{EscardoSimpson:01}.
+$\RC$ 是最小的柯西完备阿基米德有序域这一事实，如在 \cref{RC-initial-Cauchy-complete} 中证明的那样，表明我们的柯西实数可能与 Escard{\'o}-Simpson 实数~\cite{EscardoSimpson:01} 一致。
 \index{real numbers!Escardo-Simpson@Escard\'o-Simpson}%
-It would be interesting to check\index{open!problem} whether this is really the case. The notion of Escard{\'o}-Simpson reals, or more precisely the corresponding closed interval, is interesting because it can be stated in any category with finite products.
+检查这是否真的如此将很有趣\index{open!problem}。Escard{\'o}-Simpson 实数或更准确地说是相应的闭区间的概念很有趣，因为它可以在任何具有有限积的范畴中表述。
 
-In constructive set theory augmented by the ``regular extension axiom'', one may also try to define Cauchy completion by closing under limits of Cauchy sequences with a transfinite iteration.
-It would also be interesting to check whether this construction agrees with ours.
+在通过“正规扩展公理”增强的构造性集合论中，您还可以尝试通过在柯西序列的极限下进行闭合并进行超限迭代来定义柯西完备性。
+检查此构造是否与我们的构造一致也将很有趣。
 
-It is constructive folklore that coincidence of Cauchy and Dedekind reals requires dependent choice but it is less well known that countable choice suffices. Recall that \define{dependent choice}
+众所周知，柯西实数与 Dedekind 实数的一致性需要依赖选择，但不太为人所知的是，可数选择就足够了。请记住\define{依赖选择}
 \indexdef{axiom!of choice!dependent}%
 \index{axiom!of choice!countable}%
 \index{total!relation}%
-states that for a total relation $R$ on $A$, by which we mean $\fall{x : A} \exis{y : A} R(x,y)$, and for any $a : A$ there merely exists $f : \N \to A$ such that $f(0) = a$ and $R(f(n), f(n+1))$ for all $n : \N$. Our \cref{when-reals-coincide} uses the typical trick for converting an application of dependent choice to one using countable choice. Namely, we use countable choice once to make in advance all the choices that could come up, and then use the choice function to avoid the dependent choices.
+声明，对于 $A$ 上的总关系 $R$，我们意味着 $\fall{x : A} \exis{y : A} R(x,y)$，并且对于任何 $a : A$，仅存在 $f : \N \to A$ 使得 $f(0) = a$ 并且对于所有 $n : \N$，$R(f(n), f(n+1))$ 成立。我们的 \cref{when-reals-coincide} 使用了将依赖选择的应用转换为使用可数选择的典型技巧。即，我们使用可数选择来预先做出所有可能出现的选择，然后使用选择函数来避免依赖选择。
 
-The intricate relationship between various notions of compactness in a constructive
-setting is discussed in \cite{bridges2002compactness}. Palmgren~\cite{Palmgren:FT} has a
-good comparison between pointwise analysis and
-pointfree topology.
+在构造性背景下，各种紧致性概念之间的复杂关系在 \cite{bridges2002compactness} 中有所讨论。Palmgren~\cite{Palmgren:FT} 对逐点分析和点自由拓扑进行了良好的比较。
 
-The surreal numbers were defined by~\cite{conway:onag}, using a sort of inductive definition but without justifying it explicitly in terms of any foundational system.
-For this reason, some later authors have tended to use sign-expansions or other more explicit presentations which can be coded more obviously into set theory.
-The idea of representing them in type theory was first considered by Hancock, while
-Setzer and Forsberg~\cite{forsbergfinite} noted that the surreals and their inequality relations $<$ and $\le$ naturally form an inductive-inductive definition.
-The \emph{higher} inductive-inductive version presented here, which builds in the correct notion of equality for surreals, is new.
-
+超现实数是由~\cite{conway:onag} 定义的，使用了一种归纳定义的形式，但没有在任何基础系统中显式证明。
+出于这个原因，一些后来的作者倾向于使用符号扩展或其他更明确的表示，这些表示可以更明显地编码到集合论中。
+在类型论中表示它们的想法最早由 Hancock 提出，而
+Setzer 和 Forsberg~\cite{forsbergfinite} 注意到超现实数及其不等式关系 $<$ 和 $\le$ 自然地形成了一个归纳-归纳定义。
+这里提出的\emph{高阶}归纳-归纳版本，内置了超现实数的正确平等概念，是新的。
 
 \sectionExercises
 
 \begin{ex}\label{ex:alt-dedekind-reals}
- Give an alternative definition of the Dedekind reals by first defining the square and then use \cref{mult-from-square}.
- Check that one obtains a commutative ring.
+给出 Dedekind 实数的替代定义，首先定义平方，然后使用 \cref{mult-from-square}。
+检查是否获得了一个交换环。
 \end{ex}
 
 \begin{ex} \label{ex:RD-extended-reals}
-  %
-  Suppose we remove the boundedness condition
-  \ref{defn:dedekind-reals-inhabited} in \cref{defn:dedekind-reals}.
-  Then we obtain the \define{extended reals}
-  \indexdef{real numbers!extended}%
-  \indexdef{extended real numbers}%
-  which contain $-\infty \defeq
-  (\emptyt, \Q)$ and $\infty \defeq (\Q, \emptyt)$. Which definitions of arithmetical
-  operations on cuts still make sense for extended reals? What algebraic structure do we
-  get?
+%
+假设我们去除了 \cref{defn:dedekind-reals} 中的有界性条件 \ref{defn:dedekind-reals-inhabited}。
+那么我们得到\define{扩展实数}
+\indexdef{real numbers!extended}%
+\indexdef{extended real numbers}%
+它们包含 $-\infty \defeq
+(\emptyt, \Q)$ 和 $\infty \defeq (\Q, \emptyt)$。 哪些切割上算术运算的定义仍然适用于扩展实数？我们得到什么代数结构？
 \end{ex}
 
 \begin{ex} \label{ex:RD-lower-cuts}
-  %
-  By considering one-sided cuts we obtain \define{lower} and \define{upper} Dedekind reals,
-  \indexdef{real numbers!Dedekind!upper}%
-  \indexdef{real numbers!Dedekind!lower}%
-  \indexdef{lower Dedekind reals}%
-  \indexdef{upper Dedekind reals}%
-  \index{cut!Dedekind}%
-  respectively. For example, a lower real is given by a predicate $L : \Q \to \Omega$
-  which is
-  %
-  \begin{enumerate}
-  \item \emph{inhabited:} $\exis{q : \Q} L(q)$ and
-  \item \emph{rounded:} $L(q) = \exis{r : \Q} q < r \land L(r)$.
-    \index{rounded!Dedekind cut}
-  \end{enumerate}
-  %
-  (We could also require $\exis{r : \Q} \lnot L(r)$ to exclude the cut $\infty \defeq
-  \Q$.) Which arithmetical operations can you define on the lower reals? In particular,
-  what happens with the additive inverse?
+%
+通过考虑单侧切割，我们得到\define{下}和\define{上} Dedekind 实数，
+\indexdef{real numbers!Dedekind!upper}%
+\indexdef{real numbers!Dedekind!lower}%
+\indexdef{lower Dedekind reals}%
+\indexdef{upper Dedekind reals}%
+\index{cut!Dedekind}%
+分别。例如，下实数由谓词 $L : \Q \to \Omega$ 给出
+%
+\begin{enumerate}
+  \item \emph{非空：} $\exis{q : \Q} L(q)$ 和
+  \item \emph{舍入：} $L(q) = \exis{r : \Q} q < r \land L(r)$。
+  \index{rounded!Dedekind cut}
+\end{enumerate}
+%
+（我们还可以要求 $\exis{r : \Q} \lnot L(r)$ 以排除切割 $\infty \defeq
+\Q$。）您可以在下实数上定义哪些算术运算？特别是，发生了什么加法逆运算？
 \end{ex}
 
 \begin{ex} \label{ex:RD-interval-arithmetic}
-  %
-  \index{interval!arithmetic}%
-  Suppose we remove the locatedness condition in \cref{defn:dedekind-reals}.
-  Then we obtain the \define{interval domain}
-  \indexdef{interval!domain}%
-  $\mathbb{I}$ because cuts are allowed
-  to have ``gaps'', which are just intervals. Define the partial order $\sqsubseteq$ on
-  $\mathbb{I}$ by
-  %
-  \begin{narrowmultline*}
-    ((L, U) \sqsubseteq (L', U'))
-    \defeq \narrowbreak
-    (\fall{q : \Q} L(q) \Rightarrow L'(q)) \land
-    (\fall{q : \Q} U(q) \Rightarrow U'(q)).
-  \end{narrowmultline*}
-  %
-  What are the maximal elements of $\mathbb{I}$ with respect to $\mathbb{I}$? Define the
-  ``endpoint'' operations which assign to an element of the interval domain its lower and
-  upper endpoints. Are the endpoints reals, lower reals, or upper reals (see
-  \cref{ex:RD-lower-cuts})? Which definitions of arithmetical operations on cuts still
-  make sense for the interval domain?
+%
+\index{interval!arithmetic}%
+假设我们去除了 \cref{defn:dedekind-reals} 中的定点性条件。
+那么我们得到\define{区间域}
+\indexdef{interval!domain}%
+$\mathbb{I}$ 因为切割允许
+存在“间隙”，即只是区间。通过定义偏序 $\sqsubseteq$ 在
+$\mathbb{I}$ 上通过
+%
+\begin{narrowmultline*}
+  ((L, U) \sqsubseteq (L', U'))
+  \defeq \narrowbreak
+  (\fall{q : \Q} L(q) \Rightarrow L'(q)) \land
+  (\fall{q : \Q} U(q) \Rightarrow U'(q))。
+\end{narrowmultline*}
+%
+什么是相对于 $\mathbb{I}$ 的 $\mathbb{I}$ 的最大元素？定义
+“端点”操作，它将区间域的元素分配到它的下端点和
+上端点。端点是实数、下实数还是上实数（参见
+\cref{ex:RD-lower-cuts}）？哪些切割上的算术运算定义仍然适用于区间域？
 \end{ex}
 
 \begin{ex} \label{ex:RD-lt-vs-le}
-  Show that, for all $x, y : \RD$,
-  %
-  \begin{equation*}
-    \lnot (x < y) \Rightarrow y \leq x
-  \end{equation*}
-  %
-  and
-  %
-  \begin{equation*}
-    \eqv{(x \leq y)}{\Parens{\prd{\epsilon : \Qp} x < y + \epsilon}}.
-  \end{equation*}
-  %
-  Does $\lnot (x \leq y)$ imply $y < x$?
+显示对于所有 $x, y : \RD$，
+%
+\begin{equation*}
+  \lnot (x < y) \Rightarrow y \leq x
+\end{equation*}
+%
+和
+%
+\begin{equation*}
+  \eqv{(x \leq y)}{\Parens{\prd{\epsilon : \Qp} x < y + \epsilon}}。
+\end{equation*}
+%
+$\lnot (x \leq y)$ 是否意味着 $y < x$？
 \end{ex}
 
 \begin{ex} \label{ex:reals-non-constant-into-Z}
-  \mbox{}
-  %
-  \begin{enumerate}
+\mbox{}
+%
+\begin{enumerate}
   \item
-    Assuming excluded middle, construct a non-constant map $\RD \to \Z$.
+  假设排中律，构造一个非常数映射 $\RD \to \Z$。
   \item
-    Suppose $f : \RD \to \Z$ is a map such that $f(0) = 0$ and $f(x) \neq 0$ for all $x >
-    0$. Derive from this the limited principle of omniscience~\eqref{eq:lpo}.
-\index{limited principle of omniscience}%
-  \end{enumerate}
+  假设 $f : \RD \to \Z$ 是一个映射使得 $f(0) = 0$ 并且对于所有 $x >
+  0$，$f(x) \neq 0$。从中推导出有限全知原理~\eqref{eq:lpo}。
+  \index{limited principle of omniscience}%
+\end{enumerate}
 \end{ex}
 
 \begin{ex} \label{ex:traditional-archimedean}
-  \index{ordered field!archimedean}%
-  Show that in an ordered field $F$, density of $\Q$ and the traditional archimedean axiom
-  are equivalent:
-  %
-  \begin{equation*}
-    (\fall{x, y : F} x < y \Rightarrow \exis{q : \Q} x < q < y)
-    \Leftrightarrow
-    (\fall{x : F} \exis{k : \Z} x < k).
-  \end{equation*}
+\index{ordered field!archimedean}%
+显示在一个有序域 $F$ 中，$\Q$ 的密度和传统的阿基米德公理
+是等价的：
+%
+\begin{equation*}
+(\fall{x, y : F} x < y \Rightarrow \exis{q : \Q} x < q < y)
+  \Leftrightarrow
+  (\fall{x : F} \exis{k : \Z} x < k)。
+\end{equation*}
 \end{ex}
 
-\begin{ex} \label{RC-Lipschitz-on-interval} Suppose $a, b : \Q$ and $f : \setof{ q : \Q |
-    a \leq q \leq b } \to \RC$ is Lipschitz with constant~$L$. Show that there exists a unique
-  extension $\bar{f} : [a,b] \to \RC$ of $f$ which is Lipschitz with
-  constant~$L$. Hint: rather than redoing \cref{RC-extend-Q-Lipschitz} for closed
-  intervals, observe that there is a retraction $r : \RC \to [-n,n]$ and apply
-  \cref{RC-extend-Q-Lipschitz} to $f \circ r$.
+\begin{ex} \label{RC-Lipschitz-on-interval} 假设 $a, b : \Q$ 和 $f : \setof{ q : \Q |
+a \leq q \leq b } \to \RC$ 是常数为 $L$ 的 Lipschitz 映射。显示存在一个唯一的
+延拓 $\bar{f} : [a,b] \to \RC$ 的 Lipschitz 映射
+常数 $L$。提示：不要重新执行 \cref{RC-extend-Q-Lipschitz} 对于封闭
+区间，请注意有一个缩回 $r : \RC \to [-n,n]$ 并应用
+\cref{RC-extend-Q-Lipschitz} 对 $f \circ r$。
 \end{ex}
 
 \begin{ex} \label{ex:metric-completion}
-  \index{completion!of a metric space}%
-  Generalize the construction of $\RC$ to construct the Cauchy completion of any metric space. First, think about which notion of real numbers is most natural as the codomain for the distance\index{distance} function of a metric space. Does it matter? Next, work out the details of two constructions:
+\index{completion!of a metric space}%
+将 $\RC$ 的构造推广到任何度量空间的柯西完备性。首先，考虑哪种实数概念最自然作为度量空间距离的余域。它重要吗？接下来，详细研究两种构造：
+%
+\begin{enumerate}
+  \item 按照柯西实数的构造，将度量空间的完备性定义为在柯西序列的极限下闭合的归纳-归纳类型。
+  \item 使用以下构造，由 Lawvere~\cite{lawvere:metric-spaces} 和 Richman~\cite{Richman00thefundamental} 提出，其中度量空间 $(M, d)$ 的完备性由\define{位置}的类型给出。
+  \indexdef{location}%
+  位置是一个函数 $f : M \to \R$ 使得
   %
   \begin{enumerate}
-  \item Follow the construction of Cauchy reals to define the completion of a metric space as an inductive-inductive type closed under limits of Cauchy sequences.\index{Cauchy!sequence}
-  \item Use the following construction due to Lawvere~\cite{lawvere:metric-spaces}\index{Lawvere} and Richman~\cite{Richman00thefundamental}, where the completion of a metric space $(M, d)$ is given as the type of \define{locations}.
-    \indexdef{location}%
-    A location is a function $f : M \to \R$ such that
-    %
-    \begin{enumerate}
-    \item $f(x) \geq |f(y) - d(x,y)|$ for all $x, y : M$, and
-    \item $\inf_{x \in M} f(x) = 0$, by which we mean $\fall{\epsilon : \Qp} \exis{x : M} |f(x)| < \epsilon$ and $\fall{x : M} f(x) \geq 0$.
-    \end{enumerate}
-    %
-    The idea is that $f$ looks like it is measuring the distance from a point.
+    \item $f(x) \geq |f(y) - d(x,y)|$ 对于所有 $x, y : M$，并且
+    \item $\inf_{x \in M} f(x) = 0$，我们意味着 $\fall{\epsilon : \Qp} \exis{x : M} |f(x)| < \epsilon$ 和 $\fall{x : M} f(x) \geq 0$。
   \end{enumerate}
   %
-  \index{universal!property!of metric completion}%
-  Finally, prove the following universal property of metric completions: a locally uniformly continuous map from a metric space to a Cauchy complete metric space extends uniquely to a locally uniformly continuous map on the completion. (We say that a map is \define{locally uniformly continuous}
-  \indexdef{function!locally uniformly continuous}%
-  \indexdef{locally uniformly continuous map}%
-  if it is uniformly continuous on open balls.)
+  这个想法是 $f$ 看起来像是在测量距离从一个点。
+\end{enumerate}
+%
+\index{universal!property!of metric completion}%
+最后，证明度量完备性的以下通用属性：从度量空间到柯西完备度量空间的局部一致连续映射可以唯一地延拓到完备性上的局部一致连续映射。 （我们说映射是\define{局部一致连续的}
+\indexdef{function!locally uniformly continuous}%
+\indexdef{locally uniformly continuous map}%
+如果它在开放球上是一致连续的。）
 \end{ex}
 
 \index{metric space|)}%
 
 \begin{ex} \label{ex:reals-apart-neq-MP}
-  \define{Markov's principle}
-  \indexdef{axiom!Markov's principle}%
-  \indexdef{Markov's principle}%
-  says that for all $f : \nat \to \bool$,
-  %
-  \begin{equation*}
-    (\lnot \lnot \exis{n : \nat} f(n) = \btrue)
-    \Rightarrow
-    \exis{n : \nat} f(n) = \btrue.
-  \end{equation*}
-  %
-  This is a particular instance of the law of double negation~\eqref{eq:ldn}. Show that
-  $\fall{x, y: \RD} x \neq y \Rightarrow x \apart y$ implies Markov's principle. Does the
-  converse hold as well?
+\define{马尔可夫原理}
+\indexdef{axiom!Markov's principle}%
+\indexdef{Markov's principle}%
+表示对于所有 $f : \nat \to \bool$，
+%
+\begin{equation*}
+  (\lnot \lnot \exis{n : \nat} f(n) = \btrue)
+  \Rightarrow
+  \exis{n : \nat} f(n) = \btrue。
+\end{equation*}
+%
+这是双重否定律的一个特例~\eqref{eq:ldn}。显示
+$\fall{x, y: \RD} x \neq y \Rightarrow x \apart y$ 意味着马尔可夫原理。是
+反过来也成立？
 \end{ex}
 
 \begin{ex} \label{ex:reals-apart-zero-divisors}
-  \index{apartness}%
-  Verify that the following ``no zero divisors'' property holds for the real numbers:
-  $x y \apart 0 \Leftrightarrow x \apart 0 \land y \apart 0$.
+\index{apartness}%
+验证以下“无零因子”性质是否适用于实数：
+$x y \apart 0 \Leftrightarrow x \apart 0 \land y \apart 0$。
 \end{ex}
 
 \begin{ex} \label{ex:finite-cover-lebesgue-number}
-  %
-  Suppose $(q_1, r_1), \ldots, (q_n, r_n)$ pointwise cover $(a, b)$. Then there is
-  $\epsilon : \Qp$ such that whenever $a < x < y < b$ and $|x - y| < \epsilon$
-  then there merely exists $i$ such that $q_i < x < r_i$ and $q_i < y < r_i$. Such an
-  $\epsilon$ is called a \define{Lebesgue number}
-  \indexdef{Lebesgue number}%
-  for the given cover.
+%
+假设 $(q_1, r_1), \ldots, (q_n, r_n)$ 逐点覆盖 $(a, b)$。那么有
+$\epsilon : \Qp$ 使得每当 $a < x < y < b$ 并且 $|x - y| < \epsilon$
+然后仅存在 $i$ 使得 $q_i < x < r_i$ 并且 $q_i < y < r_i$。这样的
+$\epsilon$ 被称为\define{勒贝格数}
+\indexdef{Lebesgue number}%
+对于给定的覆盖。
 \end{ex}
 
 \begin{ex} \label{ex:mean-value-theorem}
-  %
-  Prove the following approximate version of the intermediate value theorem:
-  %
-  \begin{quote}
-    \emph{
-      If $f : [0,1] \to \R$ is uniformly continuous and $f(0) < 0 < f(1)$ then
-      for every $\epsilon : \Qp$ there merely exists $x : [0,1]$ such that $|f(x)| <
-      \epsilon$.
-    }
-  \end{quote}
-  %
-  Hint: do not try to use the bisection method because it leads to the axiom of choice.
-  Instead, approximate $f$ with a piecewise linear map. How do you construct a piecewise
-  linear map?
+%
+证明中值定理的以下近似版本：
+%
+\begin{quote}
+  \emph{
+    如果 $f : [0,1] \to \R$ 是一致连续的并且 $f(0) < 0 < f(1)$ 然后
+    对于每个 $\epsilon : \Qp$ 仅存在 $x : [0,1]$ 使得 $|f(x)| <
+    \epsilon$。
+  }
+\end{quote}
+%
+提示：不要尝试使用二分法，因为它会导致选择公理。
+相反，用分段线性图逼近 $f$。您如何构造分段
+线性图？
 \end{ex}
 
 \begin{ex}\label{ex:knuth-surreal-check}
-  Check whether everything in~\cite{knuth74:_surreal_number} can be done using the higher
-  inductive-inductive surreals of \cref{sec:surreals}.
+检查是否可以使用 \cref{sec:surreals} 的高阶归纳-归纳超现实数来完成~\cite{knuth74:_surreal_number} 中的所有操作。
 \end{ex}
 
 \begin{ex}\label{ex:reals-into-surreals}
-  Recall the function $\iota_{\RD}:\RD\to\NO$ defined on page~\pageref{reals-into-surreals}.
-  \begin{enumerate}
-  \item Show that $\iota_{\RD}$ is injective.
-  \item There are obvious extensions of $\iota_{\RD}$ to the extended reals (\cref{ex:RD-extended-reals}) and the interval domain (\cref{ex:RD-interval-arithmetic}).
-    Are they injective?
-  \end{enumerate}
+回忆在~\pageref{reals-into-surreals} 页定义的函数 $\iota_{\RD}:\RD\to\NO$。
+\begin{enumerate}
+  \item 显示 $\iota_{\RD}$ 是单射的。
+  \item 有显然的扩展 $\iota_{\RD}$ 到扩展实数（\cref{ex:RD-extended-reals}）和区间域（\cref{ex:RD-interval-arithmetic}）。
+  它们是单射的吗？
+\end{enumerate}
 \end{ex}
 
 \begin{ex}\label{ex:ord-into-surreals}
-  Show that the function $\iota_{\ord}:\ord\to\NO$ defined on page~\pageref{ord-into-surreals} is injective if and only if \LEM{} holds.
+显示在~\pageref{ord-into-surreals} 页定义的函数 $\iota_{\ord}:\ord\to\NO$ 是单射的，当且仅当 \LEM{} 成立。
 \end{ex}
 
 \begin{ex}\label{ex:hiit-plump}
-  Define a type $\mathsf{POrd}$ equipped with binary relations $\le$ and $<$ by mimicking the definition of \NO but using only left options.
-  \begin{enumerate}
-  \item Construct a map $j:\mathsf{POrd} \to \NO$ and show that it is an embedding.
-  \item Show that $\mathsf{POrd}$ is an ordinal (in the next higher universe, like \ord) under the relation $<$.
-  \item Assuming propositional resizing, show that $\mathsf{POrd}$ is equivalent to the subset
-    \[\setof{A:\ord | \mathsf{isPlump}(A)}\]
-    of \ord from \cref{ex:plump-ordinals}.
-    Conclude that $\iota_{\ord}:\ord\to\NO$ is injective when restricted to plump ordinals.
-  \end{enumerate}
-  In the absence of propositional resizing, we may still refer to elements of $\mathsf{POrd}$ (or their images in \NO) as \define{plump ordinals}.\index{ordinal!plump}\index{plump!ordinal}
+定义一个类型 $\mathsf{POrd}$，配备二元关系 $\le$ 和 $<$，通过模仿 \NO 的定义，但只使用左选项。
+\begin{enumerate}
+  \item 构造一个映射 $j:\mathsf{POrd} \to \NO$ 并显示它是嵌入的。
+  \item 显示 $\mathsf{POrd}$ 是一个序数（在下一个更高的宇宙中，如 \ord）在关系 $<$ 下。
+  \item 假设命题缩放，显示 $\mathsf{POrd}$ 等价于子集
+  \[\setof{A:\ord | \mathsf{isPlump}(A)}\]
+  来自 \cref{ex:plump-ordinals} 的 \ord。
+  结论 $\iota_{\ord}:\ord\to\NO$ 是单射的，当限制为饱满序数时。
+\end{enumerate}
+在没有命题缩放的情况下，我们仍然可以将 $\mathsf{POrd}$（或它们在 \NO 中的图像）称为\define{饱满序数}。\index{ordinal!plump}\index{plump!ordinal}
 \end{ex}
 
 \begin{ex}\label{ex:pseudo-ordinals}
-  Define a surreal number to be a \define{pseudo-ordinal}\index{pseudo-ordinal}\index{ordinal!pseudo-} if it is equal to a cut $\surr{x^L}{}$ with no right options (but its left options may themselves have right options).
-  Show that the statement ``every pseudo-ordinal is a plump ordinal'' is equivalent to \LEM{}.
+定义一个超现实数为\define{伪序数}\index{pseudo-ordinal}\index{ordinal!pseudo-} 如果它等于一个没有右选项的分割 $\surr{x^L}{}$（但其左选项本身可能有右选项）。
+显示声明“每个伪序数都是饱满序数”当且仅当等价于 \LEM{}。
 \end{ex}
 
 \begin{ex}\label{ex:double-No-recursion}
-  Note that \cref{defn:No-codes} and \cref{eg:surreal-addition} both use a similar pattern to define a function $\NO \to \NO \to B$: an outer \NO-recursion whose codomain is the set of order-preserving functions $\NO\to B$, followed by an inner \NO-induction into a family $A:\NO\to\type$ where $A(y)$ is a subset of $B$ ensuring that the inequalities $x^L<x$ and $x<x^R$ are also preserved.
-  Formulate and prove a general principle of ``double \NO-recursion'' that generalizes these proofs.
+注意 \cref{defn:No-codes} 和 \cref{eg:surreal-addition} 都使用类似的模式来定义一个函数 $\NO \to \NO \to B$：一个外 \NO-递归，其余域是从 \NO 到 $B$ 的保序函数的集合，接着是内 \NO-归纳到一个家族 $A:\NO\to\type$，其中 $A(y)$ 是 $B$ 的子集，确保不等式 $x^L<x$ 和 $x<x^R$ 也被保留。
+制定并证明一个“双 \NO-递归”的通用原则，它推广了这些证明。
 \end{ex}
 
 \index{real numbers|)}%
