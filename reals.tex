@@ -2072,344 +2072,336 @@ $[0,1]$ 的 \define{海涅-博雷尔紧致性 (Heine--Borel compactness)}\indexd
 \index{mathematics!classical|数学!经典|}%
 \index{mathematics!constructive|数学!构造性|}%
 
-\section{The surreal numbers}
+\section{超现实数 (The surreal numbers)}
 \label{sec:surreals}
 
 \index{surreal numbers|(}%
 
-In this section we consider another example of a higher inductive-in\-duc\-tive type, which draws together many of our threads: Conway's field \NO of \emph{surreal numbers}~\cite{conway:onag}.
-The surreal numbers are the natural common generalization of the (Dedekind) real numbers (\cref{sec:dedekind-reals}) and the ordinal numbers (\cref{sec:ordinals}).
-Conway, working in classical\index{mathematics!classical} mathematics with excluded middle and Choice, defines a surreal number to be a pair of \emph{sets} of surreal numbers, written $\surr L R$, such that every element of $L$ is strictly less than every element of $R$.
-This obviously looks like an inductive definition, but there are three issues with regarding it as such.
+在本节中，我们将讨论另一种高阶归纳-归纳类型的例子，它汇集了我们的许多线索：Conway 的超现实数领域 \NO~\cite{conway:onag}。
+超现实数是（Dedekind）实数（参见 \cref{sec:dedekind-reals}）和序数（参见 \cref{sec:ordinals}）的自然公共推广。
+Conway 在具有排中律和选择公理的经典\index{mathematics!classical}数学中，定义了一个超现实数为一对超现实数集合，记为 $\surr L R$，其中 $L$ 中的每个元素都严格小于 $R$ 中的每个元素。
+这显然看起来像是一个归纳定义，但将其视为归纳定义存在三个问题。
 
-Firstly, the definition requires the relation of (strict) inequality between surreals, so that relation must be defined simultaneously with the type \NO of surreals.
-(Conway avoids this issue by first defining \emph{games}\index{game!Conway}, which are like surreals but omit the compatibility condition on $L$ and $R$.)
-As with the relation $\closesym$ for the Cauchy reals, this simultaneous definition could \emph{a priori} be either inductive-inductive or inductive-recursive.
-We will choose to make it inductive-inductive, for the same reasons we made that choice for $\closesym$.
+首先，该定义需要超现实数之间的（严格）不等关系，因此该关系必须与超现实数类型 \NO 同时定义。
+（Conway 通过首先定义 \emph{游戏}\index{game!Conway} 来避免这个问题，游戏类似于超现实数，但省略了对 $L$ 和 $R$ 的兼容性条件。）
+与 Cauchy 实数的 $\closesym$ 关系一样，这种同时定义可以先验地是归纳-归纳或归纳-递归的。
+我们将选择将其做成归纳-归纳类型，原因与我们为 $\closesym$ 做出该选择的原因相同。
 
-Moreover, we will define strict inequality $<$ and non-strict inequality $\le$ for surreals separately (and mutually inductively).
-Conway defines $<$ in terms of $\le$, in a way which is sensible classically but not constructively.
+此外，我们将分别定义超现实数的严格不等关系 $<$ 和非严格不等关系 $\le$（并且互相归纳定义）。
+Conway 用 $\le$ 来定义 $<$，这种方法在经典数学中是合理的，但在构造性数学中却不合理。
 \index{mathematics!constructive}%
-Furthermore, a negative definition of $<$ would make it unacceptable as a hypothesis of the constructor of a higher inductive type (see \cref{sec:strictly-positive}).
+此外，$<$ 的负定义将使其作为高阶归纳类型构造器的假设无法接受（参见 \cref{sec:strictly-positive}）。
 
-Secondly, Conway says that $L$ and $R$ in $\surr L R$ should be ``sets of surreal numbers'', but the naive meaning of this as a predicate $\NO\to\prop$ is not positive, hence cannot be used as input to an inductive constructor.
-However, this would not be a good type-theoretic translation of what Conway means anyway, because in set theory the surreal numbers form a proper class, whereas the sets $L$ and $R$ are true (small) sets, not arbitrary subclasses of \NO.
-In type theory, this means that \NO will be defined relative to a universe \UU, but will itself belong to the next higher universe $\UU'$, like the sets \ord and \card of ordinals and cardinals, the cumulative hierarchy $V$, or even the Dedekind reals in the absence of propositional resizing.
+其次，Conway 说在 $\surr L R$ 中的 $L$ 和 $R$ 应该是“超现实数集合”，但将其直观地理解为谓词 $\NO\to\prop$ 并不正性，因此不能作为归纳构造器的输入。
+然而，这也不是 Conway 真正想表达的类型论翻译，因为在集合论中，超现实数形成一个适当的类，而 $L$ 和 $R$ 是实际的（小）集合，而不是 \NO 的任意子类。
+在类型论中，这意味着 \NO 将相对于一个宇宙 \UU 定义，但它本身将属于下一个更高的宇宙 $\UU'$，如序数和基数的集合 \ord 和 \card、累积层次结构 $V$，甚至在没有命题调整的情况下的 Dedekind 实数。
 \index{propositional!resizing}%
-We will then require the ``sets'' $L$ and $R$ of surreals to be \UU-small, and so it is natural to represent them by \emph{families} of surreals indexed by some \UU-small type.
-(This is all exactly the same as what we did with the cumulative hierarchy in \cref{sec:cumulative-hierarchy}.)
-That is, the constructor of surreals will have type
+然后我们将要求超现实数的“集合” $L$ 和 $R$ 是 \UU-小的，因此用一些 \UU-小类型索引的超现实数族来表示它们是自然的。
+（这与我们在 \cref{sec:cumulative-hierarchy} 中对累积层次结构所做的完全相同。）
+也就是说，超现实数的构造器将具有类型
 \[ \prd{\LL,\RR:\UU} (\LL\to\NO) \to (\RR\to \NO) \to (\text{some condition}) \to \NO \]
-which is indeed strictly positive.\index{strict!positivity}
+并且确实是严格正性的。\index{strict!positivity}
 
-Finally, after giving the mutual definitions of \NO and its ordering, Conway declares two surreal numbers $x$ and $y$ to be \emph{equal} if $x\le y$ and $y\le x$.
-This is naturally read as passing to a quotient of the set of ``pre-surreals'' by an equivalence relation.
-%(In set-theoretic foundations, one has to us an additional trick to deal with large equivalence classes.)
-However, in the absence of the axiom of choice, such a quotient presents the same problem as the quotient in the usual construction of Cauchy reals: it will no longer be the case that a pair of families \emph{of surreals} yield a new surreal $\surr L R$, since we cannot necessarily ``lift'' $L$ and $R$ to families of pre-surreals.
-Of course, we can solve this problem in the same way we did for Cauchy reals, by using a \emph{higher} inductive-inductive definition.
+最后，在给出 \NO 及其排序的相互定义之后，Conway 宣布如果 $x\le y$ 且 $y\le x$，那么两个超现实数 $x$ 和 $y$ 是\emph{相等的}。
+这自然被理解为通过等价关系对“预超现实数”集合进行商。
+%（在集合论基础中，必须使用额外的技巧来处理大的等价类。）
+然而，在没有选择公理的情况下，这样的商在构造 Cauchy 实数的通常过程中提出了同样的问题：它将不再是超现实数族 $L$ 和 $R$ 可以产生一个新的超现实数 $\surr L R$，因为我们无法必然地“提升” $L$ 和 $R$ 到预超现实数族。
+当然，我们可以像对 Cauchy 实数一样，通过使用\emph{高阶}归纳-归纳定义来解决这个问题。
 
 \begin{defn}\label{defn:surreals}
-  The type \NO of \define{surreal numbers},
-  \indexdef{surreal numbers}%
-  \indexsee{number!surreal}{surreal numbers}%
-  along with the relations $\mathord<:\NO\to\NO\to\type$ and $\mathord\le:\NO\to\NO\to\type$, are defined higher inductive-inductively as follows.
-  The type \NO has the following constructors.
-  \begin{itemize}
-  \item For any $\LL,\RR:\UU$ and functions $\LL\to \NO$ and $\RR\to \NO$, whose values we write as $x^L$ and $x^R$ for $L:\LL$ and $R:\RR$ respectively, if $\fall{L:\LL}{R:\RR} x^L<x^R$, then there is a surreal number $x$.
-  \item For any $x,y:\NO$ such that $x\le y$ and $y\le x$, we have $\noeq(x,y):x=y$.
-  \end{itemize}
-  We will refer to the inputs of the first constructor as a \define{cut}.
-  \indexdef{cut!of surreal numbers}%
-  If $x$ is the surreal number constructed from a cut, then the notation $x^L$ will implicitly assume $L:\LL$, and similarly $x^R$ will assume $R:\RR$.
-  In this way we can usually avoid naming the indexing types $\LL$ and $\RR$, which is convenient when there are many different cuts under discussion.
-  Following Conway, we call $x^L$ a \emph{left option}\indexdef{option of a surreal number} of $x$ and $x^R$ a \emph{right option}.
+\define{超现实数}的类型 \NO,
+\indexdef{surreal numbers}%
+\indexsee{number!surreal}{surreal numbers}%
+以及关系 $\mathord<:\NO\to\NO\to\type$ 和 $\mathord\le:\NO\to\NO\to\type$，定义为如下的高阶归纳-归纳类型。
+类型 \NO 具有以下构造器。
+\begin{itemize}
+  \item 对于任何 $\LL,\RR:\UU$ 和函数 $\LL\to \NO$ 和 $\RR\to \NO$，其值分别记为 $x^L$ 和 $x^R$，其中 $L:\LL$ 和 $R:\RR$，如果 $\fall{L:\LL}{R:\RR} x^L<x^R$，则存在一个超现实数 $x$。
+  \item 对于任何 $x,y:\NO$，如果 $x\le y$ 且 $y\le x$，则我们有 $\noeq(x,y):x=y$。
+\end{itemize}
+我们将第一个构造器的输入称为\define{分割 (cut)}。
+\indexdef{cut!of surreal numbers}%
+如果 $x$ 是由一个分割构造的超现实数，那么符号 $x^L$ 将隐含地假设 $L:\LL$，类似地，$x^R$ 将假设 $R:\RR$。
+通过这种方式，我们通常可以避免命名索引类型 $\LL$ 和 $\RR$，这在讨论许多不同的分割时非常方便。
+按照 Conway 的说法，我们称 $x^L$ 为 $x$ 的\emph{左选项 (left option)}\indexdef{option of a surreal number}，$x^R$ 为\emph{右选项 (right option)}。
 
-  The path constructor implies that different cuts can define the same surreal number.
-  Thus, it does not make sense to speak of the left or right options of an arbitrary surreal number $x$, unless we also know that $x$ is defined by a particular cut.
-  Thus in what follows we will say, for instance, ``given a cut defining a surreal number $x$'' in contrast to ``given a surreal number $x$''.
+路径构造器意味着不同的分割可以定义相同的超现实数。
+因此，除非我们也知道 $x$ 是由一个特定的分割定义的，否则讲一个任意超现实数 $x$ 的左选项或右选项是没有意义的。
+因此，在下面的内容中，我们会说“给定定义超现实数 $x$ 的一个分割”，而不是“给定一个超现实数 $x$”。
 
-  The relation $\le$ has the following constructors.
-  \index{non-strict order}%
-  \index{order!non-strict}%
-  \begin{itemize}
-  \item Given cuts defining two surreal numbers $x$ and $y$, if $x^L<y$ for all $L$, and $x<y^R$ for all $R$, then $x\le y$.
-  \item Propositional truncation:
-    for any $x,y:\NO$, if $p,q:x\le y$, then $p=q$.
-  \end{itemize}
-  And the relation $<$ has the following constructors.
-  \index{strict!order}%
-  \index{order!strict}%
-  \begin{itemize}
-    % Don't technically need x in the first one and y in the second one to be defined by cuts?
-  \item Given cuts defining two surreal numbers $x$ and $y$, if there is an $L$ such that $x\le y^L$, then $x<y$.
-  \item Given cuts defining two surreal numbers $x$ and $y$, if there is an $R$ such that $x^R\le y$, then $x<y$.
-  \item Propositional truncation: for any $x,y:\NO$, if $p,q:x<y$, then $p=q$.
-  \end{itemize}
+关系 $\le$ 具有以下构造器。
+\index{non-strict order}%
+\index{order!non-strict}%
+\begin{itemize}
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，如果对所有 $L$，$x^L<y$，并且对所有 $R$，$x<y^R$，则 $x\le y$。
+  \item 命题截断：
+  对于任何 $x,y:\NO$，如果 $p,q:x\le y$，则 $p=q$。
+\end{itemize}
+关系 $<$ 具有以下构造器。
+\index{strict!order}%
+\index{order!strict}%
+\begin{itemize}
+  % 在第一个和第二个条件中技术上不需要 x 和 y 定义为分割？
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，如果存在一个 $L$ 使得 $x\le y^L$，则 $x<y$。
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，如果存在一个 $R$ 使得 $x^R\le y$，则 $x<y$。
+  \item 命题截断：对于任何 $x,y:\NO$，如果 $p,q:x<y$，则 $p=q$。
+\end{itemize}
 \end{defn}
 
 \noindent
-We compare this with Conway's definitions:
+我们将此与 Conway 的定义进行比较：
 \begin{itemize}\footnotesize
-\item[-] If $L,R$ are any two sets of numbers, and no member of $L$ is $\ge$ any member of $R$, then there is a number $\surr L R$.
-  All numbers are constructed in this way.
-\item[-] $x\ge y$ iff (no $x^R\le y$ and $x\le$ no $y^L$).
-\item[-] $x=y$ iff ($x \ge y$ and $y\ge x$).
-\item[-] $x>y$ iff ($x\ge y$ and $y\not\ge x$).
+\item[-] 如果 $L,R$ 是任意两个数集，并且 $L$ 的任何成员都不大于 $R$ 的任何成员，那么存在一个数 $\surr L R$。
+所有的数都是这样构造的。
+\item[-] $x\ge y$ 当且仅当（没有 $x^R\le y$ 且 $x\le$ 没有 $y^L$）。
+\item[-] $x=y$ 当且仅当（$x \ge y$ 且 $y\ge x$）。
+\item[-] $x>y$ 当且仅当（$x\ge y$ 且 $y\not\ge x$）。
 \end{itemize}
-The inclusion of $x\ge y$ in the definition of $x>y$ is unnecessary if all objects are [surreal] numbers rather than ``games''\index{game!Conway}.
-Thus, Conway's $<$ is just the negation of his $\ge$, so that his condition for $\surr L R$ to be a surreal is the same as ours.
-Negating Conway's $\le$ and canceling double negations, we arrive at our definition of $<$, and we can then reformulate his $\le$ in terms of $<$ without negations.
+在 $<$ 的定义中包括 $x\ge y$ 是不必要的，如果所有对象都是[超现实]数而不是“游戏”\index{game!Conway}。
+因此，Conway 的 $<$ 只是其 $\ge$ 的否定，因此 $\surr L R$ 成为超现实数的条件与我们的相同。
+通过取 negating Conway 的 $\le$ 并取消双重否定，我们得出了我们对 $<$ 的定义，然后我们可以在没有否定的情况下重新定义他的 $\le$。
 
-We can immediately populate $\NO$ with many surreal numbers.
-Like Conway, we write
+我们可以立即用许多超现实数填充 \NO。
+像 Conway 一样，我们写作
 \symlabel{surreal-cut}
 \[\surr{x,y,z,\dots}{u,v,w,\dots}\]
-for the surreal number defined by a cut where $\LL\to\NO$ and $\RR\to\NO$ are families described by $x,y,z,\dots$ and $u,v,w,\dots$.
-Of course, if $\LL$ or $\RR$ are $\emptyt$, we leave the corresponding part of the notation empty.
-There is an unfortunate clash with the standard notation $\setof{x:A | P(x)}$ for subsets, but we will not use the latter in this section.
+表示由一个分割定义的超现实数，其中 $\LL\to\NO$ 和 $\RR\to\NO$ 是由 $x,y,z,\dots$ 和 $u,v,w,\dots$ 描述的族。
+当然，如果 $\LL$ 或 $\RR$ 是 $\emptyt$，我们会在记号中省略相应部分。
+存在一个不幸的冲突，即与子集的标准记号 $\setof{x:A | P(x)}$ 冲突，但我们在本节中不会使用后者。
 \begin{itemize}
-\item We define $\iota_{\nat}:\nat\to\NO$ recursively by
+  \item 我们递归地定义 $\iota_{\nat}:\nat\to\NO$ 为
   \begin{align*}
     \iota_{\nat}(0) &\defeq \surr{}{},\\
-    \iota_\nat(\suc(n)) &\defeq \surr{\iota_\nat(n)}{}.
+    \iota_\nat(\suc(n)) &\defeq \surr{\iota_\nat(n)}{}。
   \end{align*}
-  That is, $\iota_\nat(0)$ is defined by the cut consisting of $\emptyt\to\NO$ and $\emptyt\to\NO$.
-  Similarly, $\iota_\nat(\suc(n))$ is defined by $\unit\to\NO$ (picking out $\iota_\nat(n)$) and $\emptyt\to\NO$.
-\item Similarly, we define $\iota_{\Z}:\Z\to\NO$ using the sign-case recursion principle (\cref{thm:sign-induction}):
+  即，$\iota_\nat(0)$ 由 $\emptyt\to\NO$ 和 $\emptyt\to\NO$ 组成的分割定义。
+  类似地，$\iota_\nat(\suc(n))$ 由 $\unit\to\NO$ 定义（选择 $\iota_\nat(n)$）和 $\emptyt\to\NO$。
+  \item 类似地，我们使用符号情况递归原理（\cref{thm:sign-induction}）定义 $\iota_{\Z}:\Z\to\NO$：
   \begin{align*}
     \iota_{\Z}(0) &\defeq \surr{}{},\\
-    \iota_\Z(n+1) &\defeq \surr{\iota_\Z(n)}{} & &\text{$n\ge 0$,}\\
-    \iota_\Z(n-1) &\defeq \surr{}{\iota_\Z(n)} & &\text{$n\le 0$.}
+    \iota_\Z(n+1) &\defeq \surr{\iota_\Z(n)}{} & &\text{当 $n\ge 0$ 时，}\\
+    \iota_\Z(n-1) &\defeq \surr{}{\iota_\Z(n)} & &\text{当 $n\le 0$ 时。}
   \end{align*}
-\item By a \define{dyadic rational}
+  \item 通过\define{二进制有理数}
   \indexdef{rational numbers!dyadic}%
   \indexsee{dyadic rational}{rational numbers, dyadic}%
-  we mean a pair $(a,n)$ where $a:\Z$ and $n:\nat$, and such that if $n>0$ then $a$ is odd.
-  We will write it as $a/2^n$, and identify it with the corresponding rational number.
-  If $\Q_D$ denotes the set of dyadic rationals, we define $\iota_{\Q_D}:\Q_D\to\NO$ by induction on $n$:
+  我们指的是一个 $(a,n)$ 的对，其中 $a:\Z$ 且 $n:\nat$，并且如果 $n>0$，则 $a$ 是奇数。
+  我们将其记为 $a/2^n$，并将其与相应的有理数等同。
+  如果 $\Q_D$ 表示二进制有理数的集合，我们通过对 $n$ 进行归纳定义 $\iota_{\Q_D}:\Q_D\to\NO$：
   \begin{align*}
-    \iota_{\Q_D}(a/2^0) &\defeq \iota_\Z(a),\\
+    \iota_{\Q_D}(a/2^0) &\defeq \iota_\Z(a)，\\
     \iota_{\Q_D}(a/2^n) &\defeq \surr{\iota_{\Q_D}(a/2^n - 1/2^n)}{\iota_{\Q_D}(a/2^n + 1/2^n)},
-    \quad \text{for $n>0$.}
+    \quad \text{当 $n>0$ 时。}
   \end{align*}
-  Here we use the fact that if $n>0$ and $a$ is odd, then $a/2^n \pm 1/2^n$ is a dyadic rational with a smaller denominator than $a/2^n$.
-\item We define $\iota_{\RD}:\RD\to\NO$,\label{reals-into-surreals} where $\RD$ is (any version of) the Dedekind reals from \cref{sec:dedekind-reals}, by
+  这里我们使用了这样一个事实，即如果 $n>0$ 且 $a$ 是奇数，那么 $a/2^n \pm 1/2^n$ 是一个分母比 $a/2^n$ 更小的二进制有理数。
+  \item 我们定义 $\iota_{\RD}:\RD\to\NO$，\label{reals-into-surreals} 其中 $\RD$ 是（任意版本的）Dedekind 实数，参见 \cref{sec:dedekind-reals}，定义为
   \begin{align*}
     \iota_{\RD}(x) &\defeq
-    \surr{q\in\Q_D \text{ such that } q<x}{q\in\Q_D \text{ such that } x<q}.
+    \surr{q\in\Q_D \text{ 满足 } q<x}{q\in\Q_D \text{ 满足 } x<q}。
   \end{align*}
-  Unlike in the previous cases, it is not obvious that this extends $\iota_{\Q_D}$ when we regard dyadic rationals as Dedekind reals.
-  This follows from the simplicity theorem (\cref{thm:NO-simplicity}).
-\item Recall the type \ord of \emph{ordinals}\index{ordinal} from \cref{sec:ordinals}, which is well-ordered by the relation $<$, where $A<B$ means that $A = \ordsl B b$ for some $b:B$.
-  We define $\iota_{\ord}:\ord\to\NO$\label{ord-into-surreals} by well-founded recursion (\cref{thm:wfrec}) on $\ord$:
+  与前面的情况不同，当我们将二进制有理数视为 Dedekind 实数时，显然这扩展了 $\iota_{\Q_D}$。
+  这可以通过简单性定理（\cref{thm:NO-simplicity}）得出。
+  \item 回忆 \cref{sec:ordinals} 中定义的\emph{序数}\index{ordinal}类型 \ord，它由 $<$ 关系良好排序，其中 $A<B$ 意味着 $A = \ordsl B b$ 对某些 $b:B$ 成立。
+  我们通过序数上的良基递归（\cref{thm:wfrec}）定义 $\iota_{\ord}:\ord\to\NO$\label{ord-into-surreals}：
   \begin{equation*}
     \iota_{\ord}(A) \defeq
-    \surr{\iota_\ord(\ordsl A a) \text{ for all } a:A}{}.
+    \surr{\iota_\ord(\ordsl A a) \text{ 对所有 } a:A}{}。
   \end{equation*}
-  It will also follow from the simplicity theorem that $\iota_\ord$ restricted to finite ordinals agrees with $\iota_\nat$.
-  (We caution the reader, however, that unlike the above examples, $\iota_\ord$ is not constructively injective unless we restrict it to a smaller class of ordinals; see \cref{ex:ord-into-surreals,ex:hiit-plump}.)
-\item A few more interesting examples taken from Conway:
+  它也将从简单性定理中得出，$\iota_\ord$ 限制在有限序数上时与 $\iota_\nat$ 一致。
+  （然而，我们提醒读者，与上述例子不同，$\iota_\ord$ 在不限制为较小的序数类时在构造上不可注入；参见 \cref{ex:ord-into-surreals,ex:hiit-plump}。）
+  \item 以下是从 Conway 中选取的一些有趣例子：
   \begin{align*}
-    \omega &\defeq \surr{0,1,2,3,\dots}{} \qquad\text{(also an ordinal)}\\
+    \omega &\defeq \surr{0,1,2,3,\dots}{} \qquad\text{（也是一个序数）}\\
     -\omega &\defeq \surr{}{\dots,-3,-2,-1,0}\\
     1/\omega &\defeq \textstyle\surr{0}{1,\frac12,\frac14,\frac18,\dots}\\
     \omega-1 &\defeq \surr{0,1,2,3,\dots}{\omega}\\
-    \omega/2 &\defeq \surr{0,1,2,3,\dots}{\dots,\omega-2,\omega-1,\omega}.
+    \omega/2 &\defeq \surr{0,1,2,3,\dots}{\dots,\omega-2,\omega-1,\omega}。
   \end{align*}
 \end{itemize}
 
-In identifying surreal numbers presented by different cuts, the following simple observation is useful.
+在识别由不同分割表示的超现实数时，以下简单的观察是有用的。
 
-\begin{thm}[Conway's simplicity theorem]\label{thm:NO-simplicity}
-  \index{simplicity theorem}%
-  \index{theorem!Conway's simplicity}%
-  Suppose $x$ and $z$ are surreal numbers defined by cuts, and that the following hold.
-  \begin{itemize}
-  \item $x^L < z < x^R$ for all $L$ and $R$.
-  \item For every left option $z^L$ of $z$, there exists a left option $x^{L'}$ with $z^L\le x^{L'}$.
-  \item For every right option $z^R$ of $z$, there exists a right option $x^{R'}$ with $x^{R'}\le z^R$.
-  \end{itemize}
-  Then $x=z$.
+\begin{thm}[Conway 的简单性定理]\label{thm:NO-simplicity}
+\index{simplicity theorem}%
+\index{theorem!Conway's simplicity}%
+假设 $x$ 和 $z$ 是由分割定义的超现实数，并且满足以下条件。
+\begin{itemize}
+  \item 对于所有的 $L$ 和 $R$，$x^L < z < x^R$。
+  \item 对于 $z$ 的每个左选项 $z^L$，存在一个左选项 $x^{L'}$ 使得 $z^L\le x^{L'}$。
+  \item 对于 $z$ 的每个右选项 $z^R$，存在一个右选项 $x^{R'}$ 使得 $x^{R'}\le z^R$。
+\end{itemize}
+则 $x=z$。
 \end{thm}
 \begin{proof}
-  Applying the path constructor of $\NO$, we must show $x\le z$ and $z\le x$.
-  The first entails showing $x^L<z$ for all $L$, which we assumed, and $x<z^R$ for all $R$.
-  But by assumption, for any $z^R$ there is an $x^{R'}$ with $x^{R'}\le z^R$ hence $x<z^R$ as desired.
-  Thus $x\le z$; the proof of $z\le x$ is symmetric.
+  应用 \NO 的路径构造器，我们必须证明 $x\le z$ 和 $z\le x$。
+  首先要求对所有 $L$，$x^L<z$，这已假定，并且对所有 $R$，$x<z^R$。
+  但根据假设，对于任何 $z^R$，都有一个 $x^{R'}$ 使得 $x^{R'}\le z^R$，因此 $x<z^R$ 如所需。
+  因此 $x\le z$；$z\le x$ 的证明是对称的。
 \end{proof}
 
 \index{induction principle!for surreal numbers}
-In order to say much more about surreal numbers, however, we need their induction principle.
-The mutual induction principle for $(\NO,\le,<)$ applies to three families of types:
+然而，为了进一步了解超现实数，我们需要它们的归纳原理。
+$(\NO,\le,<)$ 的相互归纳原理适用于三种类型的族：
 \begin{align*}
   A &: \NO\to\type\\
   B &: \prd{x,y:\NO}{a:A(x)}{b:A(y)} (x\le y) \to \type\\
-  C &: \prd{x,y:\NO}{a:A(x)}{b:A(y)} (x<y) \to \type.
+  C &: \prd{x,y:\NO}{a:A(x)}{b:A(y)} (x<y) \to \type。
 \end{align*}
-As with the induction principle for Cauchy reals, it is helpful to think of $B$ and $C$ as families of relations between the types $A(x)$ and $A(y)$.
+与 Cauchy 实数的归纳原理一样，考虑 $B$ 和 $C$ 作为类型 $A(x)$ 和 $A(y)$ 之间的关系族是有帮助的。
 \symlabel{NO-recursion}
-Thus we write $B(x,y,a,b,\xi)$ as $(x,a) \ble^\xi (y,b)$ and $C(x,y,a,b,\xi)$ as $(x,a) \blt^\xi (y,b)$.
-Similarly, we usually omit the $\xi$ since it inhabits a mere proposition and so is uninteresting, and we may often omit $x$ and $y$ as well, writing simply $a\ble b$ or $a\blt b$.
-With these notations, the hypotheses of the induction principle are the following.
+因此，我们将 $B(x,y,a,b,\xi)$ 写为 $(x,a) \ble^\xi (y,b)$，将 $C(x,y,a,b,\xi)$ 写为 $(x,a) \blt^\xi (y,b)$。
+同样，我们通常省略 $\xi$，因为它居住在一个简单的命题中，因此并不有趣，并且我们可能经常省略 $x$ 和 $y$，简单地写作 $a\ble b$ 或 $a\blt b$。
+有了这些符号，归纳原理的假设如下。
 \begin{itemize}
-\item For any cut defining a surreal number $x$, together with
+  \item 对于定义超现实数 $x$ 的任何分割，以及
   \begin{enumerate}
-  \item for each $L$, an element $a^L:A(x^L)$, and
-  \item for each $R$, an element $a^R:A(x^R)$, such that
-  \item for all $L$ and $R$ we have $(x^L,a^L) \blt (x^R,a^R)$
+    \item 对于每个 $L$，一个元素 $a^L:A(x^L)$，以及
+    \item 对于每个 $R$，一个元素 $a^R:A(x^R)$，使得
+    \item 对于所有 $L$ 和 $R$ 我们有 $(x^L,a^L) \blt (x^R,a^R)$
   \end{enumerate}
-  there is a specified element $f_a:A(x)$.
-  We call such data a \define{dependent cut}
+  有一个指定的元素 $f_a:A(x)$。
+  我们称这些数据为定义 $x$ 的分割上的\define{依赖分割 (dependent cut)}。
   \indexdef{cut!of surreal numbers!dependent}%
   \indexdef{dependent!cut}%
-  over the cut defining~$x$.
-\item For any $x,y:\NO$ with $a:A(x)$ and $b:A(y)$, if $x\le y$ and $y\le x$ and also $(x,a) \ble (y,b)$
-  and $(y,b) \ble (x,a)$,
-  then $\dpath{A}{\noeq}{a}{b}$.
-\item Given cuts defining two surreal numbers $x$ and $y$, and dependent cuts $a$ over $x$ and $b$ over $y$, such that for all $L$ we have $x^L<y$ and $(x^L,a^L)\blt (y,f_b)$,
-  and for all $R$ we have $x<y^R$ and $(x,f_a) \blt (y^R,b^R)$,
-  then $(x,f_a) \ble (y,f_b)$.
-\item $\ble$ takes values in mere propositions.
-\item Given cuts defining two surreal numbers $x$ and $y$, dependent cuts $a$ over $x$ and $b$ over $y$, and an $L_0$ such that $x\le y^{L_0}$ and $(x,f_a) \ble (y^{L_0},b^{L_0})$,
-  we have $(x,f_a) \blt (y,f_b)$.
-\item Given cuts defining two surreal numbers $x$ and $y$, dependent cuts $a$ over $x$ and $b$ over $y$, and an ${R_0}$ such that $x^{R_0}\le y$ together with $(x^{R_0},a^{R_0}),\ble (y,f_b)$,
-  we have $(x,f_a) \blt (y,f_b)$.
-\item $\blt$ takes values in mere propositions.
+  \item 对于 $x,y:\NO$ 及 $a:A(x)$ 和 $b:A(y)$，如果 $x\le y$ 且 $y\le x$ 且 $(x,a) \ble (y,b)$ 并且 $(y,b) \ble (x,a)$，则 $\dpath{A}{\noeq}{a}{b}$。
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，以及 $x$ 上的依赖分割 $a$ 和 $y$ 上的依赖分割 $b$，如果对于所有 $L$，我们有 $x^L<y$ 且 $(x^L,a^L)\blt (y,f_b)$，并且对于所有 $R$，我们有 $x<y^R$ 且 $(x,f_a) \blt (y^R,b^R)$，则 $(x,f_a) \ble (y,f_b)$。
+  \item $\ble$ 的值是简单命题。
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，$x$ 上的依赖分割 $a$ 和 $y$ 上的依赖分割 $b$，以及一个 $L_0$，使得 $x\le y^{L_0}$ 且 $(x,f_a) \ble (y^{L_0},b^{L_0})$，则我们有 $(x,f_a) \blt (y,f_b)$。
+  \item 给定定义两个超现实数 $x$ 和 $y$ 的分割，$x$ 上的依赖分割 $a$ 和 $y$ 上的依赖分割 $b$，以及一个 ${R_0}$，使得 $x^{R_0}\le y$ 以及 $(x^{R_0},a^{R_0}),\ble (y,f_b)$，则我们有 $(x,f_a) \blt (y,f_b)$。
+  \item $\blt$ 的值是简单命题。
 \end{itemize}
-Under these hypotheses we deduce a function $f:\prd{x:\NO} A(x)$ such that
+在这些假设下，我们推导出一个函数 $f:\prd{x:\NO} A(x)$，使得
 \begin{align}
   f(x) &\;\jdeq\; f_{f[x]} \label{eq:noind1}\\
   (x\le y) &\;\Rightarrow\; (x,f(x)) \ble (y,f(y)) \notag\\
-  (x< y) &\;\Rightarrow\; (x,f(x)) \blt (y,f(y)). \notag
+  (x< y) &\;\Rightarrow\; (x,f(x)) \blt (y,f(y))。 \notag
 \end{align}
-In the computation rule~\eqref{eq:noind1} for the point constructor, $x$ is a surreal number defined by a cut, and $f[x]$ denotes the dependent cut over $x$ defined by applying $f$ (and using the fact that $f$ takes $<$ to $\blt$).
-As usual, we will generally use pattern-matching notation, where the definition of $f$ on a cut $\surr{x^L}{x^R}$ may use the symbols $f(x^L)$ and $f(x^R)$ and the assumption that they form a dependent cut.
+在点构造器的计算规则~\eqref{eq:noind1} 中，$x$ 是由一个分割定义的超现实数，$f[x]$ 表示通过应用 $f$（并使用 $f$ 取 $<$ 到 $\blt$ 的事实）定义的 $x$ 上的依赖分割。
+通常，我们将使用模式匹配符号，其中对分割 $\surr{x^L}{x^R}$ 的 $f$ 的定义可以使用符号 $f(x^L)$ 和 $f(x^R)$ 并假设它们形成依赖分割。
 
-As with the Cauchy reals, we have special cases resulting from trivializing some of $A$, $\ble$, and~$\blt$.
-Taking $\ble$ and $\blt$ to be constant at \unit, we have \define{\NO-induction}, which for simplicity we state only for mere properties:
+与 Cauchy 实数一样，我们有一些通过将 $A$，$\ble$ 和~$\blt$ 简化而得到的特殊情况。
+取 $\ble$ 和 $\blt$ 为常数 \unit，我们有 \define{\NO-归纳}，为简单起见，我们仅为简单属性状态：
 \begin{itemize}
-\item Given $P:\NO\to\prop$, if $P(x)$ holds whenever $x$ is a surreal number defined by a cut such that $P(x^L)$ and $P(x^R)$ hold for all
-$L$ and $R$, then $P(x)$ holds for all $x:\NO$.
+  \item 给定 $P:\NO\to\prop$，如果 $P(x)$ 在由分割定义的超现实数 $x$ 且对所有 $L$ 和 $R$ 满足 $P(x^L)$ 和 $P(x^R)$ 时成立，则 $P(x)$ 对所有 $x:\NO$ 成立。
 \end{itemize}
-This should be compared with Conway's remark:
+这应该与 Conway 的评论进行比较：
 \begin{quote}\footnotesize
-  In general when we wish to establish a proposition $P(x)$ for all numbers $x$, we will prove it inductively by deducing $P(x)$ from the truth of all the propositions $P(x^L)$ and $P(x^R)$.
-  We regard the phrase ``all numbers are constructed in this way'' as justifying the legitimacy of this procedure.
+一般来说，当我们希望为所有数 $x$ 建立一个命题 $P(x)$ 时，我们将通过从所有命题 $P(x^L)$ 和 $P(x^R)$ 的真理中推导出 $P(x)$ 来进行归纳证明。
+我们认为短语“所有数都是这样构造的”证明了这一过程的合法性。
 \end{quote}
-With $\NO$-induction, we can prove
+通过 \NO-归纳，我们可以证明
 
-\begin{thm}[Conway's Theorem 0]\label{thm:NO-refl-opt}\
-  \index{theorem!Conway's 0}%
-  \begin{enumerate}
-  \item For any $x:\NO$, we have $x\le x$.\label{item:NO-le-refl}
-  \item For any $x:\NO$ defined by a cut, we have $x^L <x$ and $x<x^R$ for all $L$ and $R$.\label{item:NO-lt-opt}
-  \end{enumerate}
+\begin{thm}[Conway 定理 0]\label{thm:NO-refl-opt}\
+\index{theorem!Conway's 0}%
+\begin{enumerate}
+  \item 对于任何 $x:\NO$，我们有 $x\le x$。\label{item:NO-le-refl}
+  \item 对于由分割定义的任何 $x:\NO$，我们有 $x^L <x$ 和 $x<x^R$ 对所有 $L$ 和 $R$ 成立。\label{item:NO-lt-opt}
+\end{enumerate}
 \end{thm}
 \begin{proof}
-  Note first that if $x\le x$, then whenever $x$ occurs as a left option of some cut $y$, we have $x<y$ by the first constructor of $<$, and similarly whenever $x$ occurs as a right option of a cut $y$, we have $y<x$ by the second constructor of $<$.
-  In particular,~\ref{item:NO-le-refl}$\Rightarrow$\ref{item:NO-lt-opt}.
+  首先注意，如果 $x\le x$，那么每当 $x$ 作为某个分割 $y$ 的左选项出现时，我们有 $x<y$，通过 $<$ 的第一个构造器，每当 $x$ 作为 $y$ 的右选项出现时，我们有 $y<x$。
+  特别是，~\ref{item:NO-le-refl}$\Rightarrow$\ref{item:NO-lt-opt}。
 
-  We prove~\ref{item:NO-le-refl} by $\NO$-induction on $x$.
-  Thus, assume $x$ is defined by a cut such that $x^L\le x^L$ and $x^R \le x^R$ for all $L$ and $R$.
-  But by our observation above, these assumptions imply $x^L<x$ and $x<x^R$ for all $L$ and $R$, yielding $x\le x$ by the constructor of $\le$.
+  我们通过 \NO-归纳来证明~\ref{item:NO-le-refl}。
+  因此，假设 $x$ 是由一个分割定义的，使得对所有 $L$ 和 $R$，$x^L\le x^L$ 和 $x^R \le x^R$ 成立。
+  但通过上面的观察，这些假设意味着 $x^L<x$ 和 $x<x^R$ 对所有 $L$ 和 $R$ 成立，通过 $\le$ 的构造器，我们得到 $x\le x$。
 \end{proof}
 
 \begin{cor}\label{thm:NO-set}
-  \NO is a 0-type.
-%  (As with $V$, it might be confusing to say that it is a ``set''.)
+\NO 是一个 0-类型。
+%  （与 $V$ 一样，说它是一个“集合”可能会令人困惑。）
 \end{cor}
 \begin{proof}
-  The mere relation $R(x,y)\defeq (x\le y) \land (y\le x)$ implies identity by the path constructor of $\NO$, and contains the diagonal by \cref{thm:NO-refl-opt}\ref{item:NO-le-refl}.
-  Thus, \cref{thm:h-set-refrel-in-paths-sets} applies.
+  简单关系 $R(x,y)\defeq (x\le y) \land (y\le x)$ 通过 \NO 的路径构造器意味着恒等，并且通过 \cref{thm:NO-refl-opt}\ref{item:NO-le-refl} 包含对角线。
+  因此，\cref{thm:h-set-refrel-in-paths-sets} 适用。
 \end{proof}
 
-By contrast, Conway's Theorem 1 (transitivity of $\le$) is somewhat harder to establish with our definition; see \cref{thm:NO-unstrict-transitive}.
+相比之下，Conway 的定理 1（$\le$ 的传递性）用我们的定义稍难建立；参见 \cref{thm:NO-unstrict-transitive}。
 
-% Of course, we also have:
+% 当然，我们也有：
 
 % \begin{lem}
-%   Every surreal number is merely defined by a cut.
+%   每个超现实数都是由分割定义的。
 % \end{lem}
 % \begin{proof}
-%   Obvious by $\NO$-induction.
+%   通过 \NO-归纳显然成立。
 % \end{proof}
 
-We will also need the joint recursion principle, \define{$(\NO,\le,<)$-recursion}.
-It is convenient to state this as follows.
-Suppose $A$ is a type equipped with relations $\mathord\ble:A\to A\to\prop$ and $\mathord\blt:A\to A\to\prop$.
-Then we can define $f:\NO\to A$ by doing the following.
+我们还需要联合递归原理，\define{$(\NO,\le,<)$-递归}。
+方便起见，将其表示如下。
+假设 $A$ 是一个带有关系 $\mathord\ble:A\to A\to\prop$ 和 $\mathord\blt:A\to A\to\prop$ 的类型。
+然后我们可以通过执行以下操作来定义 $f:\NO\to A$。
 \begin{enumerate}
-\item For any $x$ defined by a cut, assuming $f(x^L)$ and $f(x^R)$ to be defined such that $f(x^L)\blt f(x^R)$ for all $L$ and $R$, we must define $f(x)$.  (We call this the \emph{primary clause} of the recursion.)\label{item:NO-rec-primary}
-\item Prove that $\ble$ is \emph{antisymmetric}\index{relation!antisymmetric}: if $a\ble b$ and $b\ble a$, then $a=b$.
-\item For $x,y$ defined by cuts such that $x^L<y$ for all $L$ and $x<y^R$ for all $R$, and assuming inductively that $f(x^L)\blt f(y)$ for all $L$, $f(x)\blt f(y^R)$ for all $R$, and also that $f(x^L)\blt f(x^R)$ and $f(y^L)\blt f(y^R)$ for all $L$ and $R$, we must prove $f(x)\ble f(y)$.
-\item For $x,y$ defined by cuts and an $L_0$ such that $x\le y^{L_0}$, and assuming inductively that $f(x)\ble f(y^{L_0})$, and also that $f(x^L)\blt f(x^R)$ and $f(y^L)\blt f(y^R)$ for all $L$ and $R$, we must prove $f(x)\blt f(y)$.
-\item For $x,y$ defined by cuts and an $R_0$ such that $x^{R_0}\le y$, and assuming inductively that $f(x^{R_0})\ble f(y)$, and also that $f(x^L)\blt f(x^R)$ and $f(y^L)\blt f(y^R)$ for all $L$ and $R$, we must prove $f(x)\blt f(y)$.\label{item:NO-rec-last}
+  \item 对于由一个分割定义的任意 $x$，假设 $f(x^L)$ 和 $f(x^R)$ 已定义，使得 $f(x^L)\blt f(x^R)$ 对所有 $L$ 和 $R$ 成立，我们必须定义 $f(x)$。 （我们将其称为递归的\emph{主要条款}）。\label{item:NO-rec-primary}
+  \item 证明 $\ble$ 是\emph{反对称的}\index{relation!antisymmetric}：如果 $a\ble b$ 且 $b\ble a$，则 $a=b$。
+  \item 对于由分割定义的 $x,y$，假设对所有 $L$，$x^L<y$，对所有 $R$，$x<y^R$，并假设归纳地 $f(x^L)\blt f(y)$ 对所有 $L$ 成立，$f(x)\blt f(y^R)$ 对所有 $R$ 成立，并且 $f(x^L)\blt f(x^R)$ 和 $f(y^L)\blt f(y^R)$ 对所有 $L$ 和 $R$ 成立，必须证明 $f(x)\ble f(y)$。
+  \item 对于由分割定义的 $x,y$ 和一个 $L_0$ 使得 $x\le y^{L_0}$，假设归纳地 $f(x)\ble f(y^{L_0})$，并且 $f(x^L)\blt f(x^R)$ 和 $f(y^L)\blt f(y^R)$ 对所有 $L$ 和 $R$ 成立，我们必须证明 $f(x)\blt f(y)$。
+  \item 对于由分割定义的 $x,y$ 和一个 ${R_0}$ 使得 $x^{R_0}\le y$，假设归纳地 $f(x^{R_0})\ble f(y)$，并且 $f(x^L)\blt f(x^R)$ 和 $f(y^L)\blt f(y^R)$ 对所有 $L$ 和 $R$ 成立，我们必须证明 $f(x)\blt f(y)$。 \label{item:NO-rec-last}
 \end{enumerate}
-The last three clauses can be more concisely described by saying we must prove that $f$ (as defined in the first clause) takes $\le$ to $\ble$ and $<$ to $\blt$.
-We will refer to these properties by saying that \emph{$f$ preserves inequalities}.
-Moreover, in proving that $f$ preserves inequalities, we may assume the particular instance of $\le$ or $<$ to be obtained from one of its constructors, and we may also use inductive hypotheses that $f$ preserves all inequalities appearing in the input to that constructor.
+最后三条可以更简洁地描述为我们必须证明 $f$（如在第一个条款中定义）将 $\le$ 映射为 $\ble$，并且 $<$ 映射为 $\blt$。
+我们将通过说\emph{$f$ 保持不等性}来引用这些属性。
+此外，在证明 $f$ 保持不等性的过程中，我们可以假设构造器的输入是不等性 $<$ 或 $\le$ 的特定实例，并且我们也可以使用 $f$ 保持构造器输入中出现的所有不等性的归纳假设。
 
-If we succeed at~\ref{item:NO-rec-primary}--\ref{item:NO-rec-last} above, then we obtain $f:\NO\to A$, which computes on cuts as specified by~\ref{item:NO-rec-primary}, and which preserves all inequalities:
+如果我们在上述~\ref{item:NO-rec-primary}--\ref{item:NO-rec-last} 中取得成功，那么我们将得到 $f:\NO\to A$，它在分割上的计算如~\ref{item:NO-rec-primary} 所规定，并且保持所有不等性：
 %
 \begin{narrowmultline*}
   \fall{x,y:\NO}\Big((x\le y) \to (f(x)\ble f(y))\Big) \land
   \narrowbreak
-  \Big((x< y) \to (f(x)\blt f(y))\Big).
+  \Big((x< y) \to (f(x)\blt f(y))\Big)。
 \end{narrowmultline*}
 %
-Like $(\RC,\closesym)$-recursion for the Cauchy reals, this recursion principle is essential for defining functions on $\NO$, since we cannot first define a function on ``pre-surreals'' and only later prove that it respects the notion of equality.
+就像 Cauchy 实数的 $(\RC,\closesym)$-递归一样，这种递归原理在定义 \NO 上的函数时仍然是必不可少的，因为我们无法先定义一个“预超现实数”上的函数，然后再证明它符合等同性的概念。
 
 \begin{eg}
-  Let us define the \emph{negation} function $\NO\to\NO$.
-  We apply the joint recursion principle with $A\defeq\NO$, with $(x\ble y)\defeq (y\le x)$, and $(x\blt y)\defeq (y< x)$.
-  Clearly this $\ble$ is antisymmetric.
+  我们定义 \emph{否定} 函数 $\NO\to\NO$。
+  我们将联合递归原理应用于 $A\defeq\NO$，其中 $(x\ble y)\defeq (y\le x)$，$(x\blt y)\defeq (y< x)$。
+  显然，这个 $\ble$ 是反对称的。
 
-  For the main clause in the definition, we assume $x$ defined by a cut, with $-x^L$ and $-x^R$ defined such that $-x^L \blt -x^R$ for all $L$ and $R$.
-  By definition, this means $-x^R< -x^L$ for all $L$ and $R$, so we can define $-x$ by the cut $\surr{-x^R}{-x^L}$.
-  This notation, which follows Conway, refers to the cut whose left options are indexed by the type $\RR$ indexing the right options of $x$, and whose right options are indexed by the type $\LL$ indexing the left options of $x$, with the corresponding families $\RR\to\NO$ and $\LL\to\NO$ defined by composing those for $x$ with negation.
+  对于递归的主要条款，我们假设 $x$ 是由一个分割定义的，并且 $-x^L$ 和 $-x^R$ 已定义，使得 $-x^L \blt -x^R$ 对所有 $L$ 和 $R$ 成立。
+  根据定义，这意味着对所有 $L$ 和 $R$，$-x^R< -x^L$，因此我们可以通过分割 $\surr{-x^R}{-x^L}$ 定义 $-x$。
+  这个符号，跟随 Conway，指的是一个分割，其中左选项由 $x$ 的右选项的索引类型 $\RR$ 索引，而右选项由左选项的索引类型 $\LL$ 索引，并且相应的族 $\RR\to\NO$ 和 $\LL\to\NO$ 通过与否定组合定义。
 
-  We now have to verify that $f$ preserves inequalities.
+  现在我们必须验证 $f$ 保持不等性。
   \begin{itemize}
-  \item For $x\le y$, we may assume $x^L<y$ for all $L$ and $x < y^R$ for all $R$, and show $-y\le -x$.
-    But inductively, we may assume $-y <-x^L$ and $-y^R<-x$, which gives the desired result, by definition of $-y$, $-x$, and the constructor of $\le$.
-  \item For $x<y$, in the first case when it arises from some $x\le y^{L_0}$, we may inductively assume $-y^{L_0} \le -x$, in which case $-y<-x$ follows by the constructor of $<$.
-  \item Similarly, if $x<y$ arises from $x^{R_0}\le y$, the inductive hypothesis is $-y \le -x^R$, yielding $-y<-x$ again.
+    \item 对于 $x\le y$，我们可以假设 $x^L<y$ 对所有 $L$ 和 $x < y^R$ 对所有 $R$ 成立，并证明 $-y\le -x$。
+    但根据归纳假设，我们可以假设 $-y <-x^L$ 和 $-y^R<-x$，这给出了所需的结果，依据 $-y$、$-x$ 的定义和 $\le$ 的构造器。
+    \item 对于 $x<y$，在它从某个 $x\le y^{L_0}$ 产生的第一种情况，我们可以归纳地假设 $-y^{L_0} \le -x$，在这种情况下，$-y<-x$ 通过 $<$ 的构造器得出。
+    \item 类似地，如果 $x<y$ 是由 $x^{R_0}\le y$ 产生的，那么归纳假设是 $-y \le -x^R$，因此再次得到 $-y<-x$。
   \end{itemize}
 \end{eg}
 
-To do much more than this, however, we will need to characterize the relations $\le$ and $<$ more explicitly, as we did for the Cauchy reals in \cref{thm:RC-sim-characterization}.
-Also as there, we will have to simultaneously prove a couple of essential properties of these relations, in order for the induction to go through.
+要做更多的事情，然而，我们需要像对 Cauchy 实数一样更明确地描述 $\le$ 和 $<$ 的关系，如在 \cref{thm:RC-sim-characterization} 中那样。
+同样，在那里，为了使归纳进行下去，我们必须同时证明这些关系的一些基本性质。
 
 \begin{thm}\label{defn:No-codes}
-  There are relations $\mathord\preceq:\NO\to\NO\to\prop$ and $\mathord\prec:\NO\to\NO\to\prop$ such that if $x$ and $y$ are surreals defined by cuts, then
-  \begin{align*}
-    (x\preceq y) &\defeq
-    \big(\fall{L} x^L\prec y\big) \land \big(\fall{R} x\prec y^R\big)\\
-    (x\prec y) &\defeq
-    \big(\exis{L} x\preceq y^L\big) \lor \big(\exis{R} x^R \preceq y\big).
-  \end{align*}
-  Moreover, we have
-  \begin{equation}\label{eq:NO-codes-unstrict}
-    (x\prec y) \to (x\preceq y)
-  \end{equation}
-  and all the reasonable transitivity properties making $\prec$ and $\preceq$ into a ``bimodule''\index{bimodule} over $\le$ and $<$:
-  \begin{equation}\label{eq:NO-codes-transitivity}
-    \begin{array}{c@{\hspace{1cm}}c}
-      (x \le y) \to (y\preceq z) \to (x\preceq z) &
-      (x \preceq y) \to (y\le z) \to (x\preceq z) \\
-      (x \le y) \to (y\prec z) \to (x\prec z) &
-      (x \preceq y) \to (y< z) \to (x\prec z) \\
-      (x < y) \to (y\preceq z) \to (x\prec z) &
-      (x \prec y) \to (y\le z) \to (x\prec z).
-  \end{array}
-  \end{equation}
+存在关系 $\mathord\preceq:\NO\to\NO\to\prop$ 和 $\mathord\prec:\NO\to\NO\to\prop$，使得如果 $x$ 和 $y$ 是由分割定义的超现实数，则
+\begin{align*}
+(x\preceq y) &\defeq
+\big(\fall{L} x^L\prec y\big) \land \big(\fall{R} x\prec y^R\big)\\
+(x\prec y) &\defeq
+\big(\exis{L} x\preceq y^L\big) \lor \big(\exis{R} x^R \preceq y\big)。
+\end{align*}
+此外，我们有
+\begin{equation}\label{eq:NO-codes-unstrict}
+(x\prec y) \to (x\preceq y)
+\end{equation}
+并且所有合理的传递性质使得 $\prec$ 和 $\preceq$ 成为 $\le$ 和 $<$ 上的“双模”\index{bimodule}：
+\begin{equation}\label{eq:NO-codes-transitivity}
+\begin{array}{c@{\hspace{1cm}}c}
+(x \le y) \to (y\preceq z) \to (x\preceq z) &
+(x \preceq y) \to (y\le z) \to (x\preceq z) \\
+(x \le y) \to (y\prec z) \to (x\prec z) &
+(x \preceq y) \to (y< z) \to (x\prec z) \\
+(x < y) \to (y\preceq z) \to (x\prec z) &
+(x \prec y) \to (y\le z) \to (x\prec z)。
+\end{array}
+\end{equation}
 \end{thm}
 
 \begin{proof}
-  We define $\preceq$ and $\prec$ by double $(\NO,\le,<)$-induction on $x,y$.
-  The first induction is a simple recursion, whose codomain is the subset $A$ of $(\NO\to\prop)\times (\NO\to\prop)$ consisting of pairs of predicates of which one implies the other and which satisfy ``transitivity on the right'', i.e.~\eqref{eq:NO-codes-unstrict} and the right column of~\eqref{eq:NO-codes-transitivity} with $(x\preceq \blank)$ and $(x\prec \blank)$ replaced by the two given predicates.
-  As in the proof of \cref{defn:RC-approx}, we regard these predicates as half of binary relations, writing them as $y\mapsto (\hle y)$ and $y\mapsto (\hlt y)$, with $\hlname$ denoting the pair of relations.
-  % The precise definition of $A$ is
+  我们通过对 $x,y$ 进行双重 $(\NO,\le,<)$-归纳来定义 $\preceq$ 和 $\prec$。
+  第一个归纳是一个简单的递归，其余域是 $(\NO\to\prop)\times (\NO\to\prop)$ 的子集 $A$，其中包含的命题对满足“右传递性”条件，即~\eqref{eq:NO-codes-unstrict} 和~\eqref{eq:NO-codes-transitivity} 的右列，并将 $(x\preceq \blank)$ 和 $(x\prec \blank)$ 替换为给定的两个命题。
+  正如在 \cref{defn:RC-approx} 的证明中，我们将这些命题视为二元关系的一半，将它们写作 $y\mapsto (\hle y)$ 和 $y\mapsto (\hlt y)$，其中 $\hlname$ 表示命题对。
+  % $A$ 的精确定义为
   % \begin{align*}
   %   A\defeq \bigg\{ \hlname : (\NO\to\prop)\times (\NO\to\prop) \;\bigg|\;\\
   %   \begin{split}
@@ -2420,46 +2412,47 @@ Also as there, we will have to simultaneously prove a couple of essential proper
   %     \land\; &\Big( (\hlt y) \to (y< z) \to (\hlt z) \Big) \bigg\}
   %   \end{split}
   % \end{align*}
-  We equip $A$ with the following two relations:
+  我们给 $A$ 配备以下两种关系：
   \begin{align*}
-    (\hlname \ble \hlbname) &\defeq
-    \fall{y:\NO} \Big( (\hleb y) \to (\hle y) \Big) \land
-    \Big( (\hltb y) \to (\hlt y) \Big),\\
-    (\hlname \blt \hlbname) &\defeq
-    \fall{y:\NO} \Big( (\hleb y) \to (\hlt y) \Big).
+  (\hlname \ble \hlbname) &\defeq
+  \fall{y:\NO} \Big( (\hleb y) \to (\hle y) \Big) \land
+  \Big( (\hltb y) \to (\hlt y) \Big)，\\
+  (\hlname \blt \hlbname) &\defeq
+  \fall{y:\NO} \Big( (\hleb y) \to (\hlt y) \Big)。
     %\land \Big( (\hltb y) \to (\hlt y) \Big)
   \end{align*}
-  Note that $\ble$ is antisymmetric, since if $\hlname \ble \hlbname$ and $\hlbname \ble \hlname$, then $(\hleb y) \Leftrightarrow (\hle y)$ and $(\hltb y) \Leftrightarrow (\hlt y)$ for all $y$, hence $\hlname=\hlbname$ by univalence for mere propositions and function extensionality.
-  Moreover, to say that a function $\NO\to A$ preserves inequalities is exactly to say that, when regarded as a pair of binary relations on $\NO$, it satisfies ``transitivity on the left'' (the left column of~\eqref{eq:NO-codes-transitivity}).
+  %（这些是一般归纳原理中的类型族 $B$ 和 $C$。）
+  注意 $\ble$ 是反对称的，因为如果 $\hlname \ble \hlbname$ 和 $\hlbname \ble \hlname$，则 $(\hleb y) \Leftrightarrow (\hle y)$ 和 $(\hltb y) \Leftrightarrow (\hlt y)$ 对所有 $y$ 成立，因此根据简单命题的一致性和函数扩展性，$\hlname=\hlbname$。
+  此外，将函数 $\NO\to A$ 保持不等性是说，当它被视为一对二元关系时，它满足“左传递性”（~\eqref{eq:NO-codes-transitivity} 的左列）。
 
-  Now for the primary clause of the recursion, we assume given $x$ defined by a cut, and relations $(x^L \prec \blank)$, $(x^R \prec \blank)$, $(x^L \preceq \blank)$, and $(x^R \preceq \blank)$ for all $L$ and $R$, of which the strict ones imply the non-strict ones, which satisfy transitivity on the right, and such that
+  现在对于递归的主要条款，我们假设 $x$ 是由一个分割定义的，并且对所有 $L$ 和 $R$，关系 $(x^L \prec \blank)$，$(x^R \prec \blank)$，$(x^L \preceq \blank)$ 和 $(x^R \preceq \blank)$ 已定义，严格的关系暗示非严格的关系，并满足右传递性，并且
   \begin{equation}\label{eq:NO-prec-outer-IH}
-    \fall{L,R}{y:\NO}\Big( (x^R\preceq y) \to (x^L \prec y) \Big).
+  \fall{L,R}{y:\NO}\Big( (x^R\preceq y) \to (x^L \prec y) \Big)。
     % \land\Big( (x^R \prec y) \to (x^L \prec y) \Big)
   \end{equation}
-  We now have to define $(x\prec y)$ and $(x\preceq y)$ for all $y$.
-  Here in contrast to \cref{defn:RC-approx}, rather than a nested recursion, we use a nested induction, in order to be able to inductively use transitivity on the left with respect to the inequalities $x^L<x$ and $x<x^R$.
-  Define $A':\NO\to\type$ by taking $A'(y)$ to be the subset $A'$ of $\prop\times\prop$ consisting of two mere propositions, denoted $\tle y$ and $\tlt y$ (with $\tlname:A'(y)$), such that
+  现在我们必须定义对所有 $y$ 的 $(x\prec y)$ 和 $(x\preceq y)$。
+  在与 \cref{defn:RC-approx} 相反的情况下，而不是嵌套递归，我们使用嵌套归纳，以便能够使用归纳通过 $x^L<x$ 和 $x<x^R$ 的不等关系。
+  定义 $A':\NO\to\type$，其中 $A'(y)$ 是 $\prop\times\prop$ 的子集 $A'$，由两个简单命题组成，分别表示 $\tle y$ 和 $\tlt y$（用 $\tlname:A'(y)$ 表示），并且
   \begin{gather}
-    (\tlt y) \to (\tle y)\\
-    \fall{L} (\tle y)\to (x^L\prec y) \label{eq:NO-prec-IHL}\\
-    \fall{R} (x^R \preceq y) \to (\tlt y) \label{eq:NO-prec-IHR}.
+  (\tlt y) \to (\tle y)，\\
+  \fall{L} (\tle y)\to (x^L\prec y) \label{eq:NO-prec-IHL}，\\
+  \fall{R} (x^R \preceq y) \to (\tlt y) \label{eq:NO-prec-IHR}。
   \end{gather}
-  Using notation analogous to $\ble$ and $\blt$, we equip $A'$ with the two relations defined for $\tlname:A'(y)$ and $\tlbname:A'(z)$ by
+  使用与 $\ble$ 和 $\blt$ 类似的符号，我们为 $A'$ 配备了由以下定义的两个关系，针对 $\tlname:A'(y)$ 和 $\tlbname:A'(z)$：
   \begin{align*}
-    (\tlname \bble \tlbname) &\defeq
-    \Big((\tle y) \to (\tleb z)\Big) \land \Big((\tlt y) \to (\tltb z)\Big)\\
-    (\tlname \bblt \tlbname) &\defeq
-    \Big((\tle y) \to (\tltb z)\Big). % \land \Big(\tlt \to \tltb\Big).
+  (\tlname \bble \tlbname) &\defeq
+  \Big((\tle y) \to (\tleb z)\Big) \land \Big((\tlt y) \to (\tltb z)\Big)\\
+  (\tlname \bblt \tlbname) &\defeq
+  \Big((\tle y) \to (\tltb z)\Big)。 % \land \Big(\tlt \to \tltb\Big)。
   \end{align*}
-  % (These are the type families $B$ and $C$ in the general induction principle.)
-  Again, $\bble$ is evidently antisymmetric in the appropriate sense.
-  Moreover, a function $\prd{y:\NO} A'(y)$ which preserves inequalities is precisely a pair of predicates of which one implies the other, which satisfy transitivity on the right, and transitivity on the left with respect to the inequalities $x^L<x$ and $x<x^R$.
-  Thus, this inner induction will provide what we need to complete the primary clause of the outer recursion.
+  %（这些是一般归纳原理中的类型族 $B$ 和 $C$。）
+  再次地，$\bble$ 显然是反对称的。
+  此外，映射到 $A'(y)$ 的函数 $\prd{y:\NO} A'(y)$ 保持不等性，是指 $x^L<x$ 和 $x<x^R$ 的不等关系在左侧保持，$y^L<y^R$ 的不等关系在右侧保持。
+  因此，这种内部归纳将提供我们需要的来完成外部递归的主要条款。
 
-  For the primary clause of the inner induction, we assume also given $y$ defined by a cut, and properties $(x\prec y^L)$, $(x\prec y^R)$, $(x\preceq y^L)$, and $(x\preceq y^R)$ for all $L$ and $R$, with the strict ones implying the non-strict ones, transitivity on the left with respect to $x^L<x$ and $x<x^R$, and on the right with respect to $y^L<y^R$.
+  对于内部归纳的主要条款，我们还假设 $y$ 是由一个分割定义的，并且 $(x\prec y^L)$，$(x\prec y^R)$，$(x\preceq y^L)$ 和 $(x\preceq y^R)$ 的性质已定义，对所有 $L$ 和 $R$ 满足，严格的关系暗示非严格的关系，并且左侧的 $x^L<x$ 和 $x<x^R$ 的传递性以及右侧的 $y^L<y^R$ 的传递性。
   % \begin{equation}
-  %   \fall{L,R}\Big((x \preceq y^L) \to (x \prec y^R)\Big) % \land \Big((x \prec y^L) \to (x\prec y^R)\Big).
+  %   \fall{L,R}\Big((x \preceq y^L) \to (x \prec y^R)\Big) % \land \Big((x \prec y^L) \to (x\prec y^R)\Big)。
   %   \label{eq:NO-prec-inner-IH}
   % \end{equation}
   We can now give the definitions specified in the theorem statement:
