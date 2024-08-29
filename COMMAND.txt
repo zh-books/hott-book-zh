@@ -1,0 +1,7 @@
+xelatex -interaction=nonstopmode hott-a4.tex
+
+
+rm -f *.aux *.log *.out *.toc *.pdf *.fdb_latexmk *.fls
+
+latexmk -c
+latexmk -C

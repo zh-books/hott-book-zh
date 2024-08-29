@@ -39,6 +39,7 @@
    \else
    (Cited on pages\ #2.)
    \fi}
+\usepackage{ctex}
 
 % OTHER PACKAGES
 
@@ -199,35 +200,47 @@
 % Turn on headers and footers for mainmatter (must appear after \cleartooddpage)
 \pagestyle{fancyplain}
 
+%done
 \include{introduction}
 
 \part{Foundations}
 \label{part:foundations}
 
+%done
 \include{preliminaries}
 
+%done
 \include{basics}
 
+%done
 \include{logic}
 
+%done
 \include{equivalences}
 
+%done
 \include{induction}
 
+%done
 \include{hits}
 
+%done
 \include{hlevels}
 
 \cleartooddpage[\thispagestyle{empty}] % Needed for correct TOC
 \part{Mathematics}
 \label{part:mathematics}
 
+%done
 \include{homotopy}
 
+%done
 \include{categories}
 
+%done
 \include{setmath}
 
+%done
 \include{reals}
 
 %%%% Appendix
@@ -243,6 +256,7 @@
 \renewcommand{\chaptermark}[1]{\markboth{\textsc{Appendix. \thechapter. #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection\ #1}}}
 
+%done
 \include{formal}
 
 % Joke
@@ -262,6 +276,7 @@
 
 %%%% Index of symbols
 
+%done
 \include{symbols}
 
 \cleartooddpage[\thispagestyle{empty}]
@@ -325,6 +340,7 @@
 \printindex}
 
 % The back cover
+%done
 \include{back}
 
 \end{document}
