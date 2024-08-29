@@ -1666,165 +1666,136 @@ Cauchy 实数嵌入到每个 Cauchy 完备的阿基米德有序域中。
 
 \index{depression|)抑郁|)}
 
-\section{Compactness of the interval}
+\section{区间的紧致性 (Compactness of the interval)}
 \label{sec:compactness-interval}
 
-\index{mathematics!classical|(}%
-\index{mathematics!constructive|(}%
+\index{mathematics!classical|(数学!经典|(}%
+\index{mathematics!constructive|(数学!构造性|(}%
 
-We already pointed out that our constructions of reals are entirely compatible with
-classical logic. Thus, by assuming the law of excluded middle~\eqref{eq:lem} and the axiom
-of choice~\eqref{eq:ac} we could develop classical analysis,\index{classical!analysis}\index{analysis!classical} which would essentially
-amount to copying any standard book on analysis.
+我们已经指出，我们对于实数的构造与经典逻辑 (classical logic) 完全兼容。因此，假设排中律 (law of excluded middle) \eqref{eq:lem} 和选择公理 (axiom of choice) \eqref{eq:ac} 成立，我们可以发展经典分析 (classical analysis)，\index{classical!analysis经典!分析}\index{analysis!classical分析!经典}这实际上相当于复制任何标准的分析书籍。
 
-\index{analysis!constructive}%
-\index{constructive!analysis}%
-Nevertheless, anyone interested in computation, for example a numerical analyst, ought to
-be curious about developing analysis in a computationally meaningful setting. That
-analysis in a constructive setting is even possible was demonstrated by~\cite{Bishop1967}.
-As a sample of the differences and similarities between classical and constructive
-analysis we shall briefly discuss just one topic---compactness of the closed interval
-$[0,1]$ and a couple of theorems surrounding the concept.
+\index{analysis!constructive分析!构造性}%
+\index{constructive!analysis构造性!分析}%
+然而，对于任何对计算感兴趣的人，例如数值分析学家，应该对在一个计算上有意义的环境中发展分析感到好奇。构造性环境中的分析是可能的，这一点已经由 \cite{Bishop1967} 证明了。作为经典分析和构造性分析之间差异和相似性的一个例子，我们将简要讨论一个主题——闭区间 $[0,1]$ 的紧致性 (compactness) 以及围绕这一概念的一些定理。
 
-Compactness is no exception to the common phenomenon in constructive mathematics that
-classically equivalent notions bifurcate. The three most frequently used notions of
-compactness are:
+在构造性数学中，经典上等价的概念常常会分裂，紧致性也不例外。最常用的三种紧致性概念是：
 %
-\indexdef{compactness}%
+\indexdef{compactness紧致性}%
 \begin{enumerate}
-\item \define{metrically compact:} ``Cauchy complete and totally bounded'',
-  \indexdef{metrically compact}%
-  \indexdef{compactness!metric}%
-\item \define{Bolzano--Weierstra\ss{} compact:} ``every sequence has a convergent subsequence'',
-  \index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}}%
-  \indexsee{Bolzano--Weierstrass@Bolzano--Weierstra\ss{}}{compactness}%
-  \index{sequence}%
-\item \define{Heine--Borel compact:} ``every open cover has a finite subcover''.
-  \index{compactness!Heine--Borel}%
-  \indexsee{Heine--Borel}{compactness}%
+  \item \define{度量紧致性 (metrically compact):} “柯西完备 (Cauchy complete) 和全有界 (totally bounded)”,
+  \indexdef{metrically compact度量紧致性}%
+  \indexdef{compactness!metric紧致性!度量}%
+  \item \define{波尔查诺-魏尔斯特拉斯紧致性 (Bolzano--Weierstra\ss{} compact):} “每个序列都有一个收敛的子序列”,
+  \index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}紧致性!波尔查诺-魏尔斯特拉斯}%
+  \indexsee{Bolzano--Weierstrass@Bolzano--Weierstra\ss{}紧致性}{compactness紧致性}%
+  \index{sequence序列}%
+  \item \define{海涅-博雷尔紧致性 (Heine--Borel compact):} “每个开覆盖 (open cover) 都有一个有限子覆盖 (finite subcover)”。
+  \index{compactness!Heine--Borel紧致性!海涅-博雷尔}%
+  \indexsee{Heine--Borel海涅-博雷尔}{compactness紧致性}%
 \end{enumerate}
 %
-These are all equivalent in classical mathematics.
-Let us see how they fare in homotopy type theory. We can use either the Dedekind or the
-Cauchy reals, so we shall denote the reals just as~$\R$. We first recall several basic
-definitions.
+这些在经典数学中都是等价的。
+让我们看看它们在同伦类型论 (homotopy type theory) 中的表现。我们可以使用戴德金实数 (Dedekind reals) 或柯西实数 (Cauchy reals)，因此我们将实数记作 $\R$。首先我们回顾一些基本定义。
 
-\indexsee{space!metric}{metric space}
-\index{metric space|(}%
+\indexsee{space!metric空间!度量}{metric space度量空间}
+\index{metric space|(度量空间|(}%
 
 \begin{defn} \label{defn:metric-space}
-  A \define{metric space}
-  \indexdef{metric space}%
-  $(M, d)$ is a set $M$ with a map $d : M \times M \to \R$
-  satisfying, for all $x, y, z : M$,
-  %
-  \begin{align*}
-    d(x,y) &\geq 0, &
-    d(x,y) &= d(y,x), \\
-    d(x,y) &= 0 \Leftrightarrow x = y, &
-    d(x,z) &\leq d(x,y) + d(y,z).
-  \end{align*}
+\define{度量空间 (metric space)}
+\indexdef{metric space度量空间}%
+$(M, d)$ 是一个集合 $M$，其上有一个映射 $d : M \times M \to \R$，
+满足对所有 $x, y, z : M$，
+%
+\begin{align*}
+  d(x,y) &\geq 0, &
+  d(x,y) &= d(y,x), \\
+  d(x,y) &= 0 \Leftrightarrow x = y, &
+  d(x,z) &\leq d(x,y) + d(y,z).
+\end{align*}
   %
 \end{defn}
 
 \begin{defn} \label{defn:complete-metric-space}
-  A \define{Cauchy approximation}
-  \index{Cauchy!approximation}%
-  in $M$ is a sequence $x : \Qp \to M$ satisfying
-  %
-  \begin{equation*}
-    \fall{\delta, \epsilon} d(x_\delta, x_\epsilon) < \delta + \epsilon.
-  \end{equation*}
-  %
-  \index{limit!of a Cauchy approximation}%
-  The \define{limit} of a Cauchy approximation $x : \Qp \to M$ is a point $\ell : M$
-  satisfying
-  %
-  \begin{equation*}
-    \fall{\epsilon, \theta : \Qp} d(x_\epsilon, \ell) < \epsilon + \theta.
-  \end{equation*}
-  %
-  \indexdef{metric space!complete}%
-  \indexdef{complete!metric space}%
-  A \define{complete metric space} is one in which every Cauchy approximation has a limit.
+\define{柯西逼近 (Cauchy approximation)}
+\index{Cauchy!approximation柯西!逼近}%
+在 $M$ 中是一个序列 $x : \Qp \to M$，满足
+%
+\begin{equation*}
+  \fall{\delta, \epsilon} d(x_\delta, x_\epsilon) < \delta + \epsilon.
+\end{equation*}
+%
+\index{limit!of a Cauchy approximation柯西逼近的极限}%
+一个柯西逼近 $x : \Qp \to M$ 的 \define{极限 (limit)} 是一个点 $\ell : M$，满足
+%
+\begin{equation*}
+  \fall{\epsilon, \theta : \Qp} d(x_\epsilon, \ell) < \epsilon + \theta.
+\end{equation*}
+%
+\indexdef{metric space!complete度量空间!完备}%
+\indexdef{complete!metric space完备!度量空间}%
+一个 \define{完备度量空间 (complete metric space)} 是其中每个柯西逼近都有极限的空间。
 \end{defn}
 
 \begin{defn} \label{defn:total-bounded-metric-space}
-  For a positive rational $\epsilon$, an \define{$\epsilon$-net}
-  \indexdef{epsilon-net@$\epsilon$-net}%
-  in a metric space $(M,
-  d)$ is an element of
-  %
-  \begin{equation*}
-    \sm{n : \N}{x_1, \ldots, x_n : M}
-    \fall{y : M} \exis{k \leq n} d(x_k, y) < \epsilon.
-  \end{equation*}
-  %
-  In words, this is a finite sequence of points $x_1, \ldots, x_n$ such that every point
-  in $M$ merely is within $\epsilon$ of some~$x_k$.
+对于一个正有理数 $\epsilon$，一个 \define{$\epsilon$-网 ($\epsilon$-net)}
+\indexdef{epsilon-net@$\epsilon$-net}%
+在度量空间 $(M, d)$ 中是一个元素
+%
+\begin{equation*}
+  \sm{n : \N}{x_1, \ldots, x_n : M}
+  \fall{y : M} \exis{k \leq n} d(x_k, y) < \epsilon.
+\end{equation*}
+%
+换句话说，这是一个有限的点序列 $x_1, \ldots, x_n$，使得 $M$ 中的每个点仅在某个 $x_k$ 的 $\epsilon$ 内。
 
-  A metric space $(M, d)$ is \define{totally bounded}
-  \indexdef{totally bounded metric space}%
-  \indexdef{metric space!totally bounded}%
-  when it has $\epsilon$-nets of all
-  sizes:
-  %
-  \begin{equation*}
-    \prd{\epsilon : \Qp}
-    \sm{n : \N}{x_1, \ldots, x_n : M}
-    \fall{y : M} \exis{k \leq n} d(x_k, y) < \epsilon.
-  \end{equation*}
+一个度量空间 $(M, d)$ 是 \define{全有界 (totally bounded)} 的，
+\indexdef{totally bounded metric space全有界度量空间}%
+\indexdef{metric space!totally bounded度量空间!全有界}%
+当它有所有大小的 $\epsilon$-网时：
+%
+\begin{equation*}
+  \prd{\epsilon : \Qp}
+  \sm{n : \N}{x_1, \ldots, x_n : M}
+  \fall{y : M} \exis{k \leq n} d(x_k, y) < \epsilon.
+\end{equation*}
 \end{defn}
 
 \begin{rmk}
-  In the definition of total boundedness we used sloppy notation $\sm{n : \N}{x_1, \ldots, x_n : M}$. Formally, we should have written $\sm{x : \lst{M}}$ instead,
-  where $\lst{M}$ is the inductive type of finite lists\index{type!of lists} from \cref{sec:bool-nat}.
-  However, that would make the rest of the statement a bit more cumbersome to express.
+  在全有界性的定义中，我们使用了不严格的记法 $\sm{n : \N}{x_1, \ldots, x_n : M}$。正式来说，我们应该写成 $\sm{x : \lst{M}}$，其中 $\lst{M}$ 是来自 \cref{sec:bool-nat} 的有限列表的归纳类型 (inductive type of finite lists)\index{type!of lists类型!列表}。
+  然而，这会使得表达其余部分的陈述更加麻烦。
 \end{rmk}
 
-Note that in the definition of total boundedness we require pure existence of an
-$\epsilon$-net, not mere existence. This way we obtain a function which assigns to each
-$\epsilon : \Qp$ a specific $\epsilon$-net. Such a function might be called a ``modulus of
-total boundedness''. In general, when porting classical metric notions to homotopy type
-theory, we should use propositional truncation sparingly, typically so that we avoid
-asking for a non-constant map from $\R$ to $\Q$ or $\N$. For instance, here is the
-``correct'' definition of uniform continuity.
+注意，在全有界性的定义中，我们要求纯粹存在 (pure existence) 的 $\epsilon$-网，而不是仅仅存在 (mere existence)。这样我们得到一个函数，该函数为每个 $\epsilon : \Qp$ 分配一个特定的 $\epsilon$-网。这样的函数可以称为“全有界性的模数 (modulus of total boundedness)”。通常，在将经典的度量概念移植到同伦类型论时，我们应该谨慎地使用命题截断 (propositional truncation)，通常这样做是为了避免要求从 $\R$ 到 $\Q$ 或 $\N$ 的非常数映射。例如，以下是均匀连续性的“正确”定义。
 
 \begin{defn} \label{defn:uniformly-continuous}
-  A map $f : M \to \R$ on a metric space is \define{uniformly continuous}
-  \indexdef{function!uniformly continuous}%
-  \indexdef{uniformly continuous function}%
-  when
-  %
-  \begin{equation*}
-    \prd{\epsilon : \Qp}
-    \sm{\delta : \Qp}
-    \fall{x, y : M}
-    d(x,y) < \delta \Rightarrow |f(x) - f(y)| < \epsilon.
-  \end{equation*}
-  %
-  In particular, a uniformly continuous map has a modulus of uniform continuity\indexdef{modulus!of uniform continuity},
-  which is a function that assigns to each $\epsilon$ a corresponding $\delta$.
+在度量空间上的映射 $f : M \to \R$ 是 \define{均匀连续 (uniformly continuous)} 的，
+\indexdef{function!uniformly continuous函数!均匀连续}%
+\indexdef{uniformly continuous function均匀连续函数}%
+当
+%
+\begin{equation*}
+  \prd{\epsilon : \Qp}
+  \sm{\delta : \Qp}
+  \fall{x, y : M}
+  d(x,y) < \delta \Rightarrow |f(x) - f(y)| < \epsilon.
+\end{equation*}
+%
+特别地，一个均匀连续映射有一个均匀连续性的模数 (modulus of uniform continuity)\indexdef{modulus!of uniform continuity模数!均匀连续性}，
+这是一个为每个 $\epsilon$ 分配相应 $\delta$ 的函数。
 \end{defn}
 
-Let us show that $[0,1]$ is compact in the first sense.
+让我们证明 $[0,1]$ 在第一种意义上是紧致的。
 
 \begin{thm} \label{analysis-interval-ctb}
-  \index{compactness!metric}%
-  \index{interval!open and closed}%
-  The closed interval $[0,1]$ is complete and totally bounded.
+\index{compactness!metric紧致性!度量}%
+\index{interval!open and closed区间!开和闭}%
+闭区间 $[0,1]$ 是完备的且全有界的。
 \end{thm}
 
 \begin{proof}
-  Given $\epsilon : \Qp$, there is $k : \N$ such that $2/k < \epsilon$, so we may take the
-  $\epsilon$-net $x_i = i/k$ for $i = 0, \ldots, k$. This is an $\epsilon$-net because,
-  for every $y : [0,1]$ there merely exists $i$ such that $0 \leq i \leq k$ and $(i -
-  1)/k < y < (i+1)/k$, and so $|y - x_i| < 2/k < \epsilon$.
+  给定 $\epsilon : \Qp$，存在 $k : \N$ 使得 $2/k < \epsilon$，所以我们可以取 $\epsilon$-网 $x_i = i/k$，其中 $i = 0, \ldots, k$。这是一个 $\epsilon$-网，因为对于每个 $y : [0,1]$，仅存在某个 $i$，使得 $0 \leq i \leq k$ 且 $(i - 1)/k < y < (i+1)/k$，因此 $|y - x_i| < 2/k < \epsilon$。
 
-  For completeness of $[0,1]$, consider a Cauchy approximation $x : \Qp \to
-  [0,1]$ and let $\ell$ be its limit in $\R$. Since $\max$ and $\min$ are Lipschitz maps,
-  the retraction $r : \R \to [0,1]$ defined by $r(x) \defeq \max(0, \min(1, x))$ commutes
-  with limits of Cauchy approximations, therefore
+  对于 $[0,1]$ 的完备性，考虑一个柯西逼近 $x : \Qp \to [0,1]$ 并让 $\ell$ 是它在 $\R$ 中的极限。由于 $\max$ 和 $\min$ 是 Lipschitz 映射，由 $r(x) \defeq \max(0, \min(1, x))$ 定义的从 $\R$ 到 $[0,1]$ 的缩回 (retraction) $r$ 与柯西逼近的极限交换，因此
   %
   \begin{equation*}
     r(\ell) =
@@ -1834,367 +1805,242 @@ Let us show that $[0,1]$ is compact in the first sense.
     \ell,
   \end{equation*}
   %
-  which means that $0 \leq \ell \leq 1$, as required.
+  这意味着 $0 \leq \ell \leq 1$，这是我们所要求的。
 \end{proof}
 
-We thus have at least one good notion of compactness in homotopy type theory.
-Unfortunately, it is limited to metric spaces because total boundedness is a metric
-notion. We shall consider the other two notions shortly, but first we prove that a
-uniformly continuous map on a totally bounded space has a \define{supremum},
-\indexsee{least upper bound}{supremum}%
-i.e.\ an upper bound which is less than or equal to all other upper bounds.
+因此，我们在同伦类型论中至少有一种好的紧致性概念。不幸的是，它仅限于度量空间，因为全有界性是一个度量概念。我们很快将考虑其他两个概念，但首先我们证明在全有界空间上的均匀连续映射具有 \define{上确界 (supremum)}\indexsee{least upper bound上确界}{supremum上确界}，即一个小于或等于所有其他上界的上界。
 
 \begin{thm} \label{ctb-uniformly-continuous-sup}
-  %
-  \indexdef{supremum!of uniformly continuous function}%
-  A uniformly continuous map $f : M \to \R$ on a totally bounded metric space
-  $(M, d)$ has a supremum $m : \R$. For every $\epsilon : \Qp$ there exists $u : M$ such
-  that $|m - f(u)| < \epsilon$.
+\indexdef{supremum!of uniformly continuous function均匀连续函数的上确界}%
+在一个全有界度量空间 $(M, d)$ 上的均匀连续映射 $f : M \to \R$ 有一个上确界 $m : \R$。对于每个 $\epsilon : \Qp$，存在 $u : M$，使得 $|m - f(u)| < \epsilon$。
 \end{thm}
 
 \begin{proof}
-  Let $h : \Qp \to \Qp$ be the modulus of uniform continuity of~$f$.
-  We define an approximation $x : \Qp \to \R$ as follows: for any $\epsilon : \Q$ total
-  boundedness of $M$ gives a $h(\epsilon)$-net $y_0, \ldots, y_n$. Define
+  设 $h : \Qp \to \Qp$ 是 $f$ 的均匀连续性模数 (modulus of uniform continuity)。
+  我们如下定义一个逼近 $x : \Qp \to \R$：对于任意 $\epsilon : \Q$，$M$ 的全有界性给出了一个 $h(\epsilon)$-网 $y_0, \ldots, y_n$。定义
   %
   \begin{equation*}
-    x_\epsilon \defeq \max (f(y_0), \ldots, f(y_n)).
+    x_\epsilon \defeq \max (f(y_0), \ldots, f(y_n))。
   \end{equation*}
   %
-  We claim that $x$ is a Cauchy approximation. Consider any $\epsilon, \eta : \Q$, so that
+  我们声称 $x$ 是一个柯西逼近。考虑任意 $\epsilon, \eta : \Q$，使得
   %
   \begin{equation*}
     x_\epsilon \jdeq \max (f(y_0), \ldots, f(y_n))
-    \quad\text{and}\quad
+    \quad\text{和}\quad
     x_\eta \jdeq \max (f(z_0), \ldots, f(z_m))
   \end{equation*}
   %
-  for some $h(\epsilon)$-net $y_0, \ldots, y_n$ and $h(\eta)$-net $z_0, \ldots, z_m$.
-  Every $z_i$ is merely $h(\epsilon)$-close to some $y_j$, therefore $|f(z_i) - f(y_j)| <
-  \epsilon$, from which we may conclude that
+  对于某个 $h(\epsilon)$-网 $y_0, \ldots, y_n$ 和 $h(\eta)$-网 $z_0, \ldots, z_m$。
+  每个 $z_i$ 仅与某个 $y_j$ 的 $h(\epsilon)$-近，因此 $|f(z_i) - f(y_j)| < \epsilon$，我们可以得出
   %
   \begin{equation*}
     f(z_i) < \epsilon + f(y_j) \leq \epsilon + x_\epsilon,
   \end{equation*}
   %
-  therefore $x_\eta < \epsilon + x_\epsilon$. Symmetrically we obtain $x_\eta < \eta +
-  x_\eta$, therefore $|x_\eta - x_\epsilon| < \eta + \epsilon$.
+  因此 $x_\eta < \epsilon + x_\epsilon$。对称地，我们得到 $x_\eta < \eta + x_\eta$，因此 $|x_\eta - x_\epsilon| < \eta + \epsilon$。
 
-  We claim that $m \defeq \lim x$ is the supremum of~$f$. To prove that $f(x) \leq m$ for
-  all $x : M$ it suffices to show $\lnot (m < f(x))$. So suppose to the contrary that $m <
-  f(x)$. There is $\epsilon : \Qp$ such that $m + \epsilon < f(x)$. But now merely for
-  some $y_i$ participating in the definition of $x_\epsilon$ we get $|f(x) - f(y_i) <
-  \epsilon$, therefore $m < f(x) - \epsilon < f(y_i) \leq m$, a contradiction.
+  我们声称 $m \defeq \lim x$ 是 $f$ 的上确界。为了证明 $f(x) \leq m$ 对所有 $x : M$ 成立，只需证明 $\lnot (m < f(x))$。假设相反的情况，即 $m < f(x)$。存在 $\epsilon : \Qp$ 使得 $m + \epsilon < f(x)$。但是现在仅对定义 $x_\epsilon$ 的某个 $y_i$，我们得到 $|f(x) - f(y_i)| < \epsilon$，因此 $m < f(x) - \epsilon < f(y_i) \leq m$，这与假设矛盾。
 
-  We finish the proof by showing that $m$ satisfies the second part of the theorem, because
-  it is then automatically a least upper bound. Given any $\epsilon : \Qp$, on one hand
-  $|m - f(x_{\epsilon/2})| < 3 \epsilon/4$, and on the other $|f(x_{\epsilon/2}) - f(y_i)| <
-  \epsilon/4$ merely for some $y_i$ participating in the definition of $x_{\epsilon/2}$,
-  therefore by taking $u \defeq y_i$ we obtain $|m - f(u)| < \epsilon$ by triangle
-  inequality.
+  最后，我们通过证明 $m$ 满足定理的第二部分来结束证明，因为它自动是一个最小的上界。给定任意 $\epsilon : \Qp$，一方面 $|m - f(x_{\epsilon/2})| < 3 \epsilon/4$，另一方面 $|f(x_{\epsilon/2}) - f(y_i)| < \epsilon/4$ 仅对定义 $x_{\epsilon/2}$ 的某个 $y_i$ 成立，因此通过取 $u \defeq y_i$，我们通过三角不等式 (triangle inequality) 得到 $|m - f(u)| < \epsilon$。
 \end{proof}
 
-Now, if in \cref{ctb-uniformly-continuous-sup} we also knew that $M$ were complete, we
-could hope to weaken the assumption of uniform continuity to continuity, and strengthen
-the conclusion to existence of a point at which the supremum is attained. The usual proofs
-of these improvements rely on the facts that in a complete totally bounded space
+现在，如果在 \cref{ctb-uniformly-continuous-sup} 中我们也知道 $M$ 是完备的，我们可以希望将均匀连续性的假设减弱为连续性 (continuity)，并将结论加强为存在一个点在该点上达到上确界。通常的证明这些改进依赖于以下事实：在一个完备的全有界空间中
 %
 \begin{enumerate}
-\item continuity implies uniform continuity, and
-\item every sequence has a convergent subsequence.
+  \item 连续性意味着均匀连续性，
+  \item 每个序列都有一个收敛的子序列。
 \end{enumerate}
 %
-The first statement follows easily from Heine--Borel compactness, and the second is just
-Bolzano--Weierstra\ss{} compactness.
-\index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}}%
-Unfortunately, these are both somewhat problematic. Let
-us first show that Bolzano--Weierstra\ss{} compactness implies an instance of excluded middle
-known as the \define{limited principle of omniscience}:
-\indexsee{axiom!limited principle of omniscience}{limited principle of omniscience}%
-\indexdef{limited principle of omniscience}%
-for every $\alpha : \N \to \bool$,
+第一个陈述很容易从海涅-博雷尔紧致性推导出来，第二个则只是波尔查诺-魏尔斯特拉斯紧致性。
+\index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}紧致性!波尔查诺-魏尔斯特拉斯}%
+不幸的是，这两者都有些问题。首先我们证明波尔查诺-魏尔斯特拉斯紧致性蕴含了一个排中律的实例，称为\define{全知原理的有限形式 (limited principle of omniscience)}：
+\indexsee{axiom!limited principle of omniscience公理!全知原理的有限形式}{limited principle of omniscience全知原理的有限形式}%
+\indexdef{limited principle of omniscience全知原理的有限形式}%
+对于每个 $\alpha : \N \to \bool$，
 %
 \begin{equation} \label{eq:lpo}
-  \Parens{\sm{n : \N} \alpha(n) = \btrue} +
-  \Parens{\prd{n : \N} \alpha(n) = \bfalse}.
+\Parens{\sm{n : \N} \alpha(n) = \btrue} +
+\Parens{\prd{n : \N} \alpha(n) = \bfalse}.
 \end{equation}
 %
-Computationally speaking, we would not expect this principle to hold, because it asks us to decide
-whether infinitely many values of a function are~$\bfalse$.
+从计算的角度来看，我们不会期望这个原理成立，因为它要求我们决定一个函数是否有无穷多个值为 $\bfalse$。
 
 \begin{thm} \label{analysis-bw-lpo}
-  %
-  Bolzano--Weierstra\ss{} compactness of $[0,1]$ implies the limited principle of omniscience.
-  \index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}}%
+波尔查诺-魏尔斯特拉斯紧致性 (Bolzano--Weierstra\ss{} compactness) 对于 $[0,1]$ 蕴含了全知原理的有限形式。
+\index{compactness!Bolzano--Weierstrass@Bolzano--Weierstra\ss{}紧致性!波尔查诺-魏尔斯特拉斯}%
 \end{thm}
 
 \begin{proof}
-  Given any $\alpha : \N \to \bool$, define the sequence\index{sequence} $x : \N \to [0,1]$ by
+  给定任意 $\alpha : \N \to \bool$，定义序列 (sequence) $x : \N \to [0,1]$ 为
   %
   \begin{equation*}
     x_n \defeq
     \begin{cases}
-      0 & \text{if $\alpha(k) = \bfalse$ for all $k < n$,}\\
-      1 & \text{if $\alpha(k) = \btrue$ for some $k < n$}.
+      0 & \text{如果对所有 $k < n$，$\alpha(k) = \bfalse$，}\\
+      1 & \text{如果对某个 $k < n$，$\alpha(k) = \btrue$}.
     \end{cases}
   \end{equation*}
   %
-  If the Bolzano--Weierstra\ss{} property holds, there exists a strictly increasing $f : \N \to
-  \N$ such that $x \circ f$ is a Cauchy sequence\index{Cauchy!sequence}. For a sufficiently large $n :
-  \N$ the $n$-th term $x_{f(n)}$ is within $1/6$ of its limit. Either $x_{f(n)} < 2/3$ or
-  $x_{f(n)} > 1/3$. If $x_{f(n)} < 2/3$ then~$x_n$ converges to $0$ and so $\prd{n : \N}
-  \alpha(n) = \bfalse$. If $x_{f(n)} > 1/3$ then $x_{f(n)} = 1$, therefore $\sm{n : \N}
-  \alpha(n) = \btrue$.
+  如果波尔查诺-魏尔斯特拉斯性质成立，存在一个严格递增的 $f : \N \to \N$，使得 $x \circ f$ 是一个柯西序列 (Cauchy sequence)。对于一个足够大的 $n : \N$，第 $n$ 项 $x_{f(n)}$ 距离其极限小于 $1/6$。要么 $x_{f(n)} < 2/3$，要么 $x_{f(n)} > 1/3$。如果 $x_{f(n)} < 2/3$，则 $x_n$ 收敛到 $0$，因此 $\prd{n : \N} \alpha(n) = \bfalse$。如果 $x_{f(n)} > 1/3$，则 $x_{f(n)} = 1$，因此 $\sm{n : \N} \alpha(n) = \btrue$。
 \end{proof}
 
-While we might not mourn Bolzano--Weierstra\ss{} compactness too much, it seems harder to live
-without Heine--Borel compactness, as attested by the fact that both classical mathematics
-and Brouwer's Intuitionism accepted it. As we do not want to wade too deeply into general
-topology, we shall work with basic open sets. In the case of $\R$ these are the open
-intervals with rational endpoints. A family of such intervals, indexed by a type~$I$,
-would be a map
+虽然我们可能不会太在意波尔查诺-魏尔斯特拉斯紧致性，但没有海涅-博雷尔紧致性似乎更难以接受，正如经典数学和布劳威尔直觉主义 (Brouwer's Intuitionism) 都接受了它一样。由于我们不想深入一般拓扑学，我们将使用基本开集 (basic open sets) 来工作。在 $\R$ 的情况下，这些是具有有理数端点的开区间。一个由类型 $I$ 索引的此类区间的族将是一个映射
 %
 \begin{equation*}
   \mathcal{F} : I \to \setof{(q, r) : \Q \times \Q | q < r},
 \end{equation*}
 %
-with the idea that a pair of rationals $(q, r)$ with $q < r$ determines the type $\setof{ x : \R | q < x < r}$. It is slightly more convenient to allow degenerate intervals as well, so we take a
-\define{family of basic intervals}
-\indexdef{family!of basic intervals}%
-\indexdef{interval!family of basic}%
-to be a map
+其想法是，一个有理数对 $(q, r)$ 与 $q < r$ 确定类型 $\setof{ x : \R | q < x < r}$。允许退化区间稍微更方便一些，因此我们取一个 \define{基本区间族 (family of basic intervals)} \indexdef{family!of basic intervals族!基本区间的}%
+\indexdef{interval!family of basic区间!基本的族}%
+为一个映射
 %
 \begin{equation*}
-  \mathcal{F} : I \to \Q \times \Q.
+  \mathcal{F} : I \to \Q \times \Q。
 \end{equation*}
 %
-To be quite precise, a family is a dependent pair $(I, \mathcal{F})$, not just
-$\mathcal{F}$. A \define{finite family of basic intervals} is one indexed by $\setof{ m :
-  \N | m < n}$ for some $n : \N$. We usually present it by a finite list $[(q_0, r_0), \ldots,
-(q_{n-1}, r_{n-1})]$. Finally, a \define{finite subfamily}\indexdef{subfamily, finite, of intervals} of $(I, \mathcal{F})$ is given
-by a list of indices $[i_1, \ldots, i_n]$ which then determine the finite family
-$[\mathcal{F}(i_1), \ldots, \mathcal{F}(i_n)]$.
+要非常精确，一个族是一个依赖对 $(I, \mathcal{F})$，而不仅仅是 $\mathcal{F}$。一个 \define{有限基本区间族 (finite family of basic intervals)} 是由 $\setof{ m : \N | m < n}$ 对某个 $n : \N$ 索引的族。我们通常用有限列表 $[(q_0, r_0), \ldots, (q_{n-1}, r_{n-1})]$ 来表示它。最后，一个 $(I, \mathcal{F})$ 的 \define{有限子族 (finite subfamily)} \indexdef{subfamily, finite, of intervals子族，有限的，区间的} 是由索引列表 $[i_1, \ldots, i_n]$ 给出的，这些索引决定了有限族 $[\mathcal{F}(i_1), \ldots, \mathcal{F}(i_n)]$。
 
-As long as we are aware of the distinction between a pair $(q, r)$ and the corresponding
-interval $\setof{ x : \R | q < x < r}$, we may safely use the same notation $(q, r)$ for
-both. Intersections\indexdef{intersection!of intervals} and inclusions\indexdef{inclusion!of intervals}\indexdef{containment!of intervals} of intervals are expressible in terms of their
-endpoints:
+只要我们知道对 $(q, r)$ 和对应的区间 $\setof{ x : \R | q < x < r}$ 之间的区别，我们可以安全地对两者使用相同的符号 $(q, r)$。区间的交集 (intersections)\indexdef{intersection!of intervals交集!区间的} 和包含 (inclusions)\indexdef{inclusion!of intervals包含!区间的}\indexdef{containment!of intervals包含!区间的} 可以用它们的端点表示：
 %
 \symlabel{interval-intersection}
 \symlabel{interval-subset}
 \begin{align*}
-  (q, r) \cap (s, t) &\ \defeq\  (\max(q, s), \min(r, t)),\\
-  (q, r) \subseteq (s, t) &\ \defeq\ (q < r \Rightarrow s \leq q < r \leq t).
+(q, r) \cap (s, t) &\ \defeq\  (\max(q, s), \min(r, t))，\\
+(q, r) \subseteq (s, t) &\ \defeq\ (q < r \Rightarrow s \leq q < r \leq t)。
 \end{align*}
 %
-We say that $\intfam{i}{I}{(q_i, r_i)}$ \define{(pointwise) covers $[a,b]$}
-\indexdef{interval!pointwise cover}%
-\indexdef{cover!pointwise}%
-\indexdef{pointwise!cover}%
-when
+我们说 $\intfam{i}{I}{(q_i, r_i)}$ \define{(逐点)覆盖 $[a,b]$ ((pointwise) covers $[a,b]$)}，\indexdef{interval!pointwise cover区间!逐点覆盖的}%
+\indexdef{cover!pointwise覆盖!逐点的}%
+\indexdef{pointwise!cover逐点!覆盖的}%
+当
 %
 \begin{equation} \label{eq:cover-pointwise-truncated}
-  \fall{x : [a,b]} \exis{i : I} q_i < x < r_i.
+\fall{x : [a,b]} \exis{i : I} q_i < x < r_i。
 \end{equation}
 %
-The \define{Heine--Borel compactness for $[0,1]$}
-\indexdef{compactness!Heine--Borel}%
-states that every covering family of $[0,1]$
-merely has a finite subfamily which still covers $[0,1]$.
+$[0,1]$ 的 \define{海涅-博雷尔紧致性 (Heine--Borel compactness)}\indexdef{compactness!Heine--Borel紧致性!海涅-博雷尔}%
+表示每个覆盖 $[0,1]$ 的区间族都有一个有限子族仍然覆盖 $[0,1]$。
 
 \index{depression}
 \begin{thm} \label{classical-Heine-Borel}
-  \index{excluded middle}%
-  If excluded middle holds then $[0,1]$ is Heine--Borel compact.
+\index{excluded middle排中律}%
+如果排中律成立，那么 $[0,1]$ 是海涅-博雷尔紧致的。
 \end{thm}
 
 \begin{proof}
-  Assume for the purpose of reaching a contradiction that a family $\intfam{i}{I}{(a_i,
-    b_i)}$ covers $[0,1]$ but no finite subfamily does. We construct a sequence of closed
-  intervals $[q_n, r_n]$ which are nested, their sizes shrink to~$0$, and none of them is covered
-  by a finite subfamily of $\intfam{i}{I}{(a_i, b_i)}$.
+  假设为了达到矛盾，一个族 $\intfam{i}{I}{(a_i, b_i)}$ 覆盖 $[0,1]$，但没有有限子族覆盖它。我们构造一系列闭区间 $[q_n, r_n]$，这些区间是嵌套的，它们的大小收缩到 $0$，且其中没有一个被 $\intfam{i}{I}{(a_i, b_i)}$ 的有限子族覆盖。
 
-  We set $[q_0, r_0] \defeq [0,1]$. Assuming $[q_n, r_n]$ has been constructed, let $s
-  \defeq (2 q_n + r_n)/3$ and $t \defeq (q_n + 2 r_n)/3$. Both $[q_n, t]$ and $[s, r_n]$
-  are covered by $\intfam{i}{I}{(a_i, b_i)}$, but they cannot both have a finite subcover,
-  or else so would $[q_n, r_n]$. Either $[q_n, t]$ has a finite subcover or it does not.
-  If it does we set $[q_{n+1}, r_{n+1}] \defeq [s, r_n]$, otherwise we set $[q_{n+1},
-  r_{n+1}] \defeq [q_n, t]$.
+  我们设 $[q_0, r_0] \defeq [0,1]$。假设 $[q_n, r_n]$ 已经构造，设 $s \defeq (2 q_n + r_n)/3$ 和 $t \defeq (q_n + 2 r_n)/3$。$[q_n, t]$ 和 $[s, r_n]$ 都被 $\intfam{i}{I}{(a_i, b_i)}$ 覆盖，但它们不能同时有一个有限子覆盖，否则 $[q_n, r_n]$ 也会有一个有限子覆盖。要么 $[q_n, t]$ 有一个有限子覆盖，要么它没有。如果有，我们设 $[q_{n+1}, r_{n+1}] \defeq [s, r_n]$，否则我们设 $[q_{n+1}, r_{n+1}] \defeq [q_n, t]$。
 
-  The sequences $q_0, q_1, \ldots$ and $r_0, r_1, \ldots$ are both Cauchy and they
-  converge to a point $x : [0,1]$ which is contained in every $[q_n, r_n]$.
-  There merely exists $i : I$ such that $a_i < x < b_i$. Because the sizes of the
-  intervals $[q_n, r_n]$ shrink to zero, there is $n : \N$ such that $a_i < q_n \leq x
-  \leq r_n < b_i$, but this means that $[q_n, r_n]$ is covered by a single interval $(a_i,
-  b_i)$, while at the same time it has no finite subcover. A contradiction.
+  序列 $q_0, q_1, \ldots$ 和 $r_0, r_1, \ldots$ 都是柯西的，它们收敛到 $[0,1]$ 中的一个点 $x$，该点包含在每个 $[q_n, r_n]$ 中。
+  仅存在 $i : I$ 使得 $a_i < x < b_i$。由于区间 $[q_n, r_n]$ 的大小收缩到零，存在 $n : \N$ 使得 $a_i < q_n \leq x \leq r_n < b_i$，但这意味着 $[q_n, r_n]$ 被单个区间 $(a_i, b_i)$ 覆盖，而同时它没有有限子覆盖。这是矛盾。
 \end{proof}
 
-Without excluded middle, or a pinch of Brouwerian Intuitionism, we seem to be stuck.
-Nevertheless, Heine--Borel compactness of $[0,1]$ \emph{can} be recovered in a constructive
-setting, in a fashion that is still compatible with classical mathematics! For this to be
-done, we need to revisit the notion of cover. The trouble with
-\eqref{eq:cover-pointwise-truncated} is that the truncated existential allows a space to
-be covered in any haphazard way, and so computationally speaking, we stand no chance of
-merely extracting a finite subcover. By removing the truncation we get
+没有排中律，或布劳威尔直觉主义 (Brouwerian Intuitionism) 的一点点帮助，我们似乎陷入了困境。然而，在构造性环境中，$[0,1]$ 的海涅-博雷尔紧致性 \emph{可以} 得到恢复，并且仍然与经典数学兼容！为此，我们需要重新审视覆盖的概念。\eqref{eq:cover-pointwise-truncated} 的问题在于截断的存在使得一个空间可以以任何随意的方式被覆盖，从计算的角度来看，我们几乎没有希望仅提取一个有限子覆盖。通过移除截断，我们得到
 %
 \begin{equation} \label{eq:cover-pointwise}
-  \prd{x : [0,1]} \sm{i : I} q_i < x < r_i,
+\prd{x : [0,1]} \sm{i : I} q_i < x < r_i,
 \end{equation}
 %
-which might help, were it not too demanding of covers. With this definition we
-could not even show that $(0,3)$ and $(2,5)$ cover $[1,4]$ because that would amount
-to exhibiting a non-constant map $[1,4] \to \bool$, see
-\cref{ex:reals-non-constant-into-Z}.  Here we can take a lesson from ``pointfree topology''
-\index{pointfree topology}%
-\index{topology!pointfree}%
-(i.e.\ locale theory):
-\index{locale}%
-the notion of cover ought to be expressed in terms of open sets, without
-reference to points. Such a ``holistic'' view of space will then allow us to analyze the
-notion of cover, and we shall be able to recover Heine--Borel compactness.  Locale
-theory uses power sets,
-\index{power set}%
-which we could obtain by assuming propositional resizing;
-\index{propositional!resizing}%
-but instead we can steal ideas from the predicative cousin of locale theory,
-\index{mathematics!predicative}%
-which is called ``formal topology''.
-\index{formal!topology}%
+这可能有所帮助，但它对覆盖的要求太高了。使用这个定义，我们甚至无法证明 $(0,3)$ 和 $(2,5)$ 覆盖 $[1,4]$，因为这相当于展示一个从 $[1,4]$ 到 $\bool$ 的非常数映射，参见 \cref{ex:reals-non-constant-into-Z}。在这里，我们可以从“无点拓扑 (pointfree topology)”\index{pointfree topology无点拓扑}%
+\index{topology!pointfree拓扑!无点的}%
+(即位置理论 (locale theory))\index{locale位置}%
+中吸取教训：覆盖的概念应该用开集来表达，而不涉及点。这样一种对空间的“整体”观点将允许我们分析覆盖的概念，我们将能够恢复海涅-博雷尔紧致性。位置理论使用幂集 (power sets)，\index{power set幂集}%
+我们可以通过假设命题调整 (propositional resizing) 获得；\index{propositional!resizing命题!调整}%
+但我们可以从位置理论的预测性 (predicative) 近亲中偷取想法，这被称为“形式拓扑 (formal topology)”\index{formal!topology形式!拓扑}%
+\index{mathematics!predicative数学!预测性}。
 
-\index{acceptance|(}
+\index{acceptance|(接受|(}
 
-Suppose that we have a family $\pairr{I, \mathcal{F}}$ and an interval $(a, b)$. How might
-we express the fact that $(a,b)$ is covered by the family, without referring to points?
-Here is one: if $(a, b)$ equals some $\mathcal{F}(i)$ then it is covered by the family.
-And another one: if $(a,b)$ is covered by some other family $(J, \mathcal{G})$, and in
-turn each $\mathcal{G}(j)$ is covered by $\pairr{I, \mathcal{F}}$, then $(a,b)$ is covered
-$\pairr{I, \mathcal{F}}$. Notice that we are listing \emph{rules} which can be used to
-\emph{deduce} that $\pairr{I, \mathcal{F}}$ covers $(a,b)$. We should find sufficiently
-good rules and turn them into an inductive definition.
+假设我们有一个族 $\pairr{I, \mathcal{F}}$ 和一个区间 $(a, b)$。我们如何表达 $(a,b)$ 被该族覆盖的事实，而不涉及点呢？这里有一种方法：如果 $(a, b)$ 等于某个 $\mathcal{F}(i)$，那么它就被该族覆盖了。还有一种方法：如果 $(a,b)$ 被另一个族 $(J, \mathcal{G})$ 覆盖，而每个 $\mathcal{G}(j)$ 都被 $\pairr{I, \mathcal{F}}$ 覆盖，那么 $(a,b)$ 就被 $\pairr{I, \mathcal{F}}$ 覆盖。注意，我们正在列出可以用来推导出 $\pairr{I, \mathcal{F}}$ 覆盖 $(a,b)$ 的\emph{规则}。我们应该找到足够好的规则并将它们转化为一个归纳定义。
 
 \begin{defn} \label{defn:inductive-cover}
-  %
-  The \define{inductive cover $\cover$}
-  \indexdef{inductive!cover}%
-  \indexdef{cover!inductive}%
-  is a mere relation
-  %
-  \begin{equation*}
-    {\cover} : (\Q \times \Q) \to \Parens{\sm{I : \type} (I \to \Q \times \Q)} \to \prop
-  \end{equation*}
-  %
-  defined inductively by the following rules, where $q, r, s, t$ are rational numbers and
-  $\pairr{I, \mathcal{F}}$, $\pairr{J, \mathcal{G}}$ are families of basic intervals:
-  %
-  \begin{enumerate}
+\define{归纳覆盖 $\cover$ (inductive cover $\cover$)}\indexdef{inductive!cover归纳!覆盖}%
+\indexdef{cover!inductive覆盖!归纳的}%
+是一个单纯关系 (mere relation)
+%
+\begin{equation*}
+{\cover} : (\Q \times \Q) \to \Parens{\sm{I : \type} (I \to \Q \times \Q)} \to \prop
+\end{equation*}
+%
+通过以下规则进行归纳定义，其中 $q, r, s, t$ 是有理数，$\pairr{I, \mathcal{F}}$ 和 $\pairr{J, \mathcal{G}}$ 是基本区间族：
+%
+\begin{enumerate}
 
-  \item \emph{reflexivity:}
-    \index{reflexivity!of inductive cover}%
-    $\mathcal{F}(i) \cover \pairr{I, \mathcal{F}}$ for all $i : I$,
+  \item \emph{自反性 (reflexivity):}\index{reflexivity!of inductive cover自反性!归纳覆盖的}%
+  对于所有 $i : I$，$\mathcal{F}(i) \cover \pairr{I, \mathcal{F}}$，
 
-  \item \emph{transitivity:}
-    \index{transitivity!of inductive cover}%
-    if $(q, r) \cover \pairr{J, \mathcal{G}}$ and $\fall{j : J} \mathcal{G}(j) \cover \pairr{I,\mathcal{F}}$
-    then $(q, r) \cover \pairr{I, \mathcal{F}}$,
+  \item \emph{传递性 (transitivity):}\index{transitivity!of inductive cover传递性!归纳覆盖的}%
+  如果 $(q, r) \cover \pairr{J, \mathcal{G}}$ 并且 $\fall{j : J} \mathcal{G}(j) \cover \pairr{I,\mathcal{F}}$，那么 $(q, r) \cover \pairr{I, \mathcal{F}}$，
 
-  \item \emph{monotonicity:}
-    \index{monotonicity!of inductive cover}%
-    if $(q, r) \subseteq (s, t)$ and $(s,t) \cover \pairr{I, \mathcal{F}}$ then $(q, r) \cover
-    \pairr{I, \mathcal{F}}$,
+  \item \emph{单调性 (monotonicity):}\index{monotonicity!of inductive cover单调性!归纳覆盖的}%
+  如果 $(q, r) \subseteq (s, t)$ 并且 $(s,t) \cover \pairr{I, \mathcal{F}}$，那么 $(q, r) \cover \pairr{I, \mathcal{F}}$，
 
-  \item \emph{localization:}
-    \index{localization of inductive cover}%
-    if $(q, r) \cover (I, \mathcal{F})$ then $(q, r) \cap (s, t) \cover
-    \intfam{i}{I}{(\mathcal{F}(i) \cap (s, t))}$.
+  \item \emph{局部化 (localization):}\index{localization of inductive cover局部化归纳覆盖的}%
+  如果 $(q, r) \cover (I, \mathcal{F})$，那么 $(q, r) \cap (s, t) \cover \intfam{i}{I}{(\mathcal{F}(i) \cap (s, t))}$。
 
   \item \label{defn:inductive-cover-interval-1}
-    if $q < s < t < r$ then $(q, r) \cover [(q, t), (r, s)]$,
+  如果 $q < s < t < r$，那么 $(q, r) \cover [(q, t), (r, s)]$，
 
   \item \label{defn:inductive-cover-interval-2}
-    $(q, r) \cover \intfam{u}{\setof{ (s,t) : \Q \times \Q | q < s < t < r}}{u}$.
-  \end{enumerate}
+  $(q, r) \cover \intfam{u}{\setof{ (s,t) : \Q \times \Q | q < s < t < r}}{u}$。
+\end{enumerate}
 \end{defn}
 
-The definition should be read as a higher-inductive type in which the listed rules are
-point constructors, and the type is $(-1)$-truncated. The first four clauses are of a
-general nature and should be intuitively clear. The last two clauses are specific to the
-real line: one says that an interval may be covered by two intervals if they overlap,
-while the other one says that an interval may be covered from within. Incidentally, if $r
-\leq q$ then $(q, r)$ is covered by the empty family by the last clause.
+该定义应被视为一个高阶归纳类型 (higher-inductive type)，其中列出的规则是点构造器 (point constructors)，并且该类型是 $(-1)$ 截断的。前四个条款是一般性的，应该是直观的。最后两条是特定于实数的：一条说，如果它们重叠，则一个区间可以被两个区间覆盖，而另一条说，一个区间可以从内部覆盖。如果 $r \leq q$，则根据最后一条规则，$(q, r)$ 被空族覆盖。
 
-Inductive covers enjoy the Heine--Borel property, the proof of which requires a lemma.
+归纳覆盖享有海涅-博雷尔性质，其证明需要一个引理。
 
 \begin{lem} \label{reals-formal-topology-locally-compact}
-  Suppose $q < s < t < r$ and $(q, r) \cover \pairr{I, \mathcal{F}}$. Then there merely
-  exists a finite subfamily of $\pairr{I, \mathcal{F}}$ which inductively covers $(s, t)$.
+假设 $q < s < t < r$ 并且 $(q, r) \cover \pairr{I, \mathcal{F}}$。那么仅存在 $\pairr{I, \mathcal{F}}$ 的一个有限子族，它归纳覆盖 $(s, t)$。
 \end{lem}
 
 \begin{proof}
-  We prove the statement by induction on $(q, r) \cover \pairr{I, \mathcal{F}}$. There are
-  six cases:
+  我们通过归纳证明 $(q, r) \cover \pairr{I, \mathcal{F}}$。有六种情况：
   %
   \begin{enumerate}
 
-  \item Reflexivity: if $(q, r) = \mathcal{F}(i)$ then by monotonicity $(s, t)$ is covered
-    by the finite subfamily $[\mathcal{F}(i)]$.
+    \item 自反性：如果 $(q, r) = \mathcal{F}(i)$，那么根据单调性 $(s, t)$ 被有限子族 $[\mathcal{F}(i)]$ 覆盖。
 
-  \item Transitivity:
-    suppose $(q, r) \cover \pairr{J, \mathcal{G}}$ and $\fall{j : J} \mathcal{G}(j) \cover
-    \pairr{I, \mathcal{F}}$. By the inductive hypothesis there merely exists
-    $[\mathcal{G}(j_1), \ldots, \mathcal{G}(j_n)]$ which covers $(s, t)$.
-    Again by the inductive hypothesis, each of $\mathcal{G}(j_k)$ is covered by a finite
-    subfamily of $\pairr{I, \mathcal{F}}$, and we can collect these into a finite
-    subfamily which covers $(s, t)$.
+    \item 传递性：
+    假设 $(q, r) \cover \pairr{J, \mathcal{G}}$ 并且 $\fall{j : J} \mathcal{G}(j) \cover \pairr{I, \mathcal{F}}$。根据归纳假设，仅存在 $[\mathcal{G}(j_1), \ldots, \mathcal{G}(j_n)]$ 覆盖 $(s, t)$。
+    再次根据归纳假设，它们中的每一个都被 $\pairr{I, \mathcal{F}}$ 的一个有限子族覆盖，并且我们可以将这些子族收集成一个有限子族覆盖 $(s, t)$。
 
-  \item Monotonicity:
-    if $(q, r) \subseteq (u, v)$ and $(u, v) \cover \pairr{I, \mathcal{F}}$ then we may
-    apply the inductive hypothesis to $(u, v) \cover \pairr{I, \mathcal{F}}$ because $u <
-    s < t < v$.
+    \item 单调性：
+    如果 $(q, r) \subseteq (u, v)$ 并且 $(u, v) \cover \pairr{I, \mathcal{F}}$，那么我们可以应用归纳假设到 $(u, v) \cover \pairr{I, \mathcal{F}}$，因为 $u < s < t < v$。
 
-  \item Localization:
-    suppose $(q', r') \cover \pairr{I, \mathcal{F}}$ and $(q, r) = (q', r') \cap (a, b)$.
-    Because $q' < s < t < r'$, by the inductive hypothesis there is a finite subcover
-    $[\mathcal{F}(i_1), \ldots, \mathcal{F}(i_n)]$ of $(s, t)$. We also know that $a < s <
-    t < b$, therefore $(s, t) = (s, t) \cap (a, b)$ is covered by
-    $[\mathcal{F}(i_1) \cap (a,b), \ldots, \mathcal{F}(i_n) \cap (a,b)]$, which is a
-    finite subfamily of $\intfam{i}{I}{(\mathcal{F}(i) \cap (a, b))}$.
+    \item 局部化：
+    假设 $(q', r') \cover \pairr{I, \mathcal{F}}$ 并且 $(q, r) = (q', r') \cap (a, b)$。
+    因为 $q' < s < t < r'$，根据归纳假设，存在一个有限子覆盖 $[\mathcal{F}(i_1), \ldots, \mathcal{F}(i_n)]$ 覆盖 $(s, t)$。我们还知道 $a < s < t < b$，因此 $(s, t) = (s, t) \cap (a, b)$ 被 $[\mathcal{F}(i_1) \cap (a,b), \ldots, \mathcal{F}(i_n) \cap (a,b)]$ 覆盖，这是 $\intfam{i}{I}{(\mathcal{F}(i) \cap (a, b))}$ 的一个有限子族。
 
-  \item If $(q, r) \cover [(q, v), (u, r)]$ for some $q < u < v < r$ then by monotonicity
-    $(s, t) \cover [(q, v), (u, r)]$.
+    \item 如果 $(q, r) \cover [(q, v), (u, r)]$ 对于某个 $q < u < v < r$，那么根据单调性 $(s, t) \cover [(q, v), (u, r)]$。
 
-  \item Finally, $(s, t) \cover \intfam{z}{\setof{ (u,v):\Q \times \Q | q < u < v < r}}{z}$ by
-    reflexivity. \qedhere
+    \item 最后，通过自反性 $(s, t) \cover \intfam{z}{\setof{ (u,v):\Q \times \Q | q < u < v < r}}{z}$。 \qedhere
   \end{enumerate}
 \end{proof}
 
-Say that \define{$\pairr{I, \mathcal{F}}$ inductively covers
-  $[a, b]$} when there merely exists $\epsilon : \Qp$ such that $(a - \epsilon, b +
-\epsilon) \cover \pairr{I, \mathcal{F}}$.
+说 $\pairr{I, \mathcal{F}}$ 归纳覆盖 $[a, b]$ 当仅存在 $\epsilon : \Qp$，使得 $(a - \epsilon, b + \epsilon) \cover \pairr{I, \mathcal{F}}$。
 
 \begin{cor} \label{interval-Heine-Borel}
-  \index{compactness!Heine-Borel}%
-  \index{interval!open and closed}%
-  A closed interval is Heine--Borel compact for inductive covers.
+\index{compactness!Heine-Borel紧致性!海涅-博雷尔}%
+\index{interval!open and closed区间!开和闭}%
+闭区间对归纳覆盖是海涅-博雷尔紧致的。
 \end{cor}
 
 \begin{proof}
-  Suppose $[a, b]$ is inductively covered by $\pairr{I, \mathcal{F}}$, so there merely is
-  $\epsilon : \Qp$ such that $(a - \epsilon, b + \epsilon) \cover \pairr{I, \mathcal{F}}$.
-  By \cref{reals-formal-topology-locally-compact} there is a finite subcover of
-  $(a - \epsilon/2, b + \epsilon/2)$, which is therefore a finite subcover of $[a, b]$.
+  假设 $[a, b]$ 被 $\pairr{I, \mathcal{F}}$ 归纳覆盖，因此仅存在 $\epsilon : \Qp$，使得 $(a - \epsilon, b + \epsilon) \cover \pairr{I, \mathcal{F}}$。根据 \cref{reals-formal-topology-locally-compact} 存在一个有限子覆盖 $(a - \epsilon/2, b + \epsilon/2)$，因此是 $[a, b]$ 的有限子覆盖。
 \end{proof}
 
-Experience from formal topology\index{topology!formal} shows that the rules for inductive covers are sufficient
-for a constructive development of pointfree topology. But we can also provide our own
-evidence that they are a reasonable notion.
+形式拓扑的经验 (Experience from formal topology)\index{topology!formal拓扑!形式} 表明，归纳覆盖的规则对于构造性的无点拓扑 (pointfree topology) 发展是足够的。但我们也可以提供自己的证据，证明它们是一个合理的概念。
 
 \begin{thm} \label{inductive-cover-classical}
-  \mbox{}
-  %
-  \begin{enumerate}
-  \item An inductive cover is also a pointwise cover.
-  \item Assuming excluded middle, a pointwise cover is also an inductive cover.
-  \end{enumerate}
+\mbox{}
+%
+\begin{enumerate}
+  \item 一个归纳覆盖也是一个逐点覆盖。
+  \item 假设排中律，一个逐点覆盖也是一个归纳覆盖。
+\end{enumerenumerate}
 \end{thm}
 
 \begin{proof}
@@ -2202,59 +2048,29 @@ evidence that they are a reasonable notion.
   %
   \begin{enumerate}
 
-  \item
-    Consider a family of basic intervals $\pairr{I, \mathcal{F}}$, where we write $(q_i,
-    r_i) \defeq \mathcal{F}(i)$, an interval $(a,b)$ inductively covered by $\pairr{I,
-      \mathcal{F}}$, and $x$ such that $a < x < b$.
-    %
-    We prove by induction on $(a,b) \cover \pairr{I, \mathcal{F}}$ that there merely
-    exists $i : I$ such that $q_i < x < r_i$. Most cases are pretty obvious, so we show
-    just two. If $(a,b) \cover \pairr{I, \mathcal{F}}$ by reflexivity, then there merely
-    is some $i : I$ such that $(a,b) = (q_i, r_i)$ and so $q_i < x < r_i$. If $(a,b)
-    \cover \pairr{I, \mathcal{F}}$ by transitivity via $\intfam{j}{J}{(s_j, t_j)}$ then by
-    the inductive hypothesis there merely is $j : J$ such that $s_j < x < t_j$, and then since
-    $(s_j, t_j) \cover \pairr{I, \mathcal{F}}$ again by the inductive hypothesis there merely
-    exists $i : I$ such that $q_i < x < r_i$. Other cases are just as exciting.
+    \item
+    考虑一个基本区间族 $\pairr{I, \mathcal{F}}$，其中我们写 $(q_i, r_i) \defeq \mathcal{F}(i)$，一个由 $\pairr{I, \mathcal{F}}$ 逐点覆盖的区间 $(a,b)$ 和 $x$，使得 $a < x < b$。
+    我们通过 $(a,b) \cover \pairr{I, \mathcal{F}}$ 的归纳证明，仅存在 $i : I$，使得 $q_i < x < r_i$。大多数情况都很明显，所以我们只展示两个。如果 $(a,b) \cover \pairr{I, \mathcal{F}}$ 是通过自反性覆盖的，那么仅存在某个 $i : I$，使得 $(a,b) = (q_i, r_i)$，因此 $q_i < x < r_i$。如果 $(a,b) \cover \pairr{I, \mathcal{F}}$ 是通过 $\intfam{j}{J}{(s_j, t_j)}$ 的传递性覆盖的，那么根据归纳假设，仅存在 $j : J$，使得 $s_j < x < t_j$，然后因为 $(s_j, t_j) \cover \pairr{I, \mathcal{F}}$，再次根据归纳假设，仅存在 $i : I$，使得 $q_i < x < r_i$。其他情况同样激动人心。
 
-  \item Suppose $\intfam{i}{I}{(q_i, r_i)}$ pointwise covers $(a, b)$. By
-    \cref{defn:inductive-cover-interval-2} of \cref{defn:inductive-cover} it
-    suffices to show that $\intfam{i}{I}{(q_i, r_i)}$ inductively covers $(c, d)$ whenever
-    $a < c < d < b$, so consider such $c$ and $d$. By \cref{classical-Heine-Borel}
-    there is a finite subfamily $[i_1, \ldots, i_n]$ which already pointwise covers $[c,
-    d]$, and hence $(c,d)$. Let $\epsilon : \Qp$ be a Lebesgue number
-    \index{Lebesgue number}
-    for $(q_{i_1}, r_{i_1}), \ldots, (q_{i_n}, r_{i_n})$ as in
-    \cref{ex:finite-cover-lebesgue-number}. There is a positive $k : \N$ such that $2 (d - c)/k
-    < \min(1, \epsilon)$. For $0 \leq i \leq k$ let
+    \item 假设 $\intfam{i}{I}{(q_i, r_i)}$ 逐点覆盖 $(a, b)$。根据 \cref{defn:inductive-cover-interval-2} 和 \cref{defn:inductive-cover} 的定义，只需证明 $\intfam{i}{I}{(q_i, r_i)}$ 归纳覆盖 $(c, d)$，只要 $a < c < d < b$，所以考虑这样的 $c$ 和 $d$。根据 \cref{classical-Heine-Borel}，存在一个有限子族 $[i_1, \ldots, i_n]$，它已经逐点覆盖 $[c, d]$，因此 $(c,d)$。设 $\epsilon : \Qp$ 为 $[c, d]$ 的 $[(q_{i_1}, r_{i_1}), \ldots, (q_{i_n}, r_{i_n})]$ 的 Lebesgue 数 (Lebesgue number)\index{Lebesgue number}%
+    ，如 \cref{ex:finite-cover-lebesgue-number} 中所示。存在一个正数 $k : \N$，使得 $2 (d - c)/k < \min(1, \epsilon)$。对于 $0 \leq i \leq k$，设
     %
     \begin{equation*}
-      c_k \defeq ((k - i) c + i d) / k.
+      c_k \defeq ((k - i) c + i d) / k。
     \end{equation*}
     %
-    The intervals $(c_0, c_2)$, $(c_1, c_3)$, \dots, $(c_{k-2}, c_k)$ inductively cover
-    $(c,d)$ by repeated use of transitivity and~\cref{defn:inductive-cover-interval-1}
-    in \cref{defn:inductive-cover}. Because their widths are below $\epsilon$ each of
-    them is contained in some $(q_i, r_i)$, and we may use transitivity and monotonicity to
-    conclude that $\intfam{i}{I}{(q_i, r_i)}$ inductively cover $(c, d)$. \qedhere
-  \end{enumerate}
+    区间 $(c_0, c_2)$、$(c_1, c_3)$、……、$(c_{k-2}, c_k)$ 通过反复使用传递性和 \cref{defn:inductive-cover-interval-1} 归纳覆盖 $(c,d)$。由于它们的宽度低于 $\epsilon$，因此每个都包含在某个 $(q_i, r_i)$ 中，并且我们可以使用传递性和单调性得出 $\intfam{i}{I}{(q_i, r_i)}$ 归纳覆盖 $(c, d)$。 \qedhere
+  \end{enumerenumerate}
 \end{proof}
 
-The upshot of the previous theorem is that, as far as classical mathematics is concerned,
-there is no difference between a pointwise and an inductive cover. In particular, since it
-is consistent to assume excluded middle in homotopy type theory, we cannot exhibit an
-inductive cover which fails to be a pointwise cover. Or to put it in a different way, the
-difference between pointwise and inductive covers is not what they cover but in the
-\emph{proofs} that they cover.
+前述定理的结果是，就经典数学而言，逐点覆盖和归纳覆盖之间没有区别。特别是，由于在同伦类型论中假设排中律是自洽的，我们不能展示一个归纳覆盖无法逐点覆盖。或者换句话说，逐点覆盖和归纳覆盖之间的区别不在于它们覆盖什么，而在于它们\emph{证明}它们覆盖的内容。
 
-We could write another book by going on like this, but let us stop here and hope that we
-have provided ample justification for the claim that analysis can be developed in homotopy
-type theory. The curious reader should consult \cref{ex:mean-value-theorem} for
-constructive versions of the intermediate value theorem.
+我们可以写另一本书来继续讨论这些内容，但让我们在这里停止，希望我们已经提供了充分的理由来证明分析可以在同伦类型论中进行发展。好奇的读者应参阅 \cref{ex:mean-value-theorem}，以了解中值定理 (intermediate value theorem) 的构造性版本。
 
-\index{acceptance|)}
+\index{acceptance|接受|)}
 
-\index{mathematics!classical|)}%
-\index{mathematics!constructive|)}%
+\index{mathematics!classical|数学!经典|}%
+\index{mathematics!constructive|数学!构造性|}%
 
 \section{The surreal numbers}
 \label{sec:surreals}
