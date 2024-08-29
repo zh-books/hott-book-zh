@@ -1,280 +1,271 @@
-\phantomsection % black magic to get TOC to point to correct page
-\markboth{}{\textsc{Index of symbols}}
-\addcontentsline{toc}{part}{Index of symbols}
-\chapter*{Index of symbols}
+\phantomsection % 黑魔法，用于使目录指向正确的页面
+\markboth{}{\textsc{符号索引 (Index of symbols)}}
+\addcontentsline{toc}{part}{符号索引 (Index of symbols)}
+\chapter*{符号索引 (Index of symbols)}
 
-% Shorthand for \pageref, we have lots of these.
-\newcommand{\pg}[1]{p.~\pageref{#1}}
-% In the next macro whitespace matters, so be careful
+% \pageref 的简写，我们有很多这种用法。
+\newcommand{\pg}[1]{第~\pageref{#1} 页}
+% 在下一个宏中，空白字符很重要，所以要小心
 \newcommand{\symbolindex}[2]{\hbox{\makebox[0.2\textwidth][s]{#1\hfill}\hspace*{2.5em}\parbox[t]{0.65\textwidth}{#2\hfill}}\\[1.5pt]}
 
-% The entries in this table are sorted "alphabetically" whatever that means.
+% 本表中的条目按“字母顺序”排序，不管这意味着什么。
 
-{\OPTindexfont % Set same font size as for the index
+{\OPTindexfont % 设置与索引相同的字体大小
 
-% MAKE SURE THERE ARE NO EMPTY LINES, OR ELSE WE GET A PARAGRAPH BREAK.
-% ALSO, DO NOT INSERT ANY WHITESPACE AT THE BEGINNING OF ARGUMENTS OF \symbolindex
+% 确保没有空行，否则我们将得到段落中断。
+% 另外，不要在 \symbolindex 的参数开头插入任何空白字符。
 \noindent
-%%%%%%%%%% Equalities %%%%%%%%%%
-\symbolindex{$x \defeq a$	}{definition, \pg{defn:defeq}}
-\symbolindex{$a \jdeq b$	}{judgmental equality, \pg{defn:judgmental-equality}}
-\symbolindex{$a =_A b$	}{identity type, \pg{sec:identity-types}}
-\symbolindex{$a = b$	}{identity type, \pg{sec:identity-types}}
-\symbolindex{$x \defid b$	}{propositional equality by definition, \pg{rmk:defid}}
-\symbolindex{$\idtypevar{A}(a,b)$	}{identity type, \pg{sec:identity-types}}
-\symbolindex{$\dpath{P}{p}{a}{b}$	}{dependent path type, \pg{eq:dpath}}
-\symbolindex{$a \neq b$	}{disequality, \pg{sec:disequality}}
-%%%%%%%%%% Stuff that's hard to alphabetize %%%%%%%%%%
-\symbolindex{$\refl{x}$	}{reflexivity path at $x$, \pg{sec:identity-types}}
-\symbolindex{$\opp{p}$	}{path reversal, \pg{lem:opp}}
-\symbolindex{$p\ct q$	}{path concatenation, \pg{lem:concat}}
-\symbolindex{$p\leftwhisker r$	}{left whiskering, \pg{thm:EckmannHilton}}
-\symbolindex{$r\rightwhisker q$	}{right whiskering, \pg{thm:EckmannHilton}}
-\symbolindex{$r\hct s$	}{horizontal concatenation of 2-paths, \pg{thm:EckmannHilton}}
-\symbolindex{$g\circ f$	}{composite of functions, \pg{ex:composition}}
-\symbolindex{$g\circ f$	}{composite of morphisms in a precategory, \pg{ct:precategory}}
-\symbolindex{$\inv{f}$	}{quasi-inverse of an equivalence, \pg{thm:equiv-eqrel}}
-\symbolindex{$\inv{f}$	}{inverse of an isomorphism in a precategory, \pg{ct:inv}}
-%%%%%%%%%% Numbers etc. %%%%%%%%%%
-\symbolindex{$\emptyt$	}{empty type, \pg{sec:coproduct-types}}
-\symbolindex{$\unit$	}{unit type, \pg{sec:finite-product-types}}
-\symbolindex{$\ttt$	}{canonical inhabitant of $\unit$, \pg{sec:finite-product-types}}
-\symbolindex{$\bool$	}{type of booleans, \pg{sec:type-booleans}}
-\symbolindex{$\btrue$, $\bfalse$	}{constructors of $\bool$, \pg{sec:type-booleans}}
-\symbolindex{$\izero$, $\ione$	}{point constructors of the interval $\interval$, \pg{sec:interval}}
+%%%%%%%%%% 等式 %%%%%%%%%%
+\symbolindex{$x \defeq a$	}{定义 (definition), \pg{defn:defeq}}
+\symbolindex{$a \jdeq b$	}{判断等式 (judgmental equality), \pg{defn:judgmental-equality}}
+\symbolindex{$a =_A b$	}{同一类型 (identity type), \pg{sec:identity-types}}
+\symbolindex{$a = b$	}{同一类型 (identity type), \pg{sec:identity-types}}
+\symbolindex{$x \defid b$	}{按定义的命题等式 (propositional equality by definition), \pg{rmk:defid}}
+\symbolindex{$\idtypevar{A}(a,b)$	}{同一类型 (identity type), \pg{sec:identity-types}}
+\symbolindex{$\dpath{P}{p}{a}{b}$	}{依赖路径类型 (dependent path type), \pg{eq:dpath}}
+\symbolindex{$a \neq b$	}{不等式 (disequality), \pg{sec:disequality}}
+%%%%%%%%%% 难以排序的内容 %%%%%%%%%%
+\symbolindex{$\refl{x}$	}{在 $x$ 处的反射路径 (reflexivity path at $x$), \pg{sec:identity-types}}
+\symbolindex{$\opp{p}$	}{路径反转 (path reversal), \pg{lem:opp}}
+\symbolindex{$p\ct q$	}{路径连接 (path concatenation), \pg{lem:concat}}
+\symbolindex{$p\leftwhisker r$	}{左鞭打 (left whiskering), \pg{thm:EckmannHilton}}
+\symbolindex{$r\rightwhisker q$	}{右鞭打 (right whiskering), \pg{thm:EckmannHilton}}
+\symbolindex{$r\hct s$	}{2-路径的水平连接 (horizontal concatenation of 2-paths), \pg{thm:EckmannHilton}}
+\symbolindex{$g\circ f$	}{函数复合 (composite of functions), \pg{ex:composition}}
+\symbolindex{$g\circ f$	}{前类别中态射的复合 (composite of morphisms in a precategory), \pg{ct:precategory}}
+\symbolindex{$\inv{f}$	}{等价关系的准逆 (quasi-inverse of an equivalence), \pg{thm:equiv-eqrel}}
+\symbolindex{$\inv{f}$	}{前类别中同构的逆 (inverse of an isomorphism in a precategory), \pg{ct:inv}}
+%%%%%%%%%% 数字等 %%%%%%%%%%
+\symbolindex{$\emptyt$	}{空类型 (empty type), \pg{sec:coproduct-types}}
+\symbolindex{$\unit$	}{单位类型 (unit type), \pg{sec:finite-product-types}}
+\symbolindex{$\ttt$	}{单位类型的标准居留元素 (canonical inhabitant of $\unit$), \pg{sec:finite-product-types}}
+\symbolindex{$\bool$	}{布尔类型 (type of booleans), \pg{sec:type-booleans}}
+\symbolindex{$\btrue$, $\bfalse$	}{布尔类型的构造器 (constructors of $\bool$), \pg{sec:type-booleans}}
+\symbolindex{$\izero$, $\ione$	}{区间 $\interval$ 的点构造器 (point constructors of the interval $\interval$), \pg{sec:interval}}
 %%%%%%%%%% A %%%%%%%%%%
-\symbolindex{$\choice{}$	}{axiom of choice, \pg{eq:ac}}
-\symbolindex{$\choice{\infty}$	}{``type-theoretic axiom of choice'', \pg{thm:ttac}}
-\symbolindex{$\acc(a)$	}{accessibility predicate, \pg{defn:accessibility}}
-\symbolindex{$P \land Q$	}{logical conjunction (``and''), \pg{defn:logical-notation}}
-\symbolindex{$\apfunc{f}(p)$ or $\ap{f}{p}$	}{application of $f:A\to B$ to $p:\id[A]xy$, \pg{lem:map}}
-\symbolindex{$\apd{f}{p}$	}{application of $f:\prd{a:A} B(a)$ to $p:\id[A]xy$, \pg{lem:mapdep}}
-% This is not currently a distinctive notation that someone would look up
-% $\aptwo{f}{p}$ & two-dimensional $\apfunc{}$, \pg{thm:ap2}
-% \\
-\symbolindex{$\apdtwo{f}{p}$	}{two-dimensional dependent $\apfunc{}$, \pg{thm:apd2}}
-\symbolindex{$x\apart y$	}{apartness of real numbers, \pg{apart}}
+\symbolindex{$\choice{}$	}{选择公理 (axiom of choice), \pg{eq:ac}}
+\symbolindex{$\choice{\infty}$	}{“类型论选择公理” (``type-theoretic axiom of choice''), \pg{thm:ttac}}
+\symbolindex{$\acc(a)$	}{可访问性谓词 (accessibility predicate), \pg{defn:accessibility}}
+\symbolindex{$P \land Q$	}{逻辑合取 (“与”，logical conjunction), \pg{defn:logical-notation}}
+\symbolindex{$\apfunc{f}(p)$ or $\ap{f}{p}$	}{将 $f:A\to B$ 应用于 $p:\id[A]xy$ (application of $f:A\to B$ to $p:\id[A]xy$), \pg{lem:map}}
+\symbolindex{$\apd{f}{p}$	}{将 $f:\prd{a:A} B(a)$ 应用于 $p:\id[A]xy$ (application of $f:\prd{a:A} B(a)$ to $p:\id[A]xy$), \pg{lem:mapdep}}
+\symbolindex{$\apdtwo{f}{p}$	}{二维依赖 $\apfunc{}$ (two-dimensional dependent $\apfunc{}$), \pg{thm:apd2}}
+\symbolindex{$x\apart y$	}{实数的不相交 (apartness of real numbers), \pg{apart}}
 %%%%%%%%%% B %%%%%%%%%%
-\symbolindex{$\base$	}{basepoint of $\Sn^1$, \pg{sec:intro-hits}}
-\symbolindex{$\base$            }{basepoint of $\Sn^2$, \pg{s2a} and \pg{s2b}}
-\symbolindex{$\biinv(f)$        }{proposition that $f$ is bi-invertible, \pg{defn:biinv}}
-\symbolindex{$x \bisim y$       }{bisimulation, \pg{def:bisimulation}}
-\symbolindex{$\blank$           }{blank used for implicit $\lambda$-abstractions, \pg{blank}}
+\symbolindex{$\base$	}{$\Sn^1$ 的基点 (basepoint of $\Sn^1$), \pg{sec:intro-hits}}
+\symbolindex{$\base$            }{ $\Sn^2$ 的基点 (basepoint of $\Sn^2$), \pg{s2a} 和 \pg{s2b}}
+\symbolindex{$\biinv(f)$        }{命题 $f$ 是双逆的 (proposition that $f$ is bi-invertible), \pg{defn:biinv}}
+\symbolindex{$x \bisim y$       }{双仿真 (bisimulation), \pg{def:bisimulation}}
+\symbolindex{$\blank$           }{用于隐式 $\lambda$-抽象的空白符 (blank used for implicit $\lambda$-abstractions), \pg{blank}}
 %%%%%%%%%% C %%%%%%%%%%
-\symbolindex{$\CAP$             }{type of Cauchy approximations, \pg{cauchy-approximations}}
-\symbolindex{$\card$            }{type of cardinal numbers, \pg{defn:card}}
-\symbolindex{$\modal A$         }{reflector or modality applied to $A$, \pg{defn:reflective-subuniverse} and \pg{defn:modality}}
-\symbolindex{$\cocone{X}{Y}$    }{type of cocones, \pg{defn:cocone}}
-% Not used
-%\symbolindex{
-%  \cone{X}{Y}$
-%}{
-%  type of cones
-%}
-\symbolindex{$\code$            }{family of codes for paths, \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
-\symbolindex{$A \setminus B$    }{subset complement, \pg{complement}}
-\symbolindex{$\cons(x,\ell)$    }{concatenation constructor for lists, \pg{lst} and \pg{lst-freemonoid}}
-\symbolindex{$\contr_x$         }{path to the center of contraction, \pg{defn:contractible}}
-\symbolindex{$\mathcal{F}\cover\pairr{J, \mathcal{G}}$          }{inductive cover, \pg{defn:inductive-cover}}
-\symbolindex{$\dcut(L,U)$       }{the property of being a Dedekind cut, \pg{defn:dedekind-reals}}
-\symbolindex{$\surr{L}{R}$      }{cut defining a surreal number, \pg{surreal-cut}}
+\symbolindex{$\CAP$             }{柯西逼近类型 (type of Cauchy approximations), \pg{cauchy-approximations}}
+\symbolindex{$\card$            }{基数类型 (type of cardinal numbers), \pg{defn:card}}
+\symbolindex{$\modal A$         }{反射子或模态性应用于 $A$ (reflector or modality applied to $A$), \pg{defn:reflective-subuniverse} 和 \pg{defn:modality}}
+\symbolindex{$\cocone{X}{Y}$    }{余锥类型 (type of cocones), \pg{defn:cocone}}
+\symbolindex{$\code$            }{路径编码族 (family of codes for paths), \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
+\symbolindex{$A \setminus B$    }{子集补集 (subset complement), \pg{complement}}
+\symbolindex{$\cons(x,\ell)$    }{列表的连接构造器 (concatenation constructor for lists), \pg{lst} 和 \pg{lst-freemonoid}}
+\symbolindex{$\contr_x$         }{收缩中心的路径 (path to the center of contraction), \pg{defn:contractible}}
+\symbolindex{$\mathcal{F}\cover\pairr{J, \mathcal{G}}$          }{归纳覆盖 (inductive cover), \pg{defn:inductive-cover}}
+\symbolindex{$\dcut(L,U)$       }{德德金分割的性质 (the property of being a Dedekind cut), \pg{defn:dedekind-reals}}
+\symbolindex{$\surr{L}{R}$      }{定义超现实数的割 (cut defining a surreal number), \pg{surreal-cut}}
 %%%%%%%%%% D %%%%%%%%%%
-\symbolindex{$\dgr{X}$          }{morphism reversal in a $\dagger$-category, \pg{sec:dagger-categories}}
-\symbolindex{$\decode$          }{decoding function for paths, \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
+\symbolindex{$\dgr{X}$          }{ $\dagger$-范畴中的态射反转 (morphism reversal in a $\dagger$-category), \pg{sec:dagger-categories}}
+\symbolindex{$\decode$          }{路径的解码函数 (decoding function for paths), \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
 %%%%%%%%%% E %%%%%%%%%%
-\symbolindex{$\encode$	}{encoding function for paths, \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
-\symbolindex{$\mreturn^\modal_A$ or $\mreturn_A$	}{the function $A\to\modal A$, \pg{defn:reflective-subuniverse} and \pg{defn:modality}}
-\symbolindex{$A \epi B$	}{epimorphism or surjection}
-\symbolindex{$\noeq(x,y)$	}{path constructor of the surreals, \pg{defn:surreals}}
-\symbolindex{$\rceq(u,v)$	}{path constructor of the Cauchy reals, \pg{defn:cauchy-reals}}
-\symbolindex{$a \eqr b$	}{an equivalence relation, \pg{equivalencerelation}}
-\symbolindex{$\eqv{X}{Y}$	}{type of equivalences, \pg{eq:eqv}}
-\symbolindex{$\texteqv{X}{Y}$	}{type of equivalences (same as $\eqv{X}{Y}$)}
-\symbolindex{$\cteqv{A}{B}$	}{type of equivalences of categories, \pg{ct:equiv}}
-\symbolindex{$P \Leftrightarrow Q$	}{logical equivalence, \pg{defn:logical-notation}}
-\symbolindex{$\exis{x:A} B(x)$	}{logical notation for mere existential, \pg{defn:logical-notation}}
-\symbolindex{$\extend f$	}{extension of $f:A\to B$ along $\eta_A$, \pg{extend}}
+\symbolindex{$\encode$	}{路径的编码函数 (encoding function for paths), \pg{sec:compute-coprod}, \pg{S1-universal-cover}, \pg{sec:general-encode-decode}}
+\symbolindex{$\mreturn^\modal_A$ or $\mreturn_A$	}{函数 $A\to\modal A$ (the function $A\to\modal A$), \pg{defn:reflective-subuniverse} 和 \pg{defn:modality}}
+\symbolindex{$A \epi B$	}{满射 (epimorphism or surjection)}
+\symbolindex{$\noeq(x,y)$	}{超现实数的路径构造器 (path constructor of the surreals), \pg{defn:surreals}}
+\symbolindex{$\rceq(u,v)$	}{柯西实数的路径构造器 (path constructor of the Cauchy reals), \pg{defn:cauchy-reals}}
+\symbolindex{$a \eqr b$	}{等价关系 (an equivalence relation), \pg{equivalencerelation}}
+\symbolindex{$\eqv{X}{Y}$	}{等价类型 (type of equivalences), \pg{eq:eqv}}
+\symbolindex{$\texteqv{X}{Y}$	}{等价类型 (与 $\eqv{X}{Y}$ 相同, type of equivalences, same as $\eqv{X}{Y}$)}
+\symbolindex{$\cteqv{A}{B}$	}{范畴等价类型 (type of equivalences of categories), \pg{ct:equiv}}
+\symbolindex{$P \Leftrightarrow Q$	}{逻辑等价 (logical equivalence), \pg{defn:logical-notation}}
+\symbolindex{$\exis{x:A} B(x)$	}{逻辑符号表示的单纯存在 (logical notation for mere existential), \pg{defn:logical-notation}}
+\symbolindex{$\extend f$	}{ $f:A\to B$ 沿着 $\eta_A$ 的扩展 (extension of $f:A\to B$ along $\eta_A$), \pg{extend}}
 %%%%%%%%%% F %%%%%%%%%%
-\symbolindex{$\bot$	}{logical falsity, \pg{defn:logical-notation}}
-\symbolindex{$\hfib{f}{b}$	}{fiber of $f:A\to B$ at $b:B$, \pg{defn:homotopy-fiber}}
-\symbolindex{$\Fin(n)$  }{standard finite type, \pg{fin}}
-\symbolindex{$\fall{x:A} B(x)$	}{logical notation for dependent function type, \pg{defn:logical-notation}}
-\symbolindex{$\funext$	}{function extensionality, \pg{axiom:funext}}
-\symbolindex{$A\to B$	}{function type, \pg{sec:function-types}}
-\symbolindex{$B^A$      }{functor precategory, \pg{ct:functor-precat}}
+\symbolindex{$\bot$	}{逻辑虚假 (logical falsity), \pg{defn:logical-notation}}
+\symbolindex{$\hfib{f}{b}$	}{在 $b:B$ 处 $f:A\to B$ 的纤维 (fiber of $f:A\to B$ at $b:B$), \pg{defn:homotopy-fiber}}
+\symbolindex{$\Fin(n)$  }{标准有限类型 (standard finite type), \pg{fin}}
+\symbolindex{$\fall{x:A} B(x)$	}{逻辑符号表示的依赖函数类型 (logical notation for dependent function type), \pg{defn:logical-notation}}
+\symbolindex{$\funext$	}{函数外延性 (function extensionality), \pg{axiom:funext}}
+\symbolindex{$A\to B$	}{函数类型 (function type), \pg{sec:function-types}}
+\symbolindex{$B^A$      }{函子前范畴 (functor precategory), \pg{ct:functor-precat}}
 %%%%%%%%%% G %%%%%%%%%%
-\symbolindex{$\glue$	}{path constructor of $A \sqcup^C B$, \pg{sec:colimits}}
+\symbolindex{$\glue$	}{ $A \sqcup^C B$ 的路径构造器 (path constructor of $A \sqcup^C B$), \pg{sec:colimits}}
 %%%%%%%%%% H %%%%%%%%%%
-\symbolindex{$\happly$	}{function making a path of functions into a homotopy, \pg{eq:happly}}
-\symbolindex{$\hom_A(a,b)$	}{hom-set in a precategory, \pg{ct:precategory}}
-\symbolindex{$f \htpy g$	}{homotopy between functions, \pg{defn:homotopy}}
+\symbolindex{$\happly$	}{将函数的路径变为同伦的函数 (function making a path of functions into a homotopy), \pg{eq:happly}}
+\symbolindex{$\hom_A(a,b)$	}{前范畴中的同态集 (hom-set in a precategory), \pg{ct:precategory}}
+\symbolindex{$f \htpy g$	}{函数之间的同伦 (homotopy between functions), \pg{defn:homotopy}}
 %%%%%%%%%% I %%%%%%%%%%
-\symbolindex{$\interval$	}{the interval type, \pg{sec:interval}}
-\symbolindex{$\idfunc[A]$	}{the identity function of $A$, \pg{idfunc}}
-\symbolindex{$1_a$	}{identity morphism in a precategory, \pg{ct:precategory}}
-\symbolindex{$\idtoeqv$	}{function $(A=B)\to(\eqv A B)$ which univalence inverts, \pg{eq:uidtoeqv}}
-\symbolindex{$\idtoiso$	}{function $(a=b) \to (a\cong b)$ in a precategory, \pg{ct:idtoiso}}
-\symbolindex{$\im(f)$	}{image of map $f$, \pg{defn:modal-image}}
-\symbolindex{$\im_n(f)$	}{$n$-image of map $f$, \pg{defn:modal-image}}
-\symbolindex{$P \Rightarrow Q$	}{logical implication (``implies''), \pg{defn:logical-notation}}
-\symbolindex{$a \in P$	}{membership in a subset or subtype, \pg{membership}}
-\symbolindex{$x\in v$	}{membership in the cumulative hierarchy, \pg{V-membership}}
-\symbolindex{$x\bin v$	}{resized membership, \pg{resized-membership}}
-\symbolindex{$\ind{\emptyt}$	}{induction for ${\emptyt}$, \pg{defn:induction-emptyt},}
-\symbolindex{$\ind{\unit}$	}{induction for ${\unit}$, \pg{defn:induction-unit},}
-\symbolindex{$\ind{\bool}$	}{induction for ${\bool}$, \pg{defn:induction-bool},}
-\symbolindex{$\ind{\nat}$	}{induction for ${\nat}$, \pg{defn:induction-nat}, and}
-\symbolindex{$\indid{A}$	}{path induction for $=_A$, \pg{defn:induction-ML-id},}
-\symbolindex{$\indidb{A}$	}{based path induction for $=_A$, \pg{defn:induction-PM-id},}
-\symbolindex{$\ind{A \times B}$	}{induction for ${A \times B}$, \pg{defn:induction-times},}
-\symbolindex{$\ind{\sm{x:A} B(x)}$	}{induction for ${\sm{x:A} B}$, \pg{defn:induction-sm},}
-\symbolindex{$\ind{A + B}$	}{induction for ${A + B}$, \pg{defn:induction-plus},}
-\symbolindex{$\ind{\wtype{x:A} B(x)}$	}{induction for ${\wtype{x:A} B}$, \pg{defn:induction-wtype}}
-\symbolindex{$\ordsl{A}{a}$	}{initial segment of an ordinal, \pg{initial-segment}}
-\symbolindex{$\inj(A,B)$	}{type of injections, \pg{inj}}
-\symbolindex{$\inl$	}{first injection into a coproduct, \pg{sec:coproduct-types}}
-\symbolindex{$\inr$	}{second injection into a coproduct, \pg{sec:coproduct-types}}
-\symbolindex{$A \cap B$	}{intersection of subsets, \pg{intersection}, classes, \pg{class-intersection}, or intervals, \pg{interval-intersection}}
-\symbolindex{$\iscontr(A)$	}{proposition that $A$ is contractible, \pg{defn:contractible}}
-\symbolindex{$\isequiv(f)$	}{proposition that $f$ is an equivalence, \pg{basics-isequiv}, \pg{cha:equivalences}, and \pg{sec:concluding-remarks}}
-\symbolindex{$\ishae(f)$	}{proposition that $f$ is a half-adjoint equivalence, \pg{defn:ishae}}
-\symbolindex{$a\cong b$	}{type of isomorphisms in a (pre)category, \pg{ct:isomorphism}}
-\symbolindex{$A\cong B$	}{type of isomorphisms between precategories, \pg{ct:isocat}}
-\symbolindex{$A\cong B$	}{type of isomorphisms between sets, \pg{basics:iso}}
-\symbolindex{$a\unitaryiso b$	}{type of unitary isomorphisms, \pg{ct:unitary}}
-\symbolindex{$\isotoid$	}{inverse of $\idtoiso$ in a category, \pg{isotoid}}
-\symbolindex{$\istype{n}(X)$	}{proposition that $X$ is an $n$-type, \pg{def:hlevel}}
-\symbolindex{$\isprop(A)$	}{proposition that $A$ is a mere proposition, \pg{defn:isprop}}
-\symbolindex{$\isset(A)$	}{proposition that $A$ is a set, \pg{defn:set}}
+\symbolindex{$\interval$	}{区间类型 (the interval type), \pg{sec:interval}}
+\symbolindex{$\idfunc[A]$	}{ $A$ 的恒等函数 (the identity function of $A$), \pg{idfunc}}
+\symbolindex{$1_a$	}{前范畴中的恒等态射 (identity morphism in a precategory), \pg{ct:precategory}}
+\symbolindex{$\idtoeqv$	}{函数 $(A=B)\to(\eqv A B)$，通过单一性反转 (function $(A=B)\to(\eqv A B)$ which univalence inverts), \pg{eq:uidtoeqv}}
+\symbolindex{$\idtoiso$	}{函数 $(a=b) \to (a\cong b)$，在前范畴中 (function $(a=b) \to (a\cong b)$ in a precategory), \pg{ct:idtoiso}}
+\symbolindex{$\im(f)$	}{映射 $f$ 的像 (image of map $f$), \pg{defn:modal-image}}
+\symbolindex{$\im_n(f)$	}{映射 $f$ 的 $n$-像 ($n$-image of map $f$), \pg{defn:modal-image}}
+\symbolindex{$P \Rightarrow Q$	}{逻辑蕴涵 (“蕴含”，logical implication), \pg{defn:logical-notation}}
+\symbolindex{$a \in P$	}{子集或子类型的成员资格 (membership in a subset or subtype), \pg{membership}}
+\symbolindex{$x\in v$	}{累积层次结构中的成员资格 (membership in the cumulative hierarchy), \pg{V-membership}}
+\symbolindex{$x\bin v$	}{调整后的成员资格 (resized membership), \pg{resized-membership}}
+\symbolindex{$\ind{\emptyt}$	}{ ${\emptyt}$ 的归纳 (induction for ${\emptyt}$), \pg{defn:induction-emptyt},}
+\symbolindex{$\ind{\unit}$	}{ ${\unit}$ 的归纳 (induction for ${\unit}$), \pg{defn:induction-unit},}
+\symbolindex{$\ind{\bool}$	}{ ${\bool}$ 的归纳 (induction for ${\bool}$), \pg{defn:induction-bool},}
+\symbolindex{$\ind{\nat}$	}{ ${\nat}$ 的归纳 (induction for ${\nat}$), \pg{defn:induction-nat}, 和}
+\symbolindex{$\indid{A}$	}{ $=_A$ 的路径归纳 (path induction for $=_A$), \pg{defn:induction-ML-id},}
+\symbolindex{$\indidb{A}$	}{ $=_A$ 的基于路径的归纳 (based path induction for $=_A$), \pg{defn:induction-PM-id},}
+\symbolindex{$\ind{A \times B}$	}{ ${A \times B}$ 的归纳 (induction for ${A \times B}$), \pg{defn:induction-times},}
+\symbolindex{$\ind{\sm{x:A} B(x)}$	}{ ${\sm{x:A} B}$ 的归纳 (induction for ${\sm{x:A} B}$), \pg{defn:induction-sm},}
+\symbolindex{$\ind{A + B}$	}{ ${A + B}$ 的归纳 (induction for ${A + B}$), \pg{defn:induction-plus},}
+\symbolindex{$\ind{\wtype{x:A} B(x)}$	}{ ${\wtype{x:A} B}$ 的归纳 (induction for ${\wtype{x:A} B}$), \pg{defn:induction-wtype}}
+\symbolindex{$\ordsl{A}{a}$	}{序数的初始段 (initial segment of an ordinal), \pg{initial-segment}}
+\symbolindex{$\inj(A,B)$	}{单射类型 (type of injections), \pg{inj}}
+\symbolindex{$\inl$	}{注入到余积的第一个注入 (first injection into a coproduct), \pg{sec:coproduct-types}}
+\symbolindex{$\inr$	}{注入到余积的第二个注入 (second injection into a coproduct), \pg{sec:coproduct-types}}
+\symbolindex{$A \cap B$	}{子集的交集 (intersection of subsets), \pg{intersection}, 类 (classes, \pg{class-intersection}), 或区间 (或区间, intervals, \pg{interval-intersection})}
+\symbolindex{$\iscontr(A)$	}{命题 $A$ 是可收缩的 (proposition that $A$ is contractible), \pg{defn:contractible}}
+\symbolindex{$\isequiv(f)$	}{命题 $f$ 是等价的 (proposition that $f$ is an equivalence), \pg{basics-isequiv}, \pg{cha:equivalences}, 和 \pg{sec:concluding-remarks}}
+\symbolindex{$\ishae(f)$	}{命题 $f$ 是半伴随等价 (proposition that $f$ is a half-adjoint equivalence), \pg{defn:ishae}}
+\symbolindex{$a\cong b$	}{(前)范畴中的同构类型 (type of isomorphisms in a (pre)category), \pg{ct:isomorphism}}
+\symbolindex{$A\cong B$	}{前范畴之间的同构类型 (type of isomorphisms between precategories), \pg{ct:isocat}}
+\symbolindex{$A\cong B$	}{集合之间的同构类型 (type of isomorphisms between sets), \pg{basics:iso}}
+\symbolindex{$a\unitaryiso b$	}{类型的幺正同构 (type of unitary isomorphisms), \pg{ct:unitary}}
+\symbolindex{$\isotoid$	}{在范畴中 $\idtoiso$ 的逆 (inverse of $\idtoiso$ in a category), \pg{isotoid}}
+\symbolindex{$\istype{n}(X)$	}{命题 $X$ 是 $n$-类型 (proposition that $X$ is an $n$-type), \pg{def:hlevel}}
+\symbolindex{$\isprop(A)$	}{命题 $A$ 是单纯命题 (proposition that $A$ is a mere proposition), \pg{defn:isprop}}
+\symbolindex{$\isset(A)$	}{命题 $A$ 是集合 (proposition that $A$ is a set), \pg{defn:set}}
 %%%%%%%%%% J %%%%%%%%%%
-\symbolindex{$A*B$	}{join of $A$ and $B$, \pg{join}}
+\symbolindex{$A*B$	}{ $A$ 和 $B$ 的连接 (join of $A$ and $B$), \pg{join}}
 %%%%%%%%%% K %%%%%%%%%%
-\symbolindex{$\ker(f)$	}{kernel of a map of pointed sets, \pg{kernel}}
+\symbolindex{$\ker(f)$	}{指向集的映射的核 (kernel of a map of pointed sets), \pg{kernel}}
 %%%%%%%%%% L %%%%%%%%%%
-\symbolindex{$\lam{x} b(x)$	}{$\lambda$-abstraction, \pg{eq:lambda-abstraction}}
-\symbolindex{$\lcoh{f}{g}{\eta}$	}{type of left adjoint coherence data, \pg{defn:lcoh-rcoh}}
-\symbolindex{$\LEM{}$	}{law of excluded middle, \pg{eq:lem}}
-\symbolindex{$\LEM{\infty}$	}{inconsistent propositions-as-types \LEM{}, \pg{thm:not-lem} and \pg{lem-infty}}
-\symbolindex{$x < y$	}{strict inequality on natural numbers, \pg{leq-nat}, ordinals, \pg{sec:ordinals}, Cauchy reals, \pg{lt-RC}, surreals, \pg{defn:surreals}, etc.}
-\symbolindex{$x \le y$	}{non-strict inequality on natural numbers, \pg{leq-nat}, Cauchy reals, \pg{leq-RC}, surreals, \pg{defn:surreals}, etc.}
-\symbolindex{$\preceq$, $\prec$	}{recursive versions of $\le$ and $<$ for surreals, \pg{defn:No-codes}}
-\symbolindex{$\ble$, $\blt$, $\bble$, $\bblt$	}{orderings on codomain of $\NO$-recursion, \pg{NO-recursion}}
-\symbolindex{$\rclim(x)$	}{limit of a Cauchy approximation, \pg{defn:cauchy-reals}}
-\symbolindex{$\linv(f)$	}{type of left inverses to $f$, \pg{defn:linv-rinv}}
-\symbolindex{$\lst{X}$	}{type of lists of elements of $X$, \pg{lst} and \pg{lst-freemonoid}}
-\symbolindex{$\lloop$	}{path constructor of $\Sn^1$, \pg{sec:intro-hits}}
+\symbolindex{$\lam{x} b(x)$	}{$\lambda$-抽象 ($\lambda$-abstraction), \pg{eq:lambda-abstraction}}
+\symbolindex{$\lcoh{f}{g}{\eta}$	}{左伴随相干数据的类型 (type of left adjoint coherence data), \pg{defn:lcoh-rcoh}}
+\symbolindex{$\LEM{}$	}{排中律 (law of excluded middle), \pg{eq:lem}}
+\symbolindex{$\LEM{\infty}$	}{与类型即命题一致的排中律 (inconsistent propositions-as-types \LEM{}), \pg{thm:not-lem} 和 \pg{lem-infty}}
+\symbolindex{$x < y$	}{自然数的严格不等式 (strict inequality on natural numbers), \pg{leq-nat}, 序数 (ordinals), \pg{sec:ordinals}, 柯西实数 (Cauchy reals), \pg{lt-RC}, 超现实数 (surreals), \pg{defn:surreals}, 等等 (etc.)}
+\symbolindex{$x \le y$	}{自然数的非严格不等式 (non-strict inequality on natural numbers), \pg{leq-nat}, 柯西实数 (Cauchy reals), \pg{leq-RC}, 超现实数 (surreals), \pg{defn:surreals}, 等等 (etc.)}
+\symbolindex{$\preceq$, $\prec$	}{超现实数的递归版本 $\le$ 和 $<$ (recursive versions of $\le$ and $<$ for surreals), \pg{defn:No-codes}}
+\symbolindex{$\ble$, $\blt$, $\bble$, $\bblt$	}{ $\NO$-递归的编码域上的排序 (orderings on codomain of $\NO$-recursion), \pg{NO-recursion}}
+\symbolindex{$\rclim(x)$	}{柯西逼近的极限 (limit of a Cauchy approximation), \pg{defn:cauchy-reals}}
+\symbolindex{$\linv(f)$	}{ $f$ 的左逆类型 (type of left inverses to $f$), \pg{defn:linv-rinv}}
+\symbolindex{$\lst{X}$	}{ $X$ 元素列表的类型 (type of lists of elements of $X$), \pg{lst} 和 \pg{lst-freemonoid}}
+\symbolindex{$\lloop$	}{ $\Sn^1$ 的路径构造器 (path constructor of $\Sn^1$), \pg{sec:intro-hits}}
 %%%%%%%%%% M %%%%%%%%%%
-\symbolindex{$\Map_*(A,B)$	}{type of based maps, \pg{based-maps}}
-\symbolindex{$x\mapsto b$	}{alternative notation for $\lambda$-abstraction, \pg{mapsto}}
-\symbolindex{$\max(x,y)$	}{maximum in some ordering, e.g.\ \pg{ordered-field} and \pg{leq-RC}}
-\symbolindex{$\merid(a)$	}{meridian of $\susp A$ at $a:A$, \pg{sec:suspension}}
-\symbolindex{$\min(x,y)$	}{minimum in some ordering, e.g.\ \pg{ordered-field} and \pg{leq-RC}}
-\symbolindex{$A \mono B$	}{monomorphism or embedding}
+\symbolindex{$\Map_*(A,B)$	}{基映射的类型 (type of based maps), \pg{based-maps}}
+\symbolindex{$x\mapsto b$	}{ $\lambda$-抽象的替代表示法 (alternative notation for $\lambda$-abstraction), \pg{mapsto}}
+\symbolindex{$\max(x,y)$	}{某些排序中的最大值 (maximum in some ordering, 例如 for example \pg{ordered-field} 和 \pg{leq-RC})}
+\symbolindex{$\merid(a)$	}{在 $a:A$ 处 $\susp A$ 的子午线 (meridian of $\susp A$ at $a:A$), \pg{sec:suspension}}
+\symbolindex{$\min(x,y)$	}{某些排序中的最小值 (minimum in some ordering, 例如 for example \pg{ordered-field} 和 \pg{leq-RC})}
+\symbolindex{$A \mono B$	}{单射或嵌入 (monomorphism or embedding)}
 %%%%%%%%%% N %%%%%%%%%%
-\symbolindex{$\N$	}{type of natural numbers, \pg{sec:inductive-types}}
-\symbolindex{$\north$	}{north pole of $\susp A$, \pg{sec:suspension}}
-\symbolindex{$\natw$, $\zerow$, $\sucw$	}{natural numbers encoded as a $W$-type, \pg{natw}}
-\symbolindex{$\nalg$	}{type of $\nat$-algebras, \pg{defn:nalg}}
-\symbolindex{$\nhom(C,D)$	}{type of $\nat$-homomorphisms, \pg{defn:nhom}}
-\symbolindex{$\nil$	}{empty list, \pg{lst} and \pg{lst-freemonoid}}
-\symbolindex{$\NO$	}{type of surreal numbers, \pg{defn:surreals}}
-\symbolindex{$\neg P$	}{logical negation (``not''), \pg{defn:logical-notation}}
-\symbolindex{$\typele{n}$, $\typeleU{n}$	}{universe of $n$-types, \pg{universe-of-ntypes}}
+\symbolindex{$\N$	}{自然数类型 (type of natural numbers), \pg{sec:inductive-types}}
+\symbolindex{$\north$	}{ $\susp A$ 的北极 (north pole of $\susp A$), \pg{sec:suspension}}
+\symbolindex{$\natw$, $\zerow$, $\sucw$	}{编码为 $W$-类型的自然数 (natural numbers encoded as a $W$-type), \pg{natw}}
+\symbolindex{$\nalg$	}{ $\nat$-代数的类型 (type of $\nat$-algebras), \pg{defn:nalg}}
+\symbolindex{$\nhom(C,D)$	}{ $\nat$-同态的类型 (type of $\nat$-homomorphisms), \pg{defn:nhom}}
+\symbolindex{$\nil$	}{空列表 (empty list), \pg{lst} 和 \pg{lst-freemonoid}}
+\symbolindex{$\NO$	}{超现实数类型 (type of surreal numbers), \pg{defn:surreals}}
+\symbolindex{$\neg P$	}{逻辑否定 (“非”，logical negation), \pg{defn:logical-notation}}
+\symbolindex{$\typele{n}$, $\typeleU{n}$	}{ $n$-类型的宇宙 (universe of $n$-types), \pg{universe-of-ntypes}}
 %%%%%%%%%% O %%%%%%%%%%
-\symbolindex{$\Omega(A,a)$, $\Omega A$		}{loop space of a pointed type, \pg{def:loopspace}}
-\symbolindex{$\Omega^k(A,a)$, $\Omega^k A$		}{iterated loop space, \pg{def:loopspace}}
-\symbolindex{$A\op$	}{opposite precategory, \pg{ct:opposite-category}}
-\symbolindex{$P \lor Q$	}{logical disjunction (``or''), \pg{defn:logical-notation}}
-\symbolindex{$\ord$	}{type of ordinal numbers, \pg{ord}}
+\symbolindex{$\Omega(A,a)$, $\Omega A$		}{基类型的循环空间 (loop space of a pointed type), \pg{def:loopspace}}
+\symbolindex{$\Omega^k(A,a)$, $\Omega^k A$		}{迭代循环空间 (iterated loop space), \pg{def:loopspace}}
+\symbolindex{$A\op$	}{相反的前范畴 (opposite precategory), \pg{ct:opposite-category}}
+\symbolindex{$P \lor Q$	}{逻辑析取 (“或”，logical disjunction), \pg{defn:logical-notation}}
+\symbolindex{$\ord$	}{序数类型 (type of ordinal numbers), \pg{ord}}
 %%%%%%%%%% P %%%%%%%%%%
-\symbolindex{$\pairr{a,b}$	}{(dependent) pair, \pg{sec:finite-product-types} and \pg{defn:dependent-pair}}
-\symbolindex{$\pairpath$	}{constructor for $=_{A \times B}$, \pg{defn:pairpath}}
-\symbolindex{$\pi_n(A)$	}{$n^{\mathrm{th}}$ homotopy group of $A$, \pg{thm:homotopy-groups} and \pg{def-of-homotopy-groups}}
-\symbolindex{$\power A$	}{power set, \pg{powerset}}
-\symbolindex{$\powerp A$	}{merely-inhabited power set, \pg{inhabited-powerset}}
-\symbolindex{$\Zpred$	}{predecessor function $\Z\to\Z$, \pg{subsec:pi1s1-encode-decode}}
-\symbolindex{$A\times B$	}{cartesian product type, \pg{sec:finite-product-types}}
-\symbolindex{$\prd{x:A} B(x)$	}{dependent function type, \pg{sec:pi-types}}
-\symbolindex{$\proj1(t)$	}{the first projection from a pair, \pg{defn:proj} and \pg{defn:dependent-proj1}}
-\symbolindex{$\proj2(t)$	}{the second projection from a pair, \pg{defn:proj} and \pg{defn:dependent-proj1}}
-\symbolindex{$\prop$, $\propU$	}{universe of mere propositions, \pg{propU}}
-\symbolindex{$A \times_C B$	}{pullback of $A$ and $B$ over $C$, \pg{eq:defn-pullback}}
-\symbolindex{$A \sqcup^C B$	}{pushout of $A$ and $B$ under $C$, \pg{sec:colimits}}
+\symbolindex{$\pairr{a,b}$	}{(依赖)对 (dependent) pair, \pg{sec:finite-product-types} 和 \pg{defn:dependent-pair}}
+\symbolindex{$\pairpath$	}{ $=_{A \times B}$ 的构造器 (constructor for $=_{A \times B}$), \pg{defn:pairpath}}
+\symbolindex{$\pi_n(A)$	}{ $A$ 的第 $n$ 个同伦群 ($n^{\mathrm{th}}$ homotopy group of $A$), \pg{thm:homotopy-groups} 和 \pg{def-of-homotopy-groups}}
+\symbolindex{$\power A$	}{幂集 (power set), \pg{powerset}}
+\symbolindex{$\powerp A$	}{单纯居留的幂集 (merely-inhabited power set), \pg{inhabited-powerset}}
+\symbolindex{$\Zpred$	}{ $\Z\to\Z$ 的前驱函数 (predecessor function $\Z\to\Z$), \pg{subsec:pi1s1-encode-decode}}
+\symbolindex{$A\times B$	}{笛卡尔积类型 (cartesian product type), \pg{sec:finite-product-types}}
+\symbolindex{$\prd{x:A} B(x)$	}{依赖函数类型 (dependent function type), \pg{sec:pi-types}}
+\symbolindex{$\proj1(t)$	}{对的第一个投影 (the first projection from a pair), \pg{defn:proj} 和 \pg{defn:dependent-proj1}}
+\symbolindex{$\proj2(t)$	}{对的第二个投影 (the second projection from a pair), \pg{defn:proj} 和 \pg{defn:dependent-proj1}}
+\symbolindex{$\prop$, $\propU$	}{单纯命题的宇宙 (universe of mere propositions), \pg{propU}}
+\symbolindex{$A \times_C B$	}{ $A$ 和 $B$ 在 $C$ 上的拉回 (pullback of $A$ and $B$ over $C$), \pg{eq:defn-pullback}}
+\symbolindex{$A \sqcup^C B$	}{ $A$ 和 $B$ 在 $C$ 下的推出 (pushout of $A$ and $B$ under $C$), \pg{sec:colimits}}
 %%%%%%%%%% Q %%%%%%%%%%
-\symbolindex{$\Q$	}{type of rational numbers, \pg{sec:field-rati-numb}}
-\symbolindex{$\Qp$	}{type of positive rational numbers, \pg{positive-rationals}}
-\symbolindex{$\qinv(f)$	}{type of quasi-inverses to $f$, \pg{qinv}}
-\symbolindex{$A/R$	}{quotient of a set by an equivalence relation, \pg{sec:set-quotients}}
-\symbolindex{$A\sslash R$	}{alternative definition of quotient, \pg{def:VVquotient}}
+\symbolindex{$\Q$	}{有理数类型 (type of rational numbers), \pg{sec:field-rati-numb}}
+\symbolindex{$\Qp$	}{正有理数类型 (type of positive rational numbers), \pg{positive-rationals}}
+\symbolindex{$\qinv(f)$	}{ $f$ 的准逆类型 (type of quasi-inverses to $f$), \pg{qinv}}
+\symbolindex{$A/R$	}{集合按等价关系的商 (quotient of a set by an equivalence relation), \pg{sec:set-quotients}}
+\symbolindex{$A\sslash R$	}{商的替代定义 (alternative definition of quotient), \pg{def:VVquotient}}
 %%%%%%%%%% R %%%%%%%%%%
-\symbolindex{$\R$	}{type of real numbers (either), \pg{sec:compactness-interval}}
-\symbolindex{$\RC$	}{type of Cauchy real numbers, \pg{defn:cauchy-reals}}
-\symbolindex{$\RD$	}{type of Dedekind real numbers, \pg{defn:dedekind-reals}}
-\symbolindex{$\rcrat(q)$	}{rational number regarded as a Cauchy real, \pg{defn:cauchy-reals}}
-\symbolindex{$\rcoh{f}{g}{\epsilon}$	}{type of right adjoint coherence data, \pg{defn:lcoh-rcoh}}
-\symbolindex{$\rec{\emptyt}$	}{recursor for ${\emptyt}$, \pg{defn:recursor-emptyt}}
-\symbolindex{$\rec{\unit}$	}{recursor for ${\unit}$, \pg{defn:recursor-unit}}
-\symbolindex{$\rec{\bool}$	}{recursor for ${\bool}$, \pg{defn:recursor-bool}}
-\symbolindex{$\rec{\nat}$	}{recursor for ${\nat}$, \pg{defn:recursor-nat}}
-\symbolindex{$\rec{A \times B}$	}{recursor for ${A \times B}$, \pg{defn:recursor-times}}
-\symbolindex{$\rec{\sm{x:A} B(x)}$	}{recursor for ${\sm{x:A} B}$, \pg{defn:recursor-sm}}
-\symbolindex{$\rec{A + B}$	}{recursor for ${A + B}$, \pg{defn:recursor-plus}}
-\symbolindex{$\rec{\wtype{x:A} B(x)}$	}{recursor for ${\wtype{x:A} B}$, \pg{defn:recursor-wtype}}
-\symbolindex{$\rinv$	}{type of right inverses to $f$, \pg{defn:linv-rinv}}
+\symbolindex{$\R$	}{实数类型 (type of real numbers, 其中之一 either), \pg{sec:compactness-interval}}
+\symbolindex{$\RC$	}{柯西实数类型 (type of Cauchy real numbers), \pg{defn:cauchy-reals}}
+\symbolindex{$\RD$	}{德德金实数类型 (type of Dedekind real numbers), \pg{defn:dedekind-reals}}
+\symbolindex{$\rcrat(q)$	}{视为柯西实数的有理数 (rational number regarded as a Cauchy real), \pg{defn:cauchy-reals}}
+\symbolindex{$\rcoh{f}{g}{\epsilon}$	}{右伴随相干数据的类型 (type of right adjoint coherence data), \pg{defn:lcoh-rcoh}}
+\symbolindex{$\rec{\emptyt}$	}{ ${\emptyt}$ 的递归器 (recursor for ${\emptyt}$), \pg{defn:recursor-emptyt}}
+\symbolindex{$\rec{\unit}$	}{ ${\unit}$ 的递归器 (recursor for ${\unit}$), \pg{defn:recursor-unit}}
+\symbolindex{$\rec{\bool}$	}{ ${\bool}$ 的递归器 (recursor for ${\bool}$), \pg{defn:recursor-bool}}
+\symbolindex{$\rec{\nat}$	}{ ${\nat}$ 的递归器 (recursor for ${\nat}$), \pg{defn:recursor-nat}}
+\symbolindex{$\rec{A \times B}$	}{ ${A \times B}$ 的递归器 (recursor for ${A \times B}$), \pg{defn:recursor-times}}
+\symbolindex{$\rec{\sm{x:A} B(x)}$	}{ ${\sm{x:A} B}$ 的递归器 (recursor for ${\sm{x:A} B}$), \pg{defn:recursor-sm}}
+\symbolindex{$\rec{A + B}$	}{ ${A + B}$ 的递归器 (recursor for ${A + B}$), \pg{defn:recursor-plus}}
+\symbolindex{$\rec{\wtype{x:A} B(x)}$	}{ ${\wtype{x:A} B}$ 的递归器 (recursor for ${\wtype{x:A} B}$), \pg{defn:recursor-wtype}}
+\symbolindex{$\rinv$	}{ $f$ 的右逆类型 (type of right inverses to $f$), \pg{defn:linv-rinv}}
 %%%%%%%%%% S %%%%%%%%%%
-\symbolindex{$\south$	}{south pole of $\susp A$, \pg{sec:suspension}}
-\symbolindex{$\Sn^n$	}{$n$-dimensional sphere, \pg{sec:circle}}
-\symbolindex{$\seg$	}{path constructor of the interval $\interval$, \pg{sec:interval}}
-\symbolindex{$\set$, $\setU$	}{universe of sets, \pg{setU}}
-\symbolindex{$\uset$	}{category of sets, \pg{ct:precatset}}
-\symbolindex{$\vset(A,f)$	}{constructor of the cumulative hierarchy, \pg{defn:V}}
-\symbolindex{$x\sim_\epsilon y$	}{relation of $\epsilon$-closeness for $\RC$, \pg{defn:cauchy-reals}}
-\symbolindex{$x\approx_\epsilon y$	}{recursive version of $\sim_\epsilon$, \pg{defn:RC-approx}}
-\symbolindex{$\bsim_\epsilon$ or $\bbsim_\epsilon$	}{closeness relations on codomain of $\RC$-recursion, \pg{RC-recursion}}
-\symbolindex{$A\wedge B$	}{smash product of $A$ and $B$, \pg{smash}}
-\symbolindex{$\setof{x : A | P(x)}$	}{subset type, \pg{defn:setof}}
-\symbolindex{$\setof{ f(x) | P(x)}$	}{image of a subset, \pg{subset-image}}
-\symbolindex{$B \subseteq C$	}{containment of subset types, \pg{subset}}
-\symbolindex{$(q,r)\subseteq (s,t)$	}{inclusion of intervals, \pg{interval-subset}}
-\symbolindex{$\suc$	}{successor function $\N\to\N$, \pg{sec:inductive-types}}
-\symbolindex{$\Zsuc$	}{successor function $\Z\to\Z$, \pg{sec:pi1s1-initial-thoughts}}
-\symbolindex{$A+B$	}{coproduct type, \pg{sec:coproduct-types}}
-\symbolindex{$\sm{x:A} B(x)$	}{dependent pair type, \pg{sec:sigma-types}}
-\symbolindex{$\supp(a, f)$	}{constructor for $W$-type, \pg{defn:supp}}
-\symbolindex{$\surf$	}{2-path constructor of $\Sn^2$, \pg{s2a} and \pg{s2b}}
-\symbolindex{$\susp A$	}{suspension of $A$, \pg{sec:suspension}}
+\symbolindex{$\south$	}{ $\susp A$ 的南极 (south pole of $\susp A$), \pg{sec:suspension}}
+\symbolindex{$\Sn^n$	}{ $n$ 维球 ($n$-dimensional sphere), \pg{sec:circle}}
+\symbolindex{$\seg$	}{区间 $\interval$ 的路径构造器 (path constructor of the interval $\interval$), \pg{sec:interval}}
+\symbolindex{$\set$, $\setU$	}{集合的宇宙 (universe of sets), \pg{setU}}
+\symbolindex{$\uset$	}{集合的范畴 (category of sets), \pg{ct:precatset}}
+\symbolindex{$\vset(A,f)$	}{累积层次结构的构造器 (constructor of the cumulative hierarchy), \pg{defn:V}}
+\symbolindex{$x\sim_\epsilon y$	}{对于 $\RC$ 的 $\epsilon$-接近关系 (relation of $\epsilon$-closeness for $\RC$), \pg{defn:cauchy-reals}}
+\symbolindex{$x\approx_\epsilon y$	}{ $\sim_\epsilon$ 的递归版本 (recursive version of $\sim_\epsilon$), \pg{defn:RC-approx}}
+\symbolindex{$\bsim_\epsilon$ or $\bbsim_\epsilon$	}{ $\RC$-递归的编码域上的接近关系 (closeness relations on codomain of $\RC$-recursion), \pg{RC-recursion}}
+\symbolindex{$A\wedge B$	}{ $A$ 和 $B$ 的楔积 (smash product of $A$ and $B$), \pg{smash}}
+\symbolindex{$\setof{x : A | P(x)}$	}{子集类型 (subset type), \pg{defn:setof}}
+\symbolindex{$\setof{ f(x) | P(x)}$	}{子集的像 (image of a subset), \pg{subset-image}}
+\symbolindex{$B \subseteq C$	}{子集类型的包含 (containment of subset types), \pg{subset}}
+\symbolindex{$(q,r)\subseteq (s,t)$	}{区间的包含 (inclusion of intervals), \pg{interval-subset}}
+\symbolindex{$\suc$	}{ $\N\to\N$ 的后继函数 (successor function $\N\to\N$), \pg{sec:inductive-types}}
+\symbolindex{$\Zsuc$	}{ $\Z\to\Z$ 的后继函数 (successor function $\Z\to\Z$), \pg{sec:pi1s1-initial-thoughts}}
+\symbolindex{$A+B$	}{余积类型 (coproduct type), \pg{sec:coproduct-types}}
+\symbolindex{$\sm{x:A} B(x)$	}{依赖对类型 (dependent pair type), \pg{sec:sigma-types}}
+\symbolindex{$\supp(a, f)$	}{ $W$-类型的构造器 (constructor for $W$-type), \pg{defn:supp}}
+\symbolindex{$\surf$	}{ $\Sn^2$ 的 2-路径构造器 (2-path constructor of $\Sn^2$), \pg{s2a} 和 \pg{s2b}}
+\symbolindex{$\susp A$	}{ $A$ 的悬挂 (suspension of $A$), \pg{sec:suspension}}
 %%%%%%%%%% T %%%%%%%%%%
-\symbolindex{$\total{f}$	}{induced map on total spaces, \pg{defn:total-map}}
-\symbolindex{$\trans{p}{u}$	}{transport of $u:P(x)$ along $p:x=y$, \pg{lem:transport}}
-\symbolindex{$\transfib{P}{p}{u}$	}{transport of $u:P(x)$ along $p:x=y$, \pg{lem:transport}}
-\symbolindex{$\transtwo{X}{Y}$	}{two-dimensional transport, \pg{thm:transport2}}
-\symbolindex{$\transconst{X}{Y}{Z}$	}{transporting in a constant family, \pg{thm:trans-trivial}}
-\symbolindex{$\trunc{n}{A}$	}{$n$-truncation of $A$, \pg{sec:truncations}}
-\symbolindex{$\tproj[A]{n}{a}$, $\tproj{n}{a}$	}{image of $a:A$ in $\trunc n A$, \pg{sec:truncations}}
-\symbolindex{$\brck{A}$	}{propositional truncation of $A$, \pg{subsec:prop-trunc} and \pg{sec:hittruncations}}
-\symbolindex{$\bproj{a}$	}{image of $a:A$ in $\brck A$, \pg{subsec:prop-trunc} and \pg{sec:hittruncations}}
-\symbolindex{$\top$	}{logical truth, \pg{defn:logical-notation}}
+\symbolindex{$\total{f}$	}{在总空间上引导的映射 (induced map on total spaces), \pg{defn:total-map}}
+\symbolindex{$\trans{p}{u}$	}{沿着 $p:x=y$ 传递 $u:P(x)$ (transport of $u:P(x)$ along $p:x=y$), \pg{lem:transport}}
+\symbolindex{$\transfib{P}{p}{u}$	}{沿着 $p:x=y$ 传递 $u:P(x)$ (transport of $u:P(x)$ along $p:x=y$), \pg{lem:transport}}
+\symbolindex{$\transtwo{X}{Y}$	}{二维传递 (two-dimensional transport), \pg{thm:transport2}}
+\symbolindex{$\transconst{X}{Y}{Z}$	}{在常数族中传递 (transporting in a constant family), \pg{thm:trans-trivial}}
+\symbolindex{$\trunc{n}{A}$	}{ $A$ 的 $n$-截断 ($n$-truncation of $A$), \pg{sec:truncations}}
+\symbolindex{$\tproj[A]{n}{a}$, $\tproj{n}{a}$	}{在 $\trunc n A$ 中 $a:A$ 的像 (image of $a:A$ in $\trunc n A$), \pg{sec:truncations}}
+\symbolindex{$\brck{A}$	}{ $A$ 的命题截断 (propositional truncation of $A$), \pg{subsec:prop-trunc} 和 \pg{sec:hittruncations}}
+\symbolindex{$\bproj{a}$	}{在 $\brck A$ 中 $a:A$ 的像 (image of $a:A$ in $\brck A$), \pg{subsec:prop-trunc} 和 \pg{sec:hittruncations}}
+\symbolindex{$\top$	}{逻辑真理 (logical truth), \pg{defn:logical-notation}}
 %%%%%%%%%% U %%%%%%%%%%
-\symbolindex{$\nameless$	}{an unnamed object or variable}
-\symbolindex{$A \cup B$	}{union of subsets, \pg{union}}
-\symbolindex{$\uniq{A\times B}$ }{uniqueness principle for the product $A\times B$, \pg{uniquenessproduct}}
-\symbolindex{$\uniq{\unit}$     }{uniqueness principle for $\unit$, \pg{uniquenessunit}}
-\symbolindex{$\UU$	}{universe type, \pg{sec:universes}}
-\symbolindex{$\modaltype$	}{universe of modal types, \pg{eq:modaltype}}
-\symbolindex{$\pointed\type$	}{universe of pointed types, \pg{def:pointedtype}}
-\symbolindex{$\ua$	}{inverse to $\idtoeqv$ from univalence, \pg{ua}}
+\symbolindex{$\nameless$	}{无名对象或变量 (an unnamed object or variable)}
+\symbolindex{$A \cup B$	}{子集的并集 (union of subsets), \pg{union}}
+\symbolindex{$\uniq{A\times B}$ }{积 $A\times B$ 的唯一性原理 (uniqueness principle for the product $A\times B$), \pg{uniquenessproduct}}
+\symbolindex{$\uniq{\unit}$     }{ ${\unit}$ 的唯一性原理 (uniqueness principle for $\unit$), \pg{uniquenessunit}}
+\symbolindex{$\UU$	}{宇宙类型 (universe type), \pg{sec:universes}}
+\symbolindex{$\modaltype$	}{模态类型的宇宙 (universe of modal types), \pg{eq:modaltype}}
+\symbolindex{$\pointed\type$	}{基类型的宇宙 (universe of pointed types), \pg{def:pointedtype}}
+\symbolindex{$\ua$	}{由单一性反转的 $\idtoeqv$ 的逆 (inverse to $\idtoeqv$ from univalence), \pg{ua}}
 %%%%%%%%%% V %%%%%%%%%%
-\symbolindex{$V$	}{cumulative hierarchy, \pg{defn:V}}
+\symbolindex{$V$	}{累积层次结构 (cumulative hierarchy), \pg{defn:V}}
 %%%%%%%%%% W %%%%%%%%%%
-\symbolindex{$\walg(A,B)$	}{type of $w$-algebras, \pg{walg}}
-\symbolindex{$\whom_{A,B}(C,D)$	}{type of $\w$-homomorphisms, \pg{whom}}
-\symbolindex{$\wtype{x:A} B(x)$	}{$W$-type (inductive type), \pg{sec:w-types}}
-\symbolindex{$A\vee B$	}{wedge of $A$ and $B$, \pg{wedge}}
+\symbolindex{$\walg(A,B)$	}{ $w$-代数的类型 (type of $w$-algebras), \pg{walg}}
+\symbolindex{$\whom_{A,B}(C,D)$	}{ $w$-同态的类型 (type of $\w$-homomorphisms), \pg{whom}}
+\symbolindex{$\wtype{x:A} B(x)$	}{$W$-类型 (归纳类型，$W$-type (inductive type)), \pg{sec:w-types}}
+\symbolindex{$A\vee B$	}{ $A$ 和 $B$ 的契积 (wedge of $A$ and $B$), \pg{wedge}}
 %%%%%%%%%% X %%%%%%%%%%
 %%%%%%%%%% Y %%%%%%%%%%
-\symbolindex{$\y$	}{Yoneda embedding, \pg{ct:yoneda}}
+\symbolindex{$\y$	}{约内达嵌入 (Yoneda embedding), \pg{ct:yoneda}}
 %%%%%%%%%% Z %%%%%%%%%%
-\symbolindex{$\Z$	}{type of integers, \pg{defn-Z}}}
+\symbolindex{$\Z$	}{整数类型 (type of integers), \pg{defn-Z}}}
 
 %%% Local Variables: 
 %%% mode: latex
