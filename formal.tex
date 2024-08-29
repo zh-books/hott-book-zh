@@ -782,289 +782,198 @@ $x_1, \ldots, x_n$ 分别假设具有类型 $A_1, \ldots, A_n$。该列表可以
 隐含参数的推断、典型模糊性\index{typical ambiguity典型模糊性}（\cref{sec:universes}）、确保符号只定义一次等，统称为\define{精炼 (elaboration)}。\index{elaboration, in type theory类型论中的精炼}
 精炼必须在检查推导之前进行，因此通常不被作为核心类型论的一部分来介绍。然而，几乎不可能使用不进行精炼的类型论实现；参见\cite{Coq,norell2007towards}获取进一步讨论。
 
-
-\section{Homotopy type theory}
+\section{同伦类型论 (Homotopy Type Theory)}
 \label{sec:hott-features}
 
-In this section we state the additional axioms of homotopy type theory which distinguish it from standard Martin-L\"{o}f type theory: function extensionality, the
-univalence axiom, and higher inductive types. We state them in the style
-of the second presentation \cref{sec:syntax-more-formally}, although the first presentation \cref{sec:syntax-informally} could be used just as well.
+在本节中，我们陈述了同伦类型论的附加公理，这些公理将它与标准的Martin-Löf类型论区分开来：函数外延性、等价性公理（univalence axiom）以及高阶归纳类型。我们将以第二种形式的方式 (\cref{sec:syntax-more-formally}) 来陈述它们，尽管第一种形式 (\cref{sec:syntax-informally}) 也同样适用。
 
-\subsection{Function extensionality and univalence}
+\subsection{函数外延性与等价性 (Function Extensionality and Univalence)}
 
-There are two basic ways of introducing axioms which do not introduce new syntax or judgmental equalities (function extensionality and univalence are of this form):
-either add a primitive constant to inhabit the axiom, or prove all theorems which depend on the axiom by hypothesizing a variable that inhabits the axiom, cf.\ \cref{sec:axioms}.
-While these are essentially equivalent, we opt for the former approach because we feel that the axioms of homotopy type theory are an essential part of the core theory.
+引入不涉及新语法或判断等式的公理（如函数外延性和等价性）有两种基本方式：要么添加一个原语常量来充当公理的实例，要么通过假设一个变量来占据公理的位置并证明所有依赖于该公理的定理，参见\cref{sec:axioms}。虽然这两者本质上是等价的，但我们选择前者，因为我们认为同伦类型论的公理是核心理论的重要组成部分。
 
-\index{function extensionality}%
-\cref{axiom:funext} is formalized by introduction of a constant $\funext$ which
-asserts that $\happly$ is an equivalence:
+\index{function extensionality函数外延性}%
+\cref{axiom:funext} 通过引入一个常量$\funext$来形式化，该常量断言$\happly$是一个等价：
 %
 \begin{mathparpagebreakable}
-  \inferrule*[right=$\Pi$-\textsc{ext}]
-  {\oftp\Gamma{f}{\tprd{x:A} B} \\
-   \oftp\Gamma{g}{\tprd{x:A} B}}
-  {\oftp\Gamma{\funext(f,g)}{\isequiv(\happly_{f,g})}}
+\inferrule*[right=$\Pi$-\textsc{ext}]
+{\oftp\Gamma{f}{\tprd{x:A} B} \\
+\oftp\Gamma{g}{\tprd{x:A} B}}
+{\oftp\Gamma{\funext(f,g)}{\isequiv(\happly_{f,g})}}
 \end{mathparpagebreakable}
 %
-The definitions of $\happly$ and $\isequiv$ can be found in~\eqref{eq:happly} and
-\cref{sec:concluding-remarks}, respectively.
+$\happly$和$\isequiv$的定义可以分别在~\eqref{eq:happly}和\cref{sec:concluding-remarks}中找到。
 
-\index{univalence axiom}%
-\cref{axiom:univalence} is formalized in a similar fashion, too:
+\index{univalence axiom等价性公理}%
+\cref{axiom:univalence}也以类似的方式形式化：
 %
 \begin{mathparpagebreakable}
-  \inferrule*[right=$\UU_i$-\textsc{univ}]
-  {\oftp\Gamma{A}{\UU_i} \\
-   \oftp\Gamma{B}{\UU_i}}
-  {\oftp\Gamma{\univalence(A,B)}{\isequiv(\idtoeqv_{A,B})}}
+\inferrule*[right=$\UU_i$-\textsc{univ}]
+{\oftp\Gamma{A}{\UU_i} \\
+\oftp\Gamma{B}{\UU_i}}
+{\oftp\Gamma{\univalence(A,B)}{\isequiv(\idtoeqv_{A,B})}}
 \end{mathparpagebreakable}
 %
-The definition of $\idtoeqv$ can be found in~\eqref{eq:uidtoeqv}.
+$\idtoeqv$的定义可以在~\eqref{eq:uidtoeqv}中找到。
 
-\subsection{The circle}
+\subsection{圆 (The Circle)}
 
-\index{type!circle}%
+\index{type!circle类型!圆}%
 
-Here we give an example of a basic higher inductive type; others follow the same
-general scheme, albeit with elaborations.
+这里我们给出一个基本的高阶归纳类型的例子；其他类型遵循相同的一般方案，尽管有所展开。
 
-Note that the rules below do not precisely follow the pattern of the ordinary
-inductive types in \cref{sec:syntax-more-formally}: the rules refer to the
-notions of transport and functoriality of maps (\cref{sec:functors}), and the
-second computation rule is a propositional, not judgmental, equality. These
-differences are discussed in \cref{sec:dependent-paths}.
+注意，以下规则并未完全遵循\cref{sec:syntax-more-formally}中普通归纳类型的模式：这些规则涉及到映射的传递和函子性 (\cref{sec:functors}) 概念，并且第二个计算规则是命题等式，而不是判断等式。这些差异在\cref{sec:dependent-paths}中进行了讨论。
 
 \begin{mathparpagebreakable}
-  \inferrule*[right=$\Sn^1$-\rform]
-  {\wfctx\Gamma}
-  {\oftp\Gamma{\Sn^1}{\UU_i}}
+\inferrule*[right=$\Sn^1$-\rform]
+{\wfctx\Gamma}
+{\oftp\Gamma{\Sn^1}{\UU_i}}
 \and
-  \inferrule*[right=$\Sn^1$-\rintro${}_1$]
-  {\wfctx\Gamma}
-  {\oftp\Gamma{\base}{\Sn^1}}
+\inferrule*[right=$$\Sn^1$-\rintro${}_1$]
+{\wfctx\Gamma}
+{\oftp\Gamma{\base}{\Sn^1}}
 \and
-  \inferrule*[right=$\Sn^1$-\rintro${}_2$]
-  {\wfctx\Gamma}
-  {\oftp\Gamma{\lloop}{\id[\Sn^1]{\base}{\base}}}
+\inferrule*[right=$$\Sn^1$-\rintro${}_2$]
+{\wfctx\Gamma}
+{\oftp\Gamma{\lloop}{\id[\Sn^1]{\base}{\base}}}
 \and
-  \inferrule*[right=$\Sn^1$-\relim]
-  {\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
-   \oftp{\Gamma}{b}{C[\base/x]} \\
-   \oftp{\Gamma}{\ell}{\dpath C \lloop b b} \\
-   \oftp\Gamma{p}{\Sn^1}}
-  {\oftp\Gamma{\ind{\Sn^1}(x.C,b,\ell,p)}{C[p/x]}}
+\inferrule*[right=$$\Sn^1$-\relim]
+{\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
+\oftp{\Gamma}{b}{C[\base/x]} \\
+\oftp{\Gamma}{\ell}{\dpath C \lloop b b} \\
+\oftp\Gamma{p}{\Sn^1}}
+{\oftp\Gamma{\ind{\Sn^1}(x.C,b,\ell,p)}{C[p/x]}}
 \and
-  \inferrule*[right=$\Sn^1$-\rcomp${}_1$]
-  {\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
-   \oftp{\Gamma}{b}{C[\base/x]} \\
-   \oftp{\Gamma}{\ell}{\dpath C \lloop b b}}
-  {\jdeqtp\Gamma{\ind{\Sn^1}(x.C,b,\ell,\base)}{b}{C[\base/x]}}
+\inferrule*[right=$$\Sn^1$-\rcomp${}_1$]
+{\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
+\oftp{\Gamma}{b}{C[\base/x]} \\
+\oftp{\Gamma}{\ell}{\dpath C \lloop b b}}
+{\jdeqtp\Gamma{\ind{\Sn^1}(x.C,b,\ell,\base)}{b}{C[\base/x]}}
 \and
-  \inferrule*[right=$\Sn^1$-\rcomp${}_2$]
-  {\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
-   \oftp{\Gamma}{b}{C[\base/x]} \\
-   \oftp{\Gamma}{\ell}{\dpath C \lloop b b}}
-  {\oftp\Gamma{\Sn^1\text{-}\mathsf{loopcomp}}
-    {\id {\apd{(\lamu{y:\Sn^1} \ind{\Sn^1}(x.C,b,\ell,y))}{\lloop}} {\ell}}}
+\inferrule*[right=$$\Sn^1$-\rcomp${}_2$]
+{\oftp{\Gamma,\tmtp x{\Sn^1}}{C}{\UU_i} \\
+\oftp{\Gamma}{b}{C[\base/x]} \\
+\oftp{\Gamma}{\ell}{\dpath C \lloop b b}}
+{\oftp\Gamma{\Sn^1\text{-}\mathsf{loopcomp}}
+{\id {\apd{(\lamu{y:\Sn^1} \ind{\Sn^1}(x.C,b,\ell,y))}{\lloop}} {\ell}}}
 \end{mathparpagebreakable}
 %
-In $\ind{\Sn^1}$, $x$ is bound in $C$. The notation ${\dpath C \lloop b b}$ for dependent paths was introduced in \cref{sec:dependent-paths}.
-\index{rules of type theory|)}%
+在$\ind{\Sn^1}$中，$x$在$C$中绑定。关于依赖路径 (dependent paths) 的记号${\dpath C \lloop b b}$在\cref{sec:dependent-paths}中介绍。
+\index{rules of type theory类型论的规则|)}%
 
-\section{Basic metatheory}
-\index{metatheory|(}%
+\section{基本元理论 (Basic Metatheory)}
+\index{metatheory元理论|(}%
 
-This section discusses the meta-theoretic properties of the type theory presented in 
-\cref{sec:syntax-informally}, and similar results hold for \cref{sec:syntax-more-formally}. Figuring out which of these still hold when we add the features from \cref{sec:hott-features} quickly leads to open questions,\index{open!problem} as discussed at the end of this section.
+本节讨论了\cref{sec:syntax-informally}中呈现的类型论的元理论性质，类似的结果也适用于\cref{sec:syntax-more-formally}。当我们添加\cref{sec:hott-features}中的特性时，确定这些性质是否仍然成立很快会引出一些开放问题\index{open!problem开放!问题}，正如本节末尾所讨论的那样。
 
-Recall that \cref{sec:syntax-informally} defines the terms of type theory as
-an extension of the untyped $\lambda$-calculus. The $\lambda$-calculus 
-has its own notion of computation, namely the computation rule\index{computation rule!for function types}: 
+回想一下，\cref{sec:syntax-informally}将类型论的项定义为无类型$\lambda$-演算的扩展。$\lambda$-演算有其自身的计算概念，即计算规则\index{computation rule!for function types计算规则!用于函数类型的}：
 \[
-  (\lam{x} t)(u) \defeq t[u/x].
+(\lam{x} t)(u) \defeq t[u/x]。
 \]
-This rule, together with the defining equations for the defined constants form
-\emph{rewriting rules}\index{rewriting rule}\index{rule!rewriting} that determine reduction steps for a rewriting 
-system. These steps yield a notion of computation in the sense that each rule
-has a natural direction: one simplifies $(\lam{x} t)(u)$ by evaluating the
-function at its argument.
+该规则与定义常量的定义方程一起形成\emph{重写规则 (rewriting rules)}\index{rewriting rule重写规则}\index{rule!rewriting规则!重写}，这些规则确定了重写系统的简化步骤。这些步骤提供了计算的概念，因为每个规则都有一个自然的方向：通过计算函数的参数来简化$(\lam{x} t)(u)$。
 
-Moreover, this system is \emph{confluent}\index{confluence}, that is, if $a$ simplifies in some
-number of steps to both $a'$ and $a''$, there is some $b$ to which both $a'$ and
-$a''$ eventually simplify. Thus we can define $t\conv u$ to mean that $t$ and
-$u$ simplify to the same term.
+此外，该系统是\emph{合流的 (confluent)}\index{confluence合流性}，即，如果$a$在若干步骤中简化为$a'$和$a''$，则存在某个$b$，使得$a'$和$a''$最终都简化为$b$。因此，我们可以定义$t\conv u$表示$t$和$u$简化为相同的项。
 
-(The situation is similar in \cref{sec:syntax-more-formally}: Although there
-we presented the computation rules as undirected equalities $\jdeq$, we can give
-an operational semantics by saying that the application of an eliminator to an
-introductory form simplifies to its equal, not the other way around.)
+（在\cref{sec:syntax-more-formally}中的情况类似：尽管我们在那里将计算规则表示为无方向的等式$\jdeq$，但我们可以通过说将消除子应用于引入形式的结果简化为其等式而非相反来给出操作语义。）
 
-Using standard techniques from type theory, it is possible to show that the system in \cref{sec:syntax-informally}
-has the following properties:
+使用类型论的标准技术，可以证明\cref{sec:syntax-informally}中的系统具有以下性质：
 
 \begin{thm}\label{thm:conversion-preserves-typing}
-If $A : \UU$ and $A \conv A'$ then $A' : \UU$.
-If $t:A$ and $t \conv t'$ then $t':A$.
+如果$A : \UU$且$A \conv A'$，则$A' : \UU$。
+如果$t:A$且$t \conv t'$，则$t':A$。
 \end{thm}
 
-We say that a term is \define{normalizable}
-\indexdef{term!normalizable}%
-\index{normalization}%
-\indexdef{normalizable term}%
-(respectively, \define{strongly
-normalizable})
-\indexdef{term!strongly normalizable}%
-\index{normalization!strong}%
-\index{strong!normalization}%
-if some (respectively, every), sequence of rewriting steps from the term
-terminates.
+我们说一个项是\define{可归约的 (normalizable)}\indexdef{term!normalizable项!可归约的}%
+\index{normalization归约性}%
+\indexdef{normalizable term可归约项}%
+（分别是\define{强可归约的 (strongly normalizable)}\indexdef{term!strongly normalizable项!强可归约的}%
+\index{normalization!strong强归约性}%
+\index{strong!normalization强归约性}%
+），如果从该项开始的某些（分别是所有）重写步骤序列终止。
 
 \begin{thm}\label{thm:strong-normalization}
-If $A : \UU$ then $A$ is strongly normalizable.
-If $t:A$ then $A$ and $t$ are strongly normalizable.
+如果$A : \UU$，则$A$是强可归约的。
+如果$t:A$，则$A$和$t$都是强可归约的。
 \end{thm}
 
-We say that a term is in \define{normal form}
-\index{normal form}%
-\index{term!normal form of}%
-if it cannot be further
-simplified, and that a term is \define{closed}
-\index{closed!term}%
-\index{term!closed}%
-if no variable occurs freely in
-it. A closed normal type has to be a primitive type, i.e., of the form
-$c(\vec{v})$ for some primitive constant $c$ (where the list $\vec{v}$ of closed
-normal terms may be omitted if empty, for instance, as with $\N$). In fact, we
-can explicitly describe all normal forms:
+我们说一个项处于\define{规范形式 (normal form)}\index{normal form规范形式}%
+\index{term!normal form of项!规范形式}%
+如果它不能被进一步简化，并且我们说一个项是\define{闭合的 (closed)}\index{closed!term闭合!项}%
+\index{term!closed闭合项}%
+如果其中没有自由变量出现在其中。闭合的规范类型必须是原语类型，即，形式为$c(\vec{v})$的某个原语常量（其中闭合规范项列表$\vec{v}$可能为空，此时可以省略，例如$\N$）。事实上，我们可以明确描述所有规范形式：
 
 \begin{lem}\label{lem:normal-forms}
-  The terms in normal form can be described by the following syntax:
-  % 
-  \begin{align*}
-    v & \production  k \mid \lam{x} v \mid c(\vec{v}) \mid f(\vec{v}), \\
-    k &\production x \mid k(v) \mid f(\vec{v})(k),
-  \end{align*}
-  % 
-  where $f(\vec{v})$ represents a partial application of the defined function $f$.
-  In particular, a type in normal form is of the form $k$ or $c(\vec{v})$.
+规范形式的项可以通过以下语法描述：
+%
+\begin{align*}
+v & \production  k \mid \lam{x} v \mid c(\vec{v}) \mid f(\vec{v})，\\
+k &\production x \mid k(v) \mid f(\vec{v})(k)，
+\end{align*}
+%
+其中$f(\vec{v})$表示已定义函数$f$的部分应用。
+特别地，规范形式的类型是$k$或$c(\vec{v})$形式。
 \end{lem}
 
 \begin{thm}
-  If $A$ is in normal form then the 
-  judgment $A : \UU$ is decidable. If $A : \UU$ and $t$ is in normal form then the judgment
-  $t:A$ is decidable.
+如果$A$处于规范形式，则判断$A : \UU$是可判定的。如果$A : \UU$且$t$处于规范形式，则判断$t:A$是可判定的。
 \end{thm}
 
-Logical consistency\index{consistency} (of the system in \cref{sec:syntax-informally}) follows
-immediately: if we had $a:\emptyt$ in the empty context, then by
-\cref{thm:conversion-preserves-typing,thm:strong-normalization}, $a$
-simplifies to a normal term $a':\emptyt$. But by
-\cref{lem:normal-forms} no such term exists.
+\index{consistency一致性} (of the system in \cref{sec:syntax-informally}) follows immediately: if we had $a:\emptyt$ in the empty context, then by \cref{thm:conversion-preserves-typing,thm:strong-normalization}, $a$ simplifies to a normal term $a':\emptyt$. But by \cref{lem:normal-forms} no such term exists.
 
 \begin{cor}
- The system in \cref{sec:syntax-informally} is logically consistent.
+The system in \cref{sec:syntax-informally} is logically consistent.
 \end{cor}
 
-Similarly, we have the \emph{canonicity}\indexdef{canonicity} property that if $a:\N$ in the empty
-context, then $a$ simplifies to a normal term $\suc^k(0)$ for some numeral $k$.
+Similarly, we have the \emph{canonicity}\indexdef{canonicity} property that if $a:\N$ in the empty context, then $a$ simplifies to a normal term $\suc^k(0)$ for some numeral $k$.
 
 \begin{cor}
- The system in \cref{sec:syntax-informally} has the canonicity property.
+The system in \cref{sec:syntax-informally} has the canonicity property.
 \end{cor}
 
-Finally, if $a,A$ are in normal form, it is \emph{decidable} whether $a:A$; in
-other words, because type-checking amounts to verifying the correctness of a
-proof, this means we can always ``recognize a correct proof when we see one''.
+Finally, if $a,A$ are in normal form, it is \emph{decidable} whether $a:A$; in other words, because type-checking amounts to verifying the correctness of a proof, this means we can always ``recognize a correct proof when we see one''.
 
 \begin{cor}
 The property of being a proof in the system in \cref{sec:syntax-informally} is decidable.
 \end{cor}
 
-\mentalpause
+然而，以上结果并不适用于扩展了同伦类型论特性的系统（即，通过\cref{sec:hott-features}扩展的上述系统），因为等价性公理和高阶归纳类型构造器的出现从未简化，打破了\cref{lem:normal-forms}。能否通过简化这些常量的应用以恢复规范性仍然是一个开放问题\index{open!problem开放问题}。我们也没有描述所有允许的高阶归纳类型的模式，也不确定如何正确制定它们的规则（例如，高阶构造器的计算规则是否应该是判断等式）。
 
-The above results do not apply to the extended system of homotopy type
-theory (i.e., the above system extended by \cref{sec:hott-features}), since
-occurrences of the univalence axiom and constructors of higher inductive types
-never simplify, breaking \cref{lem:normal-forms}. It is an open question\index{open!problem}
-whether one can simplify applications of these constants in order to restore
-canonicity. We also do not have a schema describing all permissible higher
-inductive types, nor are we certain how to correctly formulate their rules
-(e.g., whether the computation rules on higher constructors should be judgmental
-equalities).
+Martin-Löf类型论扩展到等价性和高阶归纳类型的系统的一致性\index{consistency一致性}可以通过发明一种适当的归约过程来证明，但目前这些系统一致性的唯一证明是通过语义模型实现的——对于等价性，一个由Voevodsky提出的Kan复形\index{Kan complex Kan复形}模型 \cite{klv:ssetmodel}，而对于高阶归纳类型，一个由Lumsdaine和Shulman提出的模型 \cite{ls:hits}。
 
-The consistency\index{consistency} of Martin-L\"{o}f type theory extended with univalence and higher
-inductive types could be shown by inventing an appropriate normalization procedure, but currently
-the only proofs that these systems are consistent are via semantic models---for
-univalence, a model in Kan\index{Kan complex} complexes due to Voevodsky \cite{klv:ssetmodel}, and
-for higher inductive types, a model due to Lumsdaine and Shulman \cite{ls:hits}.
+其他元理论问题以及我们当前结果的总结，在本书引言的“构造性”和“开放问题”部分中有更详细的讨论。
 
-Other metatheoretic issues, and a summary of our current results, are discussed
-in greater length in the ``Constructivity'' and ``Open problems'' sections of
-the introduction to this book.
-
-\index{metatheory|)}%
-
+\index{metatheory元理论|)}%
 \sectionNotes\label{subsec:general-remarks}
 
-% This presentation is strongly inspired by two  Martin-L\"of 1972 and 1973.
+% 本节内容强烈受到1972年和1973年Martin-Löf的启发。
 
-The system of rules with introduction (primitive constants) and elimination
-and computation rules (defined constant) is inspired by Gentzen natural
-deduction. The possibility of strengthening the elimination rule for
-existential quantification was indicated in \cite{howard:pat}. The
-strengthening of the axioms for disjunction appears in \cite{Martin-Lof-1972},
-and for absurdity elimination and identity type in \cite{Martin-Lof-1973}. The
-$W$-types were introduced in \cite{Martin-Lof-1979}. They generalize a notion
-of trees introduced by \cite{Tait-1968}.
-\index{Martin-L\"of}%
+引入原语常量的规则体系，以及消除和计算规则（定义常量），受到Gentzen自然演绎的启发。对存在量词消除规则的增强可能性在 \cite{howard:pat} 中提到。对析取的公理增强出现在 \cite{Martin-Lof-1972} 中，对荒谬消除和等式类型的增强出现在 \cite{Martin-Lof-1973} 中。$W$-类型首次出现在 \cite{Martin-Lof-1979} 中。它们推广了 \cite{Tait-1968} 引入的树的概念。
+\index{Martin-Löf}%
 
-%inspired from unpublished work of Spector.
+% 灵感来自Spector的未发表工作。
 
-The generalized form of primitive recursion for natural numbers and ordinals
-appear in \cite{Hilbert-1925}. This motivated G\"odel's system $T$,
-\cite{Goedel-T-1958}, which was analyzed by \cite{Tait-1966}, who used,
-following \cite{Goedel-T-1958}, the terminology ``definitional equality'' for
-conversion: two terms are \emph{judgmentally equal} if they reduce to a
-common term by means of a sequence of applications of the reduction
-rules. This terminology was also used by de Bruijn \cite{deBruijn-1973} in his
-presentation of \emph{AUTOMATH}.\index{AUTOMATH}
+自然数和序数的原始递归的广义形式出现在 \cite{Hilbert-1925} 中。这激发了G\"odel系统$T$的诞生，\cite{Goedel-T-1958}，该系统由 \cite{Tait-1966} 进行了分析，他使用了 \cite{Goedel-T-1958} 中的术语“定义等式”（definitional equality）来表示归约：如果两个项通过一系列应用归约规则归约到一个共同的项，则它们被称为\emph{判断等同的}（judgmentally equal）。这种术语也被de Bruijn在其关于\emph{AUTOMATH}的呈现中使用 \cite{deBruijn-1973}。
+\index{AUTOMATH}%
 
-Our second presentation comprises fairly standard presentation of
-intensional Martin-L\"{o}f type theory, with some additional features needed in
-homotopy type theory. Compared to a reference presentation of
-\cite{hofmann:syntax-and-semantics}, the type theory of this book has a few
-non-critical differences:
+我们的第二种形式呈现包含了相当标准的内涵Martin-Löf类型论，并且增加了一些在同伦类型论中必需的特性。与 \cite{hofmann:syntax-and-semantics} 的参考呈现相比，本书中的类型论有以下几个非关键性差异：
 %
 \begin{itemize}
-\item universes \`{a} la Russell, in the sense of
-\cite{martin-lof:bibliopolis}; and
-\item judgmental $\eta$ and function extensionality for $\Pi$ types;
+\item Russell风格的宇宙（universes），即\cite{martin-lof:bibliopolis}中的概念；以及
+\item 对$\Pi$类型的判断$\eta$等式和函数外延性；
 \end{itemize}
-and a few features essential for homotopy type theory:
+以及几个对于同伦类型论至关重要的特性：
 \begin{itemize}
-\item the univalence axiom; and
-\item higher inductive types.
+\item 等价性公理；以及
+\item 高阶归纳类型。
 \end{itemize}
 %
-As a matter of convenience, the book primarily defines functions by induction
-using definition by \emph{pattern matching}.
-\index{pattern matching}%
-\index{definition!by pattern matching}%
-It is possible to formalize the
-notion of pattern matching, as done in \cref{sec:syntax-informally}. However, the
-standard type-theoretic presentation, adopted in \cref{sec:syntax-more-formally}, is to introduce a single \emph{dependent
-eliminator} for each type former, from which functions out of that type must be
-defined. This approach is easier to formalize both syntactically and
-semantically, as it amounts to the universal property of the type former.
-The two approaches are equivalent; see \cref{sec:pattern-matching} for a
-longer discussion.
+作为一种便利手段，本书主要通过\emph{模式匹配}（pattern matching）定义函数。
+\index{pattern matching模式匹配}%
+\index{definition!by pattern matching通过模式匹配定义}%
+事实上，可以像在\cref{sec:syntax-informally}中那样形式化模式匹配的概念。然而，标准的类型理论呈现方式（在\cref{sec:syntax-more-formally}中采用）是为每个类型构造引入一个单一的\emph{依赖消除子}（dependent eliminator），由此可以从该类型定义出函数。这种方法在语法和语义上都更容易形式化，因为它等同于类型构造的通用属性。这两种方法是等价的；参见\cref{sec:pattern-matching}以获取更详细的讨论。
 
-\index{type theory!formal|)}%
-\index{formal!type theory|)}%
-
-
-%%% Local Variables: 
+\index{type theory!formal形式化类型论|)}%
+\index{formal!type theory形式化!类型论|)}%
+%%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "hott-online"
-%%% End: 
+%%% End:
